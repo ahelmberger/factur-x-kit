@@ -19,13 +19,25 @@ import {
     ZTradeAllowanceChargeTypeBasicItem,
     ZTradeAllowanceChargeTypeBasicItemXml
 } from './BasicItemLevelAllowanceChargeType'
+import {
+    BasicPriceAllowanceType,
+    BasicPriceAllowanceTypeXml,
+    ZBasicPriceAllowanceType,
+    ZBasicPriceAllowanceTypeXml
+} from './BasicPriceAllowanceType'
 
-type allowedValueTypes = TradeAllowanceChargeBasicDocumentType | TradeAllowanceChargeBasicItemType
-type allowedXmlTypes = TradeAllowanceChargeBasicDocumentTypeXml | TradeAllowanceChargeBasicItemTypeXml
+export type allowedValueTypes_TradeAllowanceChargeType =
+    | TradeAllowanceChargeBasicDocumentType
+    | TradeAllowanceChargeBasicItemType
+    | BasicPriceAllowanceType
+export type allowedXmlTypes_TradeAllowanceChargeType =
+    | TradeAllowanceChargeBasicDocumentTypeXml
+    | TradeAllowanceChargeBasicItemTypeXml
+    | BasicPriceAllowanceTypeXml
 
 export class TradeAllowanceChargeTypeConverter<
-    ValueType extends allowedValueTypes,
-    XmlType extends allowedXmlTypes
+    ValueType extends allowedValueTypes_TradeAllowanceChargeType,
+    XmlType extends allowedXmlTypes_TradeAllowanceChargeType
 > extends BaseTypeConverter<ValueType, XmlType> {
     amountTypeConverter = new AmountTypeConverter()
     textTypeConverter = new TextTypeConverter()
@@ -118,11 +130,15 @@ export class TradeAllowanceChargeTypeConverter<
               })
             : []
 
-        const xml_charges = data.charges
-            ? data.charges.map(obj => {
-                  return this.mapValueToXml(obj, true)
-              })
-            : []
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        let xml_charges: any[] = []
+        if ('charges' in data) {
+            xml_charges = data.charges
+                ? data.charges.map(obj => {
+                      return this.mapValueToXml(obj, true)
+                  })
+                : []
+        }
         const { success: xmlSuccess, data: xmlData } = this.xmlSchema.safeParse([...xml_allowances, ...xml_charges])
         if (!xmlSuccess) {
             throw new TypeConverterError('INVALID_VALUE')
@@ -182,5 +198,12 @@ export class TradeAllowanceChargeTypeConverter<
             ZTradeAllowanceChargeTypeBasicItem,
             ZTradeAllowanceChargeTypeBasicItemXml
         )
+    }
+
+    public static basicPriceAllowanceLevel(): TradeAllowanceChargeTypeConverter<
+        BasicPriceAllowanceType,
+        BasicPriceAllowanceTypeXml
+    > {
+        return new TradeAllowanceChargeTypeConverter(ZBasicPriceAllowanceType, ZBasicPriceAllowanceTypeXml)
     }
 }
