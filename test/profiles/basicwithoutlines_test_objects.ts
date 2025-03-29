@@ -161,7 +161,7 @@ const testBasicWLProfile: BasicWithoutLinesProfile = {
                 payeeProprietaryID: 'PAYEE-PROP-2'
             }
         ],
-        paymentPeriod: {
+        billingPeriod: {
             startDate: new Date('2023-10-01'),
             endDate: new Date('2023-10-31')
         },

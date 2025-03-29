@@ -4,7 +4,7 @@ import { ZNoteTypeXml } from '../../types/ram/NoteTypeConverter.js'
 import { ZReferencedDocumentTypeXml } from '../../types/ram/ReferencedDocumentConverter.js'
 import { ZSpecifiedTaxRegistrationsForSellerTypeXml } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter.js'
 import { ZSpecifiedTaxRegistrationsTypeXml } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter.js'
-import { ZTradeAllowanceChargeBasicDocumentTypeXml } from '../../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType.js'
+import { ZBasicDocumentLevelTradeAllowanceChargeTypeXml } from '../../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType.js'
 import { ZTradeSettlementPaymentMeansTypeXml } from '../../types/ram/TradeSettlementPaymentMeansTypeConverter.js'
 import { ZBasicDocumentLevelTradeTaxTypeXml } from '../../types/ram/TradeTaxType/BasicDocumentLevelTradeTaxType.js'
 import { ZAmountTypeXml } from '../../types/udt/AmountTypeConverter.js'
@@ -149,7 +149,7 @@ export const ZBasicWithoutLinesProfileXml = z.object({
                         'ram:EndDateTime': ZDateTimeTypeXml.optional()
                     })
                     .optional(),
-                'ram:SpecifiedTradeAllowanceCharge': ZTradeAllowanceChargeBasicDocumentTypeXml.optional(),
+                'ram:SpecifiedTradeAllowanceCharge': ZBasicDocumentLevelTradeAllowanceChargeTypeXml.optional(),
                 'ram:SpecifiedTradePaymentTerms': z
                     .object({
                         'ram:Description': ZTextTypeXml.optional(),

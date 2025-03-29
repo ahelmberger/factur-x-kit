@@ -12,7 +12,7 @@ import { ZNoteType } from '../../types/ram/NoteTypeConverter.js'
 import { ZReferencedDocumentType } from '../../types/ram/ReferencedDocumentConverter.js'
 import { ZSpecifiedTaxRegistrationsForSellerType } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter.js'
 import { ZSpecifiedTaxRegistrationsType } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter.js'
-import { ZTradeAllowanceChargeBasicDocumentType } from '../../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType.js'
+import { ZBasicDocumentLevelTradeAllowanceChargeType } from '../../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType.js'
 import { ZPaymentMeansType } from '../../types/ram/TradeSettlementPaymentMeansTypeConverter.js'
 import { ZBasicDocumentLevelTradeTaxType } from '../../types/ram/TradeTaxType/BasicDocumentLevelTradeTaxType.js'
 import { ZAmountType } from '../../types/udt/AmountTypeConverter.js'
@@ -107,7 +107,7 @@ export const ZBasicWithoutLinesProfile = z.object({
             specifiedLegalOrganization: true
         }).optional(),
         paymentMeans: ZPaymentMeansType.array().optional(),
-        paymentPeriod: z
+        billingPeriod: z
             .object({
                 startDate: ZDateTimeType.optional(),
                 endDate: ZDateTimeType.optional()
@@ -124,7 +124,7 @@ export const ZBasicWithoutLinesProfile = z.object({
     }),
     totals: z.object({
         sumWithoutAllowancesAndCharges: ZAmountType,
-        documentLevelAllowancesAndCharges: ZTradeAllowanceChargeBasicDocumentType.optional(),
+        documentLevelAllowancesAndCharges: ZBasicDocumentLevelTradeAllowanceChargeType.optional(),
         allowanceTotalAmount: ZAmountType.optional(),
         chargeTotalAmount: ZAmountType.optional(),
         netTotal: ZAmountType,

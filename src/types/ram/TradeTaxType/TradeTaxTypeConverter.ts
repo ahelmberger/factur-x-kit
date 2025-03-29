@@ -10,13 +10,19 @@ import {
     ZBasicDocumentLevelTradeTaxType,
     ZBasicDocumentLevelTradeTaxTypeXml
 } from './BasicDocumentLevelTradeTaxType'
+import {
+    BasicLineLevelTradeTaxType,
+    BasicLineLevelTradeTaxTypeXml,
+    ZBasicLineLevelTradeTaxType,
+    ZBasicLineLevelTradeTaxTypeXml
+} from './BasicLineLevelTradeTaxType'
 
-export type allowedValueTypes_TradeTax = BasicDocumentLevelTradeTaxType
-export type allowedXmlTypes_TradeTax = BasicDocumentLevelTradeTaxTypeXml
+export type allowedValueTypes_TradeTax = BasicDocumentLevelTradeTaxType | BasicLineLevelTradeTaxType
+export type allowedXmlTypes_TradeTax = BasicDocumentLevelTradeTaxTypeXml | BasicLineLevelTradeTaxTypeXml
 
 export class TradeTaxTypeConverter<
     ValueType extends allowedValueTypes_TradeTax,
-    XmlType extends BasicDocumentLevelTradeTaxTypeXml
+    XmlType extends allowedXmlTypes_TradeTax
 > extends ExtendableBaseTypeConverter<ValueType, XmlType> {
     amountTypeConverter = new AmountTypeConverter()
     textTypeConverter = new TextTypeConverter()
@@ -92,6 +98,13 @@ export class TradeTaxTypeConverter<
         return new TradeTaxTypeConverter<BasicDocumentLevelTradeTaxType, BasicDocumentLevelTradeTaxTypeXml>(
             ZBasicDocumentLevelTradeTaxType,
             ZBasicDocumentLevelTradeTaxTypeXml
+        )
+    }
+
+    public static basicLineLevel() {
+        return new TradeTaxTypeConverter<BasicLineLevelTradeTaxType, BasicLineLevelTradeTaxTypeXml>(
+            ZBasicLineLevelTradeTaxType,
+            ZBasicLineLevelTradeTaxTypeXml
         )
     }
 }

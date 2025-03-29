@@ -364,12 +364,12 @@ const mapping: MappingItem<BasicWithoutLinesProfile, BasicWithoutLinesProfileXml
         converter: new ArrayConverter(TradeTaxTypeConverter.basicDocumentLevel())
     },
     {
-        obj: 'paymentInformation.paymentPeriod.startDate',
+        obj: 'paymentInformation.billingPeriod.startDate',
         xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeSettlement.ram:BillingSpecifiedPeriod.ram:StartDateTime',
         converter: new DateTimeTypeConverter()
     },
     {
-        obj: 'paymentInformation.paymentPeriod.endDate',
+        obj: 'paymentInformation.billingPeriod.endDate',
         xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeSettlement.ram:BillingSpecifiedPeriod.ram:EndDateTime',
         converter: new DateTimeTypeConverter()
     },

@@ -8,17 +8,17 @@ import { IndicatorTypeConverter } from '../../udt/IndicatorTypeConverter'
 import { PercentTypeConverter } from '../../udt/PercentTypeConverter'
 import { TextTypeConverter } from '../../udt/TextTypeConverter'
 import {
-    TradeAllowanceChargeBasicDocumentType,
-    TradeAllowanceChargeBasicDocumentTypeXml,
-    ZTradeAllowanceChargeBasicDocumentType,
-    ZTradeAllowanceChargeBasicDocumentTypeXml
+    BasicDocumentLevelTradeAllowanceChargeType,
+    BasicDocumentLevelTradeAllowanceChargeTypeXml,
+    ZBasicDocumentLevelTradeAllowanceChargeType,
+    ZBasicDocumentLevelTradeAllowanceChargeTypeXml
 } from './BasicDocumentLevelAllowanceChargeType'
 import {
-    TradeAllowanceChargeBasicItemType,
-    TradeAllowanceChargeBasicItemTypeXml,
-    ZTradeAllowanceChargeTypeBasicItem,
-    ZTradeAllowanceChargeTypeBasicItemXml
-} from './BasicItemLevelAllowanceChargeType'
+    BasicLineLevelTradeAllowanceChargeType,
+    BasicLineLevelTradeAllowanceChargeTypeXml,
+    ZBasicLineLevelTradeAllowanceChargeType,
+    ZBasicLineLevelTradeAllowanceChargeTypeXml
+} from './BasicLineLevelAllowanceChargeType'
 import {
     BasicPriceAllowanceType,
     BasicPriceAllowanceTypeXml,
@@ -27,12 +27,12 @@ import {
 } from './BasicPriceAllowanceType'
 
 export type allowedValueTypes_TradeAllowanceChargeType =
-    | TradeAllowanceChargeBasicDocumentType
-    | TradeAllowanceChargeBasicItemType
+    | BasicDocumentLevelTradeAllowanceChargeType
+    | BasicLineLevelTradeAllowanceChargeType
     | BasicPriceAllowanceType
 export type allowedXmlTypes_TradeAllowanceChargeType =
-    | TradeAllowanceChargeBasicDocumentTypeXml
-    | TradeAllowanceChargeBasicItemTypeXml
+    | BasicDocumentLevelTradeAllowanceChargeTypeXml
+    | BasicLineLevelTradeAllowanceChargeTypeXml
     | BasicPriceAllowanceTypeXml
 
 export class TradeAllowanceChargeTypeConverter<
@@ -181,22 +181,22 @@ export class TradeAllowanceChargeTypeConverter<
     }
 
     public static basicDocumentLevel(): TradeAllowanceChargeTypeConverter<
-        TradeAllowanceChargeBasicDocumentType,
-        TradeAllowanceChargeBasicDocumentTypeXml
+        BasicDocumentLevelTradeAllowanceChargeType,
+        BasicDocumentLevelTradeAllowanceChargeTypeXml
     > {
         return new TradeAllowanceChargeTypeConverter(
-            ZTradeAllowanceChargeBasicDocumentType,
-            ZTradeAllowanceChargeBasicDocumentTypeXml
+            ZBasicDocumentLevelTradeAllowanceChargeType,
+            ZBasicDocumentLevelTradeAllowanceChargeTypeXml
         )
     }
 
     public static basicItemLevel(): TradeAllowanceChargeTypeConverter<
-        TradeAllowanceChargeBasicItemType,
-        TradeAllowanceChargeBasicItemTypeXml
+        BasicLineLevelTradeAllowanceChargeType,
+        BasicLineLevelTradeAllowanceChargeTypeXml
     > {
         return new TradeAllowanceChargeTypeConverter(
-            ZTradeAllowanceChargeTypeBasicItem,
-            ZTradeAllowanceChargeTypeBasicItemXml
+            ZBasicLineLevelTradeAllowanceChargeType,
+            ZBasicLineLevelTradeAllowanceChargeTypeXml
         )
     }
 
