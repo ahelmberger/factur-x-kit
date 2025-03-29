@@ -42,7 +42,7 @@ export class GrossPriceProductTradePriceConverter<
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    mapXmlToValue(xml: any): BasicGrossPriceProductTradePriceType {
+    mapXmlToValue(xml: any): any {
         return {
             grossPricePerItem: this.amountTypeConverter.toValue(xml['ram:ChargeAmount']),
             priceBaseQuantity:
@@ -57,7 +57,7 @@ export class GrossPriceProductTradePriceConverter<
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    mapValueToXml(value: BasicGrossPriceProductTradePriceType): any {
+    mapValueToXml(value: any): any {
         return {
             'ram:ChargeAmount': value.grossPricePerItem
                 ? this.amountTypeConverter.toXML(value.grossPricePerItem)

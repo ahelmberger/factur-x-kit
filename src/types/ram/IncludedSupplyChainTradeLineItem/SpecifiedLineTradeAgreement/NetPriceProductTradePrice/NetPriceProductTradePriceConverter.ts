@@ -28,7 +28,7 @@ export class NetPriceProductTradePriceConverter<
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    mapXmlToValue(xml: any): BasicNetPriceProductTradePriceType {
+    mapXmlToValue(xml: any): any {
         return {
             netPricePerItem: this.amountTypeConverter.toValue(xml['ram:ChargeAmount']),
             priceBaseQuantity:
@@ -39,7 +39,7 @@ export class NetPriceProductTradePriceConverter<
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    mapValueToXml(value: BasicNetPriceProductTradePriceType): any {
+    mapValueToXml(value: any): any {
         return {
             'ram:ChargeAmount': value.netPricePerItem
                 ? this.amountTypeConverter.toXML(value.netPricePerItem)
