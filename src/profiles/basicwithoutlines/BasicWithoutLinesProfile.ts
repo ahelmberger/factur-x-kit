@@ -14,7 +14,7 @@ import { ZSpecifiedTaxRegistrationsForSellerType } from '../../types/ram/Specifi
 import { ZSpecifiedTaxRegistrationsType } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter.js'
 import { ZTradeAllowanceChargeBasicDocumentType } from '../../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType.js'
 import { ZPaymentMeansType } from '../../types/ram/TradeSettlementPaymentMeansTypeConverter.js'
-import { ZTradeTaxType } from '../../types/ram/TradeTaxTypeConverter.js'
+import { ZBasicDocumentLevelTradeTaxType } from '../../types/ram/TradeTaxType/BasicDocumentLevelTradeTaxType.js'
 import { ZAmountType } from '../../types/udt/AmountTypeConverter.js'
 import { ZAmountTypeWithRequiredCurrency } from '../../types/udt/AmountTypeWithRequiredCurrencyConverter.js'
 import { ZDateTimeType } from '../../types/udt/DateTimeTypeConverter.js'
@@ -128,7 +128,7 @@ export const ZBasicWithoutLinesProfile = z.object({
         allowanceTotalAmount: ZAmountType.optional(),
         chargeTotalAmount: ZAmountType.optional(),
         netTotal: ZAmountType,
-        taxBreakdown: ZTradeTaxType.array(),
+        taxBreakdown: ZBasicDocumentLevelTradeTaxType.array(),
         taxTotal: ZAmountTypeWithRequiredCurrency.array().max(2).optional(),
         taxCurrency: ZCodeType(CURRENCY_CODES).optional(),
         grossTotal: ZAmountType,

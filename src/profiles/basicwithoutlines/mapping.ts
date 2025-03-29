@@ -13,7 +13,7 @@ import { SpecifiedTaxRegistrationsForSellerTypeConverter } from '../../types/ram
 import { SpecifiedTaxRegistrationsTypeConverter } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter.js'
 import { TradeAllowanceChargeTypeConverter } from '../../types/ram/TradeAllowanceChargeType/TradeAllowanceChargeTypeConverter.js'
 import { TradeSettlementPaymentMeansTypeConverter } from '../../types/ram/TradeSettlementPaymentMeansTypeConverter.js'
-import { TradeTaxTypeConverter } from '../../types/ram/TradeTaxTypeConverter.js'
+import { TradeTaxTypeConverter } from '../../types/ram/TradeTaxType/TradeTaxTypeConverter.js'
 import { AmountTypeConverter } from '../../types/udt/AmountTypeConverter.js'
 import { AmountTypeWithRequiredCurrencyConverter } from '../../types/udt/AmountTypeWithRequiredCurrencyConverter.js'
 import { DateTimeTypeConverter } from '../../types/udt/DateTimeTypeConverter.js'
@@ -361,7 +361,7 @@ const mapping: MappingItem<BasicWithoutLinesProfile, BasicWithoutLinesProfileXml
     {
         obj: 'totals.taxBreakdown',
         xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeSettlement.ram:ApplicableTradeTax',
-        converter: new ArrayConverter(new TradeTaxTypeConverter())
+        converter: new ArrayConverter(TradeTaxTypeConverter.basicDocumentLevel())
     },
     {
         obj: 'paymentInformation.paymentPeriod.startDate',

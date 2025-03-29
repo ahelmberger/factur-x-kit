@@ -6,7 +6,7 @@ import { ZSpecifiedTaxRegistrationsForSellerTypeXml } from '../../types/ram/Spec
 import { ZSpecifiedTaxRegistrationsTypeXml } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter.js'
 import { ZTradeAllowanceChargeBasicDocumentTypeXml } from '../../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType.js'
 import { ZTradeSettlementPaymentMeansTypeXml } from '../../types/ram/TradeSettlementPaymentMeansTypeConverter.js'
-import { ZTradeTaxTypeXml } from '../../types/ram/TradeTaxTypeConverter.js'
+import { ZBasicDocumentLevelTradeTaxTypeXml } from '../../types/ram/TradeTaxType/BasicDocumentLevelTradeTaxType.js'
 import { ZAmountTypeXml } from '../../types/udt/AmountTypeConverter.js'
 import { ZAmountTypeWithRequiredCurrencyXml } from '../../types/udt/AmountTypeWithRequiredCurrencyConverter.js'
 import { ZDateTimeTypeXml } from '../../types/udt/DateTimeTypeConverter.js'
@@ -139,7 +139,10 @@ export const ZBasicWithoutLinesProfileXml = z.object({
                 'ram:SpecifiedTradeSettlementPaymentMeans': z
                     .union([ZTradeSettlementPaymentMeansTypeXml, ZTradeSettlementPaymentMeansTypeXml.array()])
                     .optional(),
-                'ram:ApplicableTradeTax': z.union([ZTradeTaxTypeXml, ZTradeTaxTypeXml.array()]),
+                'ram:ApplicableTradeTax': z.union([
+                    ZBasicDocumentLevelTradeTaxTypeXml,
+                    ZBasicDocumentLevelTradeTaxTypeXml.array()
+                ]),
                 'ram:BillingSpecifiedPeriod': z
                     .object({
                         'ram:StartDateTime': ZDateTimeTypeXml.optional(),
