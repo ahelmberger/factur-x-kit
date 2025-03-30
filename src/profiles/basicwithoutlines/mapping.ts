@@ -7,7 +7,7 @@ import {
     EAS_SCHEME_CODES,
     ISO6523_CODES
 } from '../../types/codes.js'
-import { NoteTypeConverter } from '../../types/ram/NoteTypeConverter.js'
+import { NoteTypeConverter } from '../../types/ram/NoteType/NoteTypeConverter.js'
 import { ReferencedDocumentTypeConverter } from '../../types/ram/ReferencedDocumentConverter.js'
 import { SpecifiedTaxRegistrationsForSellerTypeConverter } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter.js'
 import { SpecifiedTaxRegistrationsTypeConverter } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter.js'
@@ -55,7 +55,7 @@ const mapping: MappingItem<BasicWithoutLinesProfile, BasicWithoutLinesProfileXml
     {
         obj: 'document.notes',
         xml: 'rsm:CrossIndustryInvoice.rsm:ExchangedDocument.ram:IncludedNote',
-        converter: new ArrayConverter(new NoteTypeConverter())
+        converter: new ArrayConverter(NoteTypeConverter.basicDocumentLevel())
     },
     {
         obj: 'buyer.reference',

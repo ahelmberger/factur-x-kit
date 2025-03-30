@@ -39,6 +39,7 @@ export class CodeTypeConverter<T extends string = string> extends BaseTypeConver
         return data
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     _toXML(value: any): CodeTypeXml {
         const { success, data } = this.codes.safeParse(value)
         if (!success) {

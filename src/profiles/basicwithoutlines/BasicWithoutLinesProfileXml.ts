@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { ZNoteTypeXml } from '../../types/ram/NoteTypeConverter.js'
+import { ZBasicDocumentLevelNoteTypeXml } from '../../types/ram/NoteType/BasicDocumentLevelNoteType.js'
 import { ZReferencedDocumentTypeXml } from '../../types/ram/ReferencedDocumentConverter.js'
 import { ZSpecifiedTaxRegistrationsForSellerTypeXml } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter.js'
 import { ZSpecifiedTaxRegistrationsTypeXml } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter.js'
@@ -64,7 +64,9 @@ export const ZBasicWithoutLinesProfileXml = z.object({
             'ram:ID': ZIdTypeXml,
             'ram:TypeCode': ZTextTypeXml,
             'ram:IssueDateTime': ZDateTimeTypeXml,
-            'ram:IncludedNote': z.union([ZNoteTypeXml, ZNoteTypeXml.array()]).optional()
+            'ram:IncludedNote': z
+                .union([ZBasicDocumentLevelNoteTypeXml, ZBasicDocumentLevelNoteTypeXml.array()])
+                .optional()
         }),
         'rsm:SupplyChainTradeTransaction': z.object({
             'ram:ApplicableHeaderTradeAgreement': z.object({

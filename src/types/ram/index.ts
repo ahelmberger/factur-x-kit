@@ -1,1 +1,1 @@
-export * from './NoteTypeConverter'
+export * from './NoteType/NoteTypeConverter'

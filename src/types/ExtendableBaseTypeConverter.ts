@@ -20,9 +20,10 @@ export abstract class ExtendableBaseTypeConverter<ValueType, XmlType> extends Ba
 
         const value = this.mapXmlToValue(xml)
 
-        const { success: successValue, data } = this.valueSchema.safeParse(value)
+        const { success: successValue, data, error } = this.valueSchema.safeParse(value)
 
         if (!successValue) {
+            console.log(error)
             throw new TypeConverterError('INVALID_XML')
         }
 

@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { ZIdType, ZIdTypeXml } from '../../udt/IdTypeConverter'
 import { ZIdTypeWithRequiredSchemeXml } from '../../udt/IdTypeWithRequiredlSchemeConverter'
 import { ZTextType } from '../../udt/TextTypeConverter'
-import { ZNoteType, ZNoteTypeXml } from '../NoteTypeConverter'
+import { ZNoteType, ZNoteTypeXml } from '../NoteType/NoteTypeConverter'
 
 export const ZBasicTradeProductType = z.object({})
 

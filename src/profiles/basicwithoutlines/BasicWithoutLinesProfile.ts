@@ -8,7 +8,7 @@ import {
     EAS_SCHEME_CODES,
     ISO6523_CODES
 } from '../../types/codes.js'
-import { ZNoteType } from '../../types/ram/NoteTypeConverter.js'
+import { ZBasicDocumentLevelNoteType } from '../../types/ram/NoteType/BasicDocumentLevelNoteType.js'
 import { ZReferencedDocumentType } from '../../types/ram/ReferencedDocumentConverter.js'
 import { ZSpecifiedTaxRegistrationsForSellerType } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter.js'
 import { ZSpecifiedTaxRegistrationsType } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter.js'
@@ -52,7 +52,7 @@ export const ZBasicWithoutLinesProfile = z.object({
         type: ZCodeType(DOCUMENT_TYPE_CODES),
         dateOfIssue: ZDateTimeType,
         currency: ZCodeType(CURRENCY_CODES),
-        notes: ZNoteType.array()
+        notes: ZBasicDocumentLevelNoteType.array()
     }),
     seller: ZTradePartyType.extend({
         id: ZIdType.array().optional(),
