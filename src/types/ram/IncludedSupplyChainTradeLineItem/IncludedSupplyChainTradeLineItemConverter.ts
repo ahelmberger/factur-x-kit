@@ -1,71 +1,125 @@
 import { z } from 'zod'
 
-import { BaseTypeConverter, TypeConverterError } from '../../BaseTypeConverter'
+import { ExtendableBaseTypeConverter } from '../../ExtendableBaseTypeConverter'
 import {
-    BasicTradeProductType,
-    BasicTradeProductTypeXml,
-    ZBasicTradeProductType,
-    ZBasicTradeProductTypeXml
+    AssociatedDocumentLineDocumentConverter,
+    allowedValueTypes_AssociatedDocumentLineDocumentConverter,
+    allowedXmlTypes_AssociatedDocumentLineDocumentConverter
+} from './AssociatedDocumentLineDocument/AssociatedDocumentLineDocumentConverter'
+import {
+    BasicTradeLineItem,
+    BasicTradeLineItemXml,
+    ZBasicTradeLineItem,
+    ZBasicTradeLineItemXml
 } from './BasicTradeLineItem'
+import {
+    LineTradeAgreementConverter,
+    allowedValueTypes_LineTradeAgreement,
+    allowedXmlTypes_LineTradeAgreement
+} from './SpecifiedLineTradeAgreement/SpecifiedLineTradeAgreementConverter'
+import {
+    LineTradeDeliveryConverter,
+    allowedValueTypes_LineTradeDelivery,
+    allowedXmlTypes_LineTradeDelivery
+} from './SpecifiedLineTradeDelivery/SpecifiedLineTradeDeliveryConverter'
+import {
+    LineTradeSettlementConverter,
+    allowedValueTypes_LineTradeSettlement,
+    allowedXmlTypes_LineTradeSettlement
+} from './SpecifiedLineTradeSettlement/SpecifiedLineTradeSettlementConverter'
+import {
+    TradeProductTypeConverter,
+    allowedValueTypes_TradeProduct,
+    allowedXmlTypes_TradeProduct
+} from './SpecifiedTradeProduct/SpecifiedTradeProductConverter'
 
-type allowedValueTypes = BasicTradeProductType
-type allowedXmlTypes = BasicTradeProductTypeXml
+export type allowedValueTypes_TradeLineItemConverter = BasicTradeLineItem
+export type allowedXmlTypes_TradeLineItemConverter = BasicTradeLineItemXml
 
-export class TradeProductTypeConverter<
-    ValueType extends allowedValueTypes,
-    XmlType extends allowedXmlTypes
-> extends BaseTypeConverter<ValueType, XmlType> {
-    private valueSchema: z.ZodType<ValueType>
-    private xmlSchema: z.ZodType<XmlType>
+export class TradeLineItemConverter<
+    ValueType extends allowedValueTypes_TradeLineItemConverter,
+    XmlType extends allowedXmlTypes_TradeLineItemConverter
+> extends ExtendableBaseTypeConverter<ValueType, XmlType> {
+    generalLineDataConverter: AssociatedDocumentLineDocumentConverter<
+        allowedValueTypes_AssociatedDocumentLineDocumentConverter,
+        allowedXmlTypes_AssociatedDocumentLineDocumentConverter
+    >
+    productDescriptionConverter: TradeProductTypeConverter<allowedValueTypes_TradeProduct, allowedXmlTypes_TradeProduct>
+    productPriceAgreementConverter: LineTradeAgreementConverter<
+        allowedValueTypes_LineTradeAgreement,
+        allowedXmlTypes_LineTradeAgreement
+    >
+    deliveryConverter: LineTradeDeliveryConverter<
+        allowedValueTypes_LineTradeDelivery,
+        allowedXmlTypes_LineTradeDelivery
+    >
+    settlementConverter: LineTradeSettlementConverter<
+        allowedValueTypes_LineTradeSettlement,
+        allowedXmlTypes_LineTradeSettlement
+    >
 
-    constructor(valueSchema: z.ZodType<ValueType>, xmlSchema: z.ZodType<XmlType>) {
-        super()
-        this.valueSchema = valueSchema
-        this.xmlSchema = xmlSchema
+    constructor(
+        tradeLineItemType: z.ZodType<ValueType>,
+        tradeLineItemTypeXml: z.ZodType<XmlType>,
+        generalLineDataConverter: AssociatedDocumentLineDocumentConverter<
+            allowedValueTypes_AssociatedDocumentLineDocumentConverter,
+            allowedXmlTypes_AssociatedDocumentLineDocumentConverter
+        >,
+        productDescriptionConverter: TradeProductTypeConverter<
+            allowedValueTypes_TradeProduct,
+            allowedXmlTypes_TradeProduct
+        >,
+        productPriceAgreementConverter: LineTradeAgreementConverter<
+            allowedValueTypes_LineTradeAgreement,
+            allowedXmlTypes_LineTradeAgreement
+        >,
+        deliveryConverter: LineTradeDeliveryConverter<
+            allowedValueTypes_LineTradeDelivery,
+            allowedXmlTypes_LineTradeDelivery
+        >,
+        settlementConverter: LineTradeSettlementConverter<
+            allowedValueTypes_LineTradeSettlement,
+            allowedXmlTypes_LineTradeSettlement
+        >
+    ) {
+        super(tradeLineItemType, tradeLineItemTypeXml)
+        this.generalLineDataConverter = generalLineDataConverter
+        this.productDescriptionConverter = productDescriptionConverter
+        this.productPriceAgreementConverter = productPriceAgreementConverter
+        this.deliveryConverter = deliveryConverter
+        this.settlementConverter = settlementConverter
     }
 
-    _toValue(xml: XmlType): ValueType {
-        const { success } = this.xmlSchema.safeParse(xml)
-        if (!success) {
-            throw new TypeConverterError('INVALID_XML')
-        }
-
-        const value = this.mapXmlToValue(xml)
-
-        const { success: successValue, data } = this.valueSchema.safeParse(value)
-
-        if (!successValue) {
-            throw new TypeConverterError('INVALID_XML')
-        }
-
-        return data as ValueType
-    }
-
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mapXmlToValue(xml: any) {
-        return
-    }
-
-    _toXML(value: ValueType): XmlType {
-        const { success, data } = this.valueSchema.safeParse(value)
-        if (!success) {
-            throw new TypeConverterError('INVALID_VALUE')
+        return {
+            generalLineData: this.generalLineDataConverter.toValue(xml['ram:AssociatedDocumentLineDocument']),
+            productDescription: this.productDescriptionConverter.toValue(xml['ram:SpecifiedTradeProduct']),
+            productPriceAgreement: this.productPriceAgreementConverter.toValue(xml['ram:SpecifiedLineTradeAgreement']),
+            delivery: this.deliveryConverter.toValue(xml['ram:SpecifiedLineTradeDelivery']),
+            settlement: this.settlementConverter.toValue(xml['ram:SpecifiedLineTradeSettlement'])
         }
-
-        const xml = this.mapValueToXml(data)
-
-        const { success: xmlSuccess, data: xmlData } = this.xmlSchema.safeParse(xml)
-        if (!xmlSuccess) {
-            throw new TypeConverterError('INVALID_VALUE')
-        }
-
-        return xmlData as XmlType
     }
-
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mapValueToXml(value: any) {
-        return
+        return {
+            'ram:AssociatedDocumentLineDocument': this.generalLineDataConverter.toXML(value.generalLineData),
+            'ram:SpecifiedTradeProduct': this.productDescriptionConverter.toXML(value.productDescription),
+            'ram:SpecifiedLineTradeAgreement': this.productPriceAgreementConverter.toXML(value.productPriceAgreement),
+            'ram:SpecifiedLineTradeDelivery': this.deliveryConverter.toXML(value.delivery),
+            'ram:SpecifiedLineTradeSettlement': this.settlementConverter.toXML(value.settlement)
+        }
     }
 
-    public static basic(): TradeProductTypeConverter<BasicTradeProductType, BasicTradeProductTypeXml> {
-        return new TradeProductTypeConverter(ZBasicTradeProductType, ZBasicTradeProductTypeXml)
+    public static basic() {
+        return new TradeLineItemConverter<BasicTradeLineItem, BasicTradeLineItemXml>(
+            ZBasicTradeLineItem,
+            ZBasicTradeLineItemXml,
+            AssociatedDocumentLineDocumentConverter.basic(),
+            TradeProductTypeConverter.basic(),
+            LineTradeAgreementConverter.basic(),
+            LineTradeDeliveryConverter.basic(),
+            LineTradeSettlementConverter.basic()
+        )
     }
 }

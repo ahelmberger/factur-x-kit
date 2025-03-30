@@ -9,12 +9,12 @@ import {
     ZBasicTradeProductTypeXml
 } from './BasicTradeProduct'
 
-type allowedValueTypes = BasicTradeProductType
-type allowedXmlTypes = BasicTradeProductTypeXml
+export type allowedValueTypes_TradeProduct = BasicTradeProductType
+export type allowedXmlTypes_TradeProduct = BasicTradeProductTypeXml
 
 export class TradeProductTypeConverter<
-    ValueType extends allowedValueTypes,
-    XmlType extends allowedXmlTypes
+    ValueType extends allowedValueTypes_TradeProduct,
+    XmlType extends allowedXmlTypes_TradeProduct
 > extends ExtendableBaseTypeConverter<ValueType, XmlType> {
     globalIdConverter = new IdTypeWithRequiredSchemeConverter(ISO6523_CODES)
     textTypeConverter = new TextTypeConverter()

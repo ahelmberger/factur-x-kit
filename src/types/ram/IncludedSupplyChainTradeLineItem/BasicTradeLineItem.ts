@@ -1,24 +1,30 @@
 import { z } from 'zod'
 
-import { ZIdType, ZIdTypeXml } from '../../udt/IdTypeConverter'
-import { ZIdTypeWithRequiredSchemeXml } from '../../udt/IdTypeWithRequiredlSchemeConverter'
-import { ZTextType } from '../../udt/TextTypeConverter'
-import { ZNoteType, ZNoteTypeXml } from '../NoteType/NoteTypeConverter'
+import {
+    ZBasicAssociatedDocumentLineDocumentType,
+    ZBasicAssociatedDocumentLineDocumentTypeXml
+} from './AssociatedDocumentLineDocument/BasicAssociatedDocumentLineDocumentType'
+import { ZBasicLineTradeAgreementTypeXml } from './SpecifiedLineTradeAgreement/BasicLineTradeAgreementType'
+import { ZBasicLineTradeDeliveryType } from './SpecifiedLineTradeDelivery/BasicLineTradeDeliveryType'
+import { ZBasicLineTradeSettlementTypeXml } from './SpecifiedLineTradeSettlement/BasicLineTradeSettlementType'
+import { ZBasicTradeProductTypeXml } from './SpecifiedTradeProduct/BasicTradeProduct'
 
-export const ZBasicTradeProductType = z.object({})
-
-export type BasicTradeProductType = z.infer<typeof ZBasicTradeProductType>
-
-export const ZBasicTradeProductTypeXml = z.object({
-    'ram:AssociatedDocumentLineDocument': z.object({
-        'ram:LineID': ZIdTypeXml,
-        'ram:IncludedNote': ZNoteTypeXml
-    }),
-    'ram:SpecifiedTradeProduct': z.object({
-        'ram:GlobalID': ZIdTypeWithRequiredSchemeXml,
-        'ram:Name': ZTextType
-    })
-    //'ram:SpecifiedLineTradeAgreement':
+export const ZBasicTradeLineItem = z.object({
+    generalLineData: ZBasicAssociatedDocumentLineDocumentType,
+    productDescription: ZBasicTradeProductTypeXml,
+    productPriceAgreement: ZBasicLineTradeAgreementTypeXml,
+    delivery: ZBasicLineTradeDeliveryType,
+    settlement: ZBasicLineTradeSettlementTypeXml
 })
 
-export type BasicTradeProductTypeXml = z.infer<typeof ZBasicTradeProductTypeXml>
+export type BasicTradeLineItem = z.infer<typeof ZBasicTradeLineItem>
+
+export const ZBasicTradeLineItemXml = z.object({
+    'ram:AssociatedDocumentLineDocument': ZBasicAssociatedDocumentLineDocumentTypeXml,
+    'ram:SpecifiedTradeProduct': ZBasicTradeProductTypeXml,
+    'ram:SpecifiedLineTradeAgreement': ZBasicLineTradeAgreementTypeXml,
+    'ram:SpecifiedLineTradeDelivery': ZBasicLineTradeAgreementTypeXml,
+    'ram:SpecifiedLineTradeSettlement': ZBasicLineTradeSettlementTypeXml
+})
+
+export type BasicTradeLineItemXml = z.infer<typeof ZBasicTradeLineItemXml>
