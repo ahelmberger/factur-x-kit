@@ -1,5 +1,6 @@
 import { z } from 'zod'
 
+import { ZBasicTradeLineItemXml } from '../../types/ram/IncludedSupplyChainTradeLineItem/BasicTradeLineItem.js'
 import { ZBasicDocumentLevelNoteTypeXml } from '../../types/ram/NoteType/BasicDocumentLevelNoteType.js'
 import { ZReferencedDocumentTypeXml } from '../../types/ram/ReferencedDocumentConverter.js'
 import { ZSpecifiedTaxRegistrationsForSellerTypeXml } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter.js'
@@ -14,35 +15,9 @@ import { ZIdTypeXml } from '../../types/udt/IdTypeConverter.js'
 import { ZIdTypeWithOptionalSchemeXml } from '../../types/udt/IdTypeWithOptionalSchemeConverter.js'
 import { ZIdTypeWithRequiredSchemeXml } from '../../types/udt/IdTypeWithRequiredlSchemeConverter.js'
 import { ZTextTypeXml } from '../../types/udt/TextTypeConverter.js'
+import { ZTradePartyTypeXml } from '../basicwithoutlines/BasicWithoutLinesProfileXml.js'
 
-export const ZTradePartyTypeXml = z.object({
-    'ram:ID': ZTextTypeXml.optional(), // in seller this could be an array
-    'ram:GlobalID': ZIdTypeWithRequiredSchemeXml.optional(), // in seller this could be an array
-    'ram:Name': ZTextTypeXml, // may be optional on some specific trade parties
-    'ram:SpecifiedLegalOrganization': z
-        .object({
-            'ram:ID': ZIdTypeWithOptionalSchemeXml.optional()
-            // seller has additional Trading Business Name here
-        })
-        .optional(),
-    'ram:PostalTradeAddress': z.object({
-        'ram:PostcodeCode': ZTextTypeXml.optional(),
-        'ram:LineOne': ZTextTypeXml.optional(),
-        'ram:LineTwo': ZTextTypeXml.optional(),
-        'ram:LineThree': ZTextTypeXml.optional(),
-        'ram:CityName': ZTextTypeXml.optional(),
-        'ram:CountryID': ZTextTypeXml,
-        'ram:CountrySubDivisionName': ZTextTypeXml.optional()
-    }),
-    'ram:URIUniversalCommunication': z
-        .object({
-            'ram:URIID': ZIdTypeWithRequiredSchemeXml
-        })
-        .optional(),
-    'ram:SpecifiedTaxRegistration': ZSpecifiedTaxRegistrationsTypeXml.optional()
-})
-
-export const ZBasicWithoutLinesProfileXml = z.object({
+export const ZBasicProfileXml = z.object({
     '?xml': z.object({
         '@version': z.literal('1.0'),
         '@encoding': z.literal('UTF-8')
@@ -56,7 +31,7 @@ export const ZBasicWithoutLinesProfileXml = z.object({
                 .optional(),
             'ram:GuidelineSpecifiedDocumentContextParameter': z.object({
                 'ram:ID': z.object({
-                    '#text': z.literal('urn:factur-x.eu:1p0:basicwl')
+                    '#text': z.literal('urn:cen.eu:en16931:2017#compliant#urn:factur-x.eu:1p0:basic')
                 })
             })
         }),
@@ -69,6 +44,7 @@ export const ZBasicWithoutLinesProfileXml = z.object({
                 .optional()
         }),
         'rsm:SupplyChainTradeTransaction': z.object({
+            'ram:IncludedSupplyChainTradeLineItem': z.union([ZBasicTradeLineItemXml, ZBasicTradeLineItemXml.array()]),
             'ram:ApplicableHeaderTradeAgreement': z.object({
                 'ram:BuyerReference': ZTextTypeXml.optional(),
                 'ram:SellerTradeParty': ZTradePartyTypeXml.extend({
@@ -189,8 +165,8 @@ export const ZBasicWithoutLinesProfileXml = z.object({
     })
 })
 
-export type BasicWithoutLinesProfileXml = z.infer<typeof ZBasicWithoutLinesProfileXml>
+export type BasicProfileXml = z.infer<typeof ZBasicProfileXml>
 
-export function isBasicWithoutLinesProfileXml(data: unknown): data is BasicWithoutLinesProfileXml {
-    return ZBasicWithoutLinesProfileXml.safeParse(data).success
+export function isBasicProfileXml(data: unknown): data is BasicProfileXml {
+    return ZBasicProfileXml.safeParse(data).success
 }

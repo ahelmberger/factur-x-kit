@@ -1,6 +1,8 @@
 import objectPath from 'object-path'
 import { PDFDocument } from 'pdf-lib'
 
+import { BasicProfile, isBasicProfile } from '../profiles/basic/BasicProfile.js'
+import { BasicProfileConverter } from '../profiles/basic/BasicProfileConverter.js'
 import {
     BasicWithoutLinesProfile,
     BasicWithoutLinesProfileConverter,
@@ -10,19 +12,19 @@ import { MinimumProfile, MinimumProfileConverter, isMinimumProfile } from '../pr
 import FacturXPdf from './pdf.js'
 import { buildXML, parseXML } from './xml.js'
 
+export type availableProfiles = MinimumProfile | BasicWithoutLinesProfile | BasicProfile
+export type availableConverters = MinimumProfileConverter | BasicWithoutLinesProfileConverter | BasicProfileConverter
+
 export class FacturX {
-    private profile: MinimumProfile | BasicWithoutLinesProfile
-    private converter: MinimumProfileConverter | BasicWithoutLinesProfileConverter
+    private profile: availableProfiles
+    private converter: availableConverters
     // private _data: MinimumProfileConverter | BasicProfileConverter
 
     private _fromPDF: string | Uint8Array | ArrayBuffer | undefined
     private _fromXML: string | Buffer | undefined
     private _pdf: FacturXPdf | undefined
 
-    constructor(
-        profile: MinimumProfile | BasicWithoutLinesProfile,
-        converter: MinimumProfileConverter | BasicWithoutLinesProfileConverter
-    ) {
+    constructor(profile: availableProfiles, converter: availableConverters) {
         this.profile = profile
         this.converter = converter
     }
@@ -36,7 +38,7 @@ export class FacturX {
      *
      * @returns An object with the current Factur-X data
      */
-    public async getObject(): Promise<MinimumProfile | BasicWithoutLinesProfile> {
+    public async getObject(): Promise<availableProfiles> {
         // TODO: should we deep-clone this here to prevent editing?
         return this.profile
         // return this._data.invoice
@@ -80,6 +82,9 @@ export class FacturX {
     public static async fromObject(data: object): Promise<FacturX> {
         // TODO: cannot use TypeGuards here - rely on given Profile
         // order is important here - most extensive profiles first
+        if (isBasicProfile(data)) {
+            return new FacturX(data, new BasicProfileConverter())
+        }
         if (isBasicWithoutLinesProfile(data)) {
             return new FacturX(data, new BasicWithoutLinesProfileConverter())
         }
@@ -131,7 +136,13 @@ export class FacturX {
             // instance = new FacturX(obj, 'BASIC_XML')
             // instance._fromXML = xml
             // break
-            case 'urn:cen.eu:en16931:2017#compliant#urn:factur-x.eu:1p0:basic':
+            case 'urn:cen.eu:en16931:2017#compliant#urn:factur-x.eu:1p0:basic': {
+                const converter = new BasicProfileConverter()
+                const data = converter.xml2obj(obj)
+                instance = new FacturX(data, converter)
+                instance._fromXML = xml
+                break
+            }
             case 'urn:cen.eu:en16931:2017':
             case 'urn:cen.eu:en16931:2017#conformant#urn:factur-x.eu:1p0:extended':
             case 'urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0':

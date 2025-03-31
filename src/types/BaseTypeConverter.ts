@@ -2,6 +2,7 @@ export abstract class BaseTypeConverter<ValueType, XmlType> {
     abstract _toValue(xml: any): ValueType // changed this, to allow to enable easy logging for debugging to find out where problems occured
     abstract _toXML(data: any): XmlType // changed this, to allow to enable easy logging for debugging to find out where problems occured
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     toValue(xml: any): ValueType {
         //enable the following line for better debugging
         //console.log(`Converting XML to Value in ${this.constructor.name}:`, { input: xml })
@@ -9,6 +10,7 @@ export abstract class BaseTypeConverter<ValueType, XmlType> {
         return result
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     toXML(data: any): XmlType {
         //enable the following line for better debugging
         //console.log(`Converting Value to XML in ${this.constructor.name}:`, { input: data })

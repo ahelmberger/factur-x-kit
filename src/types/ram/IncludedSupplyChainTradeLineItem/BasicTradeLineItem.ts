@@ -4,17 +4,26 @@ import {
     ZBasicAssociatedDocumentLineDocumentType,
     ZBasicAssociatedDocumentLineDocumentTypeXml
 } from './AssociatedDocumentLineDocument/BasicAssociatedDocumentLineDocumentType'
-import { ZBasicLineTradeAgreementTypeXml } from './SpecifiedLineTradeAgreement/BasicLineTradeAgreementType'
-import { ZBasicLineTradeDeliveryType } from './SpecifiedLineTradeDelivery/BasicLineTradeDeliveryType'
-import { ZBasicLineTradeSettlementTypeXml } from './SpecifiedLineTradeSettlement/BasicLineTradeSettlementType'
-import { ZBasicTradeProductTypeXml } from './SpecifiedTradeProduct/BasicTradeProduct'
+import {
+    ZBasicLineTradeAgreementType,
+    ZBasicLineTradeAgreementTypeXml
+} from './SpecifiedLineTradeAgreement/BasicLineTradeAgreementType'
+import {
+    ZBasicLineTradeDeliveryType,
+    ZBasicLineTradeDeliveryTypeXml
+} from './SpecifiedLineTradeDelivery/BasicLineTradeDeliveryType'
+import {
+    ZBasicLineTradeSettlementType,
+    ZBasicLineTradeSettlementTypeXml
+} from './SpecifiedLineTradeSettlement/BasicLineTradeSettlementType'
+import { ZBasicTradeProductType, ZBasicTradeProductTypeXml } from './SpecifiedTradeProduct/BasicTradeProduct'
 
 export const ZBasicTradeLineItem = z.object({
     generalLineData: ZBasicAssociatedDocumentLineDocumentType,
-    productDescription: ZBasicTradeProductTypeXml,
-    productPriceAgreement: ZBasicLineTradeAgreementTypeXml,
+    productDescription: ZBasicTradeProductType,
+    productPriceAgreement: ZBasicLineTradeAgreementType,
     delivery: ZBasicLineTradeDeliveryType,
-    settlement: ZBasicLineTradeSettlementTypeXml
+    settlement: ZBasicLineTradeSettlementType
 })
 
 export type BasicTradeLineItem = z.infer<typeof ZBasicTradeLineItem>
@@ -23,7 +32,7 @@ export const ZBasicTradeLineItemXml = z.object({
     'ram:AssociatedDocumentLineDocument': ZBasicAssociatedDocumentLineDocumentTypeXml,
     'ram:SpecifiedTradeProduct': ZBasicTradeProductTypeXml,
     'ram:SpecifiedLineTradeAgreement': ZBasicLineTradeAgreementTypeXml,
-    'ram:SpecifiedLineTradeDelivery': ZBasicLineTradeAgreementTypeXml,
+    'ram:SpecifiedLineTradeDelivery': ZBasicLineTradeDeliveryTypeXml,
     'ram:SpecifiedLineTradeSettlement': ZBasicLineTradeSettlementTypeXml
 })
 

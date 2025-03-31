@@ -13,8 +13,9 @@ export abstract class ExtendableBaseTypeConverter<ValueType, XmlType> extends Ba
     }
 
     _toValue(xml: XmlType): ValueType {
-        const { success } = this.xmlSchema.safeParse(xml)
+        const { success, error: errorXml } = this.xmlSchema.safeParse(xml)
         if (!success) {
+            console.log(errorXml.message)
             throw new TypeConverterError('INVALID_XML')
         }
 
@@ -23,7 +24,7 @@ export abstract class ExtendableBaseTypeConverter<ValueType, XmlType> extends Ba
         const { success: successValue, data, error } = this.valueSchema.safeParse(value)
 
         if (!successValue) {
-            console.log(error)
+            console.log(error.message)
             throw new TypeConverterError('INVALID_XML')
         }
 
@@ -34,15 +35,18 @@ export abstract class ExtendableBaseTypeConverter<ValueType, XmlType> extends Ba
     abstract mapXmlToValue(xml: any): any
 
     _toXML(value: ValueType): XmlType {
-        const { success, data } = this.valueSchema.safeParse(value)
+        const { success, data, error } = this.valueSchema.safeParse(value)
         if (!success) {
+            console.log(error.message)
             throw new TypeConverterError('INVALID_VALUE')
         }
 
         const xml = this.mapValueToXml(data)
 
-        const { success: xmlSuccess, data: xmlData } = this.xmlSchema.safeParse(xml)
+        const { success: xmlSuccess, data: xmlData, error: xmlError } = this.xmlSchema.safeParse(xml)
         if (!xmlSuccess) {
+            console.log(xmlError.message)
+
             throw new TypeConverterError('INVALID_VALUE')
         }
 

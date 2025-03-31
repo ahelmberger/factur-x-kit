@@ -1,13 +1,8 @@
 import { z } from 'zod'
 
 import { ZCodeType } from '../../types/CodeTypeConverter.js'
-import {
-    COUNTRY_ID_CODES,
-    CURRENCY_CODES,
-    DOCUMENT_TYPE_CODES,
-    EAS_SCHEME_CODES,
-    ISO6523_CODES
-} from '../../types/codes.js'
+import { CURRENCY_CODES, DOCUMENT_TYPE_CODES, ISO6523_CODES } from '../../types/codes.js'
+import { ZBasicTradeLineItem } from '../../types/ram/IncludedSupplyChainTradeLineItem/BasicTradeLineItem.js'
 import { ZBasicDocumentLevelNoteType } from '../../types/ram/NoteType/BasicDocumentLevelNoteType.js'
 import { ZReferencedDocumentType } from '../../types/ram/ReferencedDocumentConverter.js'
 import { ZSpecifiedTaxRegistrationsForSellerType } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter.js'
@@ -22,30 +17,14 @@ import { ZIdType } from '../../types/udt/IdTypeConverter.js'
 import { ZIdTypeWithOptionalScheme } from '../../types/udt/IdTypeWithOptionalSchemeConverter.js'
 import { ZIdTypeWithRequiredScheme } from '../../types/udt/IdTypeWithRequiredlSchemeConverter.js'
 import { ZTextType } from '../../types/udt/TextTypeConverter.js'
-import { ZTokenType } from '../../types/xs/TokenConverter.js'
+import { ZTradePartyType } from '../basicwithoutlines/BasicWithoutLinesProfile.js'
 
-export const ZTradePartyType = z.object({
-    id: ZIdType.optional(), // in seller this could be an array
-    globalId: ZIdTypeWithRequiredScheme(ISO6523_CODES).optional(), // in seller this could be an array
-    name: ZTextType, // may be optional on some specific trade parties
-    specifiedLegalOrganization: ZIdTypeWithOptionalScheme(ISO6523_CODES).optional(),
-    postalAddress: z.object({
-        postcode: ZTokenType.optional(),
-        addressLineOne: ZTextType.optional(),
-        addressLineTwo: ZTextType.optional(),
-        addressLineThree: ZTextType.optional(),
-        city: ZTextType.optional(),
-        country: ZCodeType(COUNTRY_ID_CODES),
-        countrySubDivision: ZTextType.optional()
-    }),
-    universalCommunicationAddressURI: ZIdTypeWithRequiredScheme(EAS_SCHEME_CODES).optional(),
-    taxIdentification: ZSpecifiedTaxRegistrationsType.optional()
-})
-
-export const ZBasicWithoutLinesProfile = z.object({
+export const ZBasicProfile = z.object({
     meta: z.object({
         businessProcessType: ZIdType.optional(),
-        guidelineSpecifiedDocumentContextParameter: z.literal('urn:factur-x.eu:1p0:basicwl')
+        guidelineSpecifiedDocumentContextParameter: z.literal(
+            'urn:cen.eu:en16931:2017#compliant#urn:factur-x.eu:1p0:basic'
+        )
     }),
     document: z.object({
         id: ZIdType,
@@ -65,7 +44,6 @@ export const ZBasicWithoutLinesProfile = z.object({
             .optional(),
         taxIdentification: ZSpecifiedTaxRegistrationsForSellerType.optional()
     }),
-
     buyer: ZTradePartyType.extend({
         reference: ZTextType.optional()
     }),
@@ -79,6 +57,7 @@ export const ZBasicWithoutLinesProfile = z.object({
             taxIdentification: ZSpecifiedTaxRegistrationsType
         })
         .optional(),
+    invoiceLines: ZBasicTradeLineItem.array(),
     referencedDocuments: z
         .object({
             orderReference: ZIdType.optional(),
@@ -137,8 +116,8 @@ export const ZBasicWithoutLinesProfile = z.object({
     })
 })
 
-export type BasicWithoutLinesProfile = z.infer<typeof ZBasicWithoutLinesProfile>
+export type BasicProfile = z.infer<typeof ZBasicProfile>
 
-export function isBasicWithoutLinesProfile(data: unknown): data is BasicWithoutLinesProfile {
-    return ZBasicWithoutLinesProfile.safeParse(data).success
+export function isBasicProfile(data: unknown): data is BasicProfile {
+    return ZBasicProfile.safeParse(data).success
 }

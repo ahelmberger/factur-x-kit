@@ -8,6 +8,7 @@ export class BasicWithoutLinesProfileConverter extends Converter<
     BasicWithoutLinesProfileXml
 > {
     map = mapping
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     protected isProperObjectScheme(object: any): object is BasicWithoutLinesProfile {
         const result = ZBasicWithoutLinesProfile.safeParse(object)
 
@@ -17,6 +18,7 @@ export class BasicWithoutLinesProfileConverter extends Converter<
         return result.success
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     protected isProperXMLScheme(xmlObject: any): xmlObject is BasicWithoutLinesProfileXml {
         const result = ZBasicWithoutLinesProfileXml.safeParse(xmlObject)
 

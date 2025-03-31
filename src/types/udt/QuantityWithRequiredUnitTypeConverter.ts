@@ -34,11 +34,16 @@ export class QuantityWithRequiredUnitTypeConverter extends BaseTypeConverter<
 
         const value = {
             quantity,
-            currency: data['@unitCode'] as UNIT_CODES
+            unit: data['@unitCode'] as UNIT_CODES
         }
 
-        const { success: success_val, data: data_val } = ZQuantityWithRequiredUnitType.safeParse(value)
+        const {
+            success: success_val,
+            data: data_val,
+            error: error_val
+        } = ZQuantityWithRequiredUnitType.safeParse(value)
         if (!success_val) {
+            console.log(error_val.message)
             throw new TypeConverterError('INVALID_XML')
         }
 

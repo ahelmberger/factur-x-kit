@@ -7,6 +7,7 @@ import {
     EAS_SCHEME_CODES,
     ISO6523_CODES
 } from '../../types/codes.js'
+import { TradeLineItemConverter } from '../../types/ram/IncludedSupplyChainTradeLineItem/IncludedSupplyChainTradeLineItemConverter.js'
 import { NoteTypeConverter } from '../../types/ram/NoteType/NoteTypeConverter.js'
 import { ReferencedDocumentTypeConverter } from '../../types/ram/ReferencedDocumentConverter.js'
 import { SpecifiedTaxRegistrationsForSellerTypeConverter } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter.js'
@@ -22,9 +23,9 @@ import { IdTypeWithOptionalSchemeConverter } from '../../types/udt/IdTypeWithOpt
 import { IdTypeWithRequiredSchemeConverter } from '../../types/udt/IdTypeWithRequiredlSchemeConverter.js'
 import { TextTypeConverter } from '../../types/udt/TextTypeConverter.js'
 import { TokenTypeConverter } from '../../types/xs/TokenConverter.js'
-import type { BasicProfile } from '../basic/BasicProfile.js'
-import { BasicProfileXml } from '../basic/BasicProfileXml.js'
 import type { MappingItem } from '../convert.js'
+import { BasicProfile } from './BasicProfile.js'
+import { BasicProfileXml } from './BasicProfileXml.js'
 
 const mapping: MappingItem<BasicProfile, BasicProfileXml>[] = [
     {
@@ -56,6 +57,11 @@ const mapping: MappingItem<BasicProfile, BasicProfileXml>[] = [
         obj: 'document.notes',
         xml: 'rsm:CrossIndustryInvoice.rsm:ExchangedDocument.ram:IncludedNote',
         converter: new ArrayConverter(NoteTypeConverter.basicDocumentLevel())
+    },
+    {
+        obj: 'invoiceLines',
+        xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:IncludedSupplyChainTradeLineItem',
+        converter: new ArrayConverter(TradeLineItemConverter.basic())
     },
     {
         obj: 'buyer.reference',
