@@ -37,9 +37,9 @@ describe('Unit Tests for pdf functions', () => {
             expect(result).toBe('BASIC WL')
         })
 
-        it('should return "BASIC" for urn:cen.eu:EN16931:2017#compliant#urn:factur-x.eu:1p0:basic', () => {
+        it('should return "BASIC" for urn:cen.eu:en16931:2017#compliant#urn:factur-x.eu:1p0:basic', () => {
             const guidelineSpecifiedDocumentContextParameter =
-                'urn:cen.eu:EN16931:2017#compliant#urn:factur-x.eu:1p0:basic'
+                'urn:cen.eu:en16931:2017#compliant#urn:factur-x.eu:1p0:basic'
             const result = getProfileValue(guidelineSpecifiedDocumentContextParameter)
             expect(result).toBe('BASIC')
         })

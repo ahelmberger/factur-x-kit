@@ -15,8 +15,9 @@ export type AmountTypeXml = z.infer<typeof ZAmountTypeXml>
 
 export class AmountTypeConverter extends BaseTypeConverter<AmountType, AmountTypeXml> {
     _toValue(xml: AmountTypeXml) {
-        const { success, data } = ZAmountTypeXml.safeParse(xml)
+        const { success, data, error } = ZAmountTypeXml.safeParse(xml)
         if (!success) {
+            console.error(error.message)
             throw new TypeConverterError('INVALID_XML')
         }
 
@@ -29,9 +30,10 @@ export class AmountTypeConverter extends BaseTypeConverter<AmountType, AmountTyp
     }
 
     _toXML(value: any): AmountTypeXml {
-        const { success, data } = ZAmountType.safeParse(value)
+        const { success, data, error } = ZAmountType.safeParse(value)
 
         if (!success) {
+            console.error(error.message)
             throw new TypeConverterError('INVALID_VALUE')
         }
         return {

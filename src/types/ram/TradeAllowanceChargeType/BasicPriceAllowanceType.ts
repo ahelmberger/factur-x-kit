@@ -13,9 +13,14 @@ export const ZBasicPriceAllowanceType = z.object({
 
 export type BasicPriceAllowanceType = z.infer<typeof ZBasicPriceAllowanceType>
 
-export const ZBasicPriceAllowanceTypeXml = z.object({
+const ZBasicPriceAllowanceTypeXmlBasis = z.object({
     'ram:ChargeIndicator': ZIndicatorTypeXml,
     'ram:ActualAmount': ZAmountTypeXml
 })
+
+export const ZBasicPriceAllowanceTypeXml = z.union([
+    ZBasicPriceAllowanceTypeXmlBasis,
+    ZBasicPriceAllowanceTypeXmlBasis.array()
+])
 
 export type BasicPriceAllowanceTypeXml = z.infer<typeof ZBasicPriceAllowanceTypeXml>

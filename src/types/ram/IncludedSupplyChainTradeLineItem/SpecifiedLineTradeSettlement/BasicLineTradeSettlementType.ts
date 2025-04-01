@@ -2,7 +2,10 @@ import { z } from 'zod'
 
 import { ZAmountType, ZAmountTypeXml } from '../../../udt/AmountTypeConverter'
 import { ZDateTimeType, ZDateTimeTypeXml } from '../../../udt/DateTimeTypeConverter'
-import { ZBasicLineLevelTradeAllowanceChargeTypeXml } from '../../TradeAllowanceChargeType/BasicLineLevelAllowanceChargeType'
+import {
+    ZBasicLineLevelTradeAllowanceChargeType,
+    ZBasicLineLevelTradeAllowanceChargeTypeXml
+} from '../../TradeAllowanceChargeType/BasicLineLevelAllowanceChargeType'
 import {
     ZBasicLineLevelTradeTaxType,
     ZBasicLineLevelTradeTaxTypeXml
@@ -16,7 +19,7 @@ export const ZBasicLineTradeSettlementType = z.object({
             endDate: ZDateTimeType.optional()
         })
         .optional(),
-    lineLevelAllowancesAndCharges: ZBasicLineLevelTradeAllowanceChargeTypeXml.optional(),
+    lineLevelAllowancesAndCharges: ZBasicLineLevelTradeAllowanceChargeType.optional(),
     lineTotals: z.object({
         netTotal: ZAmountType
     })

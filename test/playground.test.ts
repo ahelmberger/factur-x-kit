@@ -5,6 +5,7 @@ import { printNode, zodToTs } from 'zod-to-ts'
 
 import { ZBasicWithoutLinesProfile } from '../src/profiles/basicwithoutlines/BasicWithoutLinesProfile'
 import { ZBasicWithoutLinesProfileXml } from '../src/profiles/basicwithoutlines/BasicWithoutLinesProfileXml'
+import { ZBasicTradeLineItem } from '../src/types/ram/IncludedSupplyChainTradeLineItem/BasicTradeLineItem'
 import './profiles/codeDb/xPathDocumentFunction'
 
 // This is just a testcase which helps me printing out the ts-objects which are built from the zod types
@@ -20,6 +21,10 @@ describe('playground', () => {
         const { node: node2 } = zodToTs(ZBasicWithoutLinesProfileXml, identifier2)
         const nodeString2 = printNode(node2)
         // console.log(nodeString2)
+
+        const identifier3 = 'Line'
+        const { node: node3 } = zodToTs(ZBasicTradeLineItem, identifier3)
+        //console.log(printNode(node3))
     })
 })
 

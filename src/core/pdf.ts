@@ -124,7 +124,7 @@ export default class FacturXPdf {
                 return 'MINIMUM'
             case 'urn:factur-x.eu:1p0:basicwl':
                 return 'BASIC WL'
-            case 'urn:cen.eu:EN16931:2017#compliant#urn:factur-x.eu:1p0:basic':
+            case 'urn:cen.eu:en16931:2017#compliant#urn:factur-x.eu:1p0:basic':
                 return 'BASIC'
             case 'urn:cen.eu:en16931:2017':
                 return 'EN 16931'

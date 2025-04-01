@@ -22,8 +22,9 @@ export class QuantityWithRequiredUnitTypeConverter extends BaseTypeConverter<
     QuantityWithRequiredUnitTypeXml
 > {
     _toValue(xml: QuantityWithRequiredUnitTypeXml) {
-        const { success, data } = ZQuantityWithRequiredUnitTypeXml.safeParse(xml)
+        const { success, data, error } = ZQuantityWithRequiredUnitTypeXml.safeParse(xml)
         if (!success) {
+            console.error(error.message)
             throw new TypeConverterError('INVALID_XML')
         }
 

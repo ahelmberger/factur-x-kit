@@ -139,8 +139,13 @@ export class TradeAllowanceChargeTypeConverter<
                   })
                 : []
         }
-        const { success: xmlSuccess, data: xmlData } = this.xmlSchema.safeParse([...xml_allowances, ...xml_charges])
+        const {
+            success: xmlSuccess,
+            data: xmlData,
+            error: xmlError
+        } = this.xmlSchema.safeParse([...xml_allowances, ...xml_charges])
         if (!xmlSuccess) {
+            console.error(xmlError.message)
             throw new TypeConverterError('INVALID_VALUE')
         }
 

@@ -26,12 +26,11 @@ export class LineTradeDeliveryConverter<
         }
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    mapValueToXml(value: any) {
+    mapValueToXml(value: BasicLineTradeDeliveryType) {
         return {
             'ram:BilledQuantity':
                 value.itemQuantity != null
-                    ? this.quantityWithRequiredTypeConverter.toValue(value.itemQuantity)
+                    ? this.quantityWithRequiredTypeConverter.toXML(value.itemQuantity)
                     : undefined
         }
     }
