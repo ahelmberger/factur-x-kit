@@ -31,7 +31,7 @@ export const ZComfortProfileXml = z.object({
                 .optional(),
             'ram:GuidelineSpecifiedDocumentContextParameter': z.object({
                 'ram:ID': z.object({
-                    '#text': z.literal('urn:cen.eu:en16931:2017#compliant#urn:factur-x.eu:1p0:basic')
+                    '#text': z.literal('urn:cen.eu:en16931:2017')
                 })
             })
         }),
