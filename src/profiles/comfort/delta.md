@@ -2,11 +2,13 @@
 
 ### IncludedSupplyChainTradeLineItem
 
--   [ ] IncludedSupplyChainTradeLineItem/SpecifiedTradeProduct/SellerAssignedID
--   [ ] IncludedSupplyChainTradeLineItem/SpecifiedTradeProduct/BuyerAssignedID
--   [ ] IncludedSupplyChainTradeLineItem/SpecifiedTradeProduct/Descripion
+-   [x] IncludedSupplyChainTradeLineItem/SpecifiedTradeProduct/SellerAssignedID
+-   [x] IncludedSupplyChainTradeLineItem/SpecifiedTradeProduct/BuyerAssignedID
+-   [x] IncludedSupplyChainTradeLineItem/SpecifiedTradeProduct/Descripion
+-   [x] .../ApplicableProductCharacteristic
 -   [ ] IncludedSupplyChainTradeLineItem/SpecifiedTradeProduct/DesignatedProductClassification
 -   [ ] IncludedSupplyChainTradeLineItem/SpecifiedTradeProduct/OriginTradeCountry
+-   [ ] IncludedSupplyChainTradeLineItemConverter
 
 -   [ ] IncludedSupplyChainTradeLineItem/SpecifiedLineTradeAgreement/BuyerOrderReferencedDocument
 
