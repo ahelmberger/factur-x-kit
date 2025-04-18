@@ -6,9 +6,9 @@
 -   [x] IncludedSupplyChainTradeLineItem/SpecifiedTradeProduct/BuyerAssignedID
 -   [x] IncludedSupplyChainTradeLineItem/SpecifiedTradeProduct/Descripion
 -   [x] .../ApplicableProductCharacteristic
--   [ ] IncludedSupplyChainTradeLineItem/SpecifiedTradeProduct/DesignatedProductClassification
--   [ ] IncludedSupplyChainTradeLineItem/SpecifiedTradeProduct/OriginTradeCountry
--   [ ] IncludedSupplyChainTradeLineItemConverter
+-   [x] IncludedSupplyChainTradeLineItem/SpecifiedTradeProduct/DesignatedProductClassification
+-   [x] IncludedSupplyChainTradeLineItem/SpecifiedTradeProduct/OriginTradeCountry
+-   [x] IncludedSupplyChainTradeLineItemConverter
 
 -   [ ] IncludedSupplyChainTradeLineItem/SpecifiedLineTradeAgreement/BuyerOrderReferencedDocument
 
