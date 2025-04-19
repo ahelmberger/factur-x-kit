@@ -13,6 +13,12 @@ import {
     ZBasicTradeLineItemXml
 } from './BasicTradeLineItem'
 import {
+    ComfortTradeLineItem,
+    ComfortTradeLineItemXml,
+    ZComfortTradeLineItem,
+    ZComfortTradeLineItemXml
+} from './ComfortTradeLineItem'
+import {
     LineTradeAgreementConverter,
     allowedValueTypes_LineTradeAgreement,
     allowedXmlTypes_LineTradeAgreement
@@ -120,6 +126,18 @@ export class TradeLineItemConverter<
             LineTradeAgreementConverter.basic(),
             LineTradeDeliveryConverter.basic(),
             LineTradeSettlementConverter.basic()
+        )
+    }
+
+    public static comfort() {
+        return new TradeLineItemConverter<ComfortTradeLineItem, ComfortTradeLineItemXml>(
+            ZComfortTradeLineItem,
+            ZComfortTradeLineItemXml,
+            AssociatedDocumentLineDocumentConverter.basic(),
+            TradeProductTypeConverter.comfort(),
+            LineTradeAgreementConverter.comfort(),
+            LineTradeDeliveryConverter.basic(),
+            LineTradeSettlementConverter.comfort()
         )
     }
 }

@@ -10,7 +10,7 @@
 -   [x] IncludedSupplyChainTradeLineItem/SpecifiedTradeProduct/OriginTradeCountry
 -   [x] IncludedSupplyChainTradeLineItemConverter
 
--   [ ] IncludedSupplyChainTradeLineItem/SpecifiedLineTradeAgreement/BuyerOrderReferencedDocument
+-   [x] IncludedSupplyChainTradeLineItem/SpecifiedLineTradeAgreement/BuyerOrderReferencedDocument
 
 -   [ ] IncludedSupplyChainTradeLineItem/SpecifiedLineTradeSettlement/AdditionalReferencedDocument
 -   [ ] IncludedSupplyChainTradeLineItem/SpecifiedLineTradeSettlement/ReceivableSpecifiedTradeAccountingAccount
