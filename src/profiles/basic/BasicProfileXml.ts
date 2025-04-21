@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 import { ZBasicTradeLineItemXml } from '../../types/ram/IncludedSupplyChainTradeLineItem/BasicTradeLineItem.js'
 import { ZBasicDocumentLevelNoteTypeXml } from '../../types/ram/NoteType/BasicDocumentLevelNoteType.js'
-import { ZReferencedDocumentTypeXml } from '../../types/ram/ReferencedDocumentConverter.js'
+import { ZReferencedDocumentTypeXml_docId_issueDate } from '../../types/ram/ReferencedDocumentConverter.js'
 import { ZSpecifiedTaxRegistrationsForSellerTypeXml } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter.js'
 import { ZSpecifiedTaxRegistrationsTypeXml } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter.js'
 import { ZBasicDocumentLevelTradeAllowanceChargeTypeXml } from '../../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType.js'
@@ -148,7 +148,10 @@ export const ZBasicProfileXml = z.object({
                     'ram:DuePayableAmount': ZAmountTypeXml
                 }),
                 'ram:InvoiceReferencedDocument': z
-                    .union([ZReferencedDocumentTypeXml, ZReferencedDocumentTypeXml.array()])
+                    .union([
+                        ZReferencedDocumentTypeXml_docId_issueDate,
+                        ZReferencedDocumentTypeXml_docId_issueDate.array()
+                    ])
                     .optional(),
                 'ram:ReceivableSpecifiedTradeAccountingAccount': z
                     .object({

@@ -3,6 +3,11 @@ import { z } from 'zod'
 import { ExtendableBaseTypeConverter } from '../../../ExtendableBaseTypeConverter'
 import { IdTypeConverter } from '../../../udt/IdTypeConverter'
 import {
+    ReferencedDocumentTypeConverter,
+    allowedValueTypes_ReferencedDocumentType,
+    allowedXmlTypes_ReferencedDocumentType
+} from '../../ReferencedDocumentConverter'
+import {
     BasicLineTradeAgreementType,
     BasicLineTradeAgreementTypeXml,
     ZBasicLineTradeAgreementType,
@@ -42,6 +47,13 @@ export class LineTradeAgreementConverter<
         allowedXmlTypes_NetPriceProductTradePrice
     >
 
+    referencedDocumentConverter:
+        | ReferencedDocumentTypeConverter<
+              allowedValueTypes_ReferencedDocumentType,
+              allowedXmlTypes_ReferencedDocumentType
+          >
+        | undefined
+
     idTypeConverter = new IdTypeConverter()
 
     constructor(
@@ -54,20 +66,24 @@ export class LineTradeAgreementConverter<
         netPriceProductTradePriceConverter: NetPriceProductTradePriceConverter<
             allowedValueTypes_NetPriceProductTradePrice,
             allowedXmlTypes_NetPriceProductTradePrice
+        >,
+        referencedDocumentConverter?: ReferencedDocumentTypeConverter<
+            allowedValueTypes_ReferencedDocumentType,
+            allowedXmlTypes_ReferencedDocumentType
         >
     ) {
         super(lineTradeAgreementType, lineTradeAgreementTypeXml)
         this.grossPriceProductTradePriceConverter = grossPriceProductTradePriceConverter
         this.netPriceProductTradePriceConverter = netPriceProductTradePriceConverter
+        this.referencedDocumentConverter = referencedDocumentConverter
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mapXmlToValue(xml: any) {
         return {
-            referencedOrderLineId:
-                xml['ram:BuyerOrderReferencedDocument'] != null &&
-                xml['ram:BuyerOrderReferencedDocument']['ram:LineID'] != null
-                    ? this.idTypeConverter.toValue(xml['ram:BuyerOrderReferencedDocument']['ram:LineID'])
+            referencedOrder:
+                xml['ram:BuyerOrderReferencedDocument'] != null && this.referencedDocumentConverter
+                    ? this.referencedDocumentConverter.toValue(xml['ram:BuyerOrderReferencedDocument'])
                     : undefined,
             productGrossPricing:
                 xml['ram:GrossPriceProductTradePrice'] != null
@@ -84,10 +100,8 @@ export class LineTradeAgreementConverter<
     mapValueToXml(value: any): any {
         return {
             'ram:BuyerOrderReferencedDocument':
-                value.referencedOrderLineId != null
-                    ? {
-                          'ram:LineID': this.idTypeConverter.toXML(value.referencedOrderLineId)
-                      }
+                value.referencedOrderLineId != null && this.referencedDocumentConverter
+                    ? this.referencedDocumentConverter.toXML(value.referencedOrderLineId)
                     : undefined,
             'ram:GrossPriceProductTradePrice': value.productGrossPricing
                 ? this.grossPriceProductTradePriceConverter.toXML(value.productGrossPricing)
@@ -116,7 +130,8 @@ export class LineTradeAgreementConverter<
             ZComfortLineTradeAgreementType,
             ZComfortLineTradeAgreementTypeXml,
             GrossPriceProductTradePriceConverter.basic(),
-            NetPriceProductTradePriceConverter.basic()
+            NetPriceProductTradePriceConverter.basic(),
+            ReferencedDocumentTypeConverter.lineId()
         )
     }
 }

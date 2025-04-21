@@ -137,7 +137,7 @@ export class TradeLineItemConverter<
             TradeProductTypeConverter.comfort(),
             LineTradeAgreementConverter.comfort(),
             LineTradeDeliveryConverter.basic(),
-            LineTradeSettlementConverter.comfort()
+            LineTradeSettlementConverter.basic()
         )
     }
 }

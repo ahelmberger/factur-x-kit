@@ -3921,3 +3921,15 @@ export enum UNTDID_7143 {
     VENDOR_SPECIFICATION_NUMBER = 'VX',
     MUTUALLY_DEFINED = 'ZZZ'
 }
+
+export enum MIME_CODES {
+    JSON = 'application/json',
+    PDF = 'application/pdf',
+    ODF_SPREADSHEET = 'application/vnd.oasis.opendocument.spreadsheet',
+    XLSX_SPREADSHEET = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    XML = 'application/xml',
+    JPEG = 'image/jpeg',
+    PNG = 'image/png',
+    CSV = 'text/csv',
+    DEPRECATED_MIME_FOR_XML = 'text/xml'
+}

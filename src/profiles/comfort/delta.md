@@ -12,8 +12,8 @@
 
 -   [x] IncludedSupplyChainTradeLineItem/SpecifiedLineTradeAgreement/BuyerOrderReferencedDocument
 
--   [ ] IncludedSupplyChainTradeLineItem/SpecifiedLineTradeSettlement/AdditionalReferencedDocument
--   [ ] IncludedSupplyChainTradeLineItem/SpecifiedLineTradeSettlement/ReceivableSpecifiedTradeAccountingAccount
+-   [x] IncludedSupplyChainTradeLineItem/SpecifiedLineTradeSettlement/AdditionalReferencedDocument
+-   [x] IncludedSupplyChainTradeLineItem/SpecifiedLineTradeSettlement/ReceivableSpecifiedTradeAccountingAccount
 
 ### ApplicableHeaderTradeAgreement
 

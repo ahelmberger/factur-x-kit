@@ -1,8 +1,11 @@
 import { z } from 'zod'
 
+import { ArrayConverter } from '../../../ArrayConverter'
 import { ExtendableBaseTypeConverter } from '../../../ExtendableBaseTypeConverter'
 import { AmountTypeConverter } from '../../../udt/AmountTypeConverter'
 import { DateTimeTypeConverter } from '../../../udt/DateTimeTypeConverter'
+import { IdTypeConverter } from '../../../udt/IdTypeConverter'
+import { ReferencedDocumentTypeConverter } from '../../ReferencedDocumentConverter'
 import {
     TradeAllowanceChargeTypeConverter,
     allowedValueTypes_TradeAllowanceChargeType,
@@ -35,6 +38,9 @@ export class LineTradeSettlementConverter<
 
     amountTypeConverter = new AmountTypeConverter()
     dateTimeTypeConverter = new DateTimeTypeConverter()
+    additionalReferencesTypeConverter = new ArrayConverter(
+        ReferencedDocumentTypeConverter.issuerId_type_referenceType()
+    )
 
     constructor(
         valueSchema: z.ZodType<ValueType>,
@@ -88,12 +94,29 @@ export class LineTradeSettlementConverter<
                                     )
                                   : undefined
                       }
+                    : undefined,
+            additionalReferences:
+                xml['ram:AdditionalReferencedDocument'] != null
+                    ? this.additionalReferencesTypeConverter.toValue(xml['ram:AdditionalReferencedDocument'])
+                    : undefined,
+
+            accountingInformation:
+                xml['ram:ReceivableSpecifiedTradeAccountingAccount'] != null &&
+                xml['ram:ReceivableSpecifiedTradeAccountingAccount']['ram:ID'] != null
+                    ? {
+                          id:
+                              xml['ram:ReceivableSpecifiedTradeAccountingAccount']['ram:ID'] != null
+                                  ? new IdTypeConverter().toValue(
+                                        xml['ram:ReceivableSpecifiedTradeAccountingAccount']['ram:ID']
+                                    )
+                                  : undefined
+                      }
                     : undefined
         }
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    mapValueToXml(value: BasicLineTradeSettlementType): any {
+    mapValueToXml(value: any): any {
         return {
             'ram:ApplicableTradeTax':
                 value.tax != null ? this.lineLevelTradeTaxTypeConverter.toXML(value.tax) : undefined,
@@ -120,6 +143,19 @@ export class LineTradeSettlementConverter<
                           'ram:LineTotalAmount':
                               value.lineTotals.netTotal != null
                                   ? this.amountTypeConverter.toXML(value.lineTotals.netTotal)
+                                  : undefined
+                      }
+                    : undefined,
+            'ram:AdditionalReferencedDocument':
+                value.additionalReferences != null
+                    ? this.additionalReferencesTypeConverter.toXML(value.additionalReferences)
+                    : undefined,
+            'ram:ReceivableSpecifiedTradeAccountingAccount':
+                value.accountingInformation != null
+                    ? {
+                          'ram:ID':
+                              value.accountingInformation.id != null
+                                  ? new IdTypeConverter().toXML(value.accountingInformation.id)
                                   : undefined
                       }
                     : undefined
