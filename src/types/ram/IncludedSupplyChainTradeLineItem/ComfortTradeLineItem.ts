@@ -13,9 +13,9 @@ import {
     ZBasicLineTradeDeliveryTypeXml
 } from './SpecifiedLineTradeDelivery/BasicLineTradeDeliveryType'
 import {
-    ZBasicLineTradeSettlementType,
-    ZBasicLineTradeSettlementTypeXml
-} from './SpecifiedLineTradeSettlement/BasicLineTradeSettlementType'
+    ZComfortLineTradeSettlementType,
+    ZComfortLineTradeSettlementTypeXml
+} from './SpecifiedLineTradeSettlement/ComfortLineTradeSettlementType'
 import { ZComfortTradeProductType, ZComfortTradeProductTypeXml } from './SpecifiedTradeProduct/ComfortTradeProduct'
 
 export const ZComfortTradeLineItem = z.object({
@@ -23,7 +23,7 @@ export const ZComfortTradeLineItem = z.object({
     productDescription: ZComfortTradeProductType,
     productPriceAgreement: ZComfortLineTradeAgreementType,
     delivery: ZBasicLineTradeDeliveryType,
-    settlement: ZBasicLineTradeSettlementType
+    settlement: ZComfortLineTradeSettlementType
 })
 
 export type ComfortTradeLineItem = z.infer<typeof ZComfortTradeLineItem>
@@ -33,7 +33,7 @@ export const ZComfortTradeLineItemXml = z.object({
     'ram:SpecifiedTradeProduct': ZComfortTradeProductTypeXml,
     'ram:SpecifiedLineTradeAgreement': ZComfortLineTradeAgreementTypeXml,
     'ram:SpecifiedLineTradeDelivery': ZBasicLineTradeDeliveryTypeXml,
-    'ram:SpecifiedLineTradeSettlement': ZBasicLineTradeSettlementTypeXml
+    'ram:SpecifiedLineTradeSettlement': ZComfortLineTradeSettlementTypeXml
 })
 
 export type ComfortTradeLineItemXml = z.infer<typeof ZComfortTradeLineItemXml>
