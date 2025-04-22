@@ -68,8 +68,10 @@ const testBasicWLProfile: BasicWithoutLinesProfile = {
         },
         name: 'Buyer Company',
         specifiedLegalOrganization: {
-            id: 'LEGAL-BUYER-1',
-            scheme: ISO6523_CODES.Data_Universal_Numbering_System_DUNS_Number
+            id: {
+                id: 'LEGAL-BUYER-1',
+                scheme: ISO6523_CODES.Data_Universal_Numbering_System_DUNS_Number
+            }
         },
         postalAddress: {
             postcode: '67890',
@@ -143,8 +145,10 @@ const testBasicWLProfile: BasicWithoutLinesProfile = {
             },
             name: 'Payee Company',
             specifiedLegalOrganization: {
-                id: 'LEGAL-PAYEE-1',
-                scheme: ISO6523_CODES.Data_Universal_Numbering_System_DUNS_Number
+                id: {
+                    id: 'LEGAL-PAYEE-1',
+                    scheme: ISO6523_CODES.Data_Universal_Numbering_System_DUNS_Number
+                }
             }
         },
         paymentMeans: [

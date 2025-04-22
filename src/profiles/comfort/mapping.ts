@@ -7,6 +7,7 @@ import {
     EAS_SCHEME_CODES,
     ISO6523_CODES
 } from '../../types/codes.js'
+import { DefinedTradeContactConverter } from '../../types/ram/DefinedTradeContact/DefinedTradeContactConverter.js'
 import { TradeLineItemConverter } from '../../types/ram/IncludedSupplyChainTradeLineItem/IncludedSupplyChainTradeLineItemConverter.js'
 import { NoteTypeConverter } from '../../types/ram/NoteType/NoteTypeConverter.js'
 import { ReferencedDocumentTypeConverter } from '../../types/ram/ReferencedDocumentConverter.js'
@@ -84,6 +85,11 @@ const mapping: MappingItem<ComfortProfile, ComfortProfileXml>[] = [
         converter: new TextTypeConverter()
     },
     {
+        obj: 'seller.otherLegalInformation',
+        xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeAgreement.ram:SellerTradeParty.ram:Description',
+        converter: new TextTypeConverter()
+    },
+    {
         obj: 'seller.specifiedLegalOrganization.id',
         xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeAgreement.ram:SellerTradeParty.ram:SpecifiedLegalOrganization.ram:ID',
         converter: new IdTypeWithOptionalSchemeConverter(ISO6523_CODES)
@@ -92,6 +98,11 @@ const mapping: MappingItem<ComfortProfile, ComfortProfileXml>[] = [
         obj: 'seller.specifiedLegalOrganization.tradingBusinessName',
         xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeAgreement.ram:SellerTradeParty.ram:SpecifiedLegalOrganization.ram:TradingBusinessName',
         converter: new TextTypeConverter()
+    },
+    {
+        obj: 'seller.tradeContact',
+        xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeAgreement.ram:SellerTradeParty.ram:DefinedTradeContact',
+        converter: new ArrayConverter(DefinedTradeContactConverter.comfort())
     },
     {
         obj: 'seller.postalAddress.postcode',
@@ -154,9 +165,19 @@ const mapping: MappingItem<ComfortProfile, ComfortProfileXml>[] = [
         converter: new TextTypeConverter()
     },
     {
-        obj: 'buyer.specifiedLegalOrganization',
+        obj: 'buyer.specifiedLegalOrganization.id',
         xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeAgreement.ram:BuyerTradeParty.ram:SpecifiedLegalOrganization.ram:ID',
         converter: new IdTypeWithOptionalSchemeConverter(ISO6523_CODES)
+    },
+    {
+        obj: 'buyer.specifiedLegalOrganization.tradingBusinessName',
+        xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeAgreement.ram:BuyerTradeParty.ram:SpecifiedLegalOrganization.ram:TradingBusinessName',
+        converter: new TextTypeConverter()
+    },
+    {
+        obj: 'buyer.tradeContact',
+        xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeAgreement.ram:BuyerTradeParty.ram:DefinedTradeContact',
+        converter: new ArrayConverter(DefinedTradeContactConverter.comfort())
     },
     {
         obj: 'buyer.postalAddress.postcode',

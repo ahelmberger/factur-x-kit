@@ -25,8 +25,10 @@ const testObj: MinimumProfile = {
     seller: {
         name: 'ZUGFeRD AG',
         specifiedLegalOrganization: {
-            id: 'ZUGFERDAG',
-            scheme: ISO6523_CODES.Data_Universal_Numbering_System_DUNS_Number
+            id: {
+                id: 'ZUGFERDAG',
+                scheme: ISO6523_CODES.Data_Universal_Numbering_System_DUNS_Number
+            }
         },
         postalAddress: {
             country: COUNTRY_ID_CODES.GERMANY
@@ -39,8 +41,10 @@ const testObj: MinimumProfile = {
         reference: '991-1234512345-06',
         name: 'FACTURX AG',
         specifiedLegalOrganization: {
-            id: 'FACTURXAG',
-            scheme: ISO6523_CODES.Data_Universal_Numbering_System_DUNS_Number
+            id: {
+                id: 'FACTURXAG',
+                scheme: ISO6523_CODES.Data_Universal_Numbering_System_DUNS_Number
+            }
         }
     },
     referencedDocuments: {

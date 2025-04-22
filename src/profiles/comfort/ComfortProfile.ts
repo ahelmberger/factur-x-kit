@@ -2,7 +2,8 @@ import { z } from 'zod'
 
 import { ZCodeType } from '../../types/CodeTypeConverter.js'
 import { CURRENCY_CODES, DOCUMENT_TYPE_CODES, ISO6523_CODES } from '../../types/codes.js'
-import { ZBasicTradeLineItem } from '../../types/ram/IncludedSupplyChainTradeLineItem/BasicTradeLineItem.js'
+import { ZComfortTradeContactType } from '../../types/ram/DefinedTradeContact/ComfortTradeContactType.js'
+import { ZComfortTradeLineItem } from '../../types/ram/IncludedSupplyChainTradeLineItem/ComfortTradeLineItem.js'
 import { ZBasicDocumentLevelNoteType } from '../../types/ram/NoteType/BasicDocumentLevelNoteType.js'
 import { ZReferencedDocumentType_docId_issueDate } from '../../types/ram/ReferencedDocumentConverter.js'
 import { ZSpecifiedTaxRegistrationsForSellerType } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter.js'
@@ -42,10 +43,19 @@ export const ZComfortProfile = z.object({
                 tradingBusinessName: ZTextType.optional()
             })
             .optional(),
-        taxIdentification: ZSpecifiedTaxRegistrationsForSellerType.optional()
+        taxIdentification: ZSpecifiedTaxRegistrationsForSellerType.optional(),
+        otherLegalInformation: ZTextType.optional(),
+        tradeContact: ZComfortTradeContactType.array().max(1).optional()
     }),
     buyer: ZTradePartyType.extend({
-        reference: ZTextType.optional()
+        specifiedLegalOrganization: z
+            .object({
+                id: ZIdTypeWithOptionalScheme(ISO6523_CODES).optional(),
+                tradingBusinessName: ZTextType.optional()
+            })
+            .optional(),
+        reference: ZTextType.optional(),
+        tradeContact: ZComfortTradeContactType.array().max(1).optional()
     }),
     sellerTaxRepresentative: ZTradePartyType.omit({
         id: true,
@@ -57,7 +67,7 @@ export const ZComfortProfile = z.object({
             taxIdentification: ZSpecifiedTaxRegistrationsType
         })
         .optional(),
-    invoiceLines: ZBasicTradeLineItem.array(),
+    invoiceLines: ZComfortTradeLineItem.array(),
     referencedDocuments: z
         .object({
             orderReference: ZIdType.optional(),

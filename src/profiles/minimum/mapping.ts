@@ -47,7 +47,7 @@ const mapping: SimplifiedMappingItem[] = [
         converter: new TextTypeConverter()
     },
     {
-        obj: 'seller.specifiedLegalOrganization',
+        obj: 'seller.specifiedLegalOrganization.id',
         xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeAgreement.ram:SellerTradeParty.ram:SpecifiedLegalOrganization.ram:ID',
         converter: new IdTypeWithOptionalSchemeConverter(ISO6523_CODES)
     },
@@ -67,7 +67,7 @@ const mapping: SimplifiedMappingItem[] = [
         converter: new TextTypeConverter()
     },
     {
-        obj: 'buyer.specifiedLegalOrganization',
+        obj: 'buyer.specifiedLegalOrganization.id',
         xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeAgreement.ram:BuyerTradeParty.ram:SpecifiedLegalOrganization.ram:ID',
         converter: new IdTypeWithOptionalSchemeConverter(ISO6523_CODES)
     },

@@ -28,7 +28,7 @@ export const ZTradePartyType = z.object({
     id: ZIdType.optional(), // in seller this could be an array
     globalId: ZIdTypeWithRequiredScheme(ISO6523_CODES).optional(), // in seller this could be an array
     name: ZTextType, // may be optional on some specific trade parties
-    specifiedLegalOrganization: ZIdTypeWithOptionalScheme(ISO6523_CODES).optional(),
+    specifiedLegalOrganization: z.object({ id: ZIdTypeWithOptionalScheme(ISO6523_CODES).optional() }).optional(),
     postalAddress: z.object({
         postcode: ZTokenType.optional(),
         addressLineOne: ZTextType.optional(),

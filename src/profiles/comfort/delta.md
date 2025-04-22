@@ -17,11 +17,11 @@
 
 ### ApplicableHeaderTradeAgreement
 
--   [ ] ApplicableHeaderTradeAgreement/SellerTradeParty/Description
--   [ ] ApplicableHeaderTradeAgreement/SellerTradeParty/DefinedTradeContact
+-   [x] ApplicableHeaderTradeAgreement/SellerTradeParty/Description
+-   [x] ApplicableHeaderTradeAgreement/SellerTradeParty/DefinedTradeContact
 
--   [ ] ApplicableHeaderTradeAgreement/BuyerTradeParty/SpecifiedLegalOrganization/TradingBusinessName
--   [ ] ApplicableHeaderTradeAgreement/BuyerTradeParty/DefinedTradeContact
+-   [x] ApplicableHeaderTradeAgreement/BuyerTradeParty/SpecifiedLegalOrganization/TradingBusinessName
+-   [x] ApplicableHeaderTradeAgreement/BuyerTradeParty/DefinedTradeContact
 
 -   [ ] ApplicableHeaderTradeAgreement/SellerOrderReferencedDocument
 

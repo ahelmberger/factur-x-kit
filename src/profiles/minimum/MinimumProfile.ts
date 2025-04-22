@@ -23,7 +23,7 @@ export const ZMinimumProfile = z.object({
     }),
     seller: z.object({
         name: ZTextType,
-        specifiedLegalOrganization: ZIdTypeWithOptionalScheme(ISO6523_CODES).optional(),
+        specifiedLegalOrganization: z.object({ id: ZIdTypeWithOptionalScheme(ISO6523_CODES).optional() }).optional(),
         postalAddress: z.object({
             country: ZTextType
         }),
@@ -32,7 +32,7 @@ export const ZMinimumProfile = z.object({
     buyer: z.object({
         reference: ZTextType.optional(), // Explanation @https://www.e-rechnung-bund.de/faq/leitweg-id/
         name: ZTextType,
-        specifiedLegalOrganization: ZIdTypeWithOptionalScheme(ISO6523_CODES).optional()
+        specifiedLegalOrganization: z.object({ id: ZIdTypeWithOptionalScheme(ISO6523_CODES).optional() }).optional()
     }),
     referencedDocuments: z
         .object({

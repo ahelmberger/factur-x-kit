@@ -64,8 +64,8 @@ describe('7.3.3 - SupplyChainTradeTransaction - Page 44/85 ff.', () => {
                 expect(testCases['MINIMUM_Rechnung']?.seller.name).toBe('Lieferant GmbH')
             })
             test('BT-30-00 - Seller legal registration', () => {
-                expect(testCases['MINIMUM_Rechnung']?.seller.specifiedLegalOrganization?.id).toBeUndefined()
-                expect(testCases['MINIMUM_Rechnung']?.seller.specifiedLegalOrganization?.scheme).toBeUndefined()
+                expect(testCases['MINIMUM_Rechnung']?.seller.specifiedLegalOrganization?.id?.id).toBeUndefined()
+                expect(testCases['MINIMUM_Rechnung']?.seller.specifiedLegalOrganization?.id?.scheme).toBeUndefined()
             })
             describe('BG-5 - SELLER POSTAL ADDRESS', () => {
                 test('BT-40 - Seller country code', () => {
@@ -82,8 +82,8 @@ describe('7.3.3 - SupplyChainTradeTransaction - Page 44/85 ff.', () => {
                 expect(testCases['MINIMUM_Rechnung']?.buyer.name).toBe('Kunden AG Frankreich')
             })
             test('BT-47-00 - Buyer legal registration', () => {
-                expect(testCases['MINIMUM_Rechnung']?.buyer.specifiedLegalOrganization?.id).toBeUndefined()
-                expect(testCases['MINIMUM_Rechnung']?.buyer.specifiedLegalOrganization?.scheme).toBeUndefined()
+                expect(testCases['MINIMUM_Rechnung']?.buyer.specifiedLegalOrganization?.id?.id).toBeUndefined()
+                expect(testCases['MINIMUM_Rechnung']?.buyer.specifiedLegalOrganization?.id?.scheme).toBeUndefined()
             })
         })
         test('BT-13-00 - BuyerOrderReferencedDocument', () => {

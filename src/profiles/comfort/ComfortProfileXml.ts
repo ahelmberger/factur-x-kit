@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
-import { ZBasicTradeLineItemXml } from '../../types/ram/IncludedSupplyChainTradeLineItem/BasicTradeLineItem.js'
+import { ZComfortTradeContactTypeXml } from '../../types/ram/DefinedTradeContact/ComfortTradeContactType.js'
+import { ZComfortTradeLineItemXml } from '../../types/ram/IncludedSupplyChainTradeLineItem/ComfortTradeLineItem.js'
 import { ZBasicDocumentLevelNoteTypeXml } from '../../types/ram/NoteType/BasicDocumentLevelNoteType.js'
 import { ZReferencedDocumentTypeXml_docId_issueDate } from '../../types/ram/ReferencedDocumentConverter.js'
 import { ZSpecifiedTaxRegistrationsForSellerTypeXml } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter.js'
@@ -44,7 +45,10 @@ export const ZComfortProfileXml = z.object({
                 .optional()
         }),
         'rsm:SupplyChainTradeTransaction': z.object({
-            'ram:IncludedSupplyChainTradeLineItem': z.union([ZBasicTradeLineItemXml, ZBasicTradeLineItemXml.array()]),
+            'ram:IncludedSupplyChainTradeLineItem': z.union([
+                ZComfortTradeLineItemXml,
+                ZComfortTradeLineItemXml.array()
+            ]),
             'ram:ApplicableHeaderTradeAgreement': z.object({
                 'ram:BuyerReference': ZTextTypeXml.optional(),
                 'ram:SellerTradeParty': ZTradePartyTypeXml.extend({
@@ -58,9 +62,23 @@ export const ZComfortProfileXml = z.object({
                             'ram:TradingBusinessName': ZTextTypeXml.optional()
                         })
                         .optional(),
-                    'ram:SpecifiedTaxRegistration': ZSpecifiedTaxRegistrationsForSellerTypeXml.optional()
+                    'ram:SpecifiedTaxRegistration': ZSpecifiedTaxRegistrationsForSellerTypeXml.optional(),
+                    'ram:Description': ZTextTypeXml.optional(),
+                    'ram:DefinedTradeContact': z
+                        .union([ZComfortTradeContactTypeXml, ZComfortTradeContactTypeXml.array()])
+                        .optional()
                 }),
-                'ram:BuyerTradeParty': ZTradePartyTypeXml,
+                'ram:BuyerTradeParty': ZTradePartyTypeXml.extend({
+                    'ram:SpecifiedLegalOrganization': z
+                        .object({
+                            'ram:ID': ZIdTypeWithOptionalSchemeXml.optional(),
+                            'ram:TradingBusinessName': ZTextTypeXml.optional()
+                        })
+                        .optional(),
+                    'ram:DefinedTradeContact': z
+                        .union([ZComfortTradeContactTypeXml, ZComfortTradeContactTypeXml.array()])
+                        .optional()
+                }),
                 'ram:SellerTaxRepresentativeTradeParty': ZTradePartyTypeXml.omit({
                     'ram:ID': true,
                     'ram:GlobalID': true,

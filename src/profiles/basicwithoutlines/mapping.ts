@@ -148,7 +148,7 @@ const mapping: MappingItem<BasicProfile, BasicProfileXml>[] = [
         converter: new TextTypeConverter()
     },
     {
-        obj: 'buyer.specifiedLegalOrganization',
+        obj: 'buyer.specifiedLegalOrganization.id',
         xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeAgreement.ram:BuyerTradeParty.ram:SpecifiedLegalOrganization.ram:ID',
         converter: new IdTypeWithOptionalSchemeConverter(ISO6523_CODES)
     },
@@ -349,7 +349,7 @@ const mapping: MappingItem<BasicProfile, BasicProfileXml>[] = [
         converter: new TextTypeConverter()
     },
     {
-        obj: 'paymentInformation.payee.specifiedLegalOrganization',
+        obj: 'paymentInformation.payee.specifiedLegalOrganization.id',
         xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeSettlement.ram:PayeeTradeParty.ram:SpecifiedLegalOrganization.ram:ID',
         converter: new IdTypeWithOptionalSchemeConverter(ISO6523_CODES)
     },
