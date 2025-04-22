@@ -25,15 +25,23 @@ import {
     ZBasicPriceAllowanceType,
     ZBasicPriceAllowanceTypeXml
 } from './BasicPriceAllowanceType'
+import {
+    ComfortLineLevelTradeAllowanceChargeType,
+    ComfortLineLevelTradeAllowanceChargeTypeXml,
+    ZComfortLineLevelTradeAllowanceChargeType,
+    ZComfortLineLevelTradeAllowanceChargeTypeXml
+} from './ComfortLineLevelAllowanceChargeType'
 
 export type allowedValueTypes_TradeAllowanceChargeType =
     | BasicDocumentLevelTradeAllowanceChargeType
     | BasicLineLevelTradeAllowanceChargeType
     | BasicPriceAllowanceType
+    | ComfortLineLevelTradeAllowanceChargeType
 export type allowedXmlTypes_TradeAllowanceChargeType =
     | BasicDocumentLevelTradeAllowanceChargeTypeXml
     | BasicLineLevelTradeAllowanceChargeTypeXml
     | BasicPriceAllowanceTypeXml
+    | ComfortLineLevelTradeAllowanceChargeTypeXml
 
 export class TradeAllowanceChargeTypeConverter<
     ValueType extends allowedValueTypes_TradeAllowanceChargeType,
@@ -195,7 +203,7 @@ export class TradeAllowanceChargeTypeConverter<
         )
     }
 
-    public static basicItemLevel(): TradeAllowanceChargeTypeConverter<
+    public static basicLineLevel(): TradeAllowanceChargeTypeConverter<
         BasicLineLevelTradeAllowanceChargeType,
         BasicLineLevelTradeAllowanceChargeTypeXml
     > {
@@ -210,5 +218,15 @@ export class TradeAllowanceChargeTypeConverter<
         BasicPriceAllowanceTypeXml
     > {
         return new TradeAllowanceChargeTypeConverter(ZBasicPriceAllowanceType, ZBasicPriceAllowanceTypeXml)
+    }
+
+    public static comfortLineLevel(): TradeAllowanceChargeTypeConverter<
+        ComfortLineLevelTradeAllowanceChargeType,
+        ComfortLineLevelTradeAllowanceChargeTypeXml
+    > {
+        return new TradeAllowanceChargeTypeConverter(
+            ZComfortLineLevelTradeAllowanceChargeType,
+            ZComfortLineLevelTradeAllowanceChargeTypeXml
+        )
     }
 }

@@ -22,6 +22,12 @@ import {
     ZBasicLineTradeSettlementType,
     ZBasicLineTradeSettlementTypeXml
 } from './BasicLineTradeSettlementType'
+import {
+    ComfortLineTradeSettlementType,
+    ComfortLineTradeSettlementTypeXml,
+    ZComfortLineTradeSettlementType,
+    ZComfortLineTradeSettlementTypeXml
+} from './ComfortLineTradeSettlementType'
 
 export type allowedValueTypes_LineTradeSettlement = BasicLineTradeSettlementType
 export type allowedXmlTypes_LineTradeSettlement = BasicLineTradeSettlementTypeXml
@@ -167,7 +173,16 @@ export class LineTradeSettlementConverter<
             ZBasicLineTradeSettlementType,
             ZBasicLineTradeSettlementTypeXml,
             TradeTaxTypeConverter.basicLineLevel(),
-            TradeAllowanceChargeTypeConverter.basicItemLevel()
+            TradeAllowanceChargeTypeConverter.basicLineLevel()
+        )
+    }
+
+    public static comfort() {
+        return new LineTradeSettlementConverter<ComfortLineTradeSettlementType, ComfortLineTradeSettlementTypeXml>(
+            ZComfortLineTradeSettlementType,
+            ZComfortLineTradeSettlementTypeXml,
+            TradeTaxTypeConverter.basicLineLevel(),
+            TradeAllowanceChargeTypeConverter.comfortLineLevel()
         )
     }
 }

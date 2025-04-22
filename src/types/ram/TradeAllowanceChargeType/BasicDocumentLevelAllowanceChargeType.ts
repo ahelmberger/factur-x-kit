@@ -7,7 +7,7 @@ import { ZIndicatorTypeXml } from '../../udt/IndicatorTypeConverter'
 import { ZPercentType, ZPercentTypeXml } from '../../udt/PercentTypeConverter'
 import { ZTextType, ZTextTypeXml } from '../../udt/TextTypeConverter'
 
-const ZTradeAllowanceChargeBasisType = z.object({
+export const ZTradeAllowanceChargeBasisType = z.object({
     calculationPercent: ZPercentType.optional(),
     basisAmount: ZAmountType.optional(),
     actualAmount: ZAmountType,
@@ -35,7 +35,7 @@ export const ZBasicDocumentLevelTradeAllowanceChargeType = z.object({
 
 export type BasicDocumentLevelTradeAllowanceChargeType = z.infer<typeof ZBasicDocumentLevelTradeAllowanceChargeType>
 
-const ZTradeAllowanceChargeBasisTypeXml = z.object({
+export const ZTradeAllowanceChargeBasisTypeXml = z.object({
     'ram:ChargeIndicator': ZIndicatorTypeXml,
     'ram:CalculationPercent': ZPercentTypeXml.optional(),
     'ram:BasisAmount': ZAmountTypeXml.optional(),
