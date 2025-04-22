@@ -250,13 +250,13 @@ const mapping: MappingItem<BasicProfile, BasicProfileXml>[] = [
     },
     {
         obj: 'referencedDocuments.orderReference',
-        xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeAgreement.ram:BuyerOrderReferencedDocument.ram:IssuerAssignedID',
-        converter: new IdTypeConverter()
+        xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeAgreement.ram:BuyerOrderReferencedDocument',
+        converter: ReferencedDocumentTypeConverter.documentId()
     },
     {
         obj: 'referencedDocuments.contractReference',
-        xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeAgreement.ram:ContractReferencedDocument.ram:IssuerAssignedID',
-        converter: new IdTypeConverter()
+        xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeAgreement.ram:ContractReferencedDocument',
+        converter: ReferencedDocumentTypeConverter.documentId()
     },
 
     {
@@ -316,8 +316,8 @@ const mapping: MappingItem<BasicProfile, BasicProfileXml>[] = [
     },
     {
         obj: 'referencedDocuments.advanceShippingNotice',
-        xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeDelivery.ram:DespatchAdviceReferencedDocument.ram:IssuerAssignedID',
-        converter: new IdTypeConverter()
+        xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeDelivery.ram:DespatchAdviceReferencedDocument',
+        converter: ReferencedDocumentTypeConverter.documentId()
     },
     {
         obj: 'paymentInformation.creditorReference',

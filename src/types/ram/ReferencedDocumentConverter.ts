@@ -1,6 +1,8 @@
 import { z } from 'zod'
 
+import { CodeTypeConverter, ZCodeType } from '../CodeTypeConverter'
 import { ExtendableBaseTypeConverter } from '../ExtendableBaseTypeConverter'
+import { UNTDID_1153 } from '../codes'
 import { DateTimeTypeConverter_qdt, ZDateTimeTypeXml_qdt } from '../qdt/DateTimeTypeConverter'
 import { BinaryObjectTypeConverter, ZBinaryObjectType, ZBinaryObjectTypeXml } from '../udt/BinaryObjectTypeConverter'
 import { ZDateTimeType } from '../udt/DateTimeTypeConverter'
@@ -12,10 +14,11 @@ const ZReferencedDocumentType = z.object({
     documentId: ZIdType.optional(),
     uriid: ZIdType.optional(),
     lineId: ZIdType.optional(),
+    //--> TODO: Delete typecode and replace by default
     typeCode: ZIdType.optional(),
     name: ZTextType.optional(),
     attachmentBinaryObject: ZBinaryObjectType.optional(),
-    referenceTypeCode: ZIdType.optional(),
+    referenceTypeCode: ZCodeType(UNTDID_1153).optional(),
     issueDate: ZDateTimeType.optional()
 })
 
@@ -56,6 +59,18 @@ export const ZReferencedDocumentTypeXml_lineId = ZReferencedDocumentTypeXml.pick
 
 export type ReferencedDocumentTypeXml_lineId = z.infer<typeof ZReferencedDocumentTypeXml_lineId>
 
+export const ZReferencedDocumentType_documentId = ZReferencedDocumentType.pick({
+    documentId: true
+})
+
+export type ReferencedDocumentType_documentId = z.infer<typeof ZReferencedDocumentType_documentId>
+
+export const ZReferencedDocumentTypeXml_documentId = ZReferencedDocumentTypeXml.pick({
+    'ram:IssuerAssignedID': true
+})
+
+export type ReferencedDocumentTypeXml_documentId = z.infer<typeof ZReferencedDocumentTypeXml_documentId>
+
 export const ZReferencedDocumentType_issuerId_type_referenceType = ZReferencedDocumentType.pick({
     documentId: true,
     typeCode: true,
@@ -91,6 +106,7 @@ export class ReferencedDocumentTypeConverter<
     dateTimeTypeConverter = new DateTimeTypeConverter_qdt()
     textTypeConverter = new TextTypeConverter()
     binaryObjectTypeConverter = new BinaryObjectTypeConverter()
+    referenceTypeCodeTypeConverter = new CodeTypeConverter(UNTDID_1153)
 
     constructor(valueSchema?: z.ZodType<ValueType>, xmlSchema?: z.ZodType<XmlType>) {
         if (!valueSchema) {
@@ -130,7 +146,7 @@ export class ReferencedDocumentTypeConverter<
                     : undefined,
             referenceTypeCode:
                 xml['ram:ReferenceTypeCode'] != null
-                    ? this.idTypeConverter.toValue(xml['ram:ReferenceTypeCode'])
+                    ? this.referenceTypeCodeTypeConverter.toValue(xml['ram:ReferenceTypeCode'])
                     : undefined,
             issueDate:
                 xml['ram:FormattedIssueDateTime'] != null
@@ -152,7 +168,9 @@ export class ReferencedDocumentTypeConverter<
                     ? this.binaryObjectTypeConverter.toXML(value.attachmentBinaryObject)
                     : undefined,
             'ram:ReferenceTypeCode':
-                value.referenceTypeCode != null ? this.idTypeConverter.toXML(value.referenceTypeCode) : undefined,
+                value.referenceTypeCode != null
+                    ? this.referenceTypeCodeTypeConverter.toXML(value.referenceTypeCode)
+                    : undefined,
             'ram:FormattedIssueDateTime':
                 value.issueDate != null ? this.dateTimeTypeConverter.toXML(value.issueDate) : undefined
         }
@@ -177,5 +195,12 @@ export class ReferencedDocumentTypeConverter<
             ReferencedDocumentType_issuerId_type_referenceType,
             ReferencedDocumentTypeXml_issuerId_type_referenceType
         >(ZReferencedDocumentType_issuerId_type_referenceType, ZReferencedDocumentTypeXml_issuerId_type_referenceType)
+    }
+
+    public static documentId() {
+        return new ReferencedDocumentTypeConverter<
+            ReferencedDocumentType_documentId,
+            ReferencedDocumentTypeXml_documentId
+        >(ZReferencedDocumentType_documentId, ZReferencedDocumentTypeXml_documentId)
     }
 }

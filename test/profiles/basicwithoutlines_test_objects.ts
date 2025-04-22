@@ -106,9 +106,9 @@ const testBasicWLProfile: BasicWithoutLinesProfile = {
         }
     },
     referencedDocuments: {
-        orderReference: 'ORDER-12345',
-        contractReference: 'CONTRACT-12345',
-        advanceShippingNotice: 'ASN-12345',
+        orderReference: { documentId: 'ORDER-12345' },
+        contractReference: { documentId: 'CONTRACT-12345' },
+        advanceShippingNotice: { documentId: 'ASN-12345' },
         referencedInvoice: [
             { documentId: 'INV-12345', issueDate: new Date('2023-09-01') },
             { documentId: 'INV-67890', issueDate: new Date('2023-09-15') }

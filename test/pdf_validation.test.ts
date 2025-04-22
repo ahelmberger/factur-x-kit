@@ -60,7 +60,7 @@ const testObj: MinimumProfile = {
         }
     },
     referencedDocuments: {
-        orderReference: 'ORD123456'
+        orderReference: { documentId: 'ORD123456' }
     },
     totals: {
         netTotal: 200,

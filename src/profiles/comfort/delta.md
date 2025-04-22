@@ -23,7 +23,7 @@
 -   [x] ApplicableHeaderTradeAgreement/BuyerTradeParty/SpecifiedLegalOrganization/TradingBusinessName
 -   [x] ApplicableHeaderTradeAgreement/BuyerTradeParty/DefinedTradeContact
 
--   [ ] ApplicableHeaderTradeAgreement/SellerOrderReferencedDocument
+-   [x] ApplicableHeaderTradeAgreement/SellerOrderReferencedDocument
 
 -   [ ] ApplicableHeaderTradeAgreement/AdditionalReferencedDocument <Additional supporting RECHNUNGSBEGRÜNDENDE UNTERLAGEN documents>
 -   [ ] ApplicableHeaderTradeAgreement/AdditionalReferencedDocument <BT-17-Tender or lot reference>

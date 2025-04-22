@@ -3,7 +3,10 @@ import { z } from 'zod'
 import { ZComfortTradeContactTypeXml } from '../../types/ram/DefinedTradeContact/ComfortTradeContactType.js'
 import { ZComfortTradeLineItemXml } from '../../types/ram/IncludedSupplyChainTradeLineItem/ComfortTradeLineItem.js'
 import { ZBasicDocumentLevelNoteTypeXml } from '../../types/ram/NoteType/BasicDocumentLevelNoteType.js'
-import { ZReferencedDocumentTypeXml_docId_issueDate } from '../../types/ram/ReferencedDocumentConverter.js'
+import {
+    ZReferencedDocumentTypeXml_docId_issueDate,
+    ZReferencedDocumentTypeXml_documentId
+} from '../../types/ram/ReferencedDocumentConverter.js'
 import { ZSpecifiedTaxRegistrationsForSellerTypeXml } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter.js'
 import { ZSpecifiedTaxRegistrationsTypeXml } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter.js'
 import { ZBasicDocumentLevelTradeAllowanceChargeTypeXml } from '../../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType.js'
@@ -89,16 +92,9 @@ export const ZComfortProfileXml = z.object({
                         'ram:SpecifiedTaxRegistration': ZSpecifiedTaxRegistrationsTypeXml
                     })
                     .optional(),
-                'ram:BuyerOrderReferencedDocument': z
-                    .object({
-                        'ram:IssuerAssignedID': ZTextTypeXml
-                    })
-                    .optional(),
-                'ram:ContractReferencedDocument': z
-                    .object({
-                        'ram:IssuerAssignedID': ZTextTypeXml
-                    })
-                    .optional()
+                'ram:SellerOrderReferencedDocument': ZReferencedDocumentTypeXml_documentId.optional(),
+                'ram:BuyerOrderReferencedDocument': ZReferencedDocumentTypeXml_documentId.optional(),
+                'ram:ContractReferencedDocument': ZReferencedDocumentTypeXml_documentId.optional()
             }),
             'ram:ApplicableHeaderTradeDelivery': z.object({
                 'ram:ShipToTradeParty': ZTradePartyTypeXml.omit({

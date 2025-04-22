@@ -5,7 +5,10 @@ import { CURRENCY_CODES, DOCUMENT_TYPE_CODES, ISO6523_CODES } from '../../types/
 import { ZComfortTradeContactType } from '../../types/ram/DefinedTradeContact/ComfortTradeContactType.js'
 import { ZComfortTradeLineItem } from '../../types/ram/IncludedSupplyChainTradeLineItem/ComfortTradeLineItem.js'
 import { ZBasicDocumentLevelNoteType } from '../../types/ram/NoteType/BasicDocumentLevelNoteType.js'
-import { ZReferencedDocumentType_docId_issueDate } from '../../types/ram/ReferencedDocumentConverter.js'
+import {
+    ZReferencedDocumentType_docId_issueDate,
+    ZReferencedDocumentType_documentId
+} from '../../types/ram/ReferencedDocumentConverter.js'
 import { ZSpecifiedTaxRegistrationsForSellerType } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter.js'
 import { ZSpecifiedTaxRegistrationsType } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter.js'
 import { ZBasicDocumentLevelTradeAllowanceChargeType } from '../../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType.js'
@@ -70,10 +73,11 @@ export const ZComfortProfile = z.object({
     invoiceLines: ZComfortTradeLineItem.array(),
     referencedDocuments: z
         .object({
-            orderReference: ZIdType.optional(),
-            contractReference: ZIdType.optional(),
-            advanceShippingNotice: ZIdType.optional(),
-            referencedInvoice: ZReferencedDocumentType_docId_issueDate.array().optional()
+            orderReference: ZReferencedDocumentType_documentId.optional(),
+            contractReference: ZReferencedDocumentType_documentId.optional(),
+            advanceShippingNotice: ZReferencedDocumentType_documentId.optional(),
+            referencedInvoice: ZReferencedDocumentType_docId_issueDate.array().optional(),
+            orderConfirmationReference: ZReferencedDocumentType_documentId.optional()
         })
         .optional(),
     delivery: z.object({
