@@ -1,102 +1,55 @@
 import { z } from 'zod'
 
-import { CodeTypeConverter, ZCodeType } from '../CodeTypeConverter'
-import { ExtendableBaseTypeConverter } from '../ExtendableBaseTypeConverter'
-import { UNTDID_1153 } from '../codes'
-import { DateTimeTypeConverter_qdt, ZDateTimeTypeXml_qdt } from '../qdt/DateTimeTypeConverter'
-import { BinaryObjectTypeConverter, ZBinaryObjectType, ZBinaryObjectTypeXml } from '../udt/BinaryObjectTypeConverter'
-import { ZDateTimeType } from '../udt/DateTimeTypeConverter'
-import { ZIdType, ZIdTypeXml } from '../udt/IdTypeConverter'
-import { TextTypeConverter, ZTextType, ZTextTypeXml } from '../udt/TextTypeConverter'
-import { TokenTypeConverter } from '../xs/TokenConverter'
-
-const ZReferencedDocumentType = z.object({
-    documentId: ZIdType.optional(),
-    uriid: ZIdType.optional(),
-    lineId: ZIdType.optional(),
-    //--> TODO: Delete typecode and replace by default
-    typeCode: ZIdType.optional(),
-    name: ZTextType.optional(),
-    attachmentBinaryObject: ZBinaryObjectType.optional(),
-    referenceTypeCode: ZCodeType(UNTDID_1153).optional(),
-    issueDate: ZDateTimeType.optional()
-})
-
-const ZReferencedDocumentTypeXml = z.object({
-    'ram:IssuerAssignedID': ZIdTypeXml.optional(),
-    'ram:URIID': ZIdTypeXml.optional(),
-    'ram:LineID': ZIdTypeXml.optional(),
-    'ram:TypeCode': ZIdTypeXml.optional(),
-    'ram:Name': ZTextTypeXml.optional(),
-    'ram:AttachmentBinaryObject': ZBinaryObjectTypeXml.optional(),
-    'ram:ReferenceTypeCode': ZIdTypeXml.optional(),
-    'ram:FormattedIssueDateTime': ZDateTimeTypeXml_qdt.optional()
-})
-
-export const ZReferencedDocumentType_docId_issueDate = ZReferencedDocumentType.pick({
-    documentId: true,
-    issueDate: true
-})
-
-export type ReferencedDocumentType_docId_issueDate = z.infer<typeof ZReferencedDocumentType_docId_issueDate>
-
-export const ZReferencedDocumentTypeXml_docId_issueDate = ZReferencedDocumentTypeXml.pick({
-    'ram:IssuerAssignedID': true,
-    'ram:FormattedIssueDateTime': true
-})
-
-export type ReferencedDocumentTypeXml_docId_issueDate = z.infer<typeof ZReferencedDocumentTypeXml_docId_issueDate>
-
-export const ZReferencedDocumentType_lineId = ZReferencedDocumentType.pick({
-    lineId: true
-})
-
-export type ReferencedDocumentType_lineId = z.infer<typeof ZReferencedDocumentType_lineId>
-
-export const ZReferencedDocumentTypeXml_lineId = ZReferencedDocumentTypeXml.pick({
-    'ram:LineID': true
-})
-
-export type ReferencedDocumentTypeXml_lineId = z.infer<typeof ZReferencedDocumentTypeXml_lineId>
-
-export const ZReferencedDocumentType_documentId = ZReferencedDocumentType.pick({
-    documentId: true
-})
-
-export type ReferencedDocumentType_documentId = z.infer<typeof ZReferencedDocumentType_documentId>
-
-export const ZReferencedDocumentTypeXml_documentId = ZReferencedDocumentTypeXml.pick({
-    'ram:IssuerAssignedID': true
-})
-
-export type ReferencedDocumentTypeXml_documentId = z.infer<typeof ZReferencedDocumentTypeXml_documentId>
-
-export const ZReferencedDocumentType_issuerId_type_referenceType = ZReferencedDocumentType.pick({
-    documentId: true,
-    typeCode: true,
-    referenceTypeCode: true
-})
-
-export type ReferencedDocumentType_issuerId_type_referenceType = z.infer<
-    typeof ZReferencedDocumentType_issuerId_type_referenceType
->
-
-export const ZReferencedDocumentTypeXml_issuerId_type_referenceType = ZReferencedDocumentTypeXml.pick({
-    'ram:IssuerAssignedID': true,
-    'ram:TypeCode': true,
-    'ram:ReferenceTypeCode': true
-})
-
-export type ReferencedDocumentTypeXml_issuerId_type_referenceType = z.infer<
-    typeof ZReferencedDocumentTypeXml_issuerId_type_referenceType
->
+import { CodeTypeConverter } from '../../CodeTypeConverter'
+import { ExtendableBaseTypeConverter } from '../../ExtendableBaseTypeConverter'
+import { UNTDID_1153 } from '../../codes'
+import { DateTimeTypeConverter_qdt } from '../../qdt/DateTimeTypeConverter'
+import { BinaryObjectTypeConverter } from '../../udt/BinaryObjectTypeConverter'
+import { TextTypeConverter } from '../../udt/TextTypeConverter'
+import { TokenTypeConverter } from '../../xs/TokenConverter'
+import {
+    ReferencedDocumentTypeXml_comfort_additionalSupportingDocuments,
+    ReferencedDocumentTypeXml_comfort_invoicedObjectIdentifier,
+    ReferencedDocumentTypeXml_comfort_tenderOrLotReference,
+    ReferencedDocumentType_comfort_additionalSupportingDocuments_forConverter,
+    ReferencedDocumentType_comfort_invoicedObjectIdentifier_forConverter,
+    ReferencedDocumentType_comfort_tenderOrLotReference_forConverter
+} from './AdditionalReferencedDocumentConverter/ComfortAdditonalReferencedDocumentTypes'
+import {
+    ReferencedDocumentTypeXml_additionalDocument_lineLevel_comfort,
+    ReferencedDocumentTypeXml_docId_issueDate,
+    ReferencedDocumentTypeXml_documentId,
+    ReferencedDocumentTypeXml_lineId,
+    ReferencedDocumentType_additionalDocument_lineLevel_comfort,
+    ReferencedDocumentType_docId_issueDate,
+    ReferencedDocumentType_documentId,
+    ReferencedDocumentType_lineId,
+    ZReferencedDocumentTypeXml_additionalDocument_lineLevel_comfort,
+    ZReferencedDocumentTypeXml_docId_issueDate,
+    ZReferencedDocumentTypeXml_documentId,
+    ZReferencedDocumentTypeXml_lineId,
+    ZReferencedDocumentType_additionalDocument_lineLevel_comfort,
+    ZReferencedDocumentType_docId_issueDate,
+    ZReferencedDocumentType_documentId,
+    ZReferencedDocumentType_lineId
+} from './ReferencedDocumentTypes'
 
 export type allowedValueTypes_ReferencedDocumentType =
     | ReferencedDocumentType_docId_issueDate
     | ReferencedDocumentType_lineId
+    | ReferencedDocumentType_additionalDocument_lineLevel_comfort
+    | ReferencedDocumentType_documentId
+    | ReferencedDocumentType_comfort_additionalSupportingDocuments_forConverter
+    | ReferencedDocumentType_comfort_tenderOrLotReference_forConverter
+    | ReferencedDocumentType_comfort_invoicedObjectIdentifier_forConverter
 export type allowedXmlTypes_ReferencedDocumentType =
     | ReferencedDocumentTypeXml_docId_issueDate
     | ReferencedDocumentTypeXml_lineId
+    | ReferencedDocumentTypeXml_additionalDocument_lineLevel_comfort
+    | ReferencedDocumentTypeXml_documentId
+    | ReferencedDocumentTypeXml_comfort_additionalSupportingDocuments
+    | ReferencedDocumentTypeXml_comfort_tenderOrLotReference
+    | ReferencedDocumentTypeXml_comfort_invoicedObjectIdentifier
 
 export class ReferencedDocumentTypeConverter<
     ValueType extends allowedValueTypes_ReferencedDocumentType,
@@ -107,8 +60,9 @@ export class ReferencedDocumentTypeConverter<
     textTypeConverter = new TextTypeConverter()
     binaryObjectTypeConverter = new BinaryObjectTypeConverter()
     referenceTypeCodeTypeConverter = new CodeTypeConverter(UNTDID_1153)
+    typeCode: '50' | '130' | '916' | undefined = undefined
 
-    constructor(valueSchema?: z.ZodType<ValueType>, xmlSchema?: z.ZodType<XmlType>) {
+    constructor(valueSchema?: z.ZodType<ValueType>, xmlSchema?: z.ZodType<XmlType>, typeCode?: '50' | '130' | '916') {
         if (!valueSchema) {
             valueSchema = ZReferencedDocumentType_docId_issueDate as unknown as z.ZodType<
                 ValueType,
@@ -127,6 +81,8 @@ export class ReferencedDocumentTypeConverter<
             valueSchema ?? ZReferencedDocumentType_docId_issueDate,
             xmlSchema ?? ZReferencedDocumentTypeXml_docId_issueDate
         )
+
+        this.typeCode = typeCode
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -192,9 +148,12 @@ export class ReferencedDocumentTypeConverter<
 
     public static issuerId_type_referenceType() {
         return new ReferencedDocumentTypeConverter<
-            ReferencedDocumentType_issuerId_type_referenceType,
-            ReferencedDocumentTypeXml_issuerId_type_referenceType
-        >(ZReferencedDocumentType_issuerId_type_referenceType, ZReferencedDocumentTypeXml_issuerId_type_referenceType)
+            ReferencedDocumentType_additionalDocument_lineLevel_comfort,
+            ReferencedDocumentTypeXml_additionalDocument_lineLevel_comfort
+        >(
+            ZReferencedDocumentType_additionalDocument_lineLevel_comfort,
+            ZReferencedDocumentTypeXml_additionalDocument_lineLevel_comfort
+        )
     }
 
     public static documentId() {

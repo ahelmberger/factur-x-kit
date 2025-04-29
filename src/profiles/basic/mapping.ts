@@ -9,7 +9,7 @@ import {
 } from '../../types/codes.js'
 import { TradeLineItemConverter } from '../../types/ram/IncludedSupplyChainTradeLineItem/IncludedSupplyChainTradeLineItemConverter.js'
 import { NoteTypeConverter } from '../../types/ram/NoteType/NoteTypeConverter.js'
-import { ReferencedDocumentTypeConverter } from '../../types/ram/ReferencedDocumentConverter.js'
+import { ReferencedDocumentTypeConverter } from '../../types/ram/ReferencedDocumentType/ReferencedDocumentConverter.js'
 import { SpecifiedTaxRegistrationsForSellerTypeConverter } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter.js'
 import { SpecifiedTaxRegistrationsTypeConverter } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter.js'
 import { TradeAllowanceChargeTypeConverter } from '../../types/ram/TradeAllowanceChargeType/TradeAllowanceChargeTypeConverter.js'

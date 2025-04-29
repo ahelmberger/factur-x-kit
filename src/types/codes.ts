@@ -4753,3 +4753,8 @@ export enum UNTDID_1153 {
     Previous_cargo_control_number = 'XP',
     Mutually_defined_reference_number = 'ZZZ'
 }
+export enum REFERENCED_DOCUMENT_TYPE_CODES {
+    Validated_priced_tender = '50',
+    Invoice_data_sheet = '130',
+    Reference_paper = '916'
+}

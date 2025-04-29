@@ -5,7 +5,7 @@ import { ExtendableBaseTypeConverter } from '../../../ExtendableBaseTypeConverte
 import { AmountTypeConverter } from '../../../udt/AmountTypeConverter'
 import { DateTimeTypeConverter } from '../../../udt/DateTimeTypeConverter'
 import { IdTypeConverter } from '../../../udt/IdTypeConverter'
-import { ReferencedDocumentTypeConverter } from '../../ReferencedDocumentConverter'
+import { ReferencedDocumentTypeConverter } from '../../ReferencedDocumentType/ReferencedDocumentConverter'
 import {
     TradeAllowanceChargeTypeConverter,
     allowedValueTypes_TradeAllowanceChargeType,

@@ -6,7 +6,7 @@ import {
     ReferencedDocumentTypeConverter,
     allowedValueTypes_ReferencedDocumentType,
     allowedXmlTypes_ReferencedDocumentType
-} from '../../ReferencedDocumentConverter'
+} from '../../ReferencedDocumentType/ReferencedDocumentConverter'
 import {
     BasicLineTradeAgreementType,
     BasicLineTradeAgreementTypeXml,

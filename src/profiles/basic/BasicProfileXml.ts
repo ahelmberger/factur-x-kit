@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 import { ZBasicTradeLineItemXml } from '../../types/ram/IncludedSupplyChainTradeLineItem/BasicTradeLineItem.js'
 import { ZBasicDocumentLevelNoteTypeXml } from '../../types/ram/NoteType/BasicDocumentLevelNoteType.js'
-import { ZReferencedDocumentTypeXml_docId_issueDate } from '../../types/ram/ReferencedDocumentConverter.js'
+import { ZReferencedDocumentTypeXml_docId_issueDate } from '../../types/ram/ReferencedDocumentType/ReferencedDocumentTypes.js'
 import { ZSpecifiedTaxRegistrationsForSellerTypeXml } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter.js'
 import { ZSpecifiedTaxRegistrationsTypeXml } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter.js'
 import { ZBasicDocumentLevelTradeAllowanceChargeTypeXml } from '../../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType.js'

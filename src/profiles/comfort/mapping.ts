@@ -10,7 +10,8 @@ import {
 import { DefinedTradeContactConverter } from '../../types/ram/DefinedTradeContact/DefinedTradeContactConverter.js'
 import { TradeLineItemConverter } from '../../types/ram/IncludedSupplyChainTradeLineItem/IncludedSupplyChainTradeLineItemConverter.js'
 import { NoteTypeConverter } from '../../types/ram/NoteType/NoteTypeConverter.js'
-import { ReferencedDocumentTypeConverter } from '../../types/ram/ReferencedDocumentConverter.js'
+import { AdditionalReferencedDocumentConverter } from '../../types/ram/ReferencedDocumentType/AdditionalReferencedDocumentConverter/AdditionalReferencedDocumentConverter.js'
+import { ReferencedDocumentTypeConverter } from '../../types/ram/ReferencedDocumentType/ReferencedDocumentConverter.js'
 import { SpecifiedTaxRegistrationsForSellerTypeConverter } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter.js'
 import { SpecifiedTaxRegistrationsTypeConverter } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter.js'
 import { TradeAllowanceChargeTypeConverter } from '../../types/ram/TradeAllowanceChargeType/TradeAllowanceChargeTypeConverter.js'
@@ -284,7 +285,11 @@ const mapping: MappingItem<ComfortProfile, ComfortProfileXml>[] = [
         xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeAgreement.ram:ContractReferencedDocument',
         converter: ReferencedDocumentTypeConverter.documentId()
     },
-
+    {
+        obj: 'referencedDocuments.additionalReferences',
+        xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeAgreement.ram:AdditionalReferencedDocument',
+        converter: AdditionalReferencedDocumentConverter.comfort()
+    },
     {
         obj: 'delivery.recipient.id',
         xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeDelivery.ram:ShipToTradeParty.ram:ID',

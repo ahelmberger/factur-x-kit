@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 import { ZCodeType } from '../../types/CodeTypeConverter'
 import { CURRENCY_CODES, DOCUMENT_TYPE_CODES, ISO6523_CODES } from '../../types/codes'
-import { ZReferencedDocumentType_documentId } from '../../types/ram/ReferencedDocumentConverter'
+import { ZReferencedDocumentType_documentId } from '../../types/ram/ReferencedDocumentType/ReferencedDocumentTypes'
 import { ZSpecifiedTaxRegistrationsForSellerType } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter'
 import { ZAmountType } from '../../types/udt/AmountTypeConverter'
 import { ZAmountTypeWithRequiredCurrency } from '../../types/udt/AmountTypeWithRequiredCurrencyConverter'

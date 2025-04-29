@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { ZAmountType, ZAmountTypeXml } from '../../../udt/AmountTypeConverter'
 import { ZDateTimeType, ZDateTimeTypeXml } from '../../../udt/DateTimeTypeConverter'
 import { ZIdType, ZIdTypeXml } from '../../../udt/IdTypeConverter'
-import { ZReferencedDocumentTypeXml_issuerId_type_referenceType } from '../../ReferencedDocumentConverter'
+import { ZReferencedDocumentTypeXml_additionalDocument_lineLevel_comfort } from '../../ReferencedDocumentType/ReferencedDocumentTypes'
 import {
     ZBasicLineLevelTradeAllowanceChargeType,
     ZBasicLineLevelTradeAllowanceChargeTypeXml
@@ -25,7 +25,7 @@ export const ZComfortLineTradeSettlementType = z.object({
     lineTotals: z.object({
         netTotal: ZAmountType
     }),
-    additionalReferences: ZReferencedDocumentTypeXml_issuerId_type_referenceType.array().max(1).optional(),
+    additionalReferences: ZReferencedDocumentTypeXml_additionalDocument_lineLevel_comfort.array().max(1).optional(),
     accountingInformation: z
         .object({
             id: ZIdType
@@ -48,8 +48,8 @@ export const ZComfortLineTradeSettlementTypeXml = z.object({
         'ram:LineTotalAmount': ZAmountTypeXml
     }),
     'ram:AdditionalReferencedDocument': z.union([
-        ZReferencedDocumentTypeXml_issuerId_type_referenceType,
-        ZReferencedDocumentTypeXml_issuerId_type_referenceType.array()
+        ZReferencedDocumentTypeXml_additionalDocument_lineLevel_comfort,
+        ZReferencedDocumentTypeXml_additionalDocument_lineLevel_comfort.array()
     ]),
     'ram:ReceivableSpecifiedTradeAccountingAccount': z
         .object({

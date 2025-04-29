@@ -3,10 +3,11 @@ import { z } from 'zod'
 import { ZComfortTradeContactTypeXml } from '../../types/ram/DefinedTradeContact/ComfortTradeContactType.js'
 import { ZComfortTradeLineItemXml } from '../../types/ram/IncludedSupplyChainTradeLineItem/ComfortTradeLineItem.js'
 import { ZBasicDocumentLevelNoteTypeXml } from '../../types/ram/NoteType/BasicDocumentLevelNoteType.js'
+import { ZAdditionalReferencedDocumentTypeXml_comfort } from '../../types/ram/ReferencedDocumentType/AdditionalReferencedDocumentConverter/ComfortAdditonalReferencedDocumentTypes.js'
 import {
     ZReferencedDocumentTypeXml_docId_issueDate,
     ZReferencedDocumentTypeXml_documentId
-} from '../../types/ram/ReferencedDocumentConverter.js'
+} from '../../types/ram/ReferencedDocumentType/ReferencedDocumentTypes.js'
 import { ZSpecifiedTaxRegistrationsForSellerTypeXml } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter.js'
 import { ZSpecifiedTaxRegistrationsTypeXml } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter.js'
 import { ZBasicDocumentLevelTradeAllowanceChargeTypeXml } from '../../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType.js'
@@ -94,7 +95,8 @@ export const ZComfortProfileXml = z.object({
                     .optional(),
                 'ram:SellerOrderReferencedDocument': ZReferencedDocumentTypeXml_documentId.optional(),
                 'ram:BuyerOrderReferencedDocument': ZReferencedDocumentTypeXml_documentId.optional(),
-                'ram:ContractReferencedDocument': ZReferencedDocumentTypeXml_documentId.optional()
+                'ram:ContractReferencedDocument': ZReferencedDocumentTypeXml_documentId.optional(),
+                'ram:AdditionalReferencedDocument': ZAdditionalReferencedDocumentTypeXml_comfort.optional()
             }),
             'ram:ApplicableHeaderTradeDelivery': z.object({
                 'ram:ShipToTradeParty': ZTradePartyTypeXml.omit({

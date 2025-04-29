@@ -25,9 +25,9 @@
 
 -   [x] ApplicableHeaderTradeAgreement/SellerOrderReferencedDocument
 
--   [ ] ApplicableHeaderTradeAgreement/AdditionalReferencedDocument <Additional supporting RECHNUNGSBEGRÜNDENDE UNTERLAGEN documents>
--   [ ] ApplicableHeaderTradeAgreement/AdditionalReferencedDocument <BT-17-Tender or lot reference>
--   [ ] ApplicableHeaderTradeAgreement/AdditionalReferencedDocument <BT-18-Invoiced object identifier>
+-   [x] ApplicableHeaderTradeAgreement/AdditionalReferencedDocument <Additional supporting RECHNUNGSBEGRÜNDENDE UNTERLAGEN documents>
+-   [x] ApplicableHeaderTradeAgreement/AdditionalReferencedDocument <BT-17-Tender or lot reference>
+-   [x] ApplicableHeaderTradeAgreement/AdditionalReferencedDocument <BT-18-Invoiced object identifier>
 
 -   [ ] ApplicableHeaderTradeAgreement/SpecifiedProcuringProject
 

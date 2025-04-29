@@ -1,6 +1,9 @@
 import { z } from 'zod'
 
-import { ZReferencedDocumentTypeXml_lineId, ZReferencedDocumentType_lineId } from '../../ReferencedDocumentConverter'
+import {
+    ZReferencedDocumentTypeXml_lineId,
+    ZReferencedDocumentType_lineId
+} from '../../ReferencedDocumentType/ReferencedDocumentTypes'
 import {
     ZBasicGrossPriceProductTradePriceType,
     ZBasicGrossPriceProductTradePriceTypeXml

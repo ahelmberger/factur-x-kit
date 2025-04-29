@@ -7,7 +7,7 @@ import { ZBasicDocumentLevelNoteType } from '../../types/ram/NoteType/BasicDocum
 import {
     ZReferencedDocumentType_docId_issueDate,
     ZReferencedDocumentType_documentId
-} from '../../types/ram/ReferencedDocumentConverter.js'
+} from '../../types/ram/ReferencedDocumentType/ReferencedDocumentTypes.js'
 import { ZSpecifiedTaxRegistrationsForSellerType } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter.js'
 import { ZSpecifiedTaxRegistrationsType } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter.js'
 import { ZBasicDocumentLevelTradeAllowanceChargeType } from '../../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType.js'

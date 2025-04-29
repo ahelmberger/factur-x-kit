@@ -39,8 +39,8 @@ import {
     allowedXmlTypes_TradeProduct
 } from './SpecifiedTradeProduct/SpecifiedTradeProductConverter'
 
-export type allowedValueTypes_TradeLineItemConverter = BasicTradeLineItem
-export type allowedXmlTypes_TradeLineItemConverter = BasicTradeLineItemXml
+export type allowedValueTypes_TradeLineItemConverter = BasicTradeLineItem | ComfortTradeLineItem
+export type allowedXmlTypes_TradeLineItemConverter = BasicTradeLineItemXml | ComfortTradeLineItemXml
 
 export class TradeLineItemConverter<
     ValueType extends allowedValueTypes_TradeLineItemConverter,
