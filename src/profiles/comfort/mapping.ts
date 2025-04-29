@@ -291,6 +291,16 @@ const mapping: MappingItem<ComfortProfile, ComfortProfileXml>[] = [
         converter: AdditionalReferencedDocumentConverter.comfort()
     },
     {
+        obj: 'referencedDocuments.projectReference.id',
+        xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeAgreement.ram:SpecifiedProcuringProject.ram:ID',
+        converter: new IdTypeConverter()
+    },
+    {
+        obj: 'referencedDocuments.projectReference.name',
+        xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeAgreement.ram:SpecifiedProcuringProject.ram:Name',
+        converter: new TextTypeConverter()
+    },
+    {
         obj: 'delivery.recipient.id',
         xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeDelivery.ram:ShipToTradeParty.ram:ID',
         converter: new IdTypeConverter()

@@ -79,6 +79,10 @@ export const ZComfortProfile = z.object({
             advanceShippingNotice: ZReferencedDocumentType_documentId.optional(),
             referencedInvoice: ZReferencedDocumentType_docId_issueDate.array().optional(),
             orderConfirmationReference: ZReferencedDocumentType_documentId.optional(),
+            projectReference: z.object({
+                id: ZIdType,
+                name: ZTextType
+            }),
             additionalReferences: ZAdditionalReferencedDocumentType_comfort.optional()
         })
         .optional(),

@@ -29,7 +29,7 @@
 -   [x] ApplicableHeaderTradeAgreement/AdditionalReferencedDocument <BT-17-Tender or lot reference>
 -   [x] ApplicableHeaderTradeAgreement/AdditionalReferencedDocument <BT-18-Invoiced object identifier>
 
--   [ ] ApplicableHeaderTradeAgreement/SpecifiedProcuringProject
+-   [x] ApplicableHeaderTradeAgreement/SpecifiedProcuringProject
 
 ### ApplicableHeaderTradeDelivery
 

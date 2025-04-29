@@ -96,7 +96,13 @@ export const ZComfortProfileXml = z.object({
                 'ram:SellerOrderReferencedDocument': ZReferencedDocumentTypeXml_documentId.optional(),
                 'ram:BuyerOrderReferencedDocument': ZReferencedDocumentTypeXml_documentId.optional(),
                 'ram:ContractReferencedDocument': ZReferencedDocumentTypeXml_documentId.optional(),
-                'ram:AdditionalReferencedDocument': ZAdditionalReferencedDocumentTypeXml_comfort.optional()
+                'ram:AdditionalReferencedDocument': ZAdditionalReferencedDocumentTypeXml_comfort.optional(),
+                'ram:SpecifiedProcuringProject': z
+                    .object({
+                        'ram:ID': ZIdTypeXml,
+                        'ram:Name': ZTextTypeXml
+                    })
+                    .optional()
             }),
             'ram:ApplicableHeaderTradeDelivery': z.object({
                 'ram:ShipToTradeParty': ZTradePartyTypeXml.omit({
