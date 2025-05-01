@@ -11,7 +11,7 @@ import {
 import { ZSpecifiedTaxRegistrationsForSellerTypeXml } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter.js'
 import { ZSpecifiedTaxRegistrationsTypeXml } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter.js'
 import { ZBasicDocumentLevelTradeAllowanceChargeTypeXml } from '../../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType.js'
-import { ZTradeSettlementPaymentMeansTypeXml } from '../../types/ram/TradeSettlementPaymentMeansTypeConverter.js'
+import { ZComfortPaymentMeansTypeXml } from '../../types/ram/TradeSettlementPaymentMeansType/ComfortTradeSettlementPaymentMeansType.js'
 import { ZBasicDocumentLevelTradeTaxTypeXml } from '../../types/ram/TradeTaxType/BasicDocumentLevelTradeTaxType.js'
 import { ZAmountTypeXml } from '../../types/udt/AmountTypeConverter.js'
 import { ZAmountTypeWithRequiredCurrencyXml } from '../../types/udt/AmountTypeWithRequiredCurrencyConverter.js'
@@ -119,11 +119,8 @@ export const ZComfortProfileXml = z.object({
                         'ram:OccurrenceDateTime': ZDateTimeTypeXml
                     })
                     .optional(),
-                'ram:DespatchAdviceReferencedDocument': z
-                    .object({
-                        'ram:IssuerAssignedID': ZTextTypeXml
-                    })
-                    .optional()
+                'ram:DespatchAdviceReferencedDocument': ZReferencedDocumentTypeXml_documentId.optional(),
+                'ram:ReceivingAdviceReferencedDocument': ZReferencedDocumentTypeXml_documentId.optional()
             }),
             'ram:ApplicableHeaderTradeSettlement': z.object({
                 'ram:CreditorReferenceID': ZIdTypeXml.optional(),
@@ -137,7 +134,7 @@ export const ZComfortProfileXml = z.object({
                     'ram:SpecifiedLegalOrganization': true
                 }).optional(),
                 'ram:SpecifiedTradeSettlementPaymentMeans': z
-                    .union([ZTradeSettlementPaymentMeansTypeXml, ZTradeSettlementPaymentMeansTypeXml.array()])
+                    .union([ZComfortPaymentMeansTypeXml, ZComfortPaymentMeansTypeXml.array()])
                     .optional(),
                 'ram:ApplicableTradeTax': z.union([
                     ZBasicDocumentLevelTradeTaxTypeXml,

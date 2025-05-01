@@ -13,7 +13,7 @@ import { ReferencedDocumentTypeConverter } from '../../types/ram/ReferencedDocum
 import { SpecifiedTaxRegistrationsForSellerTypeConverter } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter.js'
 import { SpecifiedTaxRegistrationsTypeConverter } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter.js'
 import { TradeAllowanceChargeTypeConverter } from '../../types/ram/TradeAllowanceChargeType/TradeAllowanceChargeTypeConverter.js'
-import { TradeSettlementPaymentMeansTypeConverter } from '../../types/ram/TradeSettlementPaymentMeansTypeConverter.js'
+import { TradeSettlementPaymentMeansTypeConverter } from '../../types/ram/TradeSettlementPaymentMeansType/TradeSettlementPaymentMeansTypeConverter.js'
 import { TradeTaxTypeConverter } from '../../types/ram/TradeTaxType/TradeTaxTypeConverter.js'
 import { AmountTypeConverter } from '../../types/udt/AmountTypeConverter.js'
 import { AmountTypeWithRequiredCurrencyConverter } from '../../types/udt/AmountTypeWithRequiredCurrencyConverter.js'
@@ -362,7 +362,7 @@ const mapping: MappingItem<BasicProfile, BasicProfileXml>[] = [
     {
         obj: 'paymentInformation.paymentMeans',
         xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeSettlement.ram:SpecifiedTradeSettlementPaymentMeans',
-        converter: new ArrayConverter(new TradeSettlementPaymentMeansTypeConverter())
+        converter: new ArrayConverter(TradeSettlementPaymentMeansTypeConverter.basic())
     },
     {
         obj: 'totals.taxBreakdown',

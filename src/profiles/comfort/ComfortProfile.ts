@@ -13,7 +13,7 @@ import {
 import { ZSpecifiedTaxRegistrationsForSellerType } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter.js'
 import { ZSpecifiedTaxRegistrationsType } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter.js'
 import { ZBasicDocumentLevelTradeAllowanceChargeType } from '../../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType.js'
-import { ZPaymentMeansType } from '../../types/ram/TradeSettlementPaymentMeansTypeConverter.js'
+import { ZComfortPaymentMeansType } from '../../types/ram/TradeSettlementPaymentMeansType/ComfortTradeSettlementPaymentMeansType.js'
 import { ZBasicDocumentLevelTradeTaxType } from '../../types/ram/TradeTaxType/BasicDocumentLevelTradeTaxType.js'
 import { ZAmountType } from '../../types/udt/AmountTypeConverter.js'
 import { ZAmountTypeWithRequiredCurrency } from '../../types/udt/AmountTypeWithRequiredCurrencyConverter.js'
@@ -83,6 +83,7 @@ export const ZComfortProfile = z.object({
                 id: ZIdType,
                 name: ZTextType
             }),
+            receivingAdviceReference: ZReferencedDocumentType_documentId.optional(),
             additionalReferences: ZAdditionalReferencedDocumentType_comfort.optional()
         })
         .optional(),
@@ -105,7 +106,7 @@ export const ZComfortProfile = z.object({
             name: true,
             specifiedLegalOrganization: true
         }).optional(),
-        paymentMeans: ZPaymentMeansType.array().optional(),
+        paymentMeans: ZComfortPaymentMeansType.array().optional(),
         billingPeriod: z
             .object({
                 startDate: ZDateTimeType.optional(),

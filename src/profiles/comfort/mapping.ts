@@ -15,7 +15,7 @@ import { ReferencedDocumentTypeConverter } from '../../types/ram/ReferencedDocum
 import { SpecifiedTaxRegistrationsForSellerTypeConverter } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter.js'
 import { SpecifiedTaxRegistrationsTypeConverter } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter.js'
 import { TradeAllowanceChargeTypeConverter } from '../../types/ram/TradeAllowanceChargeType/TradeAllowanceChargeTypeConverter.js'
-import { TradeSettlementPaymentMeansTypeConverter } from '../../types/ram/TradeSettlementPaymentMeansTypeConverter.js'
+import { TradeSettlementPaymentMeansTypeConverter } from '../../types/ram/TradeSettlementPaymentMeansType/TradeSettlementPaymentMeansTypeConverter.js'
 import { TradeTaxTypeConverter } from '../../types/ram/TradeTaxType/TradeTaxTypeConverter.js'
 import { AmountTypeConverter } from '../../types/udt/AmountTypeConverter.js'
 import { AmountTypeWithRequiredCurrencyConverter } from '../../types/udt/AmountTypeWithRequiredCurrencyConverter.js'
@@ -361,6 +361,11 @@ const mapping: MappingItem<ComfortProfile, ComfortProfileXml>[] = [
         converter: ReferencedDocumentTypeConverter.documentId()
     },
     {
+        obj: 'referencedDocuments.receivingAdviceReference',
+        xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeDelivery.ram:ReceivingAdviceReferencedDocument',
+        converter: ReferencedDocumentTypeConverter.documentId()
+    },
+    {
         obj: 'paymentInformation.creditorReference',
         xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeSettlement.ram:CreditorReferenceID',
         converter: new IdTypeConverter()
@@ -403,7 +408,7 @@ const mapping: MappingItem<ComfortProfile, ComfortProfileXml>[] = [
     {
         obj: 'paymentInformation.paymentMeans',
         xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeSettlement.ram:SpecifiedTradeSettlementPaymentMeans',
-        converter: new ArrayConverter(new TradeSettlementPaymentMeansTypeConverter())
+        converter: new ArrayConverter(TradeSettlementPaymentMeansTypeConverter.comfort())
     },
     {
         obj: 'totals.taxBreakdown',

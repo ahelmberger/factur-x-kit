@@ -92,7 +92,7 @@ export class ReferencedDocumentTypeConverter<
                 xml['ram:IssuerAssignedID'] != null
                     ? this.idTypeConverter.toValue(xml['ram:IssuerAssignedID'])
                     : undefined,
-            uriid: xml['ram:'] != null ? this.idTypeConverter.toValue(xml['ram:']) : undefined,
+            uriid: xml['ram:URIID'] != null ? this.idTypeConverter.toValue(xml['ram:URIID']) : undefined,
             lineId: xml['ram:LineID'] != null ? this.idTypeConverter.toValue(xml['ram:LineID']) : undefined,
             typeCode: xml['ram:TypeCode'] != null ? this.idTypeConverter.toValue(xml['ram:TypeCode']) : undefined,
             name: xml['ram:Name'] != null ? this.textTypeConverter.toValue(xml['ram:Name']) : undefined,

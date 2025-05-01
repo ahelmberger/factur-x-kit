@@ -33,13 +33,14 @@
 
 ### ApplicableHeaderTradeDelivery
 
--   [ ] ApplicableHeaderTradeDelivery/ReceivingAdviceReferencedDocument
+-   [x] ApplicableHeaderTradeDelivery/ReceivingAdviceReferencedDocument
 
 ### ApplicableHeaderTradeSettlement
 
--   [ ] ApplicableHeaderTradeSettlement/SpecifiedTradeSettlementPaymentMeans/ApplicableTradeSettlementFinancialCard
--   [ ] ApplicableHeaderTradeSettlement/SpecifiedTradeSettlementPaymentMeans/PayeePartyCreditorFinancialAccount/AccountName
--   [ ] ApplicableHeaderTradeSettlement/SpecifiedTradeSettlementPaymentMeans/PayeeSpecifiedCreditorFinancialInstitution
+-   [x] ApplicableHeaderTradeSettlement/SpecifiedTradeSettlementPaymentMeans/Information
+-   [x] ApplicableHeaderTradeSettlement/SpecifiedTradeSettlementPaymentMeans/ApplicableTradeSettlementFinancialCard
+-   [x] ApplicableHeaderTradeSettlement/SpecifiedTradeSettlementPaymentMeans/PayeePartyCreditorFinancialAccount/AccountName
+-   [x] ApplicableHeaderTradeSettlement/SpecifiedTradeSettlementPaymentMeans/PayeeSpecifiedCreditorFinancialInstitution
 
 -   [ ] ApplicableHeaderTradeSettlement/ApplicableTradeTax/TaxPointDate
 

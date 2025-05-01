@@ -2,11 +2,14 @@ import { z } from 'zod'
 
 import { ZBasicTradeLineItemXml } from '../../types/ram/IncludedSupplyChainTradeLineItem/BasicTradeLineItem.js'
 import { ZBasicDocumentLevelNoteTypeXml } from '../../types/ram/NoteType/BasicDocumentLevelNoteType.js'
-import { ZReferencedDocumentTypeXml_docId_issueDate } from '../../types/ram/ReferencedDocumentType/ReferencedDocumentTypes.js'
+import {
+    ZReferencedDocumentTypeXml_docId_issueDate,
+    ZReferencedDocumentTypeXml_documentId
+} from '../../types/ram/ReferencedDocumentType/ReferencedDocumentTypes.js'
 import { ZSpecifiedTaxRegistrationsForSellerTypeXml } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter.js'
 import { ZSpecifiedTaxRegistrationsTypeXml } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter.js'
 import { ZBasicDocumentLevelTradeAllowanceChargeTypeXml } from '../../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType.js'
-import { ZTradeSettlementPaymentMeansTypeXml } from '../../types/ram/TradeSettlementPaymentMeansTypeConverter.js'
+import { ZBasicPaymentMeansTypeXml } from '../../types/ram/TradeSettlementPaymentMeansType/BasicTradeSettlementPaymentMeansType.js'
 import { ZBasicDocumentLevelTradeTaxTypeXml } from '../../types/ram/TradeTaxType/BasicDocumentLevelTradeTaxType.js'
 import { ZAmountTypeXml } from '../../types/udt/AmountTypeConverter.js'
 import { ZAmountTypeWithRequiredCurrencyXml } from '../../types/udt/AmountTypeWithRequiredCurrencyConverter.js'
@@ -71,16 +74,8 @@ export const ZBasicProfileXml = z.object({
                         'ram:SpecifiedTaxRegistration': ZSpecifiedTaxRegistrationsTypeXml
                     })
                     .optional(),
-                'ram:BuyerOrderReferencedDocument': z
-                    .object({
-                        'ram:IssuerAssignedID': ZTextTypeXml
-                    })
-                    .optional(),
-                'ram:ContractReferencedDocument': z
-                    .object({
-                        'ram:IssuerAssignedID': ZTextTypeXml
-                    })
-                    .optional()
+                'ram:BuyerOrderReferencedDocument': ZReferencedDocumentTypeXml_documentId.optional(),
+                'ram:ContractReferencedDocument': ZReferencedDocumentTypeXml_documentId.optional()
             }),
             'ram:ApplicableHeaderTradeDelivery': z.object({
                 'ram:ShipToTradeParty': ZTradePartyTypeXml.omit({
@@ -97,11 +92,7 @@ export const ZBasicProfileXml = z.object({
                         'ram:OccurrenceDateTime': ZDateTimeTypeXml
                     })
                     .optional(),
-                'ram:DespatchAdviceReferencedDocument': z
-                    .object({
-                        'ram:IssuerAssignedID': ZTextTypeXml
-                    })
-                    .optional()
+                'ram:DespatchAdviceReferencedDocument': ZReferencedDocumentTypeXml_documentId.optional()
             }),
             'ram:ApplicableHeaderTradeSettlement': z.object({
                 'ram:CreditorReferenceID': ZIdTypeXml.optional(),
@@ -115,7 +106,7 @@ export const ZBasicProfileXml = z.object({
                     'ram:SpecifiedLegalOrganization': true
                 }).optional(),
                 'ram:SpecifiedTradeSettlementPaymentMeans': z
-                    .union([ZTradeSettlementPaymentMeansTypeXml, ZTradeSettlementPaymentMeansTypeXml.array()])
+                    .union([ZBasicPaymentMeansTypeXml, ZBasicPaymentMeansTypeXml.array()])
                     .optional(),
                 'ram:ApplicableTradeTax': z.union([
                     ZBasicDocumentLevelTradeTaxTypeXml,
