@@ -2,6 +2,7 @@ import { CodeTypeConverter } from '../../CodeTypeConverter'
 import { ExtendableBaseTypeConverter } from '../../ExtendableBaseTypeConverter'
 import { EXEMPTION_REASON_CODES, TAX_CATEGORY_CODES, TAX_TYPE_CODE, TIME_REFERENCE_CODES } from '../../codes'
 import { AmountTypeConverter } from '../../udt/AmountTypeConverter'
+import { DateTimeTypeConverter } from '../../udt/DateTimeTypeConverter'
 import { PercentTypeConverter } from '../../udt/PercentTypeConverter'
 import { TextTypeConverter } from '../../udt/TextTypeConverter'
 import {
@@ -16,9 +17,21 @@ import {
     ZBasicLineLevelTradeTaxType,
     ZBasicLineLevelTradeTaxTypeXml
 } from './BasicLineLevelTradeTaxType'
+import {
+    ComfortDocumentLevelTradeTaxType,
+    ComfortDocumentLevelTradeTaxTypeXml,
+    ZComfortDocumentLevelTradeTaxType,
+    ZComfortDocumentLevelTradeTaxTypeXml
+} from './ComfortDocumentLevelTradeTaxType'
 
-export type allowedValueTypes_TradeTax = BasicDocumentLevelTradeTaxType | BasicLineLevelTradeTaxType
-export type allowedXmlTypes_TradeTax = BasicDocumentLevelTradeTaxTypeXml | BasicLineLevelTradeTaxTypeXml
+export type allowedValueTypes_TradeTax =
+    | BasicDocumentLevelTradeTaxType
+    | BasicLineLevelTradeTaxType
+    | ComfortDocumentLevelTradeTaxType
+export type allowedXmlTypes_TradeTax =
+    | BasicDocumentLevelTradeTaxTypeXml
+    | BasicLineLevelTradeTaxTypeXml
+    | ComfortDocumentLevelTradeTaxTypeXml
 
 export class TradeTaxTypeConverter<
     ValueType extends allowedValueTypes_TradeTax,
@@ -26,6 +39,7 @@ export class TradeTaxTypeConverter<
 > extends ExtendableBaseTypeConverter<ValueType, XmlType> {
     amountTypeConverter = new AmountTypeConverter()
     textTypeConverter = new TextTypeConverter()
+    dateTimeTypeConverter = new DateTimeTypeConverter()
 
     taxTypeCodeConverter = new CodeTypeConverter(TAX_TYPE_CODE)
     taxCategoryCodeConverter = new CodeTypeConverter(TAX_CATEGORY_CODES)
@@ -56,6 +70,10 @@ export class TradeTaxTypeConverter<
                 xml['ram:ExemptionReasonCode'] != null
                     ? this.exemptionReasonCodeConverter.toValue(xml['ram:ExemptionReasonCode'])
                     : undefined,
+            taxPointDate:
+                xml['ram:TaxPointDate'] != null
+                    ? this.dateTimeTypeConverter.toValue(xml['ram:TaxPointDate'])
+                    : undefined,
             dueDateTypeCode:
                 xml['ram:DueDateTypeCode'] != null
                     ? this.timeReferenceCodeConvereter.toValue(xml['ram:DueDateTypeCode'])
@@ -83,6 +101,8 @@ export class TradeTaxTypeConverter<
                 value.exemptionReasonCode != null
                     ? this.exemptionReasonCodeConverter.toXML(value.exemptionReasonCode)
                     : undefined,
+            'ram:TaxPointDate':
+                value.taxPointDate != null ? this.dateTimeTypeConverter.toXML(value.taxPointDate) : undefined,
             'ram:DueDateTypeCode':
                 value.dueDateTypeCode != null
                     ? this.timeReferenceCodeConvereter.toXML(value.dueDateTypeCode)
@@ -98,6 +118,13 @@ export class TradeTaxTypeConverter<
         return new TradeTaxTypeConverter<BasicDocumentLevelTradeTaxType, BasicDocumentLevelTradeTaxTypeXml>(
             ZBasicDocumentLevelTradeTaxType,
             ZBasicDocumentLevelTradeTaxTypeXml
+        )
+    }
+
+    public static comfortDocumentLevel() {
+        return new TradeTaxTypeConverter<ComfortDocumentLevelTradeTaxType, ComfortDocumentLevelTradeTaxTypeXml>(
+            ZComfortDocumentLevelTradeTaxType,
+            ZComfortDocumentLevelTradeTaxTypeXml
         )
     }
 

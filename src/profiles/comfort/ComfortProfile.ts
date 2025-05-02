@@ -14,7 +14,7 @@ import { ZSpecifiedTaxRegistrationsForSellerType } from '../../types/ram/Specifi
 import { ZSpecifiedTaxRegistrationsType } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter.js'
 import { ZBasicDocumentLevelTradeAllowanceChargeType } from '../../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType.js'
 import { ZComfortPaymentMeansType } from '../../types/ram/TradeSettlementPaymentMeansType/ComfortTradeSettlementPaymentMeansType.js'
-import { ZBasicDocumentLevelTradeTaxType } from '../../types/ram/TradeTaxType/BasicDocumentLevelTradeTaxType.js'
+import { ZComfortDocumentLevelTradeTaxType } from '../../types/ram/TradeTaxType/ComfortDocumentLevelTradeTaxType.js'
 import { ZAmountType } from '../../types/udt/AmountTypeConverter.js'
 import { ZAmountTypeWithRequiredCurrency } from '../../types/udt/AmountTypeWithRequiredCurrencyConverter.js'
 import { ZDateTimeType } from '../../types/udt/DateTimeTypeConverter.js'
@@ -128,9 +128,10 @@ export const ZComfortProfile = z.object({
         allowanceTotalAmount: ZAmountType.optional(),
         chargeTotalAmount: ZAmountType.optional(),
         netTotal: ZAmountType,
-        taxBreakdown: ZBasicDocumentLevelTradeTaxType.array(),
+        taxBreakdown: ZComfortDocumentLevelTradeTaxType.array(),
         taxTotal: ZAmountTypeWithRequiredCurrency.array().max(2).optional(),
         taxCurrency: ZCodeType(CURRENCY_CODES).optional(),
+        roundingAmount: ZAmountType.optional(),
         grossTotal: ZAmountType,
         prepaidAmount: ZAmountType.optional(),
         openAmount: ZAmountType

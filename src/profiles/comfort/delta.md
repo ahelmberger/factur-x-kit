@@ -42,6 +42,6 @@
 -   [x] ApplicableHeaderTradeSettlement/SpecifiedTradeSettlementPaymentMeans/PayeePartyCreditorFinancialAccount/AccountName
 -   [x] ApplicableHeaderTradeSettlement/SpecifiedTradeSettlementPaymentMeans/PayeeSpecifiedCreditorFinancialInstitution
 
--   [ ] ApplicableHeaderTradeSettlement/ApplicableTradeTax/TaxPointDate
+-   [x] ApplicableHeaderTradeSettlement/ApplicableTradeTax/TaxPointDate
 
--   [ ] ApplicableHeaderTradeSettlement/SpecifiedTradeSettlementHeaderMonetarySummation/RoundingAmount
+-   [x] ApplicableHeaderTradeSettlement/SpecifiedTradeSettlementHeaderMonetarySummation/RoundingAmount

@@ -44,6 +44,13 @@ export const ZComfortPaymentMeansTypeXml = ZBasicPaymentMeansTypeXml.extend({
             'ram:BICID': ZTokenTypeXml
         })
         .optional()
-})
+}).pick({
+    'ram:TypeCode': true,
+    'ram:Information': true,
+    'ram:ApplicableTradeSettlementFinancialCard': true,
+    'ram:PayerPartyDebtorFinancialAccount': true,
+    'ram:PayeePartyCreditorFinancialAccount': true,
+    'ram:PayeeSpecifiedCreditorFinancialInstitution': true
+}) // .pick is for sorting reasons only
 
 export type ComfortPaymentMeansTypeXml = z.infer<typeof ZComfortPaymentMeansTypeXml>

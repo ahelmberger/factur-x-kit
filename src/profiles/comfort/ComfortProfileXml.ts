@@ -12,7 +12,7 @@ import { ZSpecifiedTaxRegistrationsForSellerTypeXml } from '../../types/ram/Spec
 import { ZSpecifiedTaxRegistrationsTypeXml } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter.js'
 import { ZBasicDocumentLevelTradeAllowanceChargeTypeXml } from '../../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType.js'
 import { ZComfortPaymentMeansTypeXml } from '../../types/ram/TradeSettlementPaymentMeansType/ComfortTradeSettlementPaymentMeansType.js'
-import { ZBasicDocumentLevelTradeTaxTypeXml } from '../../types/ram/TradeTaxType/BasicDocumentLevelTradeTaxType.js'
+import { ZComfortDocumentLevelTradeTaxTypeXml } from '../../types/ram/TradeTaxType/ComfortDocumentLevelTradeTaxType.js'
 import { ZAmountTypeXml } from '../../types/udt/AmountTypeConverter.js'
 import { ZAmountTypeWithRequiredCurrencyXml } from '../../types/udt/AmountTypeWithRequiredCurrencyConverter.js'
 import { ZDateTimeTypeXml } from '../../types/udt/DateTimeTypeConverter.js'
@@ -137,8 +137,8 @@ export const ZComfortProfileXml = z.object({
                     .union([ZComfortPaymentMeansTypeXml, ZComfortPaymentMeansTypeXml.array()])
                     .optional(),
                 'ram:ApplicableTradeTax': z.union([
-                    ZBasicDocumentLevelTradeTaxTypeXml,
-                    ZBasicDocumentLevelTradeTaxTypeXml.array()
+                    ZComfortDocumentLevelTradeTaxTypeXml,
+                    ZComfortDocumentLevelTradeTaxTypeXml.array()
                 ]),
                 'ram:BillingSpecifiedPeriod': z
                     .object({
@@ -162,6 +162,7 @@ export const ZComfortProfileXml = z.object({
                     'ram:TaxTotalAmount': z
                         .union([ZAmountTypeWithRequiredCurrencyXml, ZAmountTypeWithRequiredCurrencyXml.array().max(2)])
                         .optional(),
+                    'ram:RoundingAmount': ZAmountTypeXml.optional(),
                     'ram:GrandTotalAmount': ZAmountTypeXml,
                     'ram:TotalPrepaidAmount': ZAmountTypeXml.optional(),
                     'ram:DuePayableAmount': ZAmountTypeXml

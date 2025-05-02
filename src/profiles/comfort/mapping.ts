@@ -413,7 +413,7 @@ const mapping: MappingItem<ComfortProfile, ComfortProfileXml>[] = [
     {
         obj: 'totals.taxBreakdown',
         xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeSettlement.ram:ApplicableTradeTax',
-        converter: new ArrayConverter(TradeTaxTypeConverter.basicDocumentLevel())
+        converter: new ArrayConverter(TradeTaxTypeConverter.comfortDocumentLevel())
     },
     {
         obj: 'paymentInformation.billingPeriod.startDate',
@@ -469,6 +469,11 @@ const mapping: MappingItem<ComfortProfile, ComfortProfileXml>[] = [
         obj: 'totals.taxTotal',
         xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeSettlement.ram:SpecifiedTradeSettlementHeaderMonetarySummation.ram:TaxTotalAmount',
         converter: new ArrayConverter(new AmountTypeWithRequiredCurrencyConverter())
+    },
+    {
+        obj: 'totals.roundingAmount',
+        xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeSettlement.ram:SpecifiedTradeSettlementHeaderMonetarySummation.ram:RoundingAmount',
+        converter: new AmountTypeConverter()
     },
     {
         obj: 'totals.grossTotal',
