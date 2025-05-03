@@ -3,7 +3,10 @@ import { z } from 'zod'
 import { ZAmountType, ZAmountTypeXml } from '../../../udt/AmountTypeConverter'
 import { ZDateTimeType, ZDateTimeTypeXml } from '../../../udt/DateTimeTypeConverter'
 import { ZIdType, ZIdTypeXml } from '../../../udt/IdTypeConverter'
-import { ZReferencedDocumentTypeXml_additionalDocument_lineLevel_comfort } from '../../ReferencedDocumentType/ReferencedDocumentTypes'
+import {
+    ZReferencedDocumentTypeXml_additionalDocument_lineLevel_comfort,
+    ZReferencedDocumentType_additionalDocument_lineLevel_comfort
+} from '../../ReferencedDocumentType/ReferencedDocumentTypes'
 import {
     ZBasicLineLevelTradeAllowanceChargeType,
     ZBasicLineLevelTradeAllowanceChargeTypeXml
@@ -25,7 +28,7 @@ export const ZComfortLineTradeSettlementType = z.object({
     lineTotals: z.object({
         netTotal: ZAmountType
     }),
-    additionalReferences: ZReferencedDocumentTypeXml_additionalDocument_lineLevel_comfort.array().max(1).optional(),
+    additionalReferences: ZReferencedDocumentType_additionalDocument_lineLevel_comfort.array().max(1).optional(),
     accountingInformation: z
         .object({
             id: ZIdType

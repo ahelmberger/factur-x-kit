@@ -118,9 +118,9 @@ export const ZAdditionalReferencedDocumentTypeXml_comfort = z.union([
 export type AdditionalReferencedDocumentTypeXml_comfort = z.infer<typeof ZAdditionalReferencedDocumentTypeXml_comfort>
 
 export const ZAdditionalReferencedDocumentType_comfort = z.object({
-    invoiceSupportingDocuments: ZReferencedDocumentType_comfort_additionalSupportingDocuments.array(),
-    tenderOrLotReferenceDetails: ZReferencedDocumentType_comfort_tenderOrLotReference.array(),
-    invoiceItemDetails: ZReferencedDocumentType_comfort_invoicedObjectIdentifier.array()
+    invoiceSupportingDocuments: ZReferencedDocumentType_comfort_additionalSupportingDocuments.array().optional(),
+    tenderOrLotReferenceDetails: ZReferencedDocumentType_comfort_tenderOrLotReference.array().optional(),
+    invoiceItemDetails: ZReferencedDocumentType_comfort_invoicedObjectIdentifier.array().optional()
 })
 
 export type AdditionalReferencedDocumentType_comfort = z.infer<typeof ZAdditionalReferencedDocumentType_comfort>

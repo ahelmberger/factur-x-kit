@@ -27,9 +27,7 @@ import { ZTradePartyType } from '../basicwithoutlines/BasicWithoutLinesProfile.j
 export const ZComfortProfile = z.object({
     meta: z.object({
         businessProcessType: ZIdType.optional(),
-        guidelineSpecifiedDocumentContextParameter: z.literal(
-            'urn:cen.eu:en16931:2017#compliant#urn:factur-x.eu:1p0:basic'
-        )
+        guidelineSpecifiedDocumentContextParameter: z.literal('urn:cen.eu:en16931:2017')
     }),
     document: z.object({
         id: ZIdType,
@@ -79,10 +77,12 @@ export const ZComfortProfile = z.object({
             advanceShippingNotice: ZReferencedDocumentType_documentId.optional(),
             referencedInvoice: ZReferencedDocumentType_docId_issueDate.array().optional(),
             orderConfirmationReference: ZReferencedDocumentType_documentId.optional(),
-            projectReference: z.object({
-                id: ZIdType,
-                name: ZTextType
-            }),
+            projectReference: z
+                .object({
+                    id: ZIdType,
+                    name: ZTextType
+                })
+                .optional(),
             receivingAdviceReference: ZReferencedDocumentType_documentId.optional(),
             additionalReferences: ZAdditionalReferencedDocumentType_comfort.optional()
         })
