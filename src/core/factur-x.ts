@@ -8,12 +8,18 @@ import {
     BasicWithoutLinesProfileConverter,
     isBasicWithoutLinesProfile
 } from '../profiles/basicwithoutlines/index.js'
+import { ComfortProfile, isComfortProfile } from '../profiles/comfort/ComfortProfile.js'
+import { ComfortProfileConverter } from '../profiles/comfort/ComfortProfileConverter.js'
 import { MinimumProfile, MinimumProfileConverter, isMinimumProfile } from '../profiles/minimum/index.js'
 import FacturXPdf from './pdf.js'
 import { buildXML, parseXML } from './xml.js'
 
-export type availableProfiles = MinimumProfile | BasicWithoutLinesProfile | BasicProfile
-export type availableConverters = MinimumProfileConverter | BasicWithoutLinesProfileConverter | BasicProfileConverter
+export type availableProfiles = MinimumProfile | BasicWithoutLinesProfile | BasicProfile | ComfortProfile
+export type availableConverters =
+    | MinimumProfileConverter
+    | BasicWithoutLinesProfileConverter
+    | BasicProfileConverter
+    | ComfortProfileConverter
 
 export class FacturX {
     private profile: availableProfiles
@@ -82,6 +88,9 @@ export class FacturX {
     public static async fromObject(data: object): Promise<FacturX> {
         // TODO: cannot use TypeGuards here - rely on given Profile
         // order is important here - most extensive profiles first
+        if (isComfortProfile(data)) {
+            return new FacturX(data, new ComfortProfileConverter())
+        }
         if (isBasicProfile(data)) {
             return new FacturX(data, new BasicProfileConverter())
         }
@@ -143,7 +152,13 @@ export class FacturX {
                 instance._fromXML = xml
                 break
             }
-            case 'urn:cen.eu:en16931:2017':
+            case 'urn:cen.eu:en16931:2017': {
+                const converter = new ComfortProfileConverter()
+                const data = converter.xml2obj(obj)
+                instance = new FacturX(data, converter)
+                instance._fromXML = xml
+                break
+            }
             case 'urn:cen.eu:en16931:2017#conformant#urn:factur-x.eu:1p0:extended':
             case 'urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0':
                 throw new Error(`Profile not yet implemented: ${profileId}`)

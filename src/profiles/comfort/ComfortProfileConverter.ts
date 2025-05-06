@@ -20,7 +20,8 @@ export class ComfortProfileConverter extends Converter<ComfortProfile, ComfortPr
         const result = ZComfortProfileXml.safeParse(xmlObject)
 
         if (!result.success) {
-            console.log(result.error.errors)
+            console.dir(xmlObject, { depth: null })
+            console.dir(result.error.errors, { depth: null })
         }
         return result.success
     }

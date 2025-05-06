@@ -108,7 +108,7 @@ export class TradeSettlementPaymentMeansTypeConverter<
             'ram:PayeePartyCreditorFinancialAccount': value.payeeBankAccount
                 ? {
                       'ram:IBANID':
-                          value.payerBankAccount.iban != null
+                          value.payeeBankAccount.iban != null
                               ? this.tokenTypeConverter.toXML(value.payeeBankAccount.iban)
                               : undefined,
                       'ram:AccountName':

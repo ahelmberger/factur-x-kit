@@ -26,7 +26,7 @@ describe('playground', () => {
 
         const identifier3 = 'Line'
         const { node: node3 } = zodToTs(ZComfortTradeLineItem, identifier3)
-        console.log(printNode(node3))
+        //console.log(printNode(node3))
 
         const identifier4 = 'comfort'
         const { node: node4 } = zodToTs(ZComfortProfile, identifier4)

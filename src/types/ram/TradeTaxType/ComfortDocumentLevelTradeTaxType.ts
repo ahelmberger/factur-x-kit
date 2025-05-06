@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { ZCodeType } from '../../CodeTypeConverter'
 import { EXEMPTION_REASON_CODES, TAX_CATEGORY_CODES, TAX_TYPE_CODE, TIME_REFERENCE_CODES } from '../../codes'
 import { ZAmountType, ZAmountTypeXml } from '../../udt/AmountTypeConverter'
-import { ZDateTimeType } from '../../udt/DateTimeTypeConverter'
+import { ZDateType, ZDateTypeXml } from '../../udt/DateTypeConverter'
 import { ZPercentType, ZPercentTypeXml } from '../../udt/PercentTypeConverter'
 import { ZTextType, ZTextTypeXml } from '../../udt/TextTypeConverter'
 
@@ -14,7 +14,7 @@ export const ZComfortDocumentLevelTradeTaxType = z.object({
     basisAmount: ZAmountType,
     categoryCode: ZCodeType(TAX_CATEGORY_CODES),
     exemptionReasonCode: ZCodeType(EXEMPTION_REASON_CODES).optional(),
-    taxPointDate: ZDateTimeType.optional(),
+    taxPointDate: ZDateType.optional(),
     dueDateTypeCode: ZCodeType(TIME_REFERENCE_CODES).optional(),
     rateApplicablePercent: ZPercentType.optional()
 })
@@ -28,7 +28,7 @@ export const ZComfortDocumentLevelTradeTaxTypeXml = z.object({
     'ram:BasisAmount': ZAmountTypeXml,
     'ram:CategoryCode': ZTextTypeXml,
     'ram:ExemptionReasonCode': ZTextTypeXml.optional(),
-    'ram:TaxPointDate': ZDateTimeType.optional(),
+    'ram:TaxPointDate': ZDateTypeXml.optional(),
     'ram:DueDateTypeCode': ZTextTypeXml.optional(),
     'ram:RateApplicablePercent': ZPercentTypeXml.optional()
 })

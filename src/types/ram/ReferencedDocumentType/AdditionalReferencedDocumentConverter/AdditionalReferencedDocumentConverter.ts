@@ -123,16 +123,17 @@ export class AdditionalReferencedDocumentConverter<
             throw new TypeConverterError('INVALID_VALUE')
         }
 
-        const XmlAdditionalSupportingDocuments = value.invoiceSupportingDocuments
-            ? data.invoiceSupportingDocuments.map(obj => {
-                  return this.additionalSupportingDocumentsTypeConverter._toXML({
-                      ...obj,
-                      typeCode: REFERENCED_DOCUMENT_TYPE_CODES.Reference_paper
+        const XmlAdditionalSupportingDocuments =
+            data.invoiceSupportingDocuments != null
+                ? data.invoiceSupportingDocuments.map(obj => {
+                      return this.additionalSupportingDocumentsTypeConverter._toXML({
+                          ...obj,
+                          typeCode: REFERENCED_DOCUMENT_TYPE_CODES.Reference_paper
+                      })
                   })
-              })
-            : []
+                : []
 
-        const XmlTenderOrLotReferences = value.tenderOrLotReferenceDetails
+        const XmlTenderOrLotReferences = data.tenderOrLotReferenceDetails
             ? data.tenderOrLotReferenceDetails.map(obj => {
                   return this.tenderOrLotTypeConverter._toXML({
                       ...obj,
@@ -141,7 +142,7 @@ export class AdditionalReferencedDocumentConverter<
               })
             : []
 
-        const XmlInvoicedObjectIdentifiers = value.invoiceItemDetails
+        const XmlInvoicedObjectIdentifiers = data.invoiceItemDetails
             ? data.invoiceItemDetails.map(obj => {
                   return this.invoicedObjectIdentifierTypeConverter._toXML({
                       ...obj,

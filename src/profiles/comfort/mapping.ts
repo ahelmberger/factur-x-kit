@@ -63,7 +63,7 @@ const mapping: MappingItem<ComfortProfile, ComfortProfileXml>[] = [
     {
         obj: 'invoiceLines',
         xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:IncludedSupplyChainTradeLineItem',
-        converter: new ArrayConverter(TradeLineItemConverter.basic())
+        converter: new ArrayConverter(TradeLineItemConverter.comfort())
     },
     {
         obj: 'buyer.reference',
@@ -401,7 +401,7 @@ const mapping: MappingItem<ComfortProfile, ComfortProfileXml>[] = [
         converter: new TextTypeConverter()
     },
     {
-        obj: 'paymentInformation.payee.specifiedLegalOrganization',
+        obj: 'paymentInformation.payee.specifiedLegalOrganization.id',
         xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeSettlement.ram:PayeeTradeParty.ram:SpecifiedLegalOrganization.ram:ID',
         converter: new IdTypeWithOptionalSchemeConverter(ISO6523_CODES)
     },

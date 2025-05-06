@@ -14,29 +14,23 @@ import {
     UNTDID_7143
 } from '../../src/types/codes'
 import { ComfortTradeLineItem } from '../../src/types/ram/IncludedSupplyChainTradeLineItem/ComfortTradeLineItem'
-import testBasicProfile from './basicwithoutlines_test_objects'
-
-// Neues Objekt, das exakt die Struktur von lineObject1 beibehält,
-// aber dort vorhandene Werte mit den Werten aus dem gelieferten Objekt überschreibt.
-// Werte, die im gelieferten Objekt nicht gesetzt sind, bleiben erhalten.
+import { testBasicProfile } from './basic_test_objects'
 
 const lineObject1: ComfortTradeLineItem = {
     generalLineData: {
-        // Überschrieben: lineId und lineNote aus dem gelieferten Objekt
         lineId: 'LINE-001',
         lineNote: {
             content: 'First item line note'
         }
     },
     productDescription: {
-        // globalId und name werden aus dem gelieferten Objekt übernommen
         globalId: {
             id: '12345678',
             scheme: ISO6523_CODES.GTIN_Global_Trade_Item_Number
         },
-        sellerProductId: 'COMP-XYZ-123', // bleibt erhalten (nicht im Delta)
+        sellerProductId: 'COMP-XYZ-123',
         name: 'Premium Schrauben 1kg',
-        description: 'Präzisionsgefertigte Komponente aus Edelstahl V4A.', // bleibt erhalten
+        description: 'Präzisionsgefertigte Komponente aus Edelstahl V4A.',
         productCharacteristic: [
             { characteristic: 'Material', value: 'Edelstahl 1.4404' },
             { characteristic: 'Oberfläche', value: 'Gebürstet' }
@@ -50,14 +44,13 @@ const lineObject1: ComfortTradeLineItem = {
                 }
             }
         ],
-        originTradeCountry: COUNTRY_ID_CODES.GERMANY // bleibt erhalten
+        originTradeCountry: COUNTRY_ID_CODES.GERMANY
     },
     productPriceAgreement: {
         referencedOrder: {
-            lineId: 'CUST-PO-12345-LN10' // bleibt erhalten, da nicht im Delta
+            lineId: 'CUST-PO-12345-LN10'
         },
         productGrossPricing: {
-            // Werte aus dem gelieferten Objekt übernommen:
             grossPricePerItem: 23.8,
             priceBaseQuantity: {
                 quantity: 1,
@@ -68,7 +61,6 @@ const lineObject1: ComfortTradeLineItem = {
             }
         },
         productNetPricing: {
-            // Werte aus dem gelieferten Objekt übernommen:
             netPricePerItem: 20.0,
             priceBaseQuantity: {
                 quantity: 1,
@@ -77,7 +69,6 @@ const lineObject1: ComfortTradeLineItem = {
         }
     },
     delivery: {
-        // Delta-Werte übernommen
         itemQuantity: {
             quantity: 5,
             unit: UNIT_CODES.KILOGRAM
@@ -85,15 +76,11 @@ const lineObject1: ComfortTradeLineItem = {
     },
     settlement: {
         tax: {
-            // Werte aus dem gelieferten Objekt übernommen:
             typeCode: TAX_TYPE_CODE.VALUE_ADDED_TAX_VAT,
             categoryCode: TAX_CATEGORY_CODES.STANDARD_RATE,
             rateApplicablePercent: 19
         },
-        // billingPeriod wird nicht übernommen,
-        // da lineObject1 diesen Schlüssel nicht enthält und somit unberührt bleiben soll.
         lineLevelAllowancesAndCharges: {
-            // Überschrieben: allowances aktualisiert
             allowances: [
                 {
                     actualAmount: 5.0,
@@ -103,10 +90,8 @@ const lineObject1: ComfortTradeLineItem = {
             ]
         },
         lineTotals: {
-            // Überschrieben: netTotal aktualisiert
             netTotal: 90.0
         },
-        // Zusätzliche Felder aus lineObject1 werden beibehalten:
         additionalReferences: [
             {
                 documentId: 'Lieferschein LS-9876',
@@ -170,19 +155,15 @@ export const lineObject2: ComfortTradeLineItem = {
     }
 }
 
-// Wir erweitern das bestehende Basic-WithoutLines-Objekt (testBasicProfile) um alle neuen Felder,
-// die im Comfort Profil zusätzlich vorkommen – basierend auf delta.md und der Mappingdefinition.
 export const testComfortProfile: ComfortProfile = {
     ...testBasicProfile,
     meta: {
         ...testBasicProfile.meta,
         guidelineSpecifiedDocumentContextParameter: 'urn:cen.eu:en16931:2017'
     },
-    // Zusätzliche Felder im Seller-Bereich (ApplicableHeaderTradeAgreement)
     seller: {
         ...testBasicProfile.seller,
         otherLegalInformation: 'Verkauf',
-        // Neu: DefinedTradeContact (z. B. für zusätzlichen Ansprechpartner)
         tradeContact: [
             {
                 personName: 'Hans Müller',
@@ -191,7 +172,6 @@ export const testComfortProfile: ComfortProfile = {
             }
         ]
     },
-    // Zusätzliche Felder im Buyer-Bereich (ApplicableHeaderTradeAgreement)
     buyer: {
         ...testBasicProfile.buyer,
         tradeContact: [
@@ -206,25 +186,20 @@ export const testComfortProfile: ComfortProfile = {
             tradingBusinessName: 'Erika GmbH'
         }
     },
-    // Neuer Header-Bereich: ReferencedDocuments und Order- bzw. Contract-Referenzen
     referencedDocuments: {
         ...testBasicProfile.referencedDocuments,
-        // Neu: SellerOrderReferencedDocument (übernimmt über Mapping: orderReference)
         orderReference: {
             documentId: 'SO-98765'
         },
-        // Neu: ContractReferencedDocument (über Mapping: contractReference)
         contractReference: {
             documentId: 'CON-54321'
         },
-        // Zusätzliche Referenzen (AdditionalReferencedDocument)
         additionalReferences: {
-            // Falls im Basic-Objekt bereits vorhanden, übernehmen und erweitern
             invoiceSupportingDocuments: [
                 {
                     documentId: '1234',
-                    name: 'Rapport', // Beispielhafter fester Wert für Additional Document
-                    uriid: 'https://example.com/rapport.pdf', // Beispiel für einen Referenztyp (z.B. Supporting Document)
+                    name: 'Rapport',
+                    uriid: 'https://example.com/rapport.pdf',
                     attachmentBinaryObject: {
                         mimeCode: MIME_CODES.PDF,
                         fileName: 'rapport.pdf'
@@ -256,10 +231,8 @@ export const testComfortProfile: ComfortProfile = {
         }
     },
 
-    // Erweiterung des PaymentInformation-Bereichs (ApplicableHeaderTradeSettlement)
     paymentInformation: {
         ...testBasicProfile.paymentInformation,
-        // Neu: PaymentMeans mit zusätzlichen Informationen
         paymentMeans: [
             ...testBasicProfile.paymentInformation.paymentMeans!,
             {
@@ -280,30 +253,26 @@ export const testComfortProfile: ComfortProfile = {
                 }
             }
         ],
-        // Bereits vorhandene BillingPeriod ergänzen (falls nicht gestellt)
         billingPeriod: {
             startDate: new Date('2024-01-01'),
             endDate: new Date('2024-01-31')
         },
-        // Neu: PaymentTerms, falls benötigt
         paymentTerms: {
-            description: 'Net 30 days',
+            description: 'Payment due in 30 days',
             dueDate: new Date('2024-02-01'),
             directDebitMandateID: 'DDI-001'
         }
     },
-    // Erweiterung der Totals (ApplicableHeaderTradeSettlement)
     totals: {
         ...testBasicProfile.totals,
-        // Neu: RoundingAmount (RoundingAmount in SpecifiedTradeSettlementHeaderMonetarySummation)
         roundingAmount: 0.01,
         taxBreakdown: [
             {
-                ...testBasicProfile.totals.taxBreakdown![0], // Vorhandene Werte übernehmen}
+                ...testBasicProfile.totals.taxBreakdown![0],
                 taxPointDate: new Date('2024-01-15')
             }
-        ]
+        ],
+        openAmount: 144.6
     },
-    // invoiceLines bleiben unverändert, da alle in SpecifiedLineTradeAgreement enthaltenen Felder über diese abgedeckt sind
     invoiceLines: [lineObject1, lineObject2]
 }

@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { ZTextType } from '../../../../udt/TextTypeConverter'
+import { ZTextType, ZTextTypeXml } from '../../../../udt/TextTypeConverter'
 
 export const ZComfortApplicableProductCharacteristicType = z.object({
     characteristic: ZTextType,
@@ -10,8 +10,8 @@ export const ZComfortApplicableProductCharacteristicType = z.object({
 export type ComfortApplicableProductCharacteristicType = z.infer<typeof ZComfortApplicableProductCharacteristicType>
 
 export const ZComfortApplicableProductCharacteristicTypeXml = z.object({
-    'ram:Description': ZTextType,
-    'ram:Value': ZTextType
+    'ram:Description': ZTextTypeXml,
+    'ram:Value': ZTextTypeXml
 })
 
 export type ComfortApplicableProductCharacteristicTypeXml = z.infer<

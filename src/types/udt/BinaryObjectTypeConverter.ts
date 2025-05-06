@@ -12,7 +12,7 @@ export type BinaryObjectType = z.infer<typeof ZBinaryObjectType>
 
 export const ZBinaryObjectTypeXml = z.object({
     '@mimeCode': z.string(),
-    '@fileName': z.string()
+    '@filename': z.string()
 })
 
 export type BinaryObjectTypeXml = z.infer<typeof ZBinaryObjectTypeXml>
@@ -26,7 +26,7 @@ export class BinaryObjectTypeConverter extends BaseTypeConverter<BinaryObjectTyp
 
         const convertedData = {
             mimeCode: data['@mimeCode'] as MIME_CODES,
-            fileName: data['@fileName']
+            fileName: data['@filename']
         }
 
         const { success: succes_val, data: data_val } = ZBinaryObjectType.safeParse(convertedData)
@@ -46,7 +46,7 @@ export class BinaryObjectTypeConverter extends BaseTypeConverter<BinaryObjectTyp
 
         return {
             '@mimeCode': data.mimeCode,
-            '@fileName': data.fileName
+            '@filename': data.fileName
         }
     }
 }

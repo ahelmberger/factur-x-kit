@@ -2,7 +2,7 @@ import { CodeTypeConverter } from '../../CodeTypeConverter'
 import { ExtendableBaseTypeConverter } from '../../ExtendableBaseTypeConverter'
 import { EXEMPTION_REASON_CODES, TAX_CATEGORY_CODES, TAX_TYPE_CODE, TIME_REFERENCE_CODES } from '../../codes'
 import { AmountTypeConverter } from '../../udt/AmountTypeConverter'
-import { DateTimeTypeConverter } from '../../udt/DateTimeTypeConverter'
+import { DateTypeConverter } from '../../udt/DateTypeConverter'
 import { PercentTypeConverter } from '../../udt/PercentTypeConverter'
 import { TextTypeConverter } from '../../udt/TextTypeConverter'
 import {
@@ -39,7 +39,7 @@ export class TradeTaxTypeConverter<
 > extends ExtendableBaseTypeConverter<ValueType, XmlType> {
     amountTypeConverter = new AmountTypeConverter()
     textTypeConverter = new TextTypeConverter()
-    dateTimeTypeConverter = new DateTimeTypeConverter()
+    dateTypeConverter = new DateTypeConverter()
 
     taxTypeCodeConverter = new CodeTypeConverter(TAX_TYPE_CODE)
     taxCategoryCodeConverter = new CodeTypeConverter(TAX_CATEGORY_CODES)
@@ -71,9 +71,7 @@ export class TradeTaxTypeConverter<
                     ? this.exemptionReasonCodeConverter.toValue(xml['ram:ExemptionReasonCode'])
                     : undefined,
             taxPointDate:
-                xml['ram:TaxPointDate'] != null
-                    ? this.dateTimeTypeConverter.toValue(xml['ram:TaxPointDate'])
-                    : undefined,
+                xml['ram:TaxPointDate'] != null ? this.dateTypeConverter.toValue(xml['ram:TaxPointDate']) : undefined,
             dueDateTypeCode:
                 xml['ram:DueDateTypeCode'] != null
                     ? this.timeReferenceCodeConvereter.toValue(xml['ram:DueDateTypeCode'])
@@ -102,7 +100,7 @@ export class TradeTaxTypeConverter<
                     ? this.exemptionReasonCodeConverter.toXML(value.exemptionReasonCode)
                     : undefined,
             'ram:TaxPointDate':
-                value.taxPointDate != null ? this.dateTimeTypeConverter.toXML(value.taxPointDate) : undefined,
+                value.taxPointDate != null ? this.dateTypeConverter.toXML(value.taxPointDate) : undefined,
             'ram:DueDateTypeCode':
                 value.dueDateTypeCode != null
                     ? this.timeReferenceCodeConvereter.toXML(value.dueDateTypeCode)

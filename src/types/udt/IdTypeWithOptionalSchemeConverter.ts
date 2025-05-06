@@ -61,6 +61,7 @@ export class IdTypeWithOptionalSchemeConverter<T extends string = string> extend
     _toXML(value: IdTypeWithOptionalScheme<T>): IdTypeWithOptionalSchemeXml {
         const { success, data, error } = this.schema.safeParse(value)
         if (!success) {
+            console.log(value)
             console.log(error.issues)
             throw new TypeConverterError('INVALID_VALUE')
         }

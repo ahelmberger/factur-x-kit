@@ -50,10 +50,12 @@ export const ZComfortLineTradeSettlementTypeXml = z.object({
     'ram:SpecifiedTradeSettlementLineMonetarySummation': z.object({
         'ram:LineTotalAmount': ZAmountTypeXml
     }),
-    'ram:AdditionalReferencedDocument': z.union([
-        ZReferencedDocumentTypeXml_additionalDocument_lineLevel_comfort,
-        ZReferencedDocumentTypeXml_additionalDocument_lineLevel_comfort.array()
-    ]),
+    'ram:AdditionalReferencedDocument': z
+        .union([
+            ZReferencedDocumentTypeXml_additionalDocument_lineLevel_comfort,
+            ZReferencedDocumentTypeXml_additionalDocument_lineLevel_comfort.array()
+        ])
+        .optional(),
     'ram:ReceivableSpecifiedTradeAccountingAccount': z
         .object({
             'ram:ID': ZIdTypeXml
