@@ -299,7 +299,7 @@ describe('Unit Tests for pdf functions', () => {
             expect(pdfDocWithMetadata.getTitle()).toBe('Test Invoice')
             expect(pdfDocWithMetadata.getAuthor()).toBe('Factur X Tester')
             expect(pdfDocWithMetadata.getProducer()).toBe('pdf-lib')
-            expect(pdfDocWithMetadata.getCreator()).toBe('factur-x.js')
+            expect(pdfDocWithMetadata.getCreator()).toBe('zugferd-kit')
             expect(pdfDocWithMetadata.getCreationDate()?.getTime()).toBe(new Date(2024, 10, 1).getTime())
             expect(pdfDocWithMetadata.getModificationDate()?.getTime()).toBe(new Date(2024, 10, 1).getTime())
         })
@@ -350,7 +350,7 @@ describe('Unit Tests for pdf functions', () => {
                 test('Tool Info to be correct', () => {
                     const toolInfo = findObjectByKey(rdfDescription, 'xmp:CreatorTool')
                     expect(toolInfo).toBeDefined()
-                    expect(toolInfo && toolInfo['xmp:CreatorTool']).toBe('factur-x.js')
+                    expect(toolInfo && toolInfo['xmp:CreatorTool']).toBe('zugferd-kit')
                     expect(toolInfo && toolInfo['xmp:CreateDate']).toBe('2024-10-31T23:00:00Z')
                     expect(toolInfo && toolInfo['xmp:ModifyDate']).toBe('2024-10-31T23:00:00Z')
                     expect(toolInfo && toolInfo['xmp:MetadataDate']).toBe('2024-10-31T23:00:00Z')

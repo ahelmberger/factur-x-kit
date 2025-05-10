@@ -110,8 +110,7 @@ export const lineObject2: ComfortTradeLineItem = {
     },
     productDescription: {
         buyerProductId: 'MAINT-PLAN-BASIC',
-        name: 'Organic Tea Leaves 500g',
-        productClassification: [{}]
+        name: 'Organic Tea Leaves 500g'
     },
     productPriceAgreement: {
         productNetPricing: {
@@ -131,8 +130,16 @@ export const lineObject2: ComfortTradeLineItem = {
             rateApplicablePercent: 19
         },
         billingPeriod: {
-            startDate: new Date('2024-01-01'),
-            endDate: new Date('2024-01-31')
+            startDate: {
+                year: 2024,
+                month: 1,
+                day: 1
+            },
+            endDate: {
+                year: 2024,
+                month: 1,
+                day: 31
+            }
         },
         lineLevelAllowancesAndCharges: {
             charges: [
@@ -254,12 +261,24 @@ export const testComfortProfile: ComfortProfile = {
             }
         ],
         billingPeriod: {
-            startDate: new Date('2024-01-01'),
-            endDate: new Date('2024-01-31')
+            startDate: {
+                year: 2024,
+                month: 1,
+                day: 1
+            },
+            endDate: {
+                year: 2024,
+                month: 1,
+                day: 31
+            }
         },
         paymentTerms: {
             description: 'Payment due in 30 days',
-            dueDate: new Date('2024-02-01'),
+            dueDate: {
+                year: 2024,
+                month: 2,
+                day: 1
+            },
             directDebitMandateID: 'DDI-001'
         }
     },
@@ -269,7 +288,11 @@ export const testComfortProfile: ComfortProfile = {
         taxBreakdown: [
             {
                 ...testBasicProfile.totals.taxBreakdown![0],
-                taxPointDate: new Date('2024-01-15')
+                taxPointDate: {
+                    year: 2024,
+                    month: 1,
+                    day: 15
+                }
             }
         ],
         openAmount: 144.6

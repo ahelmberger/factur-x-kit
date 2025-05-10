@@ -1,11 +1,10 @@
 // Tests to Validate the Minimum Profile gets Parsed According to Factur-X Spec
-import { DateTime } from 'luxon'
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { FacturX } from '../../src/index.js'
-import { MinimumProfile, isMinimumProfile } from '../../src/profiles/minimum/index.js'
-import { COUNTRY_ID_CODES, CURRENCY_CODES, DOCUMENT_TYPE_CODES } from '../../src/types/codes.js'
+import { FacturX } from '../../src/index'
+import { MinimumProfile, isMinimumProfile } from '../../src/profiles/minimum/index'
+import { COUNTRY_ID_CODES, CURRENCY_CODES, DOCUMENT_TYPE_CODES } from '../../src/types/codes'
 
 type TestCases = Record<string, MinimumProfile | undefined>
 
@@ -49,8 +48,7 @@ describe('7.2.2 - ExchangedDocument - Page 44/85.', () => {
         if (!testCases['MINIMUM_Rechnung']?.document.dateOfIssue) {
             throw new Error('PDF or Document Date undefined')
         }
-        // expect(testCases['MINIMUM_Rechnung'].document.dateOfIssue.format).toBe('102') // I would leave that out, as it is not user-friendly to force them to type that 103 everytime
-        expect(DateTime.fromJSDate(testCases['MINIMUM_Rechnung'].document.dateOfIssue).toISODate()).toBe('2024-11-15')
+        expect(testCases['MINIMUM_Rechnung'].document.dateOfIssue).toEqual({ year: 2024, month: 11, day: 15 })
     })
 })
 

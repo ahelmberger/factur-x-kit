@@ -34,7 +34,9 @@ export const ZReferencedDocumentTypeXml_comfort_additionalSupportingDocuments = 
     'ram:AttachmentBinaryObject': true
 }).extend({
     'ram:IssuerAssignedID': ZIdTypeXml,
-    'ram:TypeCode': ZIdTypeXml
+    'ram:TypeCode': z.object({
+        '#text': z.literal(REFERENCED_DOCUMENT_TYPE_CODES.Reference_paper)
+    })
 })
 
 export type ReferencedDocumentTypeXml_comfort_additionalSupportingDocuments = z.infer<
@@ -65,7 +67,9 @@ export const ZReferencedDocumentTypeXml_comfort_tenderOrLotReference = ZReferenc
     'ram:TypeCode': true
 }).extend({
     'ram:IssuerAssignedID': ZIdTypeXml,
-    'ram:TypeCode': ZIdTypeXml
+    'ram:TypeCode': z.object({
+        '#text': z.literal(REFERENCED_DOCUMENT_TYPE_CODES.Validated_priced_tender)
+    })
 })
 
 export type ReferencedDocumentTypeXml_comfort_tenderOrLotReference = z.infer<
@@ -98,7 +102,9 @@ export const ZReferencedDocumentTypeXml_comfort_invoicedObjectIdentifier = ZRefe
     'ram:ReferenceTypeCode': true
 }).extend({
     'ram:IssuerAssignedID': ZIdTypeXml,
-    'ram:TypeCode': ZIdTypeXml
+    'ram:TypeCode': z.object({
+        '#text': z.literal(REFERENCED_DOCUMENT_TYPE_CODES.Invoice_data_sheet)
+    })
 })
 
 export type ReferencedDocumentTypeXml_comfort_invoicedObjectIdentifier = z.infer<

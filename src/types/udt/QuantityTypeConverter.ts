@@ -31,7 +31,7 @@ export class QuantityTypeConverter extends BaseTypeConverter<QuantityType, Quant
 
         const value = {
             quantity,
-            currency: data['@unitCode'] as UNIT_CODES | undefined
+            unit: data['@unitCode'] as UNIT_CODES | undefined
         }
 
         const { success: success_val, data: data_val } = ZQuantityType.safeParse(value)

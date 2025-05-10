@@ -113,7 +113,7 @@ export class ReferencedDocumentTypeConverter<
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mapValueToXml(value: any) {
-        return {
+        const xml = {
             'ram:IssuerAssignedID': value.documentId != null ? this.idTypeConverter.toXML(value.documentId) : undefined,
             'ram:URIID': value.uriid != null ? this.idTypeConverter.toXML(value.uriid) : undefined,
             'ram:LineID': value.lineId != null ? this.idTypeConverter.toXML(value.lineId) : undefined,
@@ -130,6 +130,7 @@ export class ReferencedDocumentTypeConverter<
             'ram:FormattedIssueDateTime':
                 value.issueDate != null ? this.dateTimeTypeConverter.toXML(value.issueDate) : undefined
         }
+        return xml
     }
 
     public static docId_issueDate() {

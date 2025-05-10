@@ -1,3 +1,3 @@
-export * from './ComfortProfile.js'
-export * from './ComfortProfileConverter.js'
-export * from './ComfortProfileXml.js'
+export * from './ComfortProfile'
+export * from './ComfortProfileConverter'
+export * from './ComfortProfileXml'

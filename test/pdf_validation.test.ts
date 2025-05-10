@@ -20,8 +20,8 @@ import {
 } from 'pdf-lib'
 
 import FacturXPdf from '../src/core/pdf'
-import { MinimumProfile } from '../src/profiles/minimum/MinimumProfile.js'
-import { COUNTRY_ID_CODES, CURRENCY_CODES, DOCUMENT_TYPE_CODES, ISO6523_CODES } from '../src/types/codes.js'
+import { MinimumProfile } from '../src/profiles/minimum/MinimumProfile'
+import { COUNTRY_ID_CODES, CURRENCY_CODES, DOCUMENT_TYPE_CODES, ISO6523_CODES } from '../src/types/codes'
 
 const testObj: MinimumProfile = {
     meta: {
@@ -31,7 +31,11 @@ const testObj: MinimumProfile = {
     document: {
         id: 'RE20248731',
         type: DOCUMENT_TYPE_CODES.COMMERCIAL_INVOICE,
-        dateOfIssue: new Date(2024, 10, 20),
+        dateOfIssue: {
+            year: 2024,
+            month: 11,
+            day: 20
+        },
         currency: CURRENCY_CODES.Euro
     },
     seller: {
@@ -215,10 +219,17 @@ function checkCorrectXmlAttached(preparePDFData: () => Promise<Uint8Array>, test
             expect(size).toBe(TESTXML.length)
 
             const creationDate = params?.lookupMaybe(PDFName.of('CreationDate'), PDFString)?.decodeDate()
-            expect(creationDate?.getTime()).toBe(testObj.document.dateOfIssue.getTime())
+            expect(creationDate?.getTime()).toBe(
+                new Date(
+                    testObj.document.dateOfIssue.year,
+                    testObj.document.dateOfIssue.month - 1,
+                    testObj.document.dateOfIssue.day
+                ).getTime()
+            )
 
             const modDate = params?.lookupMaybe(PDFName.of('ModDate'), PDFString)?.decodeDate()
-            expect(modDate?.getTime()).toBe(testObj.document.dateOfIssue.getTime())
+            expect(modDate?.getTime()).toBeLessThan(Date.now())
+            expect(modDate?.getTime()).toBeGreaterThan(Date.now() - 100000)
 
             const xmlInPDF = decodePDFRawStream(xmlStream).decode()
             expect(xmlInPDF.length).toBe(TESTXML.length)
@@ -255,7 +266,7 @@ function checkMetadata(pdfDoc: any) {
     expect(pdfDoc.getTitle()).toBe(`Invoice ${testObj.document.id} from ${testObj.seller.name}`)
     expect(pdfDoc.getAuthor()).toBe(testObj.seller.name)
     expect(pdfDoc.getProducer()).toBe('pdf-lib (https://github.com/Hopding/pdf-lib)')
-    expect(pdfDoc.getCreator()).toBe('factur-x.js')
+    expect(pdfDoc.getCreator()).toBe('zugferd-kit')
     expect(pdfDoc.getCreationDate()?.getTime()).toBeDefined()
     expect(pdfDoc.getModificationDate()?.getTime()).toBeDefined()
 
@@ -287,11 +298,33 @@ function checkMetadata(pdfDoc: any) {
     )
     const toolInfo = findObjectByKey(rdfDescription, 'xmp:CreatorTool')
     expect(toolInfo).toBeDefined()
-    expect(toolInfo && toolInfo['xmp:CreatorTool']).toBe('factur-x.js')
-    expect(toolInfo && toolInfo['xmp:CreateDate']).toBe(testObj.document.dateOfIssue.toISOString().split('.')[0] + 'Z')
-    expect(toolInfo && toolInfo['xmp:ModifyDate']).toBe(testObj.document.dateOfIssue.toISOString().split('.')[0] + 'Z')
+    expect(toolInfo && toolInfo['xmp:CreatorTool']).toBe('zugferd-kit')
+    expect(toolInfo && toolInfo['xmp:CreateDate']).toBe(
+        new Date(
+            testObj.document.dateOfIssue.year,
+            testObj.document.dateOfIssue.month - 1,
+            testObj.document.dateOfIssue.day
+        )
+            .toISOString()
+            .split('.')[0] + 'Z'
+    )
+    expect(toolInfo && toolInfo['xmp:ModifyDate']).toBe(
+        new Date(
+            testObj.document.dateOfIssue.year,
+            testObj.document.dateOfIssue.month - 1,
+            testObj.document.dateOfIssue.day
+        )
+            .toISOString()
+            .split('.')[0] + 'Z'
+    )
     expect(toolInfo && toolInfo['xmp:MetadataDate']).toBe(
-        testObj.document.dateOfIssue.toISOString().split('.')[0] + 'Z'
+        new Date(
+            testObj.document.dateOfIssue.year,
+            testObj.document.dateOfIssue.month - 1,
+            testObj.document.dateOfIssue.day
+        )
+            .toISOString()
+            .split('.')[0] + 'Z'
     )
     const producerInfo = findObjectByKey(rdfDescription, 'pdf:Producer')
     expect(producerInfo && producerInfo['pdf:Producer']).toBe('pdf-lib')

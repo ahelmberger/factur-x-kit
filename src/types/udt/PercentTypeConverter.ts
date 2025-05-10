@@ -20,7 +20,7 @@ export class PercentTypeConverter extends BaseTypeConverter<PercentType, Percent
         }
 
         const value = parseFloat(data['#text'])
-        if (!value || isNaN(value)) {
+        if (value == null || isNaN(value)) {
             throw new TypeConverterError('INVALID_XML')
         }
 

@@ -1,3 +1,3 @@
-export * from './BasicWithoutLinesProfile.js'
-export * from './BasicWithoutLinesProfileConverter.js'
-export * from './BasicWithoutLinesProfileXml.js'
+export * from './BasicWithoutLinesProfile'
+export * from './BasicWithoutLinesProfileConverter'
+export * from './BasicWithoutLinesProfileXml'

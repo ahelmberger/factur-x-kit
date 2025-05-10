@@ -4,11 +4,12 @@ import path from 'node:path'
 import objectPath from 'object-path'
 import { validateXML } from 'xmllint-wasm'
 
-import { parseXML } from '../../src/core/xml.js'
-import { FacturX } from '../../src/index.js'
-import { MinimumProfile } from '../../src/profiles/minimum/MinimumProfile.js'
-import { isMinimumProfileXml } from '../../src/profiles/minimum/MinimumProfileXml.js'
-import { COUNTRY_ID_CODES, CURRENCY_CODES, DOCUMENT_TYPE_CODES, ISO6523_CODES } from '../../src/types/codes.js'
+import { parseXML } from '../../src/core/xml'
+import { FacturX } from '../../src/index'
+import { MinimumProfile } from '../../src/profiles/minimum/MinimumProfile'
+import { isMinimumProfileXml } from '../../src/profiles/minimum/MinimumProfileXml'
+import { COUNTRY_ID_CODES, CURRENCY_CODES, DOCUMENT_TYPE_CODES, ISO6523_CODES } from '../../src/types/codes'
+import { removeUndefinedKeys } from '../testhelpers'
 import './codeDb/xPathDocumentFunction'
 
 const testObj: MinimumProfile = {
@@ -19,7 +20,7 @@ const testObj: MinimumProfile = {
     document: {
         id: 'RE20248731',
         type: DOCUMENT_TYPE_CODES.COMMERCIAL_INVOICE,
-        dateOfIssue: new Date(2024, 10, 20),
+        dateOfIssue: { year: 2024, month: 11, day: 20 },
         currency: CURRENCY_CODES.Euro
     },
     seller: {
@@ -238,4 +239,12 @@ describe('Create FacturX Instance from Object', () => {
 
         expect(result.length).toBe(0)
     })
+})
+
+test('Roundtrip Check', async () => {
+    const convertedXML = await instance.getXML()
+    const facturx = await FacturX.fromXML(convertedXML)
+    const roundtripObject = await facturx.getObject()
+    const cleanRoundtripObject = removeUndefinedKeys(roundtripObject)
+    expect(cleanRoundtripObject).toEqual(testObj)
 })

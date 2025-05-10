@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import objectPath from 'object-path'
 
-import { BaseTypeConverter, TypeConverterError } from '../types/BaseTypeConverter.js'
-import { XML_OBJECT_BOILERPLATE_AFTER, XML_OBJECT_BOILERPLATE_BEFORE } from '../types/additionalTypes.js'
+import { BaseTypeConverter, TypeConverterError } from '../types/BaseTypeConverter'
+import { XML_OBJECT_BOILERPLATE_AFTER, XML_OBJECT_BOILERPLATE_BEFORE } from '../types/additionalTypes'
 
 // Main DotNotation type that delegates to ArrayDotNotation for array
 export type DotNotation<T> = T extends object
@@ -85,7 +85,7 @@ export abstract class Converter<Profile, ProfileXml> {
                 continue
             }
             const value = objectPath.get<any>(obj, item.obj, item.default)
-            if (!value) {
+            if (value == null) {
                 continue
             }
 

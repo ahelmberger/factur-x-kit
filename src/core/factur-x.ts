@@ -1,18 +1,18 @@
 import objectPath from 'object-path'
 import { PDFDocument } from 'pdf-lib'
 
-import { BasicProfile, isBasicProfile } from '../profiles/basic/BasicProfile.js'
-import { BasicProfileConverter } from '../profiles/basic/BasicProfileConverter.js'
+import { BasicProfile, isBasicProfile } from '../profiles/basic/BasicProfile'
+import { BasicProfileConverter } from '../profiles/basic/BasicProfileConverter'
 import {
     BasicWithoutLinesProfile,
     BasicWithoutLinesProfileConverter,
     isBasicWithoutLinesProfile
-} from '../profiles/basicwithoutlines/index.js'
-import { ComfortProfile, isComfortProfile } from '../profiles/comfort/ComfortProfile.js'
-import { ComfortProfileConverter } from '../profiles/comfort/ComfortProfileConverter.js'
-import { MinimumProfile, MinimumProfileConverter, isMinimumProfile } from '../profiles/minimum/index.js'
-import FacturXPdf from './pdf.js'
-import { buildXML, parseXML } from './xml.js'
+} from '../profiles/basicwithoutlines/index'
+import { ComfortProfile, isComfortProfile } from '../profiles/comfort/ComfortProfile'
+import { ComfortProfileConverter } from '../profiles/comfort/ComfortProfileConverter'
+import { MinimumProfile, MinimumProfileConverter, isMinimumProfile } from '../profiles/minimum/index'
+import FacturXPdf from './pdf'
+import { buildXML, parseXML } from './xml'
 
 export type availableProfiles = MinimumProfile | BasicWithoutLinesProfile | BasicProfile | ComfortProfile
 export type availableConverters =

@@ -1,3 +1,3 @@
-export * from './MinimumProfile.js'
-export * from './MinimumProfileConverter.js'
-export * from './MinimumProfileXml.js'
+export * from './MinimumProfile'
+export * from './MinimumProfileConverter'
+export * from './MinimumProfileXml'

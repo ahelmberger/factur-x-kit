@@ -1,7 +1,7 @@
-import { Converter } from '../convert.js'
-import { type ComfortProfile, ZComfortProfile } from './ComfortProfile.js'
-import { type ComfortProfileXml, ZComfortProfileXml } from './ComfortProfileXml.js'
-import mapping from './mapping.js'
+import { Converter } from '../convert'
+import { type ComfortProfile, ZComfortProfile } from './ComfortProfile'
+import { type ComfortProfileXml, ZComfortProfileXml } from './ComfortProfileXml'
+import mapping from './mapping'
 
 export class ComfortProfileConverter extends Converter<ComfortProfile, ComfortProfileXml> {
     map = mapping

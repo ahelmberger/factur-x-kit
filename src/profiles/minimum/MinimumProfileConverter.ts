@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Converter } from '../convert.js'
-import { type MinimumProfile, ZMinimumProfile } from './MinimumProfile.js'
-import { type MinimumProfileXml, ZMinimumProfileXml } from './MinimumProfileXml.js'
-import mapping from './mapping.js'
+import { Converter } from '../convert'
+import { type MinimumProfile, ZMinimumProfile } from './MinimumProfile'
+import { type MinimumProfileXml, ZMinimumProfileXml } from './MinimumProfileXml'
+import mapping from './mapping'
 
 export class MinimumProfileConverter extends Converter<MinimumProfile, MinimumProfileXml> {
     map = mapping

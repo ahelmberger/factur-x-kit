@@ -1,26 +1,26 @@
 import { z } from 'zod'
 
-import { ZCodeType } from '../../types/CodeTypeConverter.js'
-import { CURRENCY_CODES, DOCUMENT_TYPE_CODES, ISO6523_CODES } from '../../types/codes.js'
-import { ZBasicTradeLineItem } from '../../types/ram/IncludedSupplyChainTradeLineItem/BasicTradeLineItem.js'
-import { ZBasicDocumentLevelNoteType } from '../../types/ram/NoteType/BasicDocumentLevelNoteType.js'
+import { ZCodeType } from '../../types/CodeTypeConverter'
+import { CURRENCY_CODES, DOCUMENT_TYPE_CODES, ISO6523_CODES } from '../../types/codes'
+import { ZBasicTradeLineItem } from '../../types/ram/IncludedSupplyChainTradeLineItem/BasicTradeLineItem'
+import { ZBasicDocumentLevelNoteType } from '../../types/ram/NoteType/BasicDocumentLevelNoteType'
 import {
     ZReferencedDocumentType_docId_issueDate,
     ZReferencedDocumentType_documentId
-} from '../../types/ram/ReferencedDocumentType/ReferencedDocumentTypes.js'
-import { ZSpecifiedTaxRegistrationsForSellerType } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter.js'
-import { ZSpecifiedTaxRegistrationsType } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter.js'
-import { ZBasicDocumentLevelTradeAllowanceChargeType } from '../../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType.js'
-import { ZBasicPaymentMeansType } from '../../types/ram/TradeSettlementPaymentMeansType/BasicTradeSettlementPaymentMeansType.js'
-import { ZBasicDocumentLevelTradeTaxType } from '../../types/ram/TradeTaxType/BasicDocumentLevelTradeTaxType.js'
-import { ZAmountType } from '../../types/udt/AmountTypeConverter.js'
-import { ZAmountTypeWithRequiredCurrency } from '../../types/udt/AmountTypeWithRequiredCurrencyConverter.js'
-import { ZDateTimeType } from '../../types/udt/DateTimeTypeConverter.js'
-import { ZIdType } from '../../types/udt/IdTypeConverter.js'
-import { ZIdTypeWithOptionalScheme } from '../../types/udt/IdTypeWithOptionalSchemeConverter.js'
-import { ZIdTypeWithRequiredScheme } from '../../types/udt/IdTypeWithRequiredlSchemeConverter.js'
-import { ZTextType } from '../../types/udt/TextTypeConverter.js'
-import { ZTradePartyType } from '../basicwithoutlines/BasicWithoutLinesProfile.js'
+} from '../../types/ram/ReferencedDocumentType/ReferencedDocumentTypes'
+import { ZSpecifiedTaxRegistrationsForSellerType } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter'
+import { ZSpecifiedTaxRegistrationsType } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter'
+import { ZBasicDocumentLevelTradeAllowanceChargeType } from '../../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType'
+import { ZBasicPaymentMeansType } from '../../types/ram/TradeSettlementPaymentMeansType/BasicTradeSettlementPaymentMeansType'
+import { ZBasicDocumentLevelTradeTaxType } from '../../types/ram/TradeTaxType/BasicDocumentLevelTradeTaxType'
+import { ZAmountType } from '../../types/udt/AmountTypeConverter'
+import { ZAmountTypeWithRequiredCurrency } from '../../types/udt/AmountTypeWithRequiredCurrencyConverter'
+import { ZDateTimeType } from '../../types/udt/DateTimeTypeConverter'
+import { ZIdType } from '../../types/udt/IdTypeConverter'
+import { ZIdTypeWithOptionalScheme } from '../../types/udt/IdTypeWithOptionalSchemeConverter'
+import { ZIdTypeWithRequiredScheme } from '../../types/udt/IdTypeWithRequiredlSchemeConverter'
+import { ZTextType } from '../../types/udt/TextTypeConverter'
+import { ZTradePartyType } from '../basicwithoutlines/BasicWithoutLinesProfile'
 
 export const ZBasicProfile = z.object({
     meta: z.object({
@@ -77,7 +77,7 @@ export const ZBasicProfile = z.object({
         })
             .extend({ name: ZTextType.optional() })
             .optional(),
-        deliveryDate: z.date()
+        deliveryDate: ZDateTimeType.optional()
     }),
     paymentInformation: z.object({
         creditorReference: ZIdType.optional(),

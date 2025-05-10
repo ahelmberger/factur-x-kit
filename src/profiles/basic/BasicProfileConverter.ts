@@ -1,7 +1,7 @@
-import { Converter } from '../convert.js'
-import { type BasicProfile, ZBasicProfile } from './BasicProfile.js'
-import { type BasicProfileXml, ZBasicProfileXml } from './BasicProfileXml.js'
-import mapping from './mapping.js'
+import { Converter } from '../convert'
+import { type BasicProfile, ZBasicProfile } from './BasicProfile'
+import { type BasicProfileXml, ZBasicProfileXml } from './BasicProfileXml'
+import mapping from './mapping'
 
 export class BasicProfileConverter extends Converter<BasicProfile, BasicProfileXml> {
     map = mapping

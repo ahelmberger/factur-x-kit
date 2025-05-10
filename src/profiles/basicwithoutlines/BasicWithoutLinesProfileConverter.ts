@@ -1,7 +1,7 @@
-import { Converter } from '../convert.js'
-import { type BasicWithoutLinesProfile, ZBasicWithoutLinesProfile } from './BasicWithoutLinesProfile.js'
-import { type BasicWithoutLinesProfileXml, ZBasicWithoutLinesProfileXml } from './BasicWithoutLinesProfileXml.js'
-import mapping from './mapping.js'
+import { Converter } from '../convert'
+import { type BasicWithoutLinesProfile, ZBasicWithoutLinesProfile } from './BasicWithoutLinesProfile'
+import { type BasicWithoutLinesProfileXml, ZBasicWithoutLinesProfileXml } from './BasicWithoutLinesProfileXml'
+import mapping from './mapping'
 
 export class BasicWithoutLinesProfileConverter extends Converter<
     BasicWithoutLinesProfile,

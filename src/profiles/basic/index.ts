@@ -1,3 +1,3 @@
-export * from './BasicProfile.js'
-export * from './BasicProfileConverter.js'
-export * from './BasicProfileXml.js'
+export * from './BasicProfile'
+export * from './BasicProfileConverter'
+export * from './BasicProfileXml'

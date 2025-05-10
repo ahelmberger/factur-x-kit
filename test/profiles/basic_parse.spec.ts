@@ -1,16 +1,15 @@
-import { DateTime } from 'luxon'
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { FacturX } from '../../src/index.js'
-import { BasicProfile, isBasicProfile } from '../../src/profiles/basic/BasicProfile.js'
+import { FacturX } from '../../src/index'
+import { BasicProfile, isBasicProfile } from '../../src/profiles/basic/BasicProfile'
 import {
     COUNTRY_ID_CODES,
     CURRENCY_CODES,
     DOCUMENT_TYPE_CODES,
     TAX_CATEGORY_CODES,
     TAX_TYPE_CODE
-} from '../../src/types/codes.js'
+} from '../../src/types/codes'
 
 type TestCases = Record<string, BasicProfile | undefined>
 
@@ -52,7 +51,7 @@ describe('7.2.2 - ExchangedDocument - Page 44/85.', () => {
         if (!testCases['BASIC_Taxifahrt']?.document.dateOfIssue) {
             throw new Error('PDF or Document Date undefined')
         }
-        expect(DateTime.fromJSDate(testCases['BASIC_Taxifahrt'].document.dateOfIssue).toISODate()).toBe('2024-11-15')
+        expect(testCases['BASIC_Taxifahrt'].document.dateOfIssue).toEqual({ year: 2024, month: 11, day: 15 })
     })
 })
 

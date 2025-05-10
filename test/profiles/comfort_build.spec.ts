@@ -4,11 +4,12 @@ import path from 'node:path'
 import objectPath from 'object-path'
 import { validateXML } from 'xmllint-wasm'
 
-import { parseXML } from '../../src/core/xml.js'
-import { FacturX } from '../../src/index.js'
-import { ComfortProfileXml, isComfortProfileXml } from '../../src/profiles/comfort/ComfortProfileXml.js'
+import { parseXML } from '../../src/core/xml'
+import { FacturX } from '../../src/index'
+import { ComfortProfileXml, isComfortProfileXml } from '../../src/profiles/comfort/ComfortProfileXml'
+import { removeUndefinedKeys } from '../testhelpers'
 import './codeDb/xPathDocumentFunction'
-import { testComfortProfile } from './comfort_test_objects.js'
+import { testComfortProfile } from './comfort_test_objects'
 
 let xmlObject: ComfortProfileXml
 let instance: FacturX
@@ -781,4 +782,12 @@ test('Build PDF', async () => {
     const pdfBytes = await instance.getPDF()
     expect(pdfBytes).toBeDefined()
     await fs.writeFile(path.join(__dirname, 'pdf', 'createdPDFs', 'FacturX_Comfort_Test.pdf'), pdfBytes)
+})
+
+test('Roundtrip Check', async () => {
+    const convertedXML = await instance.getXML()
+    const facturx = await FacturX.fromXML(convertedXML)
+    const roundtripObject = await facturx.getObject()
+    const cleanRoundtripObject = removeUndefinedKeys(roundtripObject)
+    expect(cleanRoundtripObject).toEqual(testComfortProfile)
 })

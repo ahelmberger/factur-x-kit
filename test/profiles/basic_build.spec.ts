@@ -4,9 +4,10 @@ import path from 'node:path'
 import objectPath from 'object-path'
 import { validateXML } from 'xmllint-wasm'
 
-import { parseXML } from '../../src/core/xml.js'
-import { FacturX } from '../../src/index.js'
+import { parseXML } from '../../src/core/xml'
+import { FacturX } from '../../src/index'
 import { BasicProfileXml, isBasicProfileXml } from '../../src/profiles/basic'
+import { removeUndefinedKeys } from '../testhelpers'
 import { testBasicProfile } from './basic_test_objects'
 import './codeDb/xPathDocumentFunction'
 
@@ -606,4 +607,12 @@ test('Build PDF', async () => {
     const pdfBytes = await instance.getPDF()
     expect(pdfBytes).toBeDefined()
     await fs.writeFile(path.join(__dirname, 'pdf', 'createdPDFs', 'FacturX_BASIC_Test.pdf'), pdfBytes)
+})
+
+test('Roundtrip Check', async () => {
+    const convertedXML = await instance.getXML()
+    const facturx = await FacturX.fromXML(convertedXML)
+    const roundtripObject = await facturx.getObject()
+    const cleanRoundtripObject = removeUndefinedKeys(roundtripObject)
+    expect(cleanRoundtripObject).toEqual(testBasicProfile)
 })

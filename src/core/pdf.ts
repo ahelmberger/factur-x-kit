@@ -99,8 +99,12 @@ export default class FacturXPdf {
         this.embedXML(encoder.encode(xml), {
             mimeType: 'text/xml',
             description: 'Factur-x Invoice',
-            creationDate: obj.document.dateOfIssue,
-            modificationDate: obj.document.dateOfIssue,
+            creationDate: new Date(
+                obj.document.dateOfIssue.year,
+                obj.document.dateOfIssue.month - 1,
+                obj.document.dateOfIssue.day
+            ),
+            modificationDate: new Date(),
             afRelationship:
                 obj.meta.guidelineSpecifiedDocumentContextParameter === 'urn:factur-x.eu:1p0:minimum' ||
                 obj.meta.guidelineSpecifiedDocumentContextParameter === 'urn:factur-x.eu:1p0:basicwl'
@@ -108,7 +112,7 @@ export default class FacturXPdf {
                     : AFRelationship.Alternative
         })
         this.addMetadata(
-            obj.document.dateOfIssue,
+            new Date(obj.document.dateOfIssue.year, obj.document.dateOfIssue.month - 1, obj.document.dateOfIssue.day),
             obj.document.id,
             `Invoice ${obj.document.id} from ${obj.seller.name}`,
             obj.seller.name,
@@ -337,7 +341,7 @@ export default class FacturXPdf {
         this.pdfDoc.context.trailerInfo.ID = this.pdfDoc.context.obj([id, id])
 
         const producer = 'pdf-lib'
-        const creator = 'factur-x.js'
+        const creator = 'zugferd-kit'
         this.pdfDoc.setTitle(title)
         this.pdfDoc.setAuthor(author)
         this.pdfDoc.setProducer(producer)

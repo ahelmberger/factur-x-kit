@@ -1,19 +1,18 @@
-import { DateTime } from 'luxon'
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { FacturX } from '../../src/index.js'
+import { FacturX } from '../../src/index'
 import {
     BasicWithoutLinesProfile,
     isBasicWithoutLinesProfile
-} from '../../src/profiles/basicwithoutlines/BasicWithoutLinesProfile.js'
+} from '../../src/profiles/basicwithoutlines/BasicWithoutLinesProfile'
 import {
     COUNTRY_ID_CODES,
     CURRENCY_CODES,
     DOCUMENT_TYPE_CODES,
     TAX_CATEGORY_CODES,
     TAX_TYPE_CODE
-} from '../../src/types/codes.js'
+} from '../../src/types/codes'
 
 type TestCases = Record<string, BasicWithoutLinesProfile | undefined>
 
@@ -55,7 +54,7 @@ describe('7.2.2 - ExchangedDocument - Page 44/85.', () => {
         if (!testCases['BASIC-WL_Einfach']?.document.dateOfIssue) {
             throw new Error('PDF or Document Date undefined')
         }
-        expect(DateTime.fromJSDate(testCases['BASIC-WL_Einfach'].document.dateOfIssue).toISODate()).toBe('2024-11-15')
+        expect(testCases['BASIC-WL_Einfach'].document.dateOfIssue).toEqual({ year: 2024, month: 11, day: 15 })
     })
 })
 

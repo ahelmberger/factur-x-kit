@@ -1,24 +1,24 @@
 import { z } from 'zod'
 
-import { ZBasicTradeLineItemXml } from '../../types/ram/IncludedSupplyChainTradeLineItem/BasicTradeLineItem.js'
-import { ZBasicDocumentLevelNoteTypeXml } from '../../types/ram/NoteType/BasicDocumentLevelNoteType.js'
+import { ZBasicTradeLineItemXml } from '../../types/ram/IncludedSupplyChainTradeLineItem/BasicTradeLineItem'
+import { ZBasicDocumentLevelNoteTypeXml } from '../../types/ram/NoteType/BasicDocumentLevelNoteType'
 import {
     ZReferencedDocumentTypeXml_docId_issueDate,
     ZReferencedDocumentTypeXml_documentId
-} from '../../types/ram/ReferencedDocumentType/ReferencedDocumentTypes.js'
-import { ZSpecifiedTaxRegistrationsForSellerTypeXml } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter.js'
-import { ZSpecifiedTaxRegistrationsTypeXml } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter.js'
-import { ZBasicDocumentLevelTradeAllowanceChargeTypeXml } from '../../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType.js'
-import { ZBasicPaymentMeansTypeXml } from '../../types/ram/TradeSettlementPaymentMeansType/BasicTradeSettlementPaymentMeansType.js'
-import { ZBasicDocumentLevelTradeTaxTypeXml } from '../../types/ram/TradeTaxType/BasicDocumentLevelTradeTaxType.js'
-import { ZAmountTypeXml } from '../../types/udt/AmountTypeConverter.js'
-import { ZAmountTypeWithRequiredCurrencyXml } from '../../types/udt/AmountTypeWithRequiredCurrencyConverter.js'
-import { ZDateTimeTypeXml } from '../../types/udt/DateTimeTypeConverter.js'
-import { ZIdTypeXml } from '../../types/udt/IdTypeConverter.js'
-import { ZIdTypeWithOptionalSchemeXml } from '../../types/udt/IdTypeWithOptionalSchemeConverter.js'
-import { ZIdTypeWithRequiredSchemeXml } from '../../types/udt/IdTypeWithRequiredlSchemeConverter.js'
-import { ZTextTypeXml } from '../../types/udt/TextTypeConverter.js'
-import { ZTradePartyTypeXml } from '../basicwithoutlines/BasicWithoutLinesProfileXml.js'
+} from '../../types/ram/ReferencedDocumentType/ReferencedDocumentTypes'
+import { ZSpecifiedTaxRegistrationsForSellerTypeXml } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter'
+import { ZSpecifiedTaxRegistrationsTypeXml } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter'
+import { ZBasicDocumentLevelTradeAllowanceChargeTypeXml } from '../../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType'
+import { ZBasicPaymentMeansTypeXml } from '../../types/ram/TradeSettlementPaymentMeansType/BasicTradeSettlementPaymentMeansType'
+import { ZBasicDocumentLevelTradeTaxTypeXml } from '../../types/ram/TradeTaxType/BasicDocumentLevelTradeTaxType'
+import { ZAmountTypeXml } from '../../types/udt/AmountTypeConverter'
+import { ZAmountTypeWithRequiredCurrencyXml } from '../../types/udt/AmountTypeWithRequiredCurrencyConverter'
+import { ZDateTimeTypeXml } from '../../types/udt/DateTimeTypeConverter'
+import { ZIdTypeXml } from '../../types/udt/IdTypeConverter'
+import { ZIdTypeWithOptionalSchemeXml } from '../../types/udt/IdTypeWithOptionalSchemeConverter'
+import { ZIdTypeWithRequiredSchemeXml } from '../../types/udt/IdTypeWithRequiredlSchemeConverter'
+import { ZTextTypeXml } from '../../types/udt/TextTypeConverter'
+import { ZTradePartyTypeXml } from '../basicwithoutlines/BasicWithoutLinesProfileXml'
 
 export const ZBasicProfileXml = z.object({
     '?xml': z.object({

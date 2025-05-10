@@ -100,8 +100,8 @@ export class LineTradeAgreementConverter<
     mapValueToXml(value: any): any {
         return {
             'ram:BuyerOrderReferencedDocument':
-                value.referencedOrderLineId != null && this.referencedDocumentConverter
-                    ? this.referencedDocumentConverter.toXML(value.referencedOrderLineId)
+                value.referencedOrder != null && this.referencedDocumentConverter
+                    ? this.referencedDocumentConverter.toXML(value.referencedOrder)
                     : undefined,
             'ram:GrossPriceProductTradePrice': value.productGrossPricing
                 ? this.grossPriceProductTradePriceConverter.toXML(value.productGrossPricing)

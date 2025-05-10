@@ -21,7 +21,7 @@ const testBasicWLProfile: BasicWithoutLinesProfile = {
     document: {
         id: 'DOC-12345',
         type: DOCUMENT_TYPE_CODES.COMMERCIAL_INVOICE,
-        dateOfIssue: new Date('2023-10-01'),
+        dateOfIssue: { year: 2023, month: 10, day: 1 },
         notes: [
             { content: 'Note 1', subject: SUBJECT_CODES.ADDITIONAL_CONDITIONS },
             { content: 'Note 2', subject: SUBJECT_CODES.CARGO_REMARKS }
@@ -110,8 +110,8 @@ const testBasicWLProfile: BasicWithoutLinesProfile = {
         contractReference: { documentId: 'CONTRACT-12345' },
         advanceShippingNotice: { documentId: 'ASN-12345' },
         referencedInvoice: [
-            { documentId: 'INV-12345', issueDate: new Date('2023-09-01') },
-            { documentId: 'INV-67890', issueDate: new Date('2023-09-15') }
+            { documentId: 'INV-12345', issueDate: { year: 2023, month: 9, day: 1 } },
+            { documentId: 'INV-67890', issueDate: { year: 2023, month: 9, day: 15 } }
         ]
     },
     delivery: {
@@ -132,7 +132,7 @@ const testBasicWLProfile: BasicWithoutLinesProfile = {
                 countrySubDivision: 'Recipient State'
             }
         },
-        deliveryDate: new Date('2023-10-05')
+        deliveryDate: { year: 2023, month: 10, day: 5 }
     },
     paymentInformation: {
         creditorReference: 'CREDITOR-12345',
@@ -164,12 +164,12 @@ const testBasicWLProfile: BasicWithoutLinesProfile = {
             }
         ],
         billingPeriod: {
-            startDate: new Date('2023-10-01'),
-            endDate: new Date('2023-10-31')
+            startDate: { year: 2023, month: 10, day: 1 },
+            endDate: { year: 2023, month: 10, day: 31 }
         },
         paymentTerms: {
             description: 'Payment due in 30 days',
-            dueDate: new Date('2023-11-01'),
+            dueDate: { year: 2023, month: 11, day: 1 },
             directDebitMandateID: 'DDM-12345'
         },
         specifiedTradeAccountingAccount: 'ACCOUNT-12345'

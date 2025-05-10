@@ -4,13 +4,14 @@ import path from 'node:path'
 import objectPath from 'object-path'
 import { validateXML } from 'xmllint-wasm'
 
-import { parseXML } from '../../src/core/xml.js'
-import { FacturX } from '../../src/index.js'
+import { parseXML } from '../../src/core/xml'
+import { FacturX } from '../../src/index'
 import {
     BasicWithoutLinesProfileXml,
     isBasicWithoutLinesProfileXml
-} from '../../src/profiles/basicwithoutlines/BasicWithoutLinesProfileXml.js'
-import testBasicWLProfile from './basicwithoutlines_test_objects.js'
+} from '../../src/profiles/basicwithoutlines/BasicWithoutLinesProfileXml'
+import { removeUndefinedKeys } from '../testhelpers'
+import testBasicWLProfile from './basicwithoutlines_test_objects'
 import './codeDb/xPathDocumentFunction'
 
 let xmlObject: BasicWithoutLinesProfileXml
@@ -637,4 +638,12 @@ test('Build PDF', async () => {
     const pdfBytes = await instance.getPDF()
     expect(pdfBytes).toBeDefined()
     await fs.writeFile(path.join(__dirname, 'pdf', 'createdPDFs', 'FacturX_BASICWL_Test.pdf'), pdfBytes)
+})
+
+test('Roundtrip Check', async () => {
+    const convertedXML = await instance.getXML()
+    const facturx = await FacturX.fromXML(convertedXML)
+    const roundtripObject = await facturx.getObject()
+    const cleanRoundtripObject = removeUndefinedKeys(roundtripObject)
+    expect(cleanRoundtripObject).toEqual(testBasicWLProfile)
 })

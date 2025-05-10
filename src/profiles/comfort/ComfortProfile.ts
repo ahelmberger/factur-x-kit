@@ -1,28 +1,28 @@
 import { z } from 'zod'
 
-import { ZCodeType } from '../../types/CodeTypeConverter.js'
-import { CURRENCY_CODES, DOCUMENT_TYPE_CODES, ISO6523_CODES } from '../../types/codes.js'
-import { ZComfortTradeContactType } from '../../types/ram/DefinedTradeContact/ComfortTradeContactType.js'
-import { ZComfortTradeLineItem } from '../../types/ram/IncludedSupplyChainTradeLineItem/ComfortTradeLineItem.js'
-import { ZBasicDocumentLevelNoteType } from '../../types/ram/NoteType/BasicDocumentLevelNoteType.js'
-import { ZAdditionalReferencedDocumentType_comfort } from '../../types/ram/ReferencedDocumentType/AdditionalReferencedDocumentConverter/ComfortAdditonalReferencedDocumentTypes.js'
+import { ZCodeType } from '../../types/CodeTypeConverter'
+import { CURRENCY_CODES, DOCUMENT_TYPE_CODES, ISO6523_CODES } from '../../types/codes'
+import { ZComfortTradeContactType } from '../../types/ram/DefinedTradeContact/ComfortTradeContactType'
+import { ZComfortTradeLineItem } from '../../types/ram/IncludedSupplyChainTradeLineItem/ComfortTradeLineItem'
+import { ZBasicDocumentLevelNoteType } from '../../types/ram/NoteType/BasicDocumentLevelNoteType'
+import { ZAdditionalReferencedDocumentType_comfort } from '../../types/ram/ReferencedDocumentType/AdditionalReferencedDocumentConverter/ComfortAdditonalReferencedDocumentTypes'
 import {
     ZReferencedDocumentType_docId_issueDate,
     ZReferencedDocumentType_documentId
-} from '../../types/ram/ReferencedDocumentType/ReferencedDocumentTypes.js'
-import { ZSpecifiedTaxRegistrationsForSellerType } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter.js'
-import { ZSpecifiedTaxRegistrationsType } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter.js'
-import { ZBasicDocumentLevelTradeAllowanceChargeType } from '../../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType.js'
-import { ZComfortPaymentMeansType } from '../../types/ram/TradeSettlementPaymentMeansType/ComfortTradeSettlementPaymentMeansType.js'
-import { ZComfortDocumentLevelTradeTaxType } from '../../types/ram/TradeTaxType/ComfortDocumentLevelTradeTaxType.js'
-import { ZAmountType } from '../../types/udt/AmountTypeConverter.js'
-import { ZAmountTypeWithRequiredCurrency } from '../../types/udt/AmountTypeWithRequiredCurrencyConverter.js'
-import { ZDateTimeType } from '../../types/udt/DateTimeTypeConverter.js'
-import { ZIdType } from '../../types/udt/IdTypeConverter.js'
-import { ZIdTypeWithOptionalScheme } from '../../types/udt/IdTypeWithOptionalSchemeConverter.js'
-import { ZIdTypeWithRequiredScheme } from '../../types/udt/IdTypeWithRequiredlSchemeConverter.js'
-import { ZTextType } from '../../types/udt/TextTypeConverter.js'
-import { ZTradePartyType } from '../basicwithoutlines/BasicWithoutLinesProfile.js'
+} from '../../types/ram/ReferencedDocumentType/ReferencedDocumentTypes'
+import { ZSpecifiedTaxRegistrationsForSellerType } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter'
+import { ZSpecifiedTaxRegistrationsType } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter'
+import { ZBasicDocumentLevelTradeAllowanceChargeType } from '../../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType'
+import { ZComfortPaymentMeansType } from '../../types/ram/TradeSettlementPaymentMeansType/ComfortTradeSettlementPaymentMeansType'
+import { ZComfortDocumentLevelTradeTaxType } from '../../types/ram/TradeTaxType/ComfortDocumentLevelTradeTaxType'
+import { ZAmountType } from '../../types/udt/AmountTypeConverter'
+import { ZAmountTypeWithRequiredCurrency } from '../../types/udt/AmountTypeWithRequiredCurrencyConverter'
+import { ZDateTimeType } from '../../types/udt/DateTimeTypeConverter'
+import { ZIdType } from '../../types/udt/IdTypeConverter'
+import { ZIdTypeWithOptionalScheme } from '../../types/udt/IdTypeWithOptionalSchemeConverter'
+import { ZIdTypeWithRequiredScheme } from '../../types/udt/IdTypeWithRequiredlSchemeConverter'
+import { ZTextType } from '../../types/udt/TextTypeConverter'
+import { ZTradePartyType } from '../basicwithoutlines/BasicWithoutLinesProfile'
 
 export const ZComfortProfile = z.object({
     meta: z.object({
@@ -95,7 +95,7 @@ export const ZComfortProfile = z.object({
         })
             .extend({ name: ZTextType.optional() })
             .optional(),
-        deliveryDate: z.date()
+        deliveryDate: ZDateTimeType.optional()
     }),
     paymentInformation: z.object({
         creditorReference: ZIdType.optional(),

@@ -57,8 +57,8 @@ const testInvoiceLines: BasicTradeLineItem[] = [
                 rateApplicablePercent: 19
             },
             billingPeriod: {
-                startDate: new Date('2023-01-01'),
-                endDate: new Date('2023-01-31')
+                startDate: { year: 2023, month: 1, day: 1 },
+                endDate: { year: 2023, month: 1, day: 31 }
             },
             lineLevelAllowancesAndCharges: {
                 allowances: [
@@ -129,8 +129,7 @@ const testBasicProfile: BasicProfile = {
                         rateApplicablePercent: 19
                     }
                 }
-            ],
-            charges: []
+            ]
         },
         allowanceTotalAmount: 13.5,
         chargeTotalAmount: 0,

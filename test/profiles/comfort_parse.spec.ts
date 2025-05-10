@@ -1,9 +1,8 @@
-import { DateTime } from 'luxon'
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { FacturX } from '../../src/index.js'
-import { ComfortProfile, isComfortProfile } from '../../src/profiles/comfort/ComfortProfile.js'
+import { FacturX } from '../../src/index'
+import { ComfortProfile, isComfortProfile } from '../../src/profiles/comfort/ComfortProfile'
 import {
     COUNTRY_ID_CODES,
     CURRENCY_CODES,
@@ -11,7 +10,7 @@ import {
     TAX_CATEGORY_CODES,
     TAX_TYPE_CODE,
     UNIT_CODES
-} from '../../src/types/codes.js'
+} from '../../src/types/codes'
 
 type TestCases = Record<string, ComfortProfile | undefined>
 
@@ -58,7 +57,7 @@ describe('Factur-X EN16931_Elektron', () => {
             if (!dateOfIssue) {
                 throw new Error('Document Date undefined')
             }
-            expect(DateTime.fromJSDate(dateOfIssue).toISODate()).toBe('2024-11-15')
+            expect(dateOfIssue).toEqual({ year: 2024, month: 11, day: 15 })
         })
 
         test('BG-1 - INCLUDED NOTE', () => {
@@ -193,7 +192,7 @@ describe('Factur-X EN16931_Elektron', () => {
                 if (!deliveryDate) {
                     throw new Error('Delivery date undefined')
                 }
-                expect(DateTime.fromJSDate(deliveryDate).toISODate()).toBe('2024-11-01')
+                expect(deliveryDate).toEqual({ year: 2024, month: 11, day: 1 })
             })
         })
 
@@ -421,7 +420,7 @@ describe('Tests for EN16931_Einfach_DueDate', () => {
             if (!dateOfIssue) {
                 throw new Error('Document Date undefined')
             }
-            expect(DateTime.fromJSDate(dateOfIssue).toISODate()).toBe('2024-11-15')
+            expect(dateOfIssue).toEqual({ year: 2024, month: 11, day: 15 })
         })
 
         test('BG-1 - INCLUDED NOTE', () => {
@@ -521,7 +520,7 @@ Handelsregisternummer: H A 123`)
                 if (!deliveryDate) {
                     throw new Error('Delivery date undefined')
                 }
-                expect(DateTime.fromJSDate(deliveryDate).toISODate()).toBe('2024-11-14')
+                expect(deliveryDate).toEqual({ year: 2024, month: 11, day: 14 })
             })
         })
 
@@ -540,7 +539,7 @@ Handelsregisternummer: H A 123`)
                     if (!dueDate) {
                         throw new Error('Due date undefined')
                     }
-                    expect(DateTime.fromJSDate(dueDate).toISODate()).toBe('2024-12-15')
+                    expect(dueDate).toEqual({ year: 2024, month: 12, day: 15 })
                 })
                 test('BT-20 - Payment terms description', () => {
                     expect(testCases[testCaseKey]?.paymentInformation?.paymentTerms?.description).toBeUndefined()

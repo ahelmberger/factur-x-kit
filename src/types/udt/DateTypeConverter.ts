@@ -1,13 +1,9 @@
-import { DateTime } from 'luxon'
 import { z } from 'zod'
 
 import { BaseTypeConverter, TypeConverterError } from '../BaseTypeConverter'
+import { DateTimeTypeConverter, ZDateTimeType } from './DateTimeTypeConverter'
 
-const DATE_FORMATS = {
-    '102': 'yyyyMMdd'
-}
-
-export const ZDateType = z.date()
+export const ZDateType = ZDateTimeType
 export type DateType = z.infer<typeof ZDateType>
 
 export const ZDateTypeXml = z.object({
@@ -26,12 +22,15 @@ export class DateTypeConverter extends BaseTypeConverter<DateType, DateTypeXml> 
             throw new TypeConverterError('INVALID_XML')
         }
 
-        const dt = DateTime.fromFormat(data['udt:DateString']['#text'], DATE_FORMATS[data['udt:DateString']['@format']])
-        if (!dt || !dt.isValid) {
-            throw new TypeConverterError('INVALID_XML')
-        }
+        const dateString = data['udt:DateString']['#text']
 
-        return dt.toJSDate()
+        const dateObject = DateTimeTypeConverter.convertDateString102ToDateObject(dateString)
+
+        const { success: success_value, data: data_value } = ZDateTimeType.safeParse(dateObject)
+        if (!success_value) {
+            throw new TypeConverterError('INVALID_VALUE')
+        }
+        return data_value
     }
 
     _toXML(value: DateType): DateTypeXml {
@@ -41,11 +40,11 @@ export class DateTypeConverter extends BaseTypeConverter<DateType, DateTypeXml> 
             throw new TypeConverterError('INVALID_VALUE')
         }
 
-        const dt = DateTime.fromJSDate(data)
+        const dt = DateTimeTypeConverter.convertDateObjectToDateString102(data)
 
         return {
             'udt:DateString': {
-                '#text': dt.toFormat(DATE_FORMATS['102']),
+                '#text': dt,
                 '@format': '102'
             }
         }
