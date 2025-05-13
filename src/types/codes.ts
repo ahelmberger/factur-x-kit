@@ -2950,9 +2950,9 @@ export enum ISO6523_CODES {
 
 export enum EAS_SCHEME_CODES {
     OFTP_ODETTE_File_Transfer_Protocol = 'AN',
-    X_400_address_for_mail_text = 'AQ_',
-    AS2_exchange_ = 'AS_',
-    File_Transfer_Protocol = 'AU_',
+    X_400_address_for_mail_text = 'AQ',
+    AS2_exchange_ = 'AS',
+    File_Transfer_Protocol = 'AU',
     Electronic_mail_SMPT = 'EM',
     System_Information_et_Repertoire_des_Entreprise_et_des_Etablissements_SIRENE = '0002',
     Organisationsnummer = '0007',

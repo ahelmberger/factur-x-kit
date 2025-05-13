@@ -11,11 +11,12 @@ import {
     PDFRef,
     PDFStream,
     PDFString,
-    decodePDFRawStream,
-    rgb
+    decodePDFRawStream
 } from 'pdf-lib'
 import { AFRelationship, EmbeddedFileOptions } from 'pdf-lib/cjs/core/embedders/FileEmbedder'
 
+import { ZugferdKitPDFTemplate } from '../pdfTemplates/types'
+import zugferdKitSinglePage from '../pdfTemplates/zugferdKitSinglePage'
 import { availableProfiles } from './factur-x'
 
 const FACTUR_X_FILENAME = PDFString.of('factur-x.xml').decodeText()
@@ -77,19 +78,14 @@ export default class FacturXPdf {
         return null
     }
 
-    public async createPDFContent(data: availableProfiles): Promise<void> {
+    public async createPDFContent(data: availableProfiles, template?: ZugferdKitPDFTemplate): Promise<void> {
         //TODO: Correct implementation of PDF Invoice
-        const openSansRegularBytes = fs.readFileSync('./assets/fonts/OpenSans/OpenSans-Regular.ttf')
+        if (!template) {
+            this.pdfDoc = await zugferdKitSinglePage(data, this.pdfDoc)
+            return
+        }
 
-        const page = this.pdfDoc.addPage([600, 400])
-        const openSansRegular = await this.pdfDoc.embedFont(openSansRegularBytes)
-        page.drawText(`Invoice-ID: ${data.document.id}, Total: ${data.totals.grossTotal} ${data.document.currency}`, {
-            x: 50,
-            y: 350,
-            size: 30,
-            color: rgb(0, 0, 0),
-            font: openSansRegular
-        })
+        this.pdfDoc = await template(data, this.pdfDoc)
     }
 
     public async createFacturXPDF(xml: string, obj: availableProfiles): Promise<Uint8Array> {

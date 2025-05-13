@@ -2,7 +2,7 @@
 
 [![NPM version](https://img.shields.io/npm/v/factur-x.svg?style=flat-square)](https://www.npmjs.org/package/factur-x)
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
-[![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/schwarmdigital/factur-x.js)
+[![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/NikolaiMe/zugferd-kit)
 
 Read and Write Hybrid Invoice Documents (EN 16931 / Factur-X / ZUGFeRD / eRechnung / XRechnung) in Javascript / Typescript.
 
@@ -70,3 +70,11 @@ console.log(obj) // { document: { id: "471102" }, seller: { name: "Lieferant Gmb
 
 await fs.writeFile('./invoice-data.json', JSON.stringify(obj, null, 4))
 ```
+
+### Next steps
+
+-   [ ] PDF-invoice creation
+-   [ ] Attachment of Referenced Documents
+-   [ ] Schematron and XSD Checker
+-   [ ] Docs
+-   [ ] Extended Profile

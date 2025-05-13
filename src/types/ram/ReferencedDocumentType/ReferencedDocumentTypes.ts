@@ -12,7 +12,6 @@ export const ZReferencedDocumentType = z.object({
     documentId: ZIdType.optional(),
     uriid: ZIdType.optional(),
     lineId: ZIdType.optional(),
-    //--> TODO: Delete typecode and replace by default
     typeCode: ZIdType.optional(),
     name: ZTextType.optional(),
     attachmentBinaryObject: ZBinaryObjectType.optional(),
