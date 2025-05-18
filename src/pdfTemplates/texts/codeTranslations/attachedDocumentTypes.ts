@@ -1,5 +1,5 @@
 import { UNTDID_1153 } from '../../../types/codes'
-import { TranslatedTexts } from './types'
+import { TranslatedTexts } from '../types'
 
 type AttachedDocumentCodes = `${UNTDID_1153}`
 
@@ -2464,9 +2464,9 @@ const attachedDocumentTypes_fr: Record<AttachedDocumentCodes, string> = {
 }
 
 const attachedDocumentTypes: TranslatedTexts<AttachedDocumentCodes> = {
-    en: attachedDocumentTypes_en,
-    de: attachedDocumentTypes_de,
-    fr: attachedDocumentTypes_fr
+    'en-US': attachedDocumentTypes_en,
+    'de-DE': attachedDocumentTypes_de,
+    'fr-FR': attachedDocumentTypes_fr
 }
 
 export default Object.freeze(attachedDocumentTypes)

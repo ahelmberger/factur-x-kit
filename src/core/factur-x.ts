@@ -1,6 +1,7 @@
 import objectPath from 'object-path'
 import { PDFDocument } from 'pdf-lib'
 
+import { SupportedLocales, ZugferdKitPDFTemplate } from '../pdfTemplates/types'
 import { BasicProfile, isBasicProfile } from '../profiles/basic/BasicProfile'
 import { BasicProfileConverter } from '../profiles/basic/BasicProfileConverter'
 import {
@@ -61,6 +62,8 @@ export class FacturX {
         keepInitialPdf?: boolean
         existingNonConformantPdf?: string | Uint8Array | ArrayBuffer | null
         pdfLibDocument?: PDFDocument | null
+        pdfTemplate?: ZugferdKitPDFTemplate
+        locale?: SupportedLocales
     }): Promise<Uint8Array> {
         if (options?.existingNonConformantPdf) {
             this._pdf = await FacturXPdf.createFromNonCompliantPDF(options?.existingNonConformantPdf)
@@ -70,7 +73,7 @@ export class FacturX {
             throw new Error('You can only use keepInitialPdf if you created the FacturX Object via FacturX.fromPdf')
         } else {
             this._pdf = await FacturXPdf.create()
-            await this._pdf.createPDFContent(this.profile)
+            await this._pdf.createPDFContent(this.profile, options?.pdfTemplate, options?.locale)
         }
         return this._pdf.createFacturXPDF(await this.getXML(), this.profile)
     }

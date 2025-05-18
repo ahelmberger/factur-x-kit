@@ -15,7 +15,7 @@ import {
 } from 'pdf-lib'
 import { AFRelationship, EmbeddedFileOptions } from 'pdf-lib/cjs/core/embedders/FileEmbedder'
 
-import { ZugferdKitPDFTemplate } from '../pdfTemplates/types'
+import { SupportedLocales, ZugferdKitPDFTemplate } from '../pdfTemplates/types'
 import zugferdKitSinglePage from '../pdfTemplates/zugferdKitSinglePage'
 import { availableProfiles } from './factur-x'
 
@@ -78,14 +78,18 @@ export default class FacturXPdf {
         return null
     }
 
-    public async createPDFContent(data: availableProfiles, template?: ZugferdKitPDFTemplate): Promise<void> {
+    public async createPDFContent(
+        data: availableProfiles,
+        template?: ZugferdKitPDFTemplate,
+        locale?: SupportedLocales
+    ): Promise<void> {
         //TODO: Correct implementation of PDF Invoice
         if (!template) {
-            this.pdfDoc = await zugferdKitSinglePage(data, this.pdfDoc)
+            this.pdfDoc = await zugferdKitSinglePage(data, this.pdfDoc, locale || 'en-US')
             return
         }
 
-        this.pdfDoc = await template(data, this.pdfDoc)
+        this.pdfDoc = await template(data, this.pdfDoc, locale || 'en-US')
     }
 
     public async createFacturXPDF(xml: string, obj: availableProfiles): Promise<Uint8Array> {

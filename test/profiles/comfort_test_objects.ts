@@ -183,6 +183,7 @@ export const testComfortProfile: ComfortProfile = {
         ...testBasicProfile.buyer,
         tradeContact: [
             {
+                departmentName: 'Einkauf',
                 personName: 'Erika Mustermann',
                 telephoneNumber: '+49 444555666',
                 email: 'erika@firma.de'

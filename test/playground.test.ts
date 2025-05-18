@@ -9,6 +9,7 @@ import { ZBasicWithoutLinesProfileXml } from '../src/profiles/basicwithoutlines/
 import { ZComfortProfile } from '../src/profiles/comfort'
 import { ZBasicTradeLineItem } from '../src/types/ram/IncludedSupplyChainTradeLineItem/BasicTradeLineItem'
 import { ZComfortTradeLineItem } from '../src/types/ram/IncludedSupplyChainTradeLineItem/ComfortTradeLineItem'
+import { designTestObject } from './design_test_object'
 import './profiles/codeDb/xPathDocumentFunction'
 import { testComfortProfile } from './profiles/comfort_test_objects'
 
@@ -33,7 +34,7 @@ describe('playground', () => {
         const identifier4 = 'comfort'
         const { node: node4 } = zodToTs(ZComfortProfile, identifier4)
         const nodeString4 = printNode(node4)
-        console.log(nodeString4)
+        //console.log(nodeString4)
     })
 })
 
@@ -61,10 +62,12 @@ describe('factur-x validity check', () => {
     })
 })
 
-describe('pdf-creation', () => {
-    test('pdf creation', async () => {
-        const instance = await FacturX.fromObject(testComfortProfile)
-        const pdfBytes = await instance.getPDF()
+describe.only('pdf-creation', () => {
+    test.only('pdf creation', async () => {
+        const instance = await FacturX.fromObject(designTestObject)
+        const pdfBytes = await instance.getPDF({
+            locale: 'de-DE'
+        })
         expect(pdfBytes).toBeDefined()
         await fs.writeFile(path.join(__dirname, 'pdfs', 'createdPDFs', 'PDF_DESIGN.pdf'), pdfBytes)
     })

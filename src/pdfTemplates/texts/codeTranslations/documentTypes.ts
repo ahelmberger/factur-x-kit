@@ -1,5 +1,5 @@
 import { DOCUMENT_TYPE_CODES } from '../../../types/codes'
-import { TranslatedTexts } from './types'
+import { TranslatedTexts } from '../types'
 
 type DocumentCodes = `${DOCUMENT_TYPE_CODES}`
 
@@ -178,9 +178,9 @@ export const documentTypes_fr: Record<DocumentCodes, string> = {
 }
 
 const documentTypes: TranslatedTexts<DocumentCodes> = {
-    en: documentTypes_en,
-    de: documentTypes_de,
-    fr: documentTypes_fr
+    'en-US': documentTypes_en,
+    'de-DE': documentTypes_de,
+    'fr-FR': documentTypes_fr
 }
 
 export default Object.freeze(documentTypes)

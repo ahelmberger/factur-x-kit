@@ -1,5 +1,5 @@
 import { UNIT_CODES } from '../../../types/codes'
-import { TranslatedTexts } from './types'
+import { TranslatedTexts } from '../types'
 
 // Typ, der eine Union aller möglichen String-Werte des Enums bildet
 type UnitCode = `${UNIT_CODES}`

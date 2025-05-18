@@ -1,4 +1,4 @@
-interface comfortProfile {
+export interface comfortProfile {
     meta: {
         businessProcessType?: string | undefined // BT-23
         guidelineSpecifiedDocumentContextParameter: 'urn:cen.eu:en16931:2017' //BT-24

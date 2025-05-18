@@ -1,5 +1,5 @@
 import { SUBJECT_CODES } from '../../../types/codes'
-import { TranslatedTexts } from './types'
+import { TranslatedTexts } from '../types'
 
 export type SubjectCodes = `${SUBJECT_CODES}`
 
@@ -1162,9 +1162,9 @@ const noteSubjects_fr: Record<SubjectCodes, string> = {
 }
 
 const noteSubjects: TranslatedTexts<SubjectCodes> = {
-    en: noteSubjects_en,
-    de: noteSubjects_de,
-    fr: noteSubjects_fr
+    'en-US': noteSubjects_en,
+    'de-DE': noteSubjects_de,
+    'fr-FR': noteSubjects_fr
 }
 
 export default Object.freeze(noteSubjects)
