@@ -3,18 +3,19 @@ import { PDFFont, PDFPage, RGB, rgb } from 'pdf-lib'
 import { availableProfiles } from '../../core/factur-x'
 import textTranslations from '../texts/textTranslations'
 import { SupportedLocales, dinA4Height, mmToPt } from '../types'
+import { getNumberOfLines } from './helpers'
 
-export default function addCustomerAddressBlock(
+export default async function addCustomerAddressBlock(
     data: availableProfiles,
     page: PDFPage,
     font: PDFFont,
     locale: SupportedLocales,
     options?: {
-        position?: { x: number; y: number }
+        position?: { x?: number; y?: number }
         fontSize?: number
         color?: RGB
     }
-): Promise<void> {
+): Promise<number> {
     const createCountryName = new Intl.DisplayNames([locale], { type: 'region', style: 'long', fallback: 'code' })
 
     let tradeContact = ''
@@ -51,8 +52,8 @@ export default function addCustomerAddressBlock(
             : ''
 
         const postcode = data.buyer.postalAddress.postcode ? `${data.buyer.postalAddress.postcode}` : ''
-        const city = data.buyer.postalAddress.city ? `${data.buyer.postalAddress.city}\n` : ''
-        postcodeAndCity = `${postcode} ${city}${postcode || city ? '' : '\n'}`
+        const city = data.buyer.postalAddress.city ? `${data.buyer.postalAddress.city}` : ''
+        postcodeAndCity = `${postcode}${postcode || city ? ' ' : ''}${city}${postcode || city ? '\n' : ''}`
 
         const country = data.buyer.postalAddress.country
             ? `${createCountryName.of(data.buyer.postalAddress.country)}`
@@ -64,14 +65,21 @@ export default function addCustomerAddressBlock(
     }
 
     const customerAddress = `${data.buyer.name}\n${tradeContact}${addressLineOne}${addressLineTwo}${addressLineThree}${postcodeAndCity}${countryAndSubdivision}${contactPhone || contactEmail ? '\n \n' : ''}${contactPhone}${contactEmail}`
+
+    const fontSize = options?.fontSize || 10
+    const lineHeight = fontSize * 1.5
+    const yPosition = options?.position?.y || (dinA4Height - 62) * mmToPt
+
     page.drawText(customerAddress, {
         x: options?.position?.x || 25 * mmToPt, // Default 25 mm --> Fitting for DIN window Envelope
-        y: options?.position?.y || (dinA4Height - 62) * mmToPt, // Default 55 mm --> Fitting for DIN window Envelope
+        y: yPosition,
         font: font,
-        size: options?.fontSize || 10,
-        lineHeight: (options?.fontSize || 10) * 1.5,
-        color: options?.color || rgb(0, 0, 0),
-        maxWidth: 80 * mmToPt // Default 80 mm --> Fitting for DIN window Envelope
+        size: fontSize,
+        lineHeight: lineHeight,
+        color: options?.color || rgb(0, 0, 0)
     })
-    return Promise.resolve()
+    const numbersOfLines = getNumberOfLines(customerAddress) - 2 // -1 because there is a \n also at the end of the last line
+
+    // returns the y-coordinate of the lower edge of the address field
+    return yPosition - lineHeight * numbersOfLines
 }

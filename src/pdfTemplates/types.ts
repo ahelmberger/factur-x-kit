@@ -11,7 +11,7 @@ export type ZugferdKitPDFTemplate = (
     locale: SupportedLocales
 ) => Promise<PDFDocument>
 
-export const mmToPt = 74.0 / 25.4
-export const ptToMm = 25.4 / 74.0
+export const mmToPt = 72.0 / 25.4
+export const ptToMm = 25.4 / 72.0
 export const dinA4Width = 210
 export const dinA4Height = 297

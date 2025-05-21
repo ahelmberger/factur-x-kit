@@ -27,7 +27,15 @@ export const designTestObject: ComfortProfile = {
         type: '380' as DOCUMENT_TYPE_CODES,
         dateOfIssue: { year: 2023, month: 10, day: 1 },
         notes: [
-            { content: 'Note 1', subject: 'ABS' as SUBJECT_CODES },
+            {
+                content:
+                    'A Vielen Dank für Ihren Einkauf! Hiermit stellen wir die folgenden Leistungen in Rechnung. Dies ist ein Dummy\nText mit Zeilenumbruch',
+                subject: 'ACY' as SUBJECT_CODES
+            },
+            {
+                content: 'Vielen Dank für Ihren Einkauf! Hiermit stellen wir die folgenden Leistungen in Rechnung',
+                subject: 'ACY' as SUBJECT_CODES
+            },
             { content: 'Note 2', subject: 'AEA' as SUBJECT_CODES }
         ],
         currency: 'EUR' as CURRENCY_CODES
