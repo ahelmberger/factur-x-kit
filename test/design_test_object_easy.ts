@@ -251,15 +251,11 @@ export const designTestObject: ComfortProfile = {
         {
             generalLineData: {
                 lineId: '1',
-                lineNote: {
-                    content:
-                        'Dieses Produkt wird in Großenpackungen geliefert. Eine Spedition wird dieses Produkt separat vom Rest der Bestellung anliefern. Die Lieferzeit beträgt 3-5 Werktage.'
-                }
+                lineNote: { content: 'First item line note' }
             },
             productDescription: {
                 globalId: { id: '12345678', scheme: '0160' as ISO6523_CODES },
-                sellerProductId: '0138-12000',
-                buyerProductId: 'MAINT-PLAN-BASIC',
+                sellerProductId: 'COMP-XYZ-123',
                 name: 'Premium Schrauben',
                 description: 'Präzisionsgefertigte Komponente aus Edelstahl V4A.',
                 productCharacteristic: [
@@ -273,18 +269,6 @@ export const designTestObject: ComfortProfile = {
                             codeScheme: 'TST' as UNTDID_7143,
                             codeSchemeVersion: 'v23.0501'
                         }
-                    },
-                    {
-                        productClass: {
-                            code: '3077',
-                            codeScheme: 'SSO' as UNTDID_7143
-                        }
-                    },
-                    {
-                        productClass: {
-                            code: '9',
-                            codeScheme: 'TSO' as UNTDID_7143
-                        }
                     }
                 ],
                 originTradeCountry: 'DE' as COUNTRY_ID_CODES
@@ -293,11 +277,10 @@ export const designTestObject: ComfortProfile = {
                 referencedOrder: { lineId: 'CUST-PO-12345-LN10' },
                 productGrossPricing: {
                     grossPricePerItem: 23.8,
-                    priceBaseQuantity: { quantity: 1, unit: 'KGM' as UNIT_CODES },
-                    priceAllowancesAndCharges: { allowances: [{ actualAmount: 1 }] }
+                    priceBaseQuantity: { quantity: 1, unit: 'KGM' as UNIT_CODES }
                 },
                 productNetPricing: {
-                    netPricePerItem: 5,
+                    netPricePerItem: 20,
                     priceBaseQuantity: { quantity: 1, unit: 'KGM' as UNIT_CODES }
                 }
             },
@@ -308,32 +291,12 @@ export const designTestObject: ComfortProfile = {
                     categoryCode: 'S' as TAX_CATEGORY_CODES,
                     rateApplicablePercent: 19
                 },
-                lineLevelAllowancesAndCharges: {
-                    allowances: [
-                        {
-                            actualAmount: 6,
-                            reasonCode: '95' as ALLOWANCE_REASONS_CODES,
-                            reason: 'Volume discount'
-                        }
-                    ],
-                    charges: [
-                        {
-                            actualAmount: 1,
-                            reasonCode: 'ZZZ' as CHARGE_REASONS_CODES
-                        }
-                    ]
-                },
-                billingPeriod: {
-                    startDate: { year: 2024, month: 1, day: 1 },
-                    endDate: { year: 2024, month: 1, day: 31 }
-                },
-
                 lineTotals: { netTotal: 90 },
                 additionalReferences: [
                     {
-                        documentId: 'LS-9876',
+                        documentId: 'Lieferschein LS-9876',
                         typeCode: REFERENCED_DOCUMENT_TYPE_CODES.Invoice_data_sheet,
-                        referenceTypeCode: 'DQ' as UNTDID_1153
+                        referenceTypeCode: 'LS' as UNTDID_1153
                     }
                 ],
                 accountingInformation: { id: 'Projekt P-100-A' }
@@ -342,6 +305,7 @@ export const designTestObject: ComfortProfile = {
         {
             generalLineData: { lineId: '2' },
             productDescription: {
+                buyerProductId: 'MAINT-PLAN-BASIC',
                 name: 'Organic Tea Leaves'
             },
             productPriceAgreement: {
@@ -356,16 +320,17 @@ export const designTestObject: ComfortProfile = {
                     categoryCode: 'S' as TAX_CATEGORY_CODES,
                     rateApplicablePercent: 19
                 },
-                lineLevelAllowancesAndCharges: {
-                    charges: [
-                        {
-                            actualAmount: 15,
-                            reasonCode: 'ZZZ' as CHARGE_REASONS_CODES,
-                            reason: 'Express-Zuschlag'
-                        }
-                    ]
+                billingPeriod: {
+                    startDate: { year: 2024, month: 1, day: 1 },
+                    endDate: { year: 2024, month: 1, day: 31 }
                 },
-                lineTotals: { netTotal: 45 }
+                lineLevelAllowancesAndCharges: {
+                    charges: []
+                },
+                lineTotals: { netTotal: 45 },
+                additionalReferences: [
+                    { documentId: 'Vertrag V-2024-001', typeCode: REFERENCED_DOCUMENT_TYPE_CODES.Invoice_data_sheet }
+                ]
             }
         }
     ]

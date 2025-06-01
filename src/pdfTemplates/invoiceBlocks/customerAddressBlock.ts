@@ -19,8 +19,6 @@ export default async function addCustomerAddressBlock(
     const createCountryName = new Intl.DisplayNames([locale], { type: 'region', style: 'long', fallback: 'code' })
 
     let tradeContact = ''
-    let contactPhone = ''
-    let contactEmail = ''
 
     if ('tradeContact' in data.buyer) {
         const departmentName = data.buyer.tradeContact?.[0]?.departmentName
@@ -30,12 +28,6 @@ export default async function addCustomerAddressBlock(
             ? `${departmentName ? `${textTranslations[locale].ATTN} ` : ''}${data.buyer.tradeContact?.[0]?.personName}`
             : ''
         tradeContact = `${departmentName}${departmentName ? ' ' : ''}${personName}${departmentName || personName ? '\n' : ''}`
-        contactPhone = data.buyer.tradeContact?.[0]?.telephoneNumber
-            ? `${textTranslations[locale].PHONE}: ${data.buyer.tradeContact?.[0]?.telephoneNumber}\n`
-            : ''
-        contactEmail = data.buyer.tradeContact?.[0]?.email
-            ? `${textTranslations[locale].EMAIL}: ${data.buyer.tradeContact?.[0]?.email}\n`
-            : ''
     }
 
     let addressLineOne = ''
@@ -64,7 +56,7 @@ export default async function addCustomerAddressBlock(
         countryAndSubdivision = `${country}${country && countrySubdivision ? ' - ' : ''}${countrySubdivision}${country || countrySubdivision ? '\n' : ''}`
     }
 
-    const customerAddress = `${data.buyer.name}\n${tradeContact}${addressLineOne}${addressLineTwo}${addressLineThree}${postcodeAndCity}${countryAndSubdivision}${contactPhone || contactEmail ? '\n \n' : ''}${contactPhone}${contactEmail}`
+    const customerAddress = `${data.buyer.name}\n${tradeContact}${addressLineOne}${addressLineTwo}${addressLineThree}${postcodeAndCity}${countryAndSubdivision}`
 
     const fontSize = options?.fontSize || 10
     const lineHeight = fontSize * 1.5

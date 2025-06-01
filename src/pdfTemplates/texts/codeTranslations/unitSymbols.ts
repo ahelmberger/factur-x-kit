@@ -4136,9 +4136,9 @@ const unitSymbols_fr: Record<UnitCode, string> = {
 }
 
 const unitSymbols: TranslatedTexts<UnitCode> = {
-    en: unitSymbols_en,
-    de: unitSymbols_de,
-    fr: unitSymbols_fr
+    'en-US': unitSymbols_en,
+    'de-DE': unitSymbols_de,
+    'fr-FR': unitSymbols_fr
 }
 
 export default Object.freeze(unitSymbols)

@@ -2943,9 +2943,20 @@ export enum ISO6523_CODES {
     Tradeplace_TradePI_Standard = '0214',
     Net_service_ID = '0215',
     OVTcode = '0216',
-    DiGAVEID = 'XR01',
-    Freischaltcode = 'XR02',
-    IK = 'XR03'
+    The_Netherlands_Chamber_of_Commerce_and_Industry_establishment_number = '0217',
+    Unified_registration_number_Latvia = '0218',
+    Taxpayer_registration_code_Latvia = '0219',
+    The_Register_of_Natural_Persons_Latvia = '0220',
+    The_registered_number_of_the_qualified_invoice_issuer = '0221',
+    Metadata_Registry_Support = '0222',
+    EU_based_company = '0223',
+    FTCTC_CODE_ROUTAGE = '0224',
+    FRCTC_ELECTRONIC_ADDRESS = '0225',
+    FRCTC_Particulier = '0226',
+    NON_EU_based_company = '0227',
+    Répertoire_des_Entreprises_et_des_Etablissements_RIDET = '0228',
+    T_A_H_I_T_I_traitement_automatique_hiérarchisé_des_institutions_de_Tahiti_et_des_îles = '0229',
+    National_eInvoicing_Framework = '0230'
 }
 
 export enum EAS_SCHEME_CODES {

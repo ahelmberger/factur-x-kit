@@ -5,6 +5,7 @@ import { PDFDocument } from 'pdf-lib'
 import { availableProfiles } from '../core/factur-x'
 import addCustomerAddressBlock from './invoiceBlocks/customerAddressBlock'
 import addIntroTextBlock from './invoiceBlocks/introTextBlock'
+import addItemTable from './invoiceBlocks/itemTable/itemTable'
 import addMetaBlock from './invoiceBlocks/metaDataBlock'
 import addSenderLineBlock from './invoiceBlocks/senderLineBlock'
 import addTitleBlock from './invoiceBlocks/titleBlock'
@@ -39,18 +40,21 @@ export default async function zugferdKitSinglePage(
     const yCustomerAddress = await addCustomerAddressBlock(data, page, openSansRegular, locale)
     const yMetaBlock = await addMetaBlock(data, page, openSansRegular, openSansBold, locale)
     const yTitleBlock = await addTitleBlock(data, page, openSansBold, locale, {
-        position: { y: yCustomerAddress - 70 }
+        position: { y: yCustomerAddress - 50 }
     })
     const yIntroNoteBlock = await addIntroTextBlock(data, page, openSansRegular, locale, {
-        position: { y: yTitleBlock - 20 }
+        position: { y: yTitleBlock - 30 }
     })
-    page.drawLine({
+    const yItemTable = await addItemTable(data, page, openSansRegular, openSansBold, locale, {
+        position: { y: yIntroNoteBlock - 30 }
+    })
+    /*page.drawLine({
         start: { x: 0, y: yIntroNoteBlock },
         end: { x: 800, y: yIntroNoteBlock },
         thickness: 1,
         color: rgb(0.75, 0.2, 0.2),
         opacity: 1
-    })
+    })*/
 
     return pdfDoc
 }

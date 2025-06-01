@@ -65,10 +65,22 @@ describe('factur-x validity check', () => {
 describe.only('pdf-creation', () => {
     test.only('pdf creation', async () => {
         const instance = await FacturX.fromObject(designTestObject)
-        const pdfBytes = await instance.getPDF({
+        const pdfBytesDE = await instance.getPDF({
             locale: 'de-DE'
         })
-        expect(pdfBytes).toBeDefined()
-        await fs.writeFile(path.join(__dirname, 'pdfs', 'createdPDFs', 'PDF_DESIGN.pdf'), pdfBytes)
+        expect(pdfBytesDE).toBeDefined()
+        await fs.writeFile(path.join(__dirname, 'pdfs', 'createdPDFs', 'PDF_DESIGN_DE.pdf'), pdfBytesDE)
+
+        const pdfBytesEN = await instance.getPDF({
+            locale: 'en-US'
+        })
+        expect(pdfBytesEN).toBeDefined()
+        await fs.writeFile(path.join(__dirname, 'pdfs', 'createdPDFs', 'PDF_DESIGN_EN.pdf'), pdfBytesEN)
+
+        const pdfBytesFR = await instance.getPDF({
+            locale: 'fr-FR'
+        })
+        expect(pdfBytesFR).toBeDefined()
+        await fs.writeFile(path.join(__dirname, 'pdfs', 'createdPDFs', 'PDF_DESIGN_FR.pdf'), pdfBytesFR)
     })
 })
