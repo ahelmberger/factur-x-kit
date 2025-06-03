@@ -17,6 +17,17 @@ export interface TableCommentType<T> {
     content: (data: T) => string
 }
 
+export interface TableInformation {
+    width: number
+    height: number
+    startX: number
+    startY: number
+    columns: number
+    columnsWidth: number[]
+    rows: number
+    padding: number
+}
+
 // TODO: Ugly Spaghetti-Code. To be refactored
 
 export default async function drawTable<T extends object>(
@@ -38,7 +49,7 @@ export default async function drawTable<T extends object>(
         totalTableWidth?: number
         commentScheme?: TableCommentType<T>[]
     } = {}
-): Promise<number> {
+): Promise<[number, TableInformation]> {
     const {
         fontSize = 8,
         fontColor = rgb(0, 0, 0),
@@ -57,12 +68,25 @@ export default async function drawTable<T extends object>(
     const commentTitleColumnWidth = (totalTableWidth - firstColumnWidth) / 4
     const commentTextWidth = totalTableWidth - 2 * padding - firstColumnWidth - commentTitleColumnWidth
     const commentTextStartX = startX + padding + firstColumnWidth + commentTitleColumnWidth
+    const commentTitleStartX = startX + padding + firstColumnWidth
     // Draw Header
     let currentX = startX
     let headerHeight = fontSize + padding * 2
 
+    const returnTableInformation: TableInformation = {
+        width: totalTableWidth,
+        height: 0,
+        startX: startX,
+        startY: startY,
+        columns: tableScheme.length,
+        columnsWidth: [],
+        rows: data.length,
+        padding: padding
+    }
+
     for (const col of tableScheme) {
         const actualColWidth = (col.colWeight / totalRelativeWidth) * totalTableWidth
+        returnTableInformation.columnsWidth.push(actualColWidth)
         const colContentntWidth = actualColWidth - 2 * padding
         const numbersOfLines = getNumberOfLines(col.colHeader, fontSize, fontBold, colContentntWidth)
         const heightOfCell = numbersOfLines * fontSize + 2 * padding
@@ -173,10 +197,10 @@ export default async function drawTable<T extends object>(
             for (const comm of options.commentScheme) {
                 if (comm.content(rowData)) {
                     const headingText = `${comm.heading}:`
-                    const headingTextWidth = fontBold.widthOfTextAtSize(headingText, fontSize)
-                    const headingTextStartX = commentTextStartX - padding - headingTextWidth
+                    // const headingTextWidth = fontBold.widthOfTextAtSize(headingText, fontSize)
+                    // const headingTextStartX = commentTextStartX - padding - headingTextWidth
                     page.drawText(headingText, {
-                        x: headingTextStartX,
+                        x: commentTitleStartX,
                         y: currentCommentY,
                         font: fontBold,
                         size: fontSize,
@@ -205,7 +229,7 @@ export default async function drawTable<T extends object>(
         currentY -= rowHeight + commentHeight
     }
 
-    return currentY
+    return [currentY, returnTableInformation]
 }
 
 function getXPositionOfText(

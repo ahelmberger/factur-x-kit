@@ -33,6 +33,8 @@ export const ZReferencedDocumentTypeXml = z.object({
 export const ZReferencedDocumentType_docId_issueDate = ZReferencedDocumentType.pick({
     documentId: true,
     issueDate: true
+}).extend({
+    documentId: ZIdType
 })
 
 export type ReferencedDocumentType_docId_issueDate = z.infer<typeof ZReferencedDocumentType_docId_issueDate>
@@ -40,6 +42,8 @@ export type ReferencedDocumentType_docId_issueDate = z.infer<typeof ZReferencedD
 export const ZReferencedDocumentTypeXml_docId_issueDate = ZReferencedDocumentTypeXml.pick({
     'ram:IssuerAssignedID': true,
     'ram:FormattedIssueDateTime': true
+}).extend({
+    'ram:IssuerAssignedID': ZIdTypeXml
 })
 
 export type ReferencedDocumentTypeXml_docId_issueDate = z.infer<typeof ZReferencedDocumentTypeXml_docId_issueDate>

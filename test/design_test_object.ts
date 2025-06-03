@@ -28,15 +28,15 @@ export const designTestObject: ComfortProfile = {
         dateOfIssue: { year: 2023, month: 10, day: 1 },
         notes: [
             {
-                content:
-                    'A Vielen Dank für Ihren Einkauf! Hiermit stellen wir die folgenden Leistungen in Rechnung. Dies ist ein Dummy\nText mit Zeilenumbruch',
-                subject: 'ACY' as SUBJECT_CODES
-            },
-            {
                 content: 'Vielen Dank für Ihren Einkauf! Hiermit stellen wir die folgenden Leistungen in Rechnung',
                 subject: 'ACY' as SUBJECT_CODES
             },
-            { content: 'Note 2', subject: 'AEA' as SUBJECT_CODES }
+            {
+                content:
+                    'da sie als native Funktionen in der JavaScript-Engine implementiert sind. Eine manuell geschriebene Schleife in JavaScript wäre in der Regel langsamer, da sie im User-Space Code läuft und mehr Overheads hat',
+                subject: 'AEA' as SUBJECT_CODES
+            },
+            { content: 'Danke Danke Danke!' }
         ],
         currency: 'EUR' as CURRENCY_CODES
     },
@@ -117,10 +117,6 @@ export const designTestObject: ComfortProfile = {
             {
                 documentId: 'INV-12345',
                 issueDate: { year: 2023, month: 9, day: 1 }
-            },
-            {
-                documentId: 'INV-67890',
-                issueDate: { year: 2023, month: 9, day: 15 }
             }
         ],
         additionalReferences: {
@@ -215,11 +211,21 @@ export const designTestObject: ComfortProfile = {
         documentLevelAllowancesAndCharges: {
             allowances: [
                 {
-                    calculationPercent: 10,
-                    basisAmount: 135,
-                    actualAmount: 13.5,
+                    actualAmount: 14,
                     reasonCode: '95' as ALLOWANCE_REASONS_CODES,
-                    reason: 'Discount',
+                    reason: 'Weil du so nett bist',
+                    categoryTradeTax: {
+                        typeCode: 'VAT' as TAX_TYPE_CODE,
+                        categoryCode: 'S' as TAX_CATEGORY_CODES,
+                        rateApplicablePercent: 19
+                    }
+                }
+            ],
+            charges: [
+                {
+                    actualAmount: 0.5,
+                    reasonCode: 'FC' as CHARGE_REASONS_CODES,
+                    reason: 'Lieferungskosten',
                     categoryTradeTax: {
                         typeCode: 'VAT' as TAX_TYPE_CODE,
                         categoryCode: 'S' as TAX_CATEGORY_CODES,
@@ -228,8 +234,8 @@ export const designTestObject: ComfortProfile = {
                 }
             ]
         },
-        allowanceTotalAmount: 13.5,
-        chargeTotalAmount: 0,
+        allowanceTotalAmount: 14,
+        chargeTotalAmount: 0.5,
         netTotal: 121.5,
         taxBreakdown: [
             {
@@ -243,8 +249,8 @@ export const designTestObject: ComfortProfile = {
         ],
         taxTotal: [{ amount: 23.09, currency: 'EUR' as CURRENCY_CODES }],
         grossTotal: 144.59,
-        prepaidAmount: 0,
-        openAmount: 144.6,
+        prepaidAmount: 10,
+        openAmount: 134.6,
         roundingAmount: 0.01
     },
     invoiceLines: [

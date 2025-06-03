@@ -42,9 +42,9 @@ export const ZMinimumProfile = z.object({
         .optional(),
     totals: z.object({
         netTotal: ZAmountType,
-        taxTotal: ZAmountTypeWithRequiredCurrency,
+        taxTotal: ZAmountTypeWithRequiredCurrency.array().max(1).optional(),
         grossTotal: ZAmountType,
-        dueTotal: ZAmountType
+        openAmount: ZAmountType
     })
 })
 

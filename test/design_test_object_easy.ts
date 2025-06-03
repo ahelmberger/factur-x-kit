@@ -1,7 +1,6 @@
 import { ComfortProfile } from '../src/profiles/comfort'
 import {
     ALLOWANCE_REASONS_CODES,
-    CHARGE_REASONS_CODES,
     COUNTRY_ID_CODES,
     CURRENCY_CODES,
     DOCUMENT_TYPE_CODES,
@@ -9,16 +8,14 @@ import {
     ISO6523_CODES,
     MIME_CODES,
     PAYMENT_MEANS_CODES,
-    REFERENCED_DOCUMENT_TYPE_CODES,
     SUBJECT_CODES,
     TAX_CATEGORY_CODES,
     TAX_TYPE_CODE,
     UNIT_CODES,
-    UNTDID_1153,
-    UNTDID_7143
+    UNTDID_1153
 } from '../src/types/codes'
 
-export const designTestObject: ComfortProfile = {
+export const designTestObject_easy: ComfortProfile = {
     meta: {
         guidelineSpecifiedDocumentContextParameter: 'urn:cen.eu:en16931:2017'
     },
@@ -28,15 +25,15 @@ export const designTestObject: ComfortProfile = {
         dateOfIssue: { year: 2023, month: 10, day: 1 },
         notes: [
             {
-                content:
-                    'A Vielen Dank für Ihren Einkauf! Hiermit stellen wir die folgenden Leistungen in Rechnung. Dies ist ein Dummy\nText mit Zeilenumbruch',
-                subject: 'ACY' as SUBJECT_CODES
-            },
-            {
                 content: 'Vielen Dank für Ihren Einkauf! Hiermit stellen wir die folgenden Leistungen in Rechnung',
                 subject: 'ACY' as SUBJECT_CODES
             },
-            { content: 'Note 2', subject: 'AEA' as SUBJECT_CODES }
+            {
+                content:
+                    'da sie als native Funktionen in der JavaScript-Engine implementiert sind. Eine manuell geschriebene Schleife in JavaScript wäre in der Regel langsamer, da sie im User-Space Code läuft und mehr Overheads hat',
+                subject: 'AEA' as SUBJECT_CODES
+            },
+            { content: 'Danke Danke Danke!' }
         ],
         currency: 'EUR' as CURRENCY_CODES
     },
@@ -113,16 +110,6 @@ export const designTestObject: ComfortProfile = {
         orderReference: { documentId: 'SO-98765' },
         contractReference: { documentId: 'CON-54321' },
         advanceShippingNotice: { documentId: 'ASN-12345' },
-        referencedInvoice: [
-            {
-                documentId: 'INV-12345',
-                issueDate: { year: 2023, month: 9, day: 1 }
-            },
-            {
-                documentId: 'INV-67890',
-                issueDate: { year: 2023, month: 9, day: 15 }
-            }
-        ],
         additionalReferences: {
             invoiceSupportingDocuments: [
                 {
@@ -212,66 +199,31 @@ export const designTestObject: ComfortProfile = {
     },
     totals: {
         sumWithoutAllowancesAndCharges: 135,
-        documentLevelAllowancesAndCharges: {
-            allowances: [
-                {
-                    calculationPercent: 10,
-                    basisAmount: 135,
-                    actualAmount: 13.5,
-                    reasonCode: '95' as ALLOWANCE_REASONS_CODES,
-                    reason: 'Discount',
-                    categoryTradeTax: {
-                        typeCode: 'VAT' as TAX_TYPE_CODE,
-                        categoryCode: 'S' as TAX_CATEGORY_CODES,
-                        rateApplicablePercent: 19
-                    }
-                }
-            ]
-        },
-        allowanceTotalAmount: 13.5,
-        chargeTotalAmount: 0,
-        netTotal: 121.5,
+        netTotal: 135,
         taxBreakdown: [
             {
-                calculatedAmount: 23.09,
+                calculatedAmount: 25.65,
                 typeCode: 'VAT' as TAX_TYPE_CODE,
-                basisAmount: 121.5,
+                basisAmount: 135,
                 categoryCode: 'S' as TAX_CATEGORY_CODES,
                 rateApplicablePercent: 19,
                 taxPointDate: { year: 2024, month: 1, day: 15 }
             }
         ],
-        taxTotal: [{ amount: 23.09, currency: 'EUR' as CURRENCY_CODES }],
-        grossTotal: 144.59,
+        taxTotal: [{ amount: 25.65, currency: 'EUR' as CURRENCY_CODES }],
+        grossTotal: 160.65,
         prepaidAmount: 0,
-        openAmount: 144.6,
-        roundingAmount: 0.01
+        openAmount: 160.65
     },
     invoiceLines: [
         {
             generalLineData: {
-                lineId: '1',
-                lineNote: { content: 'First item line note' }
+                lineId: '1'
             },
             productDescription: {
-                globalId: { id: '12345678', scheme: '0160' as ISO6523_CODES },
-                sellerProductId: 'COMP-XYZ-123',
+                sellerProductId: '01234567',
                 name: 'Premium Schrauben',
-                description: 'Präzisionsgefertigte Komponente aus Edelstahl V4A.',
-                productCharacteristic: [
-                    { characteristic: 'Material', value: 'Edelstahl 1.4404' },
-                    { characteristic: 'Oberfläche', value: 'Gebürstet' }
-                ],
-                productClassification: [
-                    {
-                        productClass: {
-                            code: '27111708',
-                            codeScheme: 'TST' as UNTDID_7143,
-                            codeSchemeVersion: 'v23.0501'
-                        }
-                    }
-                ],
-                originTradeCountry: 'DE' as COUNTRY_ID_CODES
+                description: 'Präzisionsgefertigte Komponente aus Edelstahl V4A.'
             },
             productPriceAgreement: {
                 referencedOrder: { lineId: 'CUST-PO-12345-LN10' },
@@ -291,21 +243,13 @@ export const designTestObject: ComfortProfile = {
                     categoryCode: 'S' as TAX_CATEGORY_CODES,
                     rateApplicablePercent: 19
                 },
-                lineTotals: { netTotal: 90 },
-                additionalReferences: [
-                    {
-                        documentId: 'Lieferschein LS-9876',
-                        typeCode: REFERENCED_DOCUMENT_TYPE_CODES.Invoice_data_sheet,
-                        referenceTypeCode: 'LS' as UNTDID_1153
-                    }
-                ],
-                accountingInformation: { id: 'Projekt P-100-A' }
+                lineTotals: { netTotal: 90 }
             }
         },
         {
             generalLineData: { lineId: '2' },
             productDescription: {
-                buyerProductId: 'MAINT-PLAN-BASIC',
+                sellerProductId: '22222222',
                 name: 'Organic Tea Leaves'
             },
             productPriceAgreement: {
@@ -324,13 +268,7 @@ export const designTestObject: ComfortProfile = {
                     startDate: { year: 2024, month: 1, day: 1 },
                     endDate: { year: 2024, month: 1, day: 31 }
                 },
-                lineLevelAllowancesAndCharges: {
-                    charges: []
-                },
-                lineTotals: { netTotal: 45 },
-                additionalReferences: [
-                    { documentId: 'Vertrag V-2024-001', typeCode: REFERENCED_DOCUMENT_TYPE_CODES.Invoice_data_sheet }
-                ]
+                lineTotals: { netTotal: 45 }
             }
         }
     ]

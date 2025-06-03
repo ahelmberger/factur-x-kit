@@ -1,3 +1,4 @@
+import { ArrayConverter } from '../../types/ArrayConverter'
 import { CodeTypeConverter } from '../../types/CodeTypeConverter'
 import { CURRENCY_CODES, DOCUMENT_TYPE_CODES, ISO6523_CODES } from '../../types/codes'
 import { ReferencedDocumentTypeConverter } from '../../types/ram/ReferencedDocumentType/ReferencedDocumentConverter'
@@ -95,7 +96,7 @@ const mapping: SimplifiedMappingItem[] = [
     {
         obj: 'totals.taxTotal',
         xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeSettlement.ram:SpecifiedTradeSettlementHeaderMonetarySummation.ram:TaxTotalAmount',
-        converter: new AmountTypeWithRequiredCurrencyConverter()
+        converter: new ArrayConverter(new AmountTypeWithRequiredCurrencyConverter())
     },
     {
         obj: 'totals.grossTotal',
@@ -103,7 +104,7 @@ const mapping: SimplifiedMappingItem[] = [
         converter: new AmountTypeConverter()
     },
     {
-        obj: 'totals.dueTotal',
+        obj: 'totals.openAmount',
         xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeSettlement.ram:SpecifiedTradeSettlementHeaderMonetarySummation.ram:DuePayableAmount',
         converter: new AmountTypeConverter()
     }

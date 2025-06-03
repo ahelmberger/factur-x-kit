@@ -1,5 +1,6 @@
 import * as fs from 'fs'
-import { PageSizes, rgb } from 'pdf-lib'
+import { table } from 'console'
+import { PageSizes, drawLine, rgb } from 'pdf-lib'
 import { PDFDocument } from 'pdf-lib'
 
 import { availableProfiles } from '../core/factur-x'
@@ -8,13 +9,11 @@ import addIntroTextBlock from './invoiceBlocks/introTextBlock'
 import addItemTable from './invoiceBlocks/itemTable/itemTable'
 import addMetaBlock from './invoiceBlocks/metaDataBlock'
 import addMonetarySummary from './invoiceBlocks/monetarySummary'
-import addOutroTextBlock from './invoiceBlocks/outroTextBlock'
 import addSenderLineBlock from './invoiceBlocks/senderLineBlock'
 import addTitleBlock from './invoiceBlocks/titleBlock'
-import { SupportedLocales, mmToPt } from './types'
-import zugferdKitMultiPage from './zugferdKitMultiPage'
+import { SupportedLocales, dinA4Height, mmToPt } from './types'
 
-export default async function zugferdKitSinglePage(
+export default async function zugferdKitMultiPage(
     data: availableProfiles,
     pdfDoc: PDFDocument,
     locale: SupportedLocales
@@ -27,12 +26,6 @@ export default async function zugferdKitSinglePage(
     const openSansRegular = await pdfDoc.embedFont(openSansRegularBytes)
     const openSansBold = await pdfDoc.embedFont(openSansBoldBytes)
     const openSansLight = await pdfDoc.embedFont(openSansLightBytes)
-    const footerHeight = 100
-
-    async function createMultiPageDocument(): Promise<PDFDocument> {
-        pdfDoc.removePage(0)
-        return zugferdKitMultiPage(data, pdfDoc, locale)
-    }
 
     /*page.drawRectangle({
         x: 20 * mmToPt,
@@ -48,73 +41,45 @@ export default async function zugferdKitSinglePage(
     await addSenderLineBlock(data, page, openSansRegular, locale)
     const yCustomerAddress = await addCustomerAddressBlock(data, page, openSansRegular, locale)
     const yMetaBlock = await addMetaBlock(data, page, openSansRegular, openSansBold, locale)
-    const titleBlockYPosition = Math.min(yCustomerAddress - 50, yMetaBlock)
-
     const yTitleBlock = await addTitleBlock(data, page, openSansBold, locale, {
-        position: { y: titleBlockYPosition }
+        position: { y: yCustomerAddress - 50 }
     })
     const yIntroNoteBlock = await addIntroTextBlock(data, page, openSansRegular, locale, {
         position: { y: yTitleBlock - 20 }
     })
-    const [yItemTable, tableInformation] = await addItemTable(data, page, openSansRegular, openSansBold, locale, {
-        position: { y: yIntroNoteBlock - 15 }
-    })
-
-    if (yItemTable < footerHeight) return createMultiPageDocument()
-
-    const monetarySummaryXStart = tableInformation
-        ? tableInformation.startX + tableInformation.columnsWidth[0] + tableInformation.padding
-        : undefined
-    const monetarySummaryXEnd = tableInformation
-        ? tableInformation.startX + tableInformation.width - tableInformation.padding
-        : undefined
-
-    const yMonetarySummary = await addMonetarySummary(data, page, openSansRegular, openSansBold, locale, {
-        position: { x: monetarySummaryXStart, y: yItemTable - 15 },
-        rightBorder: monetarySummaryXEnd
-    })
-
-    if (yMonetarySummary < footerHeight) return createMultiPageDocument()
 
     page.drawLine({
-        start: {
-            x: tableInformation ? tableInformation.startX + tableInformation.columnsWidth[0] : 25 * mmToPt,
-            y: yMonetarySummary - 6
-        },
-        end: {
-            x: tableInformation ? tableInformation.startX + tableInformation.width : page.getWidth() - 20 * mmToPt,
-            y: yMonetarySummary - 6
-        },
+        start: { x: 25 * mmToPt, y: yIntroNoteBlock - 15 },
+        end: { x: page.getWidth() - 20 * mmToPt, y: yIntroNoteBlock - 15 },
         thickness: 0.5,
         color: rgb(0, 0, 0),
         opacity: 1
     })
 
-    const yOutroBlock = await addOutroTextBlock(data, page, openSansRegular, openSansBold, locale, {
-        position: { y: yMonetarySummary - 30 }
+    const yMonetarySummary = await addMonetarySummary(data, page, openSansRegular, openSansBold, locale, {
+        position: { y: yIntroNoteBlock - 30 }
     })
 
-    if (yOutroBlock < footerHeight) return createMultiPageDocument()
-
-    // Tax Exemption Reasons
-    // Payment Terms --> Date / Description
-    // Other Invoice Notes
-    // Referenced Documents
-    /* Footer
-         - Page Number
-         - Contact Information
-         - Company Address
-         - Bank Account Information
-         - VAT ID
-    */
-
     page.drawLine({
-        start: { x: 0, y: footerHeight },
-        end: { x: 800, y: footerHeight },
+        start: { x: 25 * mmToPt, y: yMonetarySummary - 6 },
+        end: { x: page.getWidth() - 20 * mmToPt, y: yMonetarySummary - 6 },
+        thickness: 0.5,
+        color: rgb(0, 0, 0),
+        opacity: 1
+    })
+
+    const page2 = pdfDoc.addPage(PageSizes.A4) // Add a new page for the item table
+
+    const [yItemTable, tableInformation] = await addItemTable(data, page2, openSansRegular, openSansBold, locale, {
+        position: { y: (dinA4Height - 25) * mmToPt }
+    })
+    /*page.drawLine({
+        start: { x: 0, y: yIntroNoteBlock },
+        end: { x: 800, y: yIntroNoteBlock },
         thickness: 1,
         color: rgb(0.75, 0.2, 0.2),
         opacity: 1
-    })
+    })*/
 
     return pdfDoc
 }

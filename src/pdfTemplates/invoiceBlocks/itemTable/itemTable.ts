@@ -10,7 +10,7 @@ import { formatCustomDate } from '../../texts/formatCustomDate'
 import textTranslations from '../../texts/textTranslations'
 import { SupportedLocales, dinA4Height, mmToPt } from '../../types'
 import { convertAllowancesAndChargesToString } from '../helpers'
-import drawTable, { TableSchemeType } from './table'
+import drawTable, { TableInformation, TableSchemeType } from './table'
 
 export default async function addItemTable(
     data: availableProfiles,
@@ -23,13 +23,13 @@ export default async function addItemTable(
         fontSize?: number
         color?: RGB
     }
-): Promise<number> {
+): Promise<[number, TableInformation | undefined]> {
     const yPosition = options?.position?.y || (dinA4Height - 85) * mmToPt
     const xPosition = options?.position?.x || 25 * mmToPt
     const currencyConverter = new Intl.NumberFormat(locale, { style: 'currency', currency: data.document.currency })
     const createCountryName = new Intl.DisplayNames([locale], { type: 'region', style: 'long', fallback: 'code' })
 
-    if (!('invoiceLines' in data)) return yPosition
+    if (!('invoiceLines' in data)) return [yPosition, undefined]
     const tableScheme: TableSchemeType<ComfortTradeLineItem>[] = [
         {
             colAlignment: 'left',
@@ -169,10 +169,19 @@ export default async function addItemTable(
         }
     ]
 
-    const tableBottom = await drawTable(page, data.invoiceLines, tableScheme, xPosition, yPosition, font, boldFont, {
-        commentScheme: lineComments
-    })
-    return tableBottom
+    const tableInformation = await drawTable(
+        page,
+        data.invoiceLines,
+        tableScheme,
+        xPosition,
+        yPosition,
+        font,
+        boldFont,
+        {
+            commentScheme: lineComments
+        }
+    )
+    return tableInformation
 }
 
 function checkAndAddAllowancesAndCharges(

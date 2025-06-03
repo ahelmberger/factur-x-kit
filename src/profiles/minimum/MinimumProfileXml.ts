@@ -59,7 +59,7 @@ export const ZMinimumProfileXml = z.object({
                 'ram:InvoiceCurrencyCode': ZTextTypeXml, // TODO: specific CurrencyType
                 'ram:SpecifiedTradeSettlementHeaderMonetarySummation': z.object({
                     'ram:TaxBasisTotalAmount': ZAmountTypeXml,
-                    'ram:TaxTotalAmount': ZAmountTypeXml,
+                    'ram:TaxTotalAmount': z.union([ZAmountTypeXml, ZAmountTypeXml.array().max(1)]).optional(),
                     'ram:GrandTotalAmount': ZAmountTypeXml,
                     'ram:DuePayableAmount': ZAmountTypeXml
                 })

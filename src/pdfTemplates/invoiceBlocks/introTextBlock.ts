@@ -21,7 +21,7 @@ export default async function addIntroTextBlock(
     const color = options?.color || rgb(0, 0, 0)
     const yPosition = options?.position?.y || (dinA4Height - 85) * mmToPt
     const xPosition = options?.position?.x || 25 * mmToPt
-    const maxWidth = dinA4Width * mmToPt - xPosition * 2
+    const maxWidth = dinA4Width * mmToPt - xPosition - 15 * mmToPt
 
     if (!('notes' in data.document)) return yPosition
     const introNotes = data.document.notes.filter(note => note.subject === SUBJECT_CODES.INTRODUCTION)

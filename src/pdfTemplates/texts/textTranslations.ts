@@ -9,6 +9,7 @@ export const translations_en = {
     INVOICE_DATE: 'Invoice Date',
     ORDER_ID: 'Order Number',
     DELIVERY_DATE: 'Delivery Date',
+    PAYMENT_DUE_DATE: 'Due Date',
 
     LINE_ITEM_SHORT: 'Item',
     LINE_ITEM_LONG: 'Line Item',
@@ -16,9 +17,6 @@ export const translations_en = {
     UNIT_PRICE: 'Unit Price',
     TAX: 'Tax',
     TOTAL_PRICE_PER_ITEM: 'Total Price',
-    TOTAL_AMOUNT_NET: 'Net Total Amount',
-    TOTAL_AMOUNT_GROSS: 'Gross Total Amount',
-    VALUE_ADDED_TAX: 'Value Added Tax',
     CHARGE: 'Extra charge',
     ALLOWANCE: 'Allowance',
     ALLOWANCES_CHARGES: 'Allowances / Charges',
@@ -34,7 +32,19 @@ export const translations_en = {
     BUYER_PRODUCT_ID: 'Buyer Product ID',
     ACCOUNTING_INFORMATION: 'Accounting Reference',
     REFERENCED_DOCUMENTS: 'Referenced Documents',
-    BILLING_PERIOD: 'Billing Period'
+    BILLING_PERIOD: 'Billing Period',
+
+    NET_TOTAL_AMOUNT: 'Net Total Amount',
+    GROSS_TOTAL_AMOUNT: 'Gross Total Amount',
+    TAX_TOTAL_AMOUNT: 'Tax Total Amount',
+    SUM: 'Sum',
+    DOCUMENT_LEVEL_ALLOWANCE: 'Document Level Allowances',
+    DOCUMENT_LEVEL_CHARGE: 'Document Level Charges',
+    PREPAID_AMOUNT: 'Prepaid Amount',
+    OPEN_AMOUNT: 'Open Amount',
+    LINE_TOTAL_AMOUNT: 'Line Total Amount',
+    ROUNDING_AMOUNT: 'Rounding Amount',
+    VAT: 'Value Added Tax'
 }
 
 const translations_de: typeof translations_en = {
@@ -46,6 +56,7 @@ const translations_de: typeof translations_en = {
     INVOICE_DATE: 'Rechnungsdatum',
     ORDER_ID: 'Bestellnummer',
     DELIVERY_DATE: 'Lieferdatum',
+    PAYMENT_DUE_DATE: 'Zahlungsziel',
 
     LINE_ITEM_SHORT: 'Pos.',
     LINE_ITEM_LONG: 'Rechnungsposition',
@@ -53,9 +64,6 @@ const translations_de: typeof translations_en = {
     UNIT_PRICE: 'Einzelpreis',
     TAX: 'Steuer',
     TOTAL_PRICE_PER_ITEM: 'Gesamtpreis',
-    TOTAL_AMOUNT_NET: 'Gesamtbetrag Netto',
-    TOTAL_AMOUNT_GROSS: 'Gesamtbetrag Brutto',
-    VALUE_ADDED_TAX: 'Umsatzsteuer',
     CHARGE: 'Zuschlag',
     ALLOWANCE: 'Nachlass',
     ALLOWANCES_CHARGES: 'Nachlässe / Zuschläge',
@@ -71,7 +79,19 @@ const translations_de: typeof translations_en = {
     BUYER_PRODUCT_ID: 'Käufer Produkt ID',
     ACCOUNTING_INFORMATION: 'Buchungsreferenz',
     REFERENCED_DOCUMENTS: 'Referenzierte Dokumente',
-    BILLING_PERIOD: 'Abrechnungszeitraum'
+    BILLING_PERIOD: 'Abrechnungszeitraum',
+
+    NET_TOTAL_AMOUNT: 'Gesamtbetrag Netto',
+    GROSS_TOTAL_AMOUNT: 'Gesamtbetrag Brutto',
+    TAX_TOTAL_AMOUNT: 'Gesamtbetrag Steuer',
+    SUM: 'Summe',
+    DOCUMENT_LEVEL_ALLOWANCE: 'Nachlass auf Dokumentenebene',
+    DOCUMENT_LEVEL_CHARGE: 'Zuschlag auf Dokumentenebene',
+    PREPAID_AMOUNT: 'Vorausbezahlter Betrag',
+    OPEN_AMOUNT: 'Offener Betrag',
+    LINE_TOTAL_AMOUNT: 'Summe der Positionen',
+    ROUNDING_AMOUNT: 'Rundungsbetrag',
+    VAT: 'Umsatzssteuer'
 }
 
 const translations_fr: typeof translations_en = {
@@ -83,6 +103,7 @@ const translations_fr: typeof translations_en = {
     INVOICE_DATE: 'Date de la facture',
     ORDER_ID: 'Numéro de commande',
     DELIVERY_DATE: 'Date de livraison',
+    PAYMENT_DUE_DATE: 'Date d’échéance',
 
     LINE_ITEM_SHORT: 'Art.',
     LINE_ITEM_LONG: 'Article',
@@ -90,9 +111,6 @@ const translations_fr: typeof translations_en = {
     UNIT_PRICE: 'Prix unitaire',
     TAX: 'Taxe',
     TOTAL_PRICE_PER_ITEM: 'Prix total',
-    TOTAL_AMOUNT_NET: 'Montant total net',
-    TOTAL_AMOUNT_GROSS: 'Montant total brut',
-    VALUE_ADDED_TAX: 'Taxe sur la valeur ajoutée',
     CHARGE: 'Supplément',
     ALLOWANCE: 'Réduction',
     ALLOWANCES_CHARGES: 'Réductions / Suppléments',
@@ -108,8 +126,22 @@ const translations_fr: typeof translations_en = {
     BUYER_PRODUCT_ID: 'ID produit acheteur',
     ACCOUNTING_INFORMATION: 'Informations comptables',
     REFERENCED_DOCUMENTS: 'Documents référencés',
-    BILLING_PERIOD: 'Période de facturation'
+    BILLING_PERIOD: 'Période de facturation',
+
+    NET_TOTAL_AMOUNT: 'Montant total net',
+    GROSS_TOTAL_AMOUNT: 'Montant total brut',
+    TAX_TOTAL_AMOUNT: 'Montant total de la taxe',
+    SUM: 'Total',
+    DOCUMENT_LEVEL_ALLOWANCE: 'Réduction au niveau du document',
+    DOCUMENT_LEVEL_CHARGE: 'Supplément au niveau du document',
+    PREPAID_AMOUNT: 'Montant prépayé',
+    OPEN_AMOUNT: 'Montant ouvert',
+    LINE_TOTAL_AMOUNT: 'Montant total de la ligne',
+    ROUNDING_AMOUNT: "Montant de l'arrondi",
+    VAT: 'Taxe sur la valeur ajoutée'
 }
+
+export type TranslationKeys = `${keyof typeof translations_en}`
 
 const translations: TranslatedTexts<`${keyof typeof translations_en}`> = {
     'en-US': translations_en,

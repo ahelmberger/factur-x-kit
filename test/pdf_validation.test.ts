@@ -68,9 +68,9 @@ const testObj: MinimumProfile = {
     },
     totals: {
         netTotal: 200,
-        taxTotal: { amount: 38, currency: CURRENCY_CODES.Euro },
+        taxTotal: [{ amount: 38, currency: CURRENCY_CODES.Euro }],
         grossTotal: 238,
-        dueTotal: 238
+        openAmount: 238
     }
 }
 
