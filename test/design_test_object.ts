@@ -31,12 +31,25 @@ export const designTestObject: ComfortProfile = {
                 content: 'Vielen Dank für Ihren Einkauf! Hiermit stellen wir die folgenden Leistungen in Rechnung',
                 subject: 'ACY' as SUBJECT_CODES
             },
+
+            { content: 'Mit Freundlichen Grüße\nDein VfB Stuttgart!' },
             {
                 content:
-                    'da sie als native Funktionen in der JavaScript-Engine implementiert sind. Eine manuell geschriebene Schleife in JavaScript wäre in der Regel langsamer, da sie im User-Space Code läuft und mehr Overheads hat',
-                subject: 'AEA' as SUBJECT_CODES
+                    'Die Lieferung erfolgt in der Regel innerhalb von 3-5 Werktagen nach Zahlungseingang. Bei Fragen oder Anliegen stehen wir Ihnen jederzeit gerne zur Verfügung.',
+                subject: 'DEL' as SUBJECT_CODES
             },
-            { content: 'Danke Danke Danke!' }
+            {
+                content: 'Stuttgart',
+                subject: 'AGW' as SUBJECT_CODES
+            },
+            {
+                content: 'Freddy Merz',
+                subject: 'AFV' as SUBJECT_CODES
+            },
+            {
+                content: 'Amtsgericht Stuttgart',
+                subject: 'LAN' as SUBJECT_CODES
+            }
         ],
         currency: 'EUR' as CURRENCY_CODES
     },
@@ -48,15 +61,15 @@ export const designTestObject: ComfortProfile = {
         ],
         name: 'VfB Stuttgart 1893 e.V.',
         specifiedLegalOrganization: {
-            id: { id: 'LEGAL-1', scheme: '0060' as ISO6523_CODES },
-            tradingBusinessName: 'Seller Trading Name'
+            id: { id: 'HRA 67890111' },
+            tradingBusinessName: 'VfB Trading GmbH'
         },
         postalAddress: {
             postcode: '70372',
             addressLineOne: 'Mercedesstraße 109',
-            city: 'Stuttgart (Bad Cannstatt)',
+            city: 'Stuttgart',
             country: 'DE' as COUNTRY_ID_CODES,
-            countrySubDivision: 'Baden-Württemberg'
+            countrySubDivision: 'BAW'
         },
         universalCommunicationAddressURI: { id: 'seller@example.com', scheme: '0088' as EAS_SCHEME_CODES },
         taxIdentification: { vatId: 'DE123456789' },
@@ -72,12 +85,7 @@ export const designTestObject: ComfortProfile = {
     buyer: {
         reference: 'Buyer Reference',
         id: 'BUYER-1',
-        globalId: { id: 'GLOBAL-BUYER-1', scheme: '0204' as ISO6523_CODES },
         name: 'Bayern München AG',
-        specifiedLegalOrganization: {
-            id: { id: 'LEGAL-BUYER-1', scheme: '0060' as ISO6523_CODES },
-            tradingBusinessName: 'Erika GmbH'
-        },
         postalAddress: {
             postcode: '80939',
             addressLineOne: 'Franz-Beckenbauer-Platz 5',
@@ -96,19 +104,6 @@ export const designTestObject: ComfortProfile = {
             }
         ]
     },
-    sellerTaxRepresentative: {
-        name: 'Seller Tax Representative',
-        postalAddress: {
-            postcode: '54321',
-            addressLineOne: '789 Tax St',
-            addressLineTwo: 'Suite 300',
-            addressLineThree: 'Building C',
-            city: 'Tax City',
-            country: 'DE' as COUNTRY_ID_CODES,
-            countrySubDivision: 'Tax State'
-        },
-        taxIdentification: { vatId: 'DE111111111' }
-    },
     referencedDocuments: {
         orderReference: { documentId: 'SO-98765' },
         contractReference: { documentId: 'CON-54321' },
@@ -118,37 +113,9 @@ export const designTestObject: ComfortProfile = {
                 documentId: 'INV-12345',
                 issueDate: { year: 2023, month: 9, day: 1 }
             }
-        ],
-        additionalReferences: {
-            invoiceSupportingDocuments: [
-                {
-                    documentId: '1234',
-                    name: 'Rapport',
-                    uriid: 'https://example.com/rapport.pdf',
-                    attachmentBinaryObject: { mimeCode: 'application/pdf' as MIME_CODES, fileName: 'rapport.pdf' }
-                }
-            ],
-            tenderOrLotReferenceDetails: [{ documentId: 'LOT-001' }, { documentId: 'LOT-002' }],
-            invoiceItemDetails: [
-                { documentId: 'ITEM-001', referenceTypeCode: 'AVN' as UNTDID_1153 },
-                { documentId: 'ITEM-002', referenceTypeCode: 'ACI' as UNTDID_1153 }
-            ]
-        },
-        projectReference: { id: 'PRJ-001', name: 'Procuring Project XY' }
+        ]
     },
     delivery: {
-        recipient: {
-            id: 'RECIPIENT-1',
-            globalId: { id: 'GLOBAL-RECIPIENT-1', scheme: '0204' as ISO6523_CODES },
-            name: 'Recipient Company',
-            postalAddress: {
-                postcode: '98765',
-                addressLineOne: '123 Recipient St',
-                city: 'Recipient City',
-                country: 'GB' as COUNTRY_ID_CODES,
-                countrySubDivision: 'Recipient State'
-            }
-        },
         deliveryDate: { year: 2023, month: 10, day: 5 }
     },
     paymentInformation: {
@@ -162,32 +129,8 @@ export const designTestObject: ComfortProfile = {
         },
         paymentMeans: [
             {
-                paymentType: '59' as PAYMENT_MEANS_CODES,
-                payerBankAccount: { iban: 'DE89370400440532013000' },
-                payeeBankAccount: {
-                    iban: 'DE89370400440532013001',
-                    propriataryId: 'PAYEE-PROP-1'
-                }
-            },
-            {
-                paymentType: '59' as PAYMENT_MEANS_CODES,
-                payerBankAccount: { iban: 'DE89370400440532013002' },
-                payeeBankAccount: {
-                    iban: 'DE89370400440532013003',
-                    propriataryId: 'PAYEE-PROP-2'
-                }
-            },
-            {
-                description: 'Credit Card Payment',
-                paymentType: '54' as PAYMENT_MEANS_CODES,
-                financialCard: {
-                    finalDigitsOfCard: '****1111',
-                    cardholderName: 'Max Mustermann'
-                }
-            },
-            {
-                description: 'Bank Transfer with BIC',
-                paymentType: '59' as PAYMENT_MEANS_CODES,
+                description: 'Deutsche Bank',
+                paymentType: '58' as PAYMENT_MEANS_CODES,
                 payeeBankAccount: {
                     iban: 'DE89370400440532013000',
                     bic: 'DEUTDEDBFRA',

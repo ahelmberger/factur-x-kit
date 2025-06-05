@@ -1,19 +1,21 @@
 import * as fs from 'fs'
-import { table } from 'console'
-import { PageSizes, drawLine, rgb } from 'pdf-lib'
+import { PageSizes, rgb } from 'pdf-lib'
 import { PDFDocument } from 'pdf-lib'
 
 import { availableProfiles } from '../core/factur-x'
 import addCustomerAddressBlock from './invoiceBlocks/customerAddressBlock'
+import addFooter from './invoiceBlocks/footerBlock'
 import addIntroTextBlock from './invoiceBlocks/introTextBlock'
 import addItemTable from './invoiceBlocks/itemTable/itemTable'
 import addMetaBlock from './invoiceBlocks/metaDataBlock'
 import addMonetarySummary from './invoiceBlocks/monetarySummary'
+import addOutroTextBlock from './invoiceBlocks/outroTextBlock'
 import addSenderLineBlock from './invoiceBlocks/senderLineBlock'
 import addTitleBlock from './invoiceBlocks/titleBlock'
 import { SupportedLocales, dinA4Height, mmToPt } from './types'
+import zugferdKitMultiPage from './zugferdKitMultiPage'
 
-export default async function zugferdKitMultiPage(
+export default async function zugferdKitSinglePage(
     data: availableProfiles,
     pdfDoc: PDFDocument,
     locale: SupportedLocales
@@ -26,23 +28,15 @@ export default async function zugferdKitMultiPage(
     const openSansRegular = await pdfDoc.embedFont(openSansRegularBytes)
     const openSansBold = await pdfDoc.embedFont(openSansBoldBytes)
     const openSansLight = await pdfDoc.embedFont(openSansLightBytes)
+    const footerHeight = 100
 
-    /*page.drawRectangle({
-        x: 20 * mmToPt,
-        y: (dinA4Height - 50 - 45) * mmToPt,
-        width: 90 * mmToPt,
-        height: 45 * mmToPt,
-        borderWidth: 5,
-        borderColor: rgb(0.75, 0.2, 0.2),
-        color: rgb(1, 1, 1),
-        opacity: 0,
-        borderOpacity: 1
-    })*/
     await addSenderLineBlock(data, page, openSansRegular, locale)
     const yCustomerAddress = await addCustomerAddressBlock(data, page, openSansRegular, locale)
     const yMetaBlock = await addMetaBlock(data, page, openSansRegular, openSansBold, locale)
+    const titleBlockYPosition = Math.min(yCustomerAddress - 50, yMetaBlock - 10)
+
     const yTitleBlock = await addTitleBlock(data, page, openSansBold, locale, {
-        position: { y: yCustomerAddress - 50 }
+        position: { y: titleBlockYPosition }
     })
     const yIntroNoteBlock = await addIntroTextBlock(data, page, openSansRegular, locale, {
         position: { y: yTitleBlock - 20 }
@@ -68,18 +62,21 @@ export default async function zugferdKitMultiPage(
         opacity: 1
     })
 
+    await addOutroTextBlock(data, page, openSansRegular, openSansBold, locale, {
+        position: { y: yMonetarySummary - 30 }
+    })
+
+    addFooter(data, page, openSansLight, locale, {
+        position: { x: 15 * mmToPt, y: footerHeight },
+        fontSize: 8,
+        color: rgb(0, 0, 0)
+    })
+
     const page2 = pdfDoc.addPage(PageSizes.A4) // Add a new page for the item table
 
-    const [yItemTable, tableInformation] = await addItemTable(data, page2, openSansRegular, openSansBold, locale, {
+    await addItemTable(data, page2, openSansRegular, openSansBold, locale, {
         position: { y: (dinA4Height - 25) * mmToPt }
     })
-    /*page.drawLine({
-        start: { x: 0, y: yIntroNoteBlock },
-        end: { x: 800, y: yIntroNoteBlock },
-        thickness: 1,
-        color: rgb(0.75, 0.2, 0.2),
-        opacity: 1
-    })*/
 
     return pdfDoc
 }

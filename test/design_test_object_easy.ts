@@ -31,9 +31,26 @@ export const designTestObject_easy: ComfortProfile = {
             {
                 content:
                     'da sie als native Funktionen in der JavaScript-Engine implementiert sind. Eine manuell geschriebene Schleife in JavaScript wäre in der Regel langsamer, da sie im User-Space Code läuft und mehr Overheads hat',
-                subject: 'AEA' as SUBJECT_CODES
+                subject: 'ABZ' as SUBJECT_CODES
             },
-            { content: 'Danke Danke Danke!' }
+            { content: 'Mit Freundlichen Grüße\nDein VfB Stuttgart!' },
+            {
+                content:
+                    'Die Lieferung erfolgt in der Regel innerhalb von 3-5 Werktagen nach Zahlungseingang. Bei Fragen oder Anliegen stehen wir Ihnen jederzeit gerne zur Verfügung.',
+                subject: 'DEL' as SUBJECT_CODES
+            },
+            {
+                content: 'Stuttgart',
+                subject: 'AGW' as SUBJECT_CODES
+            },
+            {
+                content: 'Freddy Merz',
+                subject: 'AFV' as SUBJECT_CODES
+            },
+            {
+                content: 'Amtsgericht Stuttgart',
+                subject: 'LAN' as SUBJECT_CODES
+            }
         ],
         currency: 'EUR' as CURRENCY_CODES
     },
@@ -45,15 +62,15 @@ export const designTestObject_easy: ComfortProfile = {
         ],
         name: 'VfB Stuttgart 1893 e.V.',
         specifiedLegalOrganization: {
-            id: { id: 'LEGAL-1', scheme: '0060' as ISO6523_CODES },
+            id: { id: 'HRA 67890111' },
             tradingBusinessName: 'Seller Trading Name'
         },
         postalAddress: {
             postcode: '70372',
             addressLineOne: 'Mercedesstraße 109',
-            city: 'Stuttgart (Bad Cannstatt)',
+            city: 'Stuttgart',
             country: 'DE' as COUNTRY_ID_CODES,
-            countrySubDivision: 'Baden-Württemberg'
+            countrySubDivision: 'BAW'
         },
         universalCommunicationAddressURI: { id: 'seller@example.com', scheme: '0088' as EAS_SCHEME_CODES },
         taxIdentification: { vatId: 'DE123456789' },
@@ -78,7 +95,6 @@ export const designTestObject_easy: ComfortProfile = {
         postalAddress: {
             postcode: '80939',
             addressLineOne: 'Franz-Beckenbauer-Platz 5',
-            addressLineTwo: 'Allianz Arena',
             city: 'München',
             country: 'DE' as COUNTRY_ID_CODES,
             countrySubDivision: 'Bayern'
@@ -153,32 +169,8 @@ export const designTestObject_easy: ComfortProfile = {
         },
         paymentMeans: [
             {
-                paymentType: '59' as PAYMENT_MEANS_CODES,
-                payerBankAccount: { iban: 'DE89370400440532013000' },
-                payeeBankAccount: {
-                    iban: 'DE89370400440532013001',
-                    propriataryId: 'PAYEE-PROP-1'
-                }
-            },
-            {
-                paymentType: '59' as PAYMENT_MEANS_CODES,
-                payerBankAccount: { iban: 'DE89370400440532013002' },
-                payeeBankAccount: {
-                    iban: 'DE89370400440532013003',
-                    propriataryId: 'PAYEE-PROP-2'
-                }
-            },
-            {
-                description: 'Credit Card Payment',
-                paymentType: '54' as PAYMENT_MEANS_CODES,
-                financialCard: {
-                    finalDigitsOfCard: '****1111',
-                    cardholderName: 'Max Mustermann'
-                }
-            },
-            {
-                description: 'Bank Transfer with BIC',
-                paymentType: '59' as PAYMENT_MEANS_CODES,
+                description: 'Deutsche Bank',
+                paymentType: '58' as PAYMENT_MEANS_CODES,
                 payeeBankAccount: {
                     iban: 'DE89370400440532013000',
                     bic: 'DEUTDEDBFRA',

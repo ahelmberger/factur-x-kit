@@ -41,7 +41,7 @@ export default async function addTitleBlock(
             invoiceReferenceTranslations[locale](
                 data.referencedDocuments.referencedInvoice[0].documentId,
                 data.referencedDocuments.referencedInvoice[0].issueDate
-                    ? formatCustomDate(data.referencedDocuments.referencedInvoice[0].issueDate, locale, true)
+                    ? formatCustomDate(data.referencedDocuments.referencedInvoice[0].issueDate, locale)
                     : ''
             ),
             {

@@ -12,6 +12,7 @@ import { ZBasicTradeLineItem } from '../src/types/ram/IncludedSupplyChainTradeLi
 import { ZComfortTradeLineItem } from '../src/types/ram/IncludedSupplyChainTradeLineItem/ComfortTradeLineItem'
 import { designTestObject } from './design_test_object'
 import { designTestObject_easy } from './design_test_object_easy'
+import { testDesignObjectKleinunternehmer } from './design_test_object_kleinunternehmer'
 import './profiles/codeDb/xPathDocumentFunction'
 import { testComfortProfile } from './profiles/comfort_test_objects'
 
@@ -93,6 +94,16 @@ describe.only('pdf-creation', () => {
         await fs.writeFile(
             path.join(__dirname, 'pdfs', 'createdPDFs', 'PDF_DESIGN_DE_MultiPage.pdf'),
             pdfBytesDE_multiPage
+        )
+
+        const kleinunternehmerInstance = await FacturX.fromObject(testDesignObjectKleinunternehmer)
+        const pdfBytesDE_Kleinunternehmer = await kleinunternehmerInstance.getPDF({
+            locale: 'de-DE'
+        })
+        expect(pdfBytesDE_Kleinunternehmer).toBeDefined()
+        await fs.writeFile(
+            path.join(__dirname, 'pdfs', 'createdPDFs', 'PDF_DESIGN_DE_Kleinunternehmer.pdf'),
+            pdfBytesDE_Kleinunternehmer
         )
     })
 })

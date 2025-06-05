@@ -4,6 +4,7 @@ import { PDFDocument } from 'pdf-lib'
 
 import { availableProfiles } from '../core/factur-x'
 import addCustomerAddressBlock from './invoiceBlocks/customerAddressBlock'
+import addFooter from './invoiceBlocks/footerBlock'
 import addIntroTextBlock from './invoiceBlocks/introTextBlock'
 import addItemTable from './invoiceBlocks/itemTable/itemTable'
 import addMetaBlock from './invoiceBlocks/metaDataBlock'
@@ -34,21 +35,10 @@ export default async function zugferdKitSinglePage(
         return zugferdKitMultiPage(data, pdfDoc, locale)
     }
 
-    /*page.drawRectangle({
-        x: 20 * mmToPt,
-        y: (dinA4Height - 50 - 45) * mmToPt,
-        width: 90 * mmToPt,
-        height: 45 * mmToPt,
-        borderWidth: 5,
-        borderColor: rgb(0.75, 0.2, 0.2),
-        color: rgb(1, 1, 1),
-        opacity: 0,
-        borderOpacity: 1
-    })*/
     await addSenderLineBlock(data, page, openSansRegular, locale)
     const yCustomerAddress = await addCustomerAddressBlock(data, page, openSansRegular, locale)
     const yMetaBlock = await addMetaBlock(data, page, openSansRegular, openSansBold, locale)
-    const titleBlockYPosition = Math.min(yCustomerAddress - 50, yMetaBlock)
+    const titleBlockYPosition = Math.min(yCustomerAddress - 50, yMetaBlock - 10)
 
     const yTitleBlock = await addTitleBlock(data, page, openSansBold, locale, {
         position: { y: titleBlockYPosition }
@@ -96,24 +86,26 @@ export default async function zugferdKitSinglePage(
 
     if (yOutroBlock < footerHeight) return createMultiPageDocument()
 
-    // Tax Exemption Reasons
-    // Payment Terms --> Date / Description
-    // Other Invoice Notes
-    // Referenced Documents
-    /* Footer
-         - Page Number
-         - Contact Information
-         - Company Address
-         - Bank Account Information
-         - VAT ID
-    */
-
-    page.drawLine({
+    /*page.drawLine({
         start: { x: 0, y: footerHeight },
         end: { x: 800, y: footerHeight },
         thickness: 1,
         color: rgb(0.75, 0.2, 0.2),
         opacity: 1
+    })
+
+    page.drawLine({
+        start: { x: 0, y: footerHeight },
+        end: { x: 800, y: footerHeight},
+        thickness: 1,
+        color: rgb(0.75, 0.2, 0.2),
+        opacity: 1
+    })*/
+
+    addFooter(data, page, openSansLight, locale, {
+        position: { x: 15 * mmToPt, y: footerHeight },
+        fontSize: 8,
+        color: rgb(0, 0, 0)
     })
 
     return pdfDoc

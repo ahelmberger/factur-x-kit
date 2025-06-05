@@ -8,7 +8,9 @@ export const translations_en = {
     INVOICE_ID: 'Invoice Number',
     INVOICE_DATE: 'Invoice Date',
     ORDER_ID: 'Order Number',
+    CONTRACT_ID: 'Contract Number',
     DELIVERY_DATE: 'Delivery Date',
+    ADVANCE_SHIPPING_NOTICE: 'Despatch Notice',
     PAYMENT_DUE_DATE: 'Due Date',
 
     LINE_ITEM_SHORT: 'Item',
@@ -44,7 +46,12 @@ export const translations_en = {
     OPEN_AMOUNT: 'Open Amount',
     LINE_TOTAL_AMOUNT: 'Line Total Amount',
     ROUNDING_AMOUNT: 'Rounding Amount',
-    VAT: 'Value Added Tax'
+    VAT: 'Value Added Tax',
+    VAT_ID: 'VAT ID',
+    TAX_ID: 'Tax ID',
+
+    VAT_EXMPTION_REASON: 'VAT Exemption Reason',
+    ALREADY_PAID: 'This invoice has already been paid'
 }
 
 const translations_de: typeof translations_en = {
@@ -55,7 +62,9 @@ const translations_de: typeof translations_en = {
     INVOICE_ID: 'Rechnungsnummer',
     INVOICE_DATE: 'Rechnungsdatum',
     ORDER_ID: 'Bestellnummer',
+    CONTRACT_ID: 'Vertragsnummer',
     DELIVERY_DATE: 'Lieferdatum',
+    ADVANCE_SHIPPING_NOTICE: 'Lieferavis',
     PAYMENT_DUE_DATE: 'Zahlungsziel',
 
     LINE_ITEM_SHORT: 'Pos.',
@@ -91,7 +100,12 @@ const translations_de: typeof translations_en = {
     OPEN_AMOUNT: 'Offener Betrag',
     LINE_TOTAL_AMOUNT: 'Summe der Positionen',
     ROUNDING_AMOUNT: 'Rundungsbetrag',
-    VAT: 'Umsatzssteuer'
+    VAT: 'Umsatzssteuer',
+    VAT_ID: 'USt-IdNr.',
+    TAX_ID: 'Steuernr:',
+
+    VAT_EXMPTION_REASON: 'Grund für Umsatzsteuerbefreiung',
+    ALREADY_PAID: 'Diese Rechnung wurde bereits beglichen'
 }
 
 const translations_fr: typeof translations_en = {
@@ -102,7 +116,9 @@ const translations_fr: typeof translations_en = {
     INVOICE_ID: 'Numéro de facture',
     INVOICE_DATE: 'Date de la facture',
     ORDER_ID: 'Numéro de commande',
+    CONTRACT_ID: 'Numéro de contrat',
     DELIVERY_DATE: 'Date de livraison',
+    ADVANCE_SHIPPING_NOTICE: 'Avis d’expédition',
     PAYMENT_DUE_DATE: 'Date d’échéance',
 
     LINE_ITEM_SHORT: 'Art.',
@@ -138,7 +154,12 @@ const translations_fr: typeof translations_en = {
     OPEN_AMOUNT: 'Montant ouvert',
     LINE_TOTAL_AMOUNT: 'Montant total de la ligne',
     ROUNDING_AMOUNT: "Montant de l'arrondi",
-    VAT: 'Taxe sur la valeur ajoutée'
+    VAT: 'Taxe sur la valeur ajoutée',
+    VAT_ID: 'Numéro de TVA',
+    TAX_ID: 'Numéro fiscal',
+
+    VAT_EXMPTION_REASON: 'Raison de l’exemption de TVA',
+    ALREADY_PAID: 'Cette facture a déjà été réglée'
 }
 
 export type TranslationKeys = `${keyof typeof translations_en}`

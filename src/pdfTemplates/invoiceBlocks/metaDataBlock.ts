@@ -64,11 +64,23 @@ export default async function addMetaBlock(
             : ''
     }
 
+    let contractId: string | undefined
+    if (data.referencedDocuments && 'contractReference' in data.referencedDocuments) {
+        contractId = data.referencedDocuments.contractReference?.documentId
+    }
+
+    let advanceShippingNoticeId: string | undefined
+    if (data.referencedDocuments && 'advanceShippingNotice' in data.referencedDocuments) {
+        advanceShippingNoticeId = data.referencedDocuments.advanceShippingNotice?.documentId
+    }
+
     const metaDataContent: Partial<Record<TranslationKeys, string | undefined>> = {
         INVOICE_ID: data.document.id,
         INVOICE_DATE: formatCustomDate(data.document.dateOfIssue, locale),
         ORDER_ID: data.referencedDocuments?.orderReference?.documentId,
+        CONTRACT_ID: contractId,
         DELIVERY_DATE: deliveryDate,
+        ADVANCE_SHIPPING_NOTICE: advanceShippingNoticeId,
         BILLING_PERIOD: billingPeriod,
         PAYMENT_DUE_DATE: paymentTerm
     }

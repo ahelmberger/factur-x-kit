@@ -34,8 +34,8 @@ export function wrapText(text: string, fontSize: number, font: PDFFont, maxWidth
                     lineArray.push(word)
                     continue
                 }
-                line = word
-                linePosition = lengthOfWord
+                line = `${word} `
+                linePosition = lengthOfWord + spaceWidth
             } else {
                 if (linePosition + spaceWidth + lengthOfWord > maxWidth) {
                     lineArray.push(line)

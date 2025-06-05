@@ -618,8 +618,8 @@ const noteSubjects_de: Record<SubjectCodes, string> = {
     AIT: 'Details zum Jahresabschluss',
     AIU: 'Zugangsanweisungen',
     AIV: 'Liquidität',
-    AIW: 'Kreditlinie', // <-- AIW wurde hinzugefügt
-    AIX: 'Garantiebedingungen', // <-- AIX und folgende sind jetzt korrekt platziert
+    AIW: 'Kreditlinie',
+    AIX: 'Garantiebedingungen',
     AIY: 'Abteilungsbeschreibung',
     AIZ: 'Meldeanweisung',
     AJA: 'Untersuchungsergebnis',
