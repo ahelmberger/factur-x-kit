@@ -1,6 +1,7 @@
 import { PDFDocument } from 'pdf-lib'
 
 import { availableProfiles } from '../core/factur-x'
+import { ImageDimensions } from './invoiceBlocks/headerImage'
 import { TranslatedTexts } from './texts/types'
 
 export type SupportedLocales = keyof TranslatedTexts<string>
@@ -8,7 +9,11 @@ export type SupportedLocales = keyof TranslatedTexts<string>
 export type ZugferdKitPDFTemplate = (
     data: availableProfiles,
     pdfDoc: PDFDocument,
-    locale: SupportedLocales
+    locale: SupportedLocales,
+    headerImage?: {
+        path: string
+        dimensions: ImageDimensions
+    }
 ) => Promise<PDFDocument>
 
 export const mmToPt = 72.0 / 25.4

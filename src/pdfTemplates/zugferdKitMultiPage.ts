@@ -5,6 +5,7 @@ import { PDFDocument } from 'pdf-lib'
 import { availableProfiles } from '../core/factur-x'
 import addCustomerAddressBlock from './invoiceBlocks/customerAddressBlock'
 import addFooter from './invoiceBlocks/footerBlock'
+import { ImageDimensions, addHeaderImage } from './invoiceBlocks/headerImage'
 import addIntroTextBlock from './invoiceBlocks/introTextBlock'
 import addItemTable from './invoiceBlocks/itemTable/itemTable'
 import addMetaBlock from './invoiceBlocks/metaDataBlock'
@@ -13,12 +14,15 @@ import addOutroTextBlock from './invoiceBlocks/outroTextBlock'
 import addSenderLineBlock from './invoiceBlocks/senderLineBlock'
 import addTitleBlock from './invoiceBlocks/titleBlock'
 import { SupportedLocales, dinA4Height, mmToPt } from './types'
-import zugferdKitMultiPage from './zugferdKitMultiPage'
 
 export default async function zugferdKitSinglePage(
     data: availableProfiles,
     pdfDoc: PDFDocument,
-    locale: SupportedLocales
+    locale: SupportedLocales,
+    headerImage?: {
+        path: string
+        dimensions: ImageDimensions
+    }
 ): Promise<PDFDocument> {
     const openSansRegularBytes = fs.readFileSync('./assets/fonts/OpenSans/OpenSans-Regular.ttf')
     const openSansBoldBytes = fs.readFileSync('./assets/fonts/OpenSans/OpenSans-Bold.ttf')
@@ -29,6 +33,10 @@ export default async function zugferdKitSinglePage(
     const openSansBold = await pdfDoc.embedFont(openSansBoldBytes)
     const openSansLight = await pdfDoc.embedFont(openSansLightBytes)
     const footerHeight = 100
+
+    if (headerImage) {
+        await addHeaderImage(headerImage.path, headerImage.dimensions, page)
+    }
 
     await addSenderLineBlock(data, page, openSansRegular, locale)
     const yCustomerAddress = await addCustomerAddressBlock(data, page, openSansRegular, locale)

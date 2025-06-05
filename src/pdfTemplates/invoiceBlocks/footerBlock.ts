@@ -1,5 +1,4 @@
 import { PDFFont, PDFPage, RGB, rgb } from 'pdf-lib'
-import { number } from 'zod'
 
 import { availableProfiles } from '../../core/factur-x'
 import { PAYMENT_MEANS_CODES, SUBJECT_CODES } from '../../types/codes'

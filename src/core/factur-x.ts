@@ -1,6 +1,7 @@
 import objectPath from 'object-path'
 import { PDFDocument } from 'pdf-lib'
 
+import { ImageDimensions } from '../pdfTemplates/invoiceBlocks/headerImage'
 import { SupportedLocales, ZugferdKitPDFTemplate } from '../pdfTemplates/types'
 import { BasicProfile, isBasicProfile } from '../profiles/basic/BasicProfile'
 import { BasicProfileConverter } from '../profiles/basic/BasicProfileConverter'
@@ -64,6 +65,10 @@ export class FacturX {
         pdfLibDocument?: PDFDocument | null
         pdfTemplate?: ZugferdKitPDFTemplate
         locale?: SupportedLocales
+        headerImage?: {
+            path: string
+            dimensions: ImageDimensions
+        }
     }): Promise<Uint8Array> {
         if (options?.existingNonConformantPdf) {
             this._pdf = await FacturXPdf.createFromNonCompliantPDF(options?.existingNonConformantPdf)
@@ -73,7 +78,7 @@ export class FacturX {
             throw new Error('You can only use keepInitialPdf if you created the FacturX Object via FacturX.fromPdf')
         } else {
             this._pdf = await FacturXPdf.create()
-            await this._pdf.createPDFContent(this.profile, options?.pdfTemplate, options?.locale)
+            await this._pdf.createPDFContent(this.profile, options?.pdfTemplate, options?.locale, options?.headerImage)
         }
         return this._pdf.createFacturXPDF(await this.getXML(), this.profile)
     }

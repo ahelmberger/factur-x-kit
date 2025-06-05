@@ -15,6 +15,7 @@ import {
 } from 'pdf-lib'
 import { AFRelationship, EmbeddedFileOptions } from 'pdf-lib/cjs/core/embedders/FileEmbedder'
 
+import { ImageDimensions } from '../pdfTemplates/invoiceBlocks/headerImage'
 import { SupportedLocales, ZugferdKitPDFTemplate } from '../pdfTemplates/types'
 import zugferdKitSinglePage from '../pdfTemplates/zugferdKitSinglePage'
 import { availableProfiles } from './factur-x'
@@ -81,11 +82,15 @@ export default class FacturXPdf {
     public async createPDFContent(
         data: availableProfiles,
         template?: ZugferdKitPDFTemplate,
-        locale?: SupportedLocales
+        locale?: SupportedLocales,
+        headerImage?: {
+            path: string
+            dimensions: ImageDimensions
+        }
     ): Promise<void> {
         //TODO: Correct implementation of PDF Invoice
         if (!template) {
-            this.pdfDoc = await zugferdKitSinglePage(data, this.pdfDoc, locale || 'en-US')
+            this.pdfDoc = await zugferdKitSinglePage(data, this.pdfDoc, locale || 'en-US', headerImage)
             return
         }
 

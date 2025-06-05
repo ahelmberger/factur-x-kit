@@ -4,6 +4,8 @@ import path from 'node:path'
 import { printNode, zodToTs } from 'zod-to-ts'
 
 import { FacturX } from '../src/core/factur-x'
+import { ImageDimensions } from '../src/pdfTemplates/invoiceBlocks/headerImage'
+import { dinA4Width, mmToPt } from '../src/pdfTemplates/types'
 import zugferdKitMultiPage from '../src/pdfTemplates/zugferdKitMultiPage'
 import { ZBasicWithoutLinesProfile } from '../src/profiles/basicwithoutlines/BasicWithoutLinesProfile'
 import { ZBasicWithoutLinesProfileXml } from '../src/profiles/basicwithoutlines/BasicWithoutLinesProfileXml'
@@ -67,28 +69,46 @@ describe('factur-x validity check', () => {
 
 describe.only('pdf-creation', () => {
     test.only('pdf creation', async () => {
+        const projectRoot = process.cwd()
+        const imagePath = path.join(projectRoot, 'assets', 'images', 'test_header', 'header.jpg')
+
+        const test: ImageDimensions = {
+            width: 0,
+            height: 0
+        }
+        const headerImage = {
+            path: imagePath,
+            dimensions: {
+                width: dinA4Width * mmToPt,
+                height: ((dinA4Width * mmToPt) / 1408) * 504
+            }
+        }
         const instance = await FacturX.fromObject(designTestObject_easy)
         const pdfBytesDE = await instance.getPDF({
-            locale: 'de-DE'
+            locale: 'de-DE',
+            headerImage
         })
         expect(pdfBytesDE).toBeDefined()
         await fs.writeFile(path.join(__dirname, 'pdfs', 'createdPDFs', 'PDF_DESIGN_DE.pdf'), pdfBytesDE)
 
         const pdfBytesEN = await instance.getPDF({
-            locale: 'en-US'
+            locale: 'en-US',
+            headerImage
         })
         expect(pdfBytesEN).toBeDefined()
         await fs.writeFile(path.join(__dirname, 'pdfs', 'createdPDFs', 'PDF_DESIGN_EN.pdf'), pdfBytesEN)
 
         const pdfBytesFR = await instance.getPDF({
-            locale: 'fr-FR'
+            locale: 'fr-FR',
+            headerImage
         })
         expect(pdfBytesFR).toBeDefined()
         await fs.writeFile(path.join(__dirname, 'pdfs', 'createdPDFs', 'PDF_DESIGN_FR.pdf'), pdfBytesFR)
 
         const complexInstance = await FacturX.fromObject(designTestObject)
         const pdfBytesDE_multiPage = await complexInstance.getPDF({
-            locale: 'de-DE'
+            locale: 'de-DE',
+            headerImage
         })
         expect(pdfBytesDE_multiPage).toBeDefined()
         await fs.writeFile(
@@ -98,7 +118,8 @@ describe.only('pdf-creation', () => {
 
         const kleinunternehmerInstance = await FacturX.fromObject(testDesignObjectKleinunternehmer)
         const pdfBytesDE_Kleinunternehmer = await kleinunternehmerInstance.getPDF({
-            locale: 'de-DE'
+            locale: 'de-DE',
+            headerImage
         })
         expect(pdfBytesDE_Kleinunternehmer).toBeDefined()
         await fs.writeFile(
