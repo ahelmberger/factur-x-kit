@@ -1,4 +1,5 @@
 import { ComfortProfile } from '../src/profiles/comfort'
+// Pfad ggf. anpassen
 import {
     ALLOWANCE_REASONS_CODES,
     CHARGE_REASONS_CODES,
@@ -7,7 +8,6 @@ import {
     DOCUMENT_TYPE_CODES,
     EAS_SCHEME_CODES,
     ISO6523_CODES,
-    MIME_CODES,
     PAYMENT_MEANS_CODES,
     REFERENCED_DOCUMENT_TYPE_CODES,
     SUBJECT_CODES,
@@ -18,99 +18,82 @@ import {
     UNTDID_7143
 } from '../src/types/codes'
 
+// Pfad ggf. anpassen
+
 export const designTestObject: ComfortProfile = {
     meta: {
         guidelineSpecifiedDocumentContextParameter: 'urn:cen.eu:en16931:2017'
     },
     document: {
-        id: 'DOC-12345',
+        id: 'INV-2023-00789',
         type: '380' as DOCUMENT_TYPE_CODES,
         dateOfIssue: { year: 2023, month: 10, day: 1 },
         notes: [
             {
-                content: 'Vielen Dank für Ihren Einkauf! Hiermit stellen wir die folgenden Leistungen in Rechnung',
+                content: 'Thank you for your business! Please find the details of your order below.',
                 subject: 'ACY' as SUBJECT_CODES
             },
-
-            { content: 'Mit Freundlichen Grüße\nDein VfB Stuttgart!' },
+            { content: 'Kind regards,\nYour Apex Solutions Team' },
             {
                 content:
-                    'Die Lieferung erfolgt in der Regel innerhalb von 3-5 Werktagen nach Zahlungseingang. Bei Fragen oder Anliegen stehen wir Ihnen jederzeit gerne zur Verfügung.',
+                    'Standard delivery is within 3-5 business days after payment confirmation. For any inquiries, please do not hesitate to contact us.',
                 subject: 'DEL' as SUBJECT_CODES
-            },
-            {
-                content: 'Stuttgart',
-                subject: 'AGW' as SUBJECT_CODES
-            },
-            {
-                content: 'Freddy Merz',
-                subject: 'AFV' as SUBJECT_CODES
-            },
-            {
-                content: 'Amtsgericht Stuttgart',
-                subject: 'LAN' as SUBJECT_CODES
             }
         ],
         currency: 'EUR' as CURRENCY_CODES
     },
     seller: {
-        id: ['SELLER-1', 'SELLER-2'],
-        globalId: [
-            { id: 'GLOBAL-1', scheme: '0204' as ISO6523_CODES },
-            { id: 'GLOBAL-2', scheme: '0131' as ISO6523_CODES }
-        ],
-        name: 'VfB Stuttgart 1893 e.V.',
+        name: 'Apex Solutions Ltd.',
         specifiedLegalOrganization: {
-            id: { id: 'HRA 67890111' },
-            tradingBusinessName: 'VfB Trading GmbH'
+            id: { id: 'CRN 9876543' },
+            tradingBusinessName: 'Apex Industrial Supplies'
         },
         postalAddress: {
-            postcode: '70372',
-            addressLineOne: 'Mercedesstraße 109',
-            city: 'Stuttgart',
-            country: 'DE' as COUNTRY_ID_CODES,
-            countrySubDivision: 'BAW'
+            postcode: 'EC1A 1BB',
+            addressLineOne: '123 Business Road',
+            city: 'London',
+            country: 'GB' as COUNTRY_ID_CODES,
+            countrySubDivision: 'ENG'
         },
-        universalCommunicationAddressURI: { id: 'seller@example.com', scheme: '0088' as EAS_SCHEME_CODES },
-        taxIdentification: { vatId: 'DE123456789' },
-        otherLegalInformation: 'Verkauf',
+        taxIdentification: { vatId: 'GB987654321' },
+        otherLegalInformation:
+            'Managing Director: Eleanor Vance\nRegistered Office: London\nRegistered in England and Wales',
         tradeContact: [
             {
-                personName: 'Hans Müller',
-                telephoneNumber: '+49 111222333',
-                email: 'hans@firma.de'
+                personName: 'David Miller',
+                telephoneNumber: '+44 20 7946 0123',
+                email: 'sales@apexsolutions.co.uk'
             }
         ]
     },
     buyer: {
-        reference: 'Buyer Reference',
-        id: 'BUYER-1',
-        name: 'Bayern München AG',
+        id: 'CUST-00456',
+        name: 'Innovatech Corp.',
         postalAddress: {
-            postcode: '80939',
-            addressLineOne: 'Franz-Beckenbauer-Platz 5',
-            addressLineTwo: 'Allianz Arena',
-            city: 'München',
-            country: 'DE' as COUNTRY_ID_CODES,
-            countrySubDivision: 'Bayern'
+            postcode: '10001',
+            addressLineOne: '456 Innovation Drive',
+            addressLineTwo: 'Suite 500',
+            city: 'New York',
+            country: 'US' as COUNTRY_ID_CODES,
+            countrySubDivision: 'NY'
         },
-        universalCommunicationAddressURI: { id: 'buyer@example.com', scheme: '0088' as EAS_SCHEME_CODES },
-        taxIdentification: { vatId: 'DE987654321' },
+        universalCommunicationAddressURI: { id: 'accounts.payable@innovatech.com', scheme: '0088' as EAS_SCHEME_CODES },
+        taxIdentification: { vatId: 'US-TAXID-7890123' },
         tradeContact: [
             {
-                personName: 'Manuel Neuer',
-                telephoneNumber: '+49 444555666',
-                email: 'neuer@bayern-muenchen.de'
+                personName: 'Sarah Chen',
+                telephoneNumber: '+1 212 555 0199',
+                email: 'schen@innovatech.com'
             }
         ]
     },
     referencedDocuments: {
-        orderReference: { documentId: 'SO-98765' },
-        contractReference: { documentId: 'CON-54321' },
-        advanceShippingNotice: { documentId: 'ASN-12345' },
+        orderReference: { documentId: 'PO-2023-10-005' },
+        contractReference: { documentId: 'CTR-SERV-001B' },
+        advanceShippingNotice: { documentId: 'ASN-778899' },
         referencedInvoice: [
             {
-                documentId: 'INV-12345',
+                documentId: 'PREV-INV-00700',
                 issueDate: { year: 2023, month: 9, day: 1 }
             }
         ]
@@ -119,22 +102,14 @@ export const designTestObject: ComfortProfile = {
         deliveryDate: { year: 2023, month: 10, day: 5 }
     },
     paymentInformation: {
-        creditorReference: 'CREDITOR-12345',
-        paymentReference: 'PAYMENT-12345',
-        payee: {
-            id: 'PAYEE-1',
-            globalId: { id: 'GLOBAL-PAYEE-1', scheme: '0080' as ISO6523_CODES },
-            name: 'Payee Company',
-            specifiedLegalOrganization: { id: { id: 'LEGAL-PAYEE-1', scheme: '0060' as ISO6523_CODES } }
-        },
         paymentMeans: [
             {
-                description: 'Deutsche Bank',
+                description: 'International Commerce Bank',
                 paymentType: '58' as PAYMENT_MEANS_CODES,
                 payeeBankAccount: {
-                    iban: 'DE89370400440532013000',
-                    bic: 'DEUTDEDBFRA',
-                    accountName: 'Max Mustermann'
+                    iban: 'GB29NWBK60161331926819',
+                    bic: 'NWBKGB2L',
+                    accountName: 'Apex Solutions Ltd.'
                 }
             }
         ],
@@ -143,11 +118,9 @@ export const designTestObject: ComfortProfile = {
             endDate: { year: 2024, month: 1, day: 31 }
         },
         paymentTerms: {
-            description: 'Payment due in 30 days',
-            dueDate: { year: 2024, month: 2, day: 1 },
-            directDebitMandateID: 'DDI-001'
-        },
-        specifiedTradeAccountingAccount: 'ACCOUNT-12345'
+            description: 'Payment due within 30 days from date of invoice.',
+            dueDate: { year: 2024, month: 2, day: 1 }
+        }
     },
     totals: {
         sumWithoutAllowancesAndCharges: 135,
@@ -155,8 +128,8 @@ export const designTestObject: ComfortProfile = {
             allowances: [
                 {
                     actualAmount: 14,
-                    reasonCode: '95' as ALLOWANCE_REASONS_CODES,
-                    reason: 'Weil du so nett bist',
+                    reasonCode: '95' as ALLOWANCE_REASONS_CODES, // Discount
+                    reason: 'Loyalty Program Discount',
                     categoryTradeTax: {
                         typeCode: 'VAT' as TAX_TYPE_CODE,
                         categoryCode: 'S' as TAX_CATEGORY_CODES,
@@ -167,8 +140,8 @@ export const designTestObject: ComfortProfile = {
             charges: [
                 {
                     actualAmount: 0.5,
-                    reasonCode: 'FC' as CHARGE_REASONS_CODES,
-                    reason: 'Lieferungskosten',
+                    reasonCode: 'FC' as CHARGE_REASONS_CODES, // Freight charges
+                    reason: 'Standard Shipping Fee',
                     categoryTradeTax: {
                         typeCode: 'VAT' as TAX_TYPE_CODE,
                         categoryCode: 'S' as TAX_CATEGORY_CODES,
@@ -202,18 +175,18 @@ export const designTestObject: ComfortProfile = {
                 lineId: '1',
                 lineNote: {
                     content:
-                        'Dieses Produkt wird in Großenpackungen geliefert. Eine Spedition wird dieses Produkt separat vom Rest der Bestellung anliefern. Die Lieferzeit beträgt 3-5 Werktage.'
+                        'This item is shipped in bulk. A specialized carrier will deliver this separately from other items. Estimated delivery: 3-5 business days.'
                 }
             },
             productDescription: {
-                globalId: { id: '12345678', scheme: '0160' as ISO6523_CODES },
-                sellerProductId: '0138-12000',
-                buyerProductId: 'MAINT-PLAN-BASIC',
-                name: 'Premium Schrauben',
-                description: 'Präzisionsgefertigte Komponente aus Edelstahl V4A.',
+                globalId: { id: 'GTIN01234567890123', scheme: '0160' as ISO6523_CODES },
+                sellerProductId: 'APX-COMP-001A',
+                buyerProductId: 'TECH-REQ-789B',
+                name: 'Industrial Grade Fasteners',
+                description: 'Precision-engineered stainless steel (Grade 316) fasteners.',
                 productCharacteristic: [
-                    { characteristic: 'Material', value: 'Edelstahl 1.4404' },
-                    { characteristic: 'Oberfläche', value: 'Gebürstet' }
+                    { characteristic: 'Material', value: 'Stainless Steel 316' },
+                    { characteristic: 'Finish', value: 'Polished' }
                 ],
                 productClassification: [
                     {
@@ -225,7 +198,7 @@ export const designTestObject: ComfortProfile = {
                     },
                     {
                         productClass: {
-                            code: '3077',
+                            code: 'C456',
                             codeScheme: 'SSO' as UNTDID_7143
                         }
                     },
@@ -236,7 +209,7 @@ export const designTestObject: ComfortProfile = {
                         }
                     }
                 ],
-                originTradeCountry: 'DE' as COUNTRY_ID_CODES
+                originTradeCountry: 'GB' as COUNTRY_ID_CODES
             },
             productPriceAgreement: {
                 referencedOrder: { lineId: 'CUST-PO-12345-LN10' },
@@ -262,13 +235,14 @@ export const designTestObject: ComfortProfile = {
                         {
                             actualAmount: 6,
                             reasonCode: '95' as ALLOWANCE_REASONS_CODES,
-                            reason: 'Volume discount'
+                            reason: 'Volume Discount Applied'
                         }
                     ],
                     charges: [
                         {
                             actualAmount: 1,
-                            reasonCode: 'ZZZ' as CHARGE_REASONS_CODES
+                            reasonCode: 'ZZZ' as CHARGE_REASONS_CODES,
+                            reason: 'Special Handling Fee'
                         }
                     ]
                 },
@@ -276,22 +250,21 @@ export const designTestObject: ComfortProfile = {
                     startDate: { year: 2024, month: 1, day: 1 },
                     endDate: { year: 2024, month: 1, day: 31 }
                 },
-
                 lineTotals: { netTotal: 90 },
                 additionalReferences: [
                     {
-                        documentId: 'LS-9876',
+                        documentId: 'DS-SPEC-003',
                         typeCode: REFERENCED_DOCUMENT_TYPE_CODES.Invoice_data_sheet,
                         referenceTypeCode: 'DQ' as UNTDID_1153
                     }
                 ],
-                accountingInformation: { id: 'Projekt P-100-A' }
+                accountingInformation: { id: 'Cost Center Alpha-100' }
             }
         },
         {
             generalLineData: { lineId: '2' },
             productDescription: {
-                name: 'Organic Tea Leaves'
+                name: 'Premium Filter Cartridges'
             },
             productPriceAgreement: {
                 productNetPricing: {
@@ -310,7 +283,7 @@ export const designTestObject: ComfortProfile = {
                         {
                             actualAmount: 15,
                             reasonCode: 'ZZZ' as CHARGE_REASONS_CODES,
-                            reason: 'Express-Zuschlag'
+                            reason: 'Expedited Processing Fee'
                         }
                     ]
                 },

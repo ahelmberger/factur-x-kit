@@ -41,7 +41,7 @@ export default async function zugferdKitSinglePage(
     await addSenderLineBlock(data, page, openSansRegular, locale)
     const yCustomerAddress = await addCustomerAddressBlock(data, page, openSansRegular, locale)
     const yMetaBlock = await addMetaBlock(data, page, openSansRegular, openSansBold, locale)
-    const titleBlockYPosition = Math.min(yCustomerAddress - 50, yMetaBlock - 10)
+    const titleBlockYPosition = Math.min(yCustomerAddress - 50, yMetaBlock - 20)
 
     const yTitleBlock = await addTitleBlock(data, page, openSansBold, locale, {
         position: { y: titleBlockYPosition }

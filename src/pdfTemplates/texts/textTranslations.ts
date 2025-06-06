@@ -12,6 +12,7 @@ export const translations_en = {
     DELIVERY_DATE: 'Delivery Date',
     ADVANCE_SHIPPING_NOTICE: 'Despatch Notice',
     PAYMENT_DUE_DATE: 'Due Date',
+    CUSTOMER_ID: 'Customer Number',
 
     LINE_ITEM_SHORT: 'Item',
     LINE_ITEM_LONG: 'Line Item',
@@ -66,6 +67,7 @@ const translations_de: typeof translations_en = {
     DELIVERY_DATE: 'Lieferdatum',
     ADVANCE_SHIPPING_NOTICE: 'Lieferavis',
     PAYMENT_DUE_DATE: 'Zahlungsziel',
+    CUSTOMER_ID: 'Kundennummer',
 
     LINE_ITEM_SHORT: 'Pos.',
     LINE_ITEM_LONG: 'Rechnungsposition',
@@ -120,6 +122,7 @@ const translations_fr: typeof translations_en = {
     DELIVERY_DATE: 'Date de livraison',
     ADVANCE_SHIPPING_NOTICE: 'Avis d’expédition',
     PAYMENT_DUE_DATE: 'Date d’échéance',
+    CUSTOMER_ID: 'Numéro client',
 
     LINE_ITEM_SHORT: 'Art.',
     LINE_ITEM_LONG: 'Article',

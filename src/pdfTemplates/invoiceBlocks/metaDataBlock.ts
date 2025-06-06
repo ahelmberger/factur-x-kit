@@ -41,7 +41,7 @@ export default async function addMetaBlock(
     let deliveryDate
 
     if ('delivery' in data) {
-        deliveryDate = data.delivery.deliveryDate ? formatCustomDate(data.delivery.deliveryDate, locale) : undefined
+        deliveryDate = data.delivery?.deliveryDate ? formatCustomDate(data.delivery.deliveryDate, locale) : undefined
     }
 
     let billingPeriod = ''
@@ -74,10 +74,16 @@ export default async function addMetaBlock(
         advanceShippingNoticeId = data.referencedDocuments.advanceShippingNotice?.documentId
     }
 
+    let customerId: string | undefined
+    if ('id' in data.buyer) {
+        customerId = data.buyer.id
+    }
+
     const metaDataContent: Partial<Record<TranslationKeys, string | undefined>> = {
         INVOICE_ID: data.document.id,
         INVOICE_DATE: formatCustomDate(data.document.dateOfIssue, locale),
         ORDER_ID: data.referencedDocuments?.orderReference?.documentId,
+        CUSTOMER_ID: customerId,
         CONTRACT_ID: contractId,
         DELIVERY_DATE: deliveryDate,
         ADVANCE_SHIPPING_NOTICE: advanceShippingNoticeId,

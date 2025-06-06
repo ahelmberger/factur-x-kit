@@ -79,11 +79,6 @@ const mapping: SimplifiedMappingItem[] = [
         converter: ReferencedDocumentTypeConverter.documentId()
     },
     {
-        obj: undefined,
-        xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeDelivery.#text',
-        converter: undefined
-    },
-    {
         obj: 'document.currency',
         xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeSettlement.ram:InvoiceCurrencyCode',
         converter: new CodeTypeConverter(CURRENCY_CODES)

@@ -134,12 +134,7 @@ function addNotes(data: availableProfiles, currentY: number, settings: Settings)
     }
 
     const notesWithSubject = data.document.notes.filter(
-        note =>
-            note.subject &&
-            note.subject !== SUBJECT_CODES.INTRODUCTION &&
-            note.subject !== SUBJECT_CODES.BUSINESS_FOUNDER &&
-            note.subject !== SUBJECT_CODES.LOCATION &&
-            note.subject !== SUBJECT_CODES.LOCATION_ALIAS
+        note => note.subject && note.subject !== SUBJECT_CODES.INTRODUCTION
     )
 
     fontSize = fontSize * 0.8
@@ -148,7 +143,7 @@ function addNotes(data: availableProfiles, currentY: number, settings: Settings)
     const widthOfSpace = font.widthOfTextAtSize(' ', fontSize)
 
     for (const note of notesWithSubject) {
-        if (note.subject === SUBJECT_CODES.BUSINESS_FOUNDER || note.subject === SUBJECT_CODES.INTRODUCTION) continue
+        if (note.subject === SUBJECT_CODES.INTRODUCTION) continue
         const subject = note.subject ? `${noteSubjects[locale][note.subject]}: ` : ''
         page.drawText(subject, {
             x: xPosition,

@@ -3,7 +3,6 @@ import {
     COUNTRY_ID_CODES,
     CURRENCY_CODES,
     DOCUMENT_TYPE_CODES,
-    EXEMPTION_REASON_CODES,
     PAYMENT_MEANS_CODES,
     SUBJECT_CODES,
     TAX_CATEGORY_CODES,
@@ -33,43 +32,22 @@ export const testDesignObjectKleinunternehmer: ComfortProfile = {
                     'Für Rückfragen stehen wir Ihnen gerne zur Verfügung.\n' +
                     ' \n' +
                     'Mit freundlichen Grüßen'
-            },
-            {
-                content: 'Stuttgart',
-                subject: 'AGW' as SUBJECT_CODES
-            },
-            {
-                content: 'Freddy Merz',
-                subject: 'AFV' as SUBJECT_CODES
-            },
-            {
-                content: 'Amtsgericht Stuttgart',
-                subject: 'LAN' as SUBJECT_CODES
             }
         ],
         currency: 'EUR' as CURRENCY_CODES
     },
     invoiceLines: [
         {
-            generalLineData: { lineId: '1', lineNote: undefined },
+            generalLineData: { lineId: '1' },
             productDescription: {
-                globalId: undefined,
                 sellerProductId: '12345',
-                buyerProductId: undefined,
-                name: 'Toller Artikel',
-                description: undefined,
-                productCharacteristic: undefined,
-                productClassification: undefined,
-                originTradeCountry: undefined
+                name: 'Toller Artikel'
             },
             productPriceAgreement: {
-                referencedOrder: undefined,
                 productGrossPricing: {
-                    grossPricePerItem: 10,
-                    priceBaseQuantity: undefined,
-                    priceAllowancesAndCharges: undefined
+                    grossPricePerItem: 10
                 },
-                productNetPricing: { netPricePerItem: 10, priceBaseQuantity: undefined }
+                productNetPricing: { netPricePerItem: 10 }
             },
             delivery: { itemQuantity: { quantity: 1, unit: 'NAR' as UNIT_CODES } },
             settlement: {
@@ -78,20 +56,15 @@ export const testDesignObjectKleinunternehmer: ComfortProfile = {
                     categoryCode: 'E' as TAX_CATEGORY_CODES,
                     rateApplicablePercent: 0
                 },
-                billingPeriod: undefined,
                 lineLevelAllowancesAndCharges: {
                     allowances: [
                         {
                             actualAmount: 0.1,
-                            reasonCode: undefined,
                             reason: 'Rabatt Pos. 1'
                         }
-                    ],
-                    charges: undefined
+                    ]
                 },
-                lineTotals: { netTotal: 9.9 },
-                additionalReferences: undefined,
-                accountingInformation: undefined
+                lineTotals: { netTotal: 9.9 }
             }
         }
     ],
@@ -100,7 +73,6 @@ export const testDesignObjectKleinunternehmer: ComfortProfile = {
         tradeContact: [
             {
                 personName: 'Max Mustermann',
-                departmentName: undefined,
                 telephoneNumber: '01789191919191',
                 email: 'max@mustermann.com'
             }
@@ -114,40 +86,30 @@ export const testDesignObjectKleinunternehmer: ComfortProfile = {
         specifiedLegalOrganization: {
             id: { id: 'HR-12345678' }
         },
-        taxIdentification: { vatId: 'DE124356788', localTaxId: undefined }
+        taxIdentification: { vatId: 'DE124356788' },
+        otherLegalInformation: 'Geschäftsführer: Max Mustermann\nUnternehmenssitz: Stuttgart\nAmtsgericht Stuttgart'
     },
     buyer: {
-        name: 'Peter',
-        tradeContact: [
-            {
-                personName: 'Paulpa',
-                departmentName: undefined,
-                telephoneNumber: undefined,
-                email: ''
-            }
-        ],
+        name: 'Paul Peter',
+
         postalAddress: {
             postcode: '70188',
-            addressLineOne: 'Störzbachstraße 1',
-            addressLineTwo: '1. Stock',
+            addressLineOne: 'Mercedesstr. 24',
             city: 'Stuttgart',
             country: 'DE' as COUNTRY_ID_CODES
         }
     },
-    delivery: { deliveryDate: { year: 2025, month: 2, day: 18 } },
+    delivery: {},
     paymentInformation: {
         paymentMeans: [
             {
                 paymentType: '58' as PAYMENT_MEANS_CODES,
-                payerBankAccount: undefined,
                 payeeBankAccount: {
                     iban: 'DE02120300000000202051',
-                    propriataryId: undefined,
                     accountName: 'Max Mustermann',
                     bic: 'BYLADEM1001'
                 },
-                description: 'ING DiBa',
-                financialCard: undefined
+                description: 'ING DiBa'
             }
         ],
         paymentTerms: {
@@ -163,9 +125,6 @@ export const testDesignObjectKleinunternehmer: ComfortProfile = {
                 exemptionReason: 'Umsatzsteuerbefreit nach §19 UStG',
                 basisAmount: 9.9,
                 categoryCode: 'E' as TAX_CATEGORY_CODES,
-                exemptionReasonCode: undefined,
-                taxPointDate: undefined,
-                dueDateTypeCode: undefined,
                 rateApplicablePercent: 0
             }
         ],

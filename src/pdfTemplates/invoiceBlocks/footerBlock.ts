@@ -1,7 +1,7 @@
 import { PDFFont, PDFPage, RGB, rgb } from 'pdf-lib'
 
 import { availableProfiles } from '../../core/factur-x'
-import { PAYMENT_MEANS_CODES, SUBJECT_CODES } from '../../types/codes'
+import { PAYMENT_MEANS_CODES } from '../../types/codes'
 import textTranslations from '../texts/textTranslations'
 import { SupportedLocales, mmToPt } from '../types'
 import { convertAddressBlockToString } from './customerAddressBlock'
@@ -129,9 +129,7 @@ function convertPaymentMeanToString(data: availableProfiles): string {
 }
 
 function convertRegistrationInformationToString(data: availableProfiles, locale: SupportedLocales) {
-    let location = ''
-    let court = ''
-    let ceo = ''
+    let legalInfo = ''
     let vatId = ''
 
     if (data.seller.taxIdentification?.vatId) {
@@ -144,17 +142,11 @@ function convertRegistrationInformationToString(data: availableProfiles, locale:
         ? `${data.seller.specifiedLegalOrganization?.id.id}\n`
         : ''
 
-    if ('notes' in data.document) {
-        const locationNote = data.document.notes.find(note => note.subject === SUBJECT_CODES.LOCATION)
-        const courtNote = data.document.notes.find(note => note.subject === SUBJECT_CODES.LOCATION_ALIAS)
-        const ceoNote = data.document.notes.find(note => note.subject === SUBJECT_CODES.BUSINESS_FOUNDER)
-
-        location = locationNote ? `${locationNote.content}\n` : ''
-        court = courtNote ? `${courtNote.content}\n` : ''
-        ceo = ceoNote ? `CEO: ${ceoNote.content}\n` : ''
+    if ('otherLegalInformation' in data.seller) {
+        legalInfo = `${data.seller.otherLegalInformation ? `${data.seller.otherLegalInformation}\n` : ''}`
     }
 
-    return `${ceo}${location}${court}${registrationNumber}${vatId}`
+    return `${legalInfo}${registrationNumber}${vatId}`
 }
 
 function getColumnWidth(column: string, font: PDFFont, fontSize: number): number {

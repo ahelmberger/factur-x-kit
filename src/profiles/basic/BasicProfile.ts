@@ -69,16 +69,18 @@ export const ZBasicProfile = z.object({
             referencedInvoice: ZReferencedDocumentType_docId_issueDate.array().optional()
         })
         .optional(),
-    delivery: z.object({
-        recipient: ZTradePartyType.omit({
-            specifiedLegalOrganization: true,
-            universalCommunicationAddressURI: true,
-            taxIdentification: true
+    delivery: z
+        .object({
+            recipient: ZTradePartyType.omit({
+                specifiedLegalOrganization: true,
+                universalCommunicationAddressURI: true,
+                taxIdentification: true
+            })
+                .extend({ name: ZTextType.optional() })
+                .optional(),
+            deliveryDate: ZDateTimeType.optional()
         })
-            .extend({ name: ZTextType.optional() })
-            .optional(),
-        deliveryDate: ZDateTimeType.optional()
-    }),
+        .optional(),
     paymentInformation: z.object({
         creditorReference: ZIdType.optional(),
         paymentReference: ZTextType.optional(),

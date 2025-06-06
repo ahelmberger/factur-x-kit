@@ -87,16 +87,18 @@ export const ZComfortProfile = z.object({
             additionalReferences: ZAdditionalReferencedDocumentType_comfort.optional()
         })
         .optional(),
-    delivery: z.object({
-        recipient: ZTradePartyType.omit({
-            specifiedLegalOrganization: true,
-            universalCommunicationAddressURI: true,
-            taxIdentification: true
+    delivery: z
+        .object({
+            recipient: ZTradePartyType.omit({
+                specifiedLegalOrganization: true,
+                universalCommunicationAddressURI: true,
+                taxIdentification: true
+            })
+                .extend({ name: ZTextType.optional() })
+                .optional(),
+            deliveryDate: ZDateTimeType.optional()
         })
-            .extend({ name: ZTextType.optional() })
-            .optional(),
-        deliveryDate: ZDateTimeType.optional()
-    }),
+        .optional(),
     paymentInformation: z.object({
         creditorReference: ZIdType.optional(),
         paymentReference: ZTextType.optional(),

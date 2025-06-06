@@ -1,18 +1,15 @@
 import { ComfortProfile } from '../src/profiles/comfort'
 import {
-    ALLOWANCE_REASONS_CODES,
     COUNTRY_ID_CODES,
     CURRENCY_CODES,
     DOCUMENT_TYPE_CODES,
     EAS_SCHEME_CODES,
     ISO6523_CODES,
-    MIME_CODES,
     PAYMENT_MEANS_CODES,
     SUBJECT_CODES,
     TAX_CATEGORY_CODES,
     TAX_TYPE_CODE,
-    UNIT_CODES,
-    UNTDID_1153
+    UNIT_CODES
 } from '../src/types/codes'
 
 export const designTestObject_easy: ComfortProfile = {
@@ -20,161 +17,86 @@ export const designTestObject_easy: ComfortProfile = {
         guidelineSpecifiedDocumentContextParameter: 'urn:cen.eu:en16931:2017'
     },
     document: {
-        id: 'DOC-12345',
+        id: 'INV-2023-EASY-001',
         type: '380' as DOCUMENT_TYPE_CODES,
         dateOfIssue: { year: 2023, month: 10, day: 1 },
         notes: [
             {
-                content: 'Vielen Dank für Ihren Einkauf! Hiermit stellen wir die folgenden Leistungen in Rechnung',
+                content: 'Thank you for your purchase! We hereby invoice the following services/products.',
                 subject: 'ACY' as SUBJECT_CODES
             },
+            { content: 'Kind regards,\nYour Service Team' },
             {
                 content:
-                    'da sie als native Funktionen in der JavaScript-Engine implementiert sind. Eine manuell geschriebene Schleife in JavaScript wäre in der Regel langsamer, da sie im User-Space Code läuft und mehr Overheads hat',
-                subject: 'ABZ' as SUBJECT_CODES
-            },
-            { content: 'Mit Freundlichen Grüße\nDein VfB Stuttgart!' },
-            {
-                content:
-                    'Die Lieferung erfolgt in der Regel innerhalb von 3-5 Werktagen nach Zahlungseingang. Bei Fragen oder Anliegen stehen wir Ihnen jederzeit gerne zur Verfügung.',
+                    'Delivery usually takes place within 3-5 working days after receipt of payment. If you have any questions or concerns, please do not hesitate to contact us.',
                 subject: 'DEL' as SUBJECT_CODES
-            },
-            {
-                content: 'Stuttgart',
-                subject: 'AGW' as SUBJECT_CODES
-            },
-            {
-                content: 'Freddy Merz',
-                subject: 'AFV' as SUBJECT_CODES
-            },
-            {
-                content: 'Amtsgericht Stuttgart',
-                subject: 'LAN' as SUBJECT_CODES
             }
         ],
         currency: 'EUR' as CURRENCY_CODES
     },
     seller: {
-        id: ['SELLER-1', 'SELLER-2'],
-        globalId: [
-            { id: 'GLOBAL-1', scheme: '0204' as ISO6523_CODES },
-            { id: 'GLOBAL-2', scheme: '0131' as ISO6523_CODES }
-        ],
-        name: 'VfB Stuttgart 1893 e.V.',
+        name: 'Global Goods Inc.',
         specifiedLegalOrganization: {
-            id: { id: 'HRA 67890111' },
-            tradingBusinessName: 'Seller Trading Name'
+            id: { id: 'CoReg12345UK' },
+            tradingBusinessName: 'Global Goods Retail'
         },
         postalAddress: {
-            postcode: '70372',
-            addressLineOne: 'Mercedesstraße 109',
-            city: 'Stuttgart',
-            country: 'DE' as COUNTRY_ID_CODES,
-            countrySubDivision: 'BAW'
+            postcode: 'M1 1AA',
+            addressLineOne: '789 Commerce Street',
+            city: 'Manchester',
+            country: 'GB' as COUNTRY_ID_CODES,
+            countrySubDivision: 'ENG'
         },
-        universalCommunicationAddressURI: { id: 'seller@example.com', scheme: '0088' as EAS_SCHEME_CODES },
-        taxIdentification: { vatId: 'DE123456789' },
-        otherLegalInformation: 'Verkauf',
+        universalCommunicationAddressURI: { id: 'info@globalgoods.co.uk', scheme: '0088' as EAS_SCHEME_CODES },
+        taxIdentification: { vatId: 'GB123456789' },
+        otherLegalInformation: 'Director: Olivia Green\nRegistered in England No. 1234567\nVAT Reg. No. GB123456789',
         tradeContact: [
             {
-                personName: 'Hans Müller',
-                telephoneNumber: '+49 111222333',
-                email: 'hans@firma.de'
+                personName: 'Robert Brown',
+                telephoneNumber: '+44 161 496 0101',
+                email: 'r.brown@globalgoods.co.uk'
             }
         ]
     },
     buyer: {
-        reference: 'Buyer Reference',
-        id: 'BUYER-1',
-        globalId: { id: 'GLOBAL-BUYER-1', scheme: '0204' as ISO6523_CODES },
-        name: 'Bayern München AG',
+        id: 'CUST-IE-001',
+        name: 'Prime Tech Solutions',
         specifiedLegalOrganization: {
-            id: { id: 'LEGAL-BUYER-1', scheme: '0060' as ISO6523_CODES },
-            tradingBusinessName: 'Erika GmbH'
+            id: { id: 'CRO987654', scheme: '0060' as ISO6523_CODES },
+            tradingBusinessName: 'Prime Tech Procurement'
         },
         postalAddress: {
-            postcode: '80939',
-            addressLineOne: 'Franz-Beckenbauer-Platz 5',
-            city: 'München',
-            country: 'DE' as COUNTRY_ID_CODES,
-            countrySubDivision: 'Bayern'
+            postcode: 'D02 XA00',
+            addressLineOne: '10 Tech Park Avenue',
+            city: 'Dublin',
+            country: 'IE' as COUNTRY_ID_CODES,
+            countrySubDivision: 'Leinster'
         },
-        universalCommunicationAddressURI: { id: 'buyer@example.com', scheme: '0088' as EAS_SCHEME_CODES },
-        taxIdentification: { vatId: 'DE987654321' },
+        universalCommunicationAddressURI: { id: 'purchasing@primetech.ie', scheme: '0088' as EAS_SCHEME_CODES },
+        taxIdentification: { vatId: 'IE9876543W' },
         tradeContact: [
             {
-                personName: 'Manuel Neuer',
-                telephoneNumber: '+49 444555666',
-                email: 'neuer@bayern-muenchen.de'
+                personName: 'Aoife Kelly',
+                telephoneNumber: '+353 1 234 5678',
+                email: 'a.kelly@primetech.ie'
             }
         ]
     },
-    sellerTaxRepresentative: {
-        name: 'Seller Tax Representative',
-        postalAddress: {
-            postcode: '54321',
-            addressLineOne: '789 Tax St',
-            addressLineTwo: 'Suite 300',
-            addressLineThree: 'Building C',
-            city: 'Tax City',
-            country: 'DE' as COUNTRY_ID_CODES,
-            countrySubDivision: 'Tax State'
-        },
-        taxIdentification: { vatId: 'DE111111111' }
-    },
     referencedDocuments: {
-        orderReference: { documentId: 'SO-98765' },
-        contractReference: { documentId: 'CON-54321' },
-        advanceShippingNotice: { documentId: 'ASN-12345' },
-        additionalReferences: {
-            invoiceSupportingDocuments: [
-                {
-                    documentId: '1234',
-                    name: 'Rapport',
-                    uriid: 'https://example.com/rapport.pdf',
-                    attachmentBinaryObject: { mimeCode: 'application/pdf' as MIME_CODES, fileName: 'rapport.pdf' }
-                }
-            ],
-            tenderOrLotReferenceDetails: [{ documentId: 'LOT-001' }, { documentId: 'LOT-002' }],
-            invoiceItemDetails: [
-                { documentId: 'ITEM-001', referenceTypeCode: 'AVN' as UNTDID_1153 },
-                { documentId: 'ITEM-002', referenceTypeCode: 'ACI' as UNTDID_1153 }
-            ]
-        },
-        projectReference: { id: 'PRJ-001', name: 'Procuring Project XY' }
+        orderReference: { documentId: 'PO-BUYER-7788' }
     },
     delivery: {
-        recipient: {
-            id: 'RECIPIENT-1',
-            globalId: { id: 'GLOBAL-RECIPIENT-1', scheme: '0204' as ISO6523_CODES },
-            name: 'Recipient Company',
-            postalAddress: {
-                postcode: '98765',
-                addressLineOne: '123 Recipient St',
-                city: 'Recipient City',
-                country: 'GB' as COUNTRY_ID_CODES,
-                countrySubDivision: 'Recipient State'
-            }
-        },
         deliveryDate: { year: 2023, month: 10, day: 5 }
     },
     paymentInformation: {
-        creditorReference: 'CREDITOR-12345',
-        paymentReference: 'PAYMENT-12345',
-        payee: {
-            id: 'PAYEE-1',
-            globalId: { id: 'GLOBAL-PAYEE-1', scheme: '0080' as ISO6523_CODES },
-            name: 'Payee Company',
-            specifiedLegalOrganization: { id: { id: 'LEGAL-PAYEE-1', scheme: '0060' as ISO6523_CODES } }
-        },
         paymentMeans: [
             {
-                description: 'Deutsche Bank',
+                description: 'North Star Bank',
                 paymentType: '58' as PAYMENT_MEANS_CODES,
                 payeeBankAccount: {
-                    iban: 'DE89370400440532013000',
-                    bic: 'DEUTDEDBFRA',
-                    accountName: 'Max Mustermann'
+                    iban: 'GB99NWBK60161312345678',
+                    bic: 'NWBKGB2LXXX',
+                    accountName: 'Global Goods Inc.'
                 }
             }
         ],
@@ -183,11 +105,9 @@ export const designTestObject_easy: ComfortProfile = {
             endDate: { year: 2024, month: 1, day: 31 }
         },
         paymentTerms: {
-            description: 'Payment due in 30 days',
-            dueDate: { year: 2024, month: 2, day: 1 },
-            directDebitMandateID: 'DDI-001'
-        },
-        specifiedTradeAccountingAccount: 'ACCOUNT-12345'
+            description: 'Please pay the given amount within 30 days from invoice date.',
+            dueDate: { year: 2024, month: 2, day: 1 }
+        }
     },
     totals: {
         sumWithoutAllowancesAndCharges: 135,
@@ -213,19 +133,15 @@ export const designTestObject_easy: ComfortProfile = {
                 lineId: '1'
             },
             productDescription: {
-                sellerProductId: '01234567',
-                name: 'Premium Schrauben',
-                description: 'Präzisionsgefertigte Komponente aus Edelstahl V4A.'
+                sellerProductId: 'GG-SCRW-A4-01',
+                name: 'High-Grade Screws'
             },
             productPriceAgreement: {
-                referencedOrder: { lineId: 'CUST-PO-12345-LN10' },
                 productGrossPricing: {
-                    grossPricePerItem: 23.8,
-                    priceBaseQuantity: { quantity: 1, unit: 'KGM' as UNIT_CODES }
+                    grossPricePerItem: 23.8
                 },
                 productNetPricing: {
-                    netPricePerItem: 20,
-                    priceBaseQuantity: { quantity: 1, unit: 'KGM' as UNIT_CODES }
+                    netPricePerItem: 20
                 }
             },
             delivery: { itemQuantity: { quantity: 5, unit: 'KGM' as UNIT_CODES } },
@@ -241,8 +157,8 @@ export const designTestObject_easy: ComfortProfile = {
         {
             generalLineData: { lineId: '2' },
             productDescription: {
-                sellerProductId: '22222222',
-                name: 'Organic Tea Leaves'
+                sellerProductId: 'GG-BRKT-STD-05',
+                name: 'Standard Mounting Brackets'
             },
             productPriceAgreement: {
                 productNetPricing: {
@@ -255,10 +171,6 @@ export const designTestObject_easy: ComfortProfile = {
                     typeCode: 'VAT' as TAX_TYPE_CODE,
                     categoryCode: 'S' as TAX_CATEGORY_CODES,
                     rateApplicablePercent: 19
-                },
-                billingPeriod: {
-                    startDate: { year: 2024, month: 1, day: 1 },
-                    endDate: { year: 2024, month: 1, day: 31 }
                 },
                 lineTotals: { netTotal: 45 }
             }

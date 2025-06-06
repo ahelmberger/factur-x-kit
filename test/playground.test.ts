@@ -72,10 +72,6 @@ describe.only('pdf-creation', () => {
         const projectRoot = process.cwd()
         const imagePath = path.join(projectRoot, 'assets', 'images', 'test_header', 'header.jpg')
 
-        const test: ImageDimensions = {
-            width: 0,
-            height: 0
-        }
         const headerImage = {
             path: imagePath,
             dimensions: {
@@ -107,12 +103,12 @@ describe.only('pdf-creation', () => {
 
         const complexInstance = await FacturX.fromObject(designTestObject)
         const pdfBytesDE_multiPage = await complexInstance.getPDF({
-            locale: 'de-DE',
+            locale: 'en-US',
             headerImage
         })
         expect(pdfBytesDE_multiPage).toBeDefined()
         await fs.writeFile(
-            path.join(__dirname, 'pdfs', 'createdPDFs', 'PDF_DESIGN_DE_MultiPage.pdf'),
+            path.join(__dirname, 'pdfs', 'createdPDFs', 'PDF_DESIGN_EN_MultiPage.pdf'),
             pdfBytesDE_multiPage
         )
 
