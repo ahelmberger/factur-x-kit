@@ -16,14 +16,14 @@ import {
 } from './DesignatedProductClassification/ComfortDesignatedProductClassificationType'
 
 export const ZComfortTradeProductType = z.object({
-    globalId: ZIdTypeWithOptionalScheme(ISO6523_CODES).optional(),
-    sellerProductId: ZIdType.optional(),
-    buyerProductId: ZIdType.optional(),
-    name: ZTextType,
-    description: ZTextType.optional(),
-    productCharacteristic: ZComfortApplicableProductCharacteristicType.array().optional(),
-    productClassification: ZComfortDesignatedProductClassificationType.array().optional(),
-    originTradeCountry: ZCodeType(COUNTRY_ID_CODES).optional()
+    globalId: ZIdTypeWithOptionalScheme(ISO6523_CODES).optional().describe('BT-157'),
+    sellerProductId: ZIdType.optional().describe('BT-155'),
+    buyerProductId: ZIdType.optional().describe('BT-156'),
+    name: ZTextType.describe('BT-153'),
+    description: ZTextType.optional().describe('BT-154'),
+    productCharacteristic: ZComfortApplicableProductCharacteristicType.array().optional().describe('BG-32'),
+    productClassification: ZComfortDesignatedProductClassificationType.array().optional().describe('BT-158-00'),
+    originTradeCountry: ZCodeType(COUNTRY_ID_CODES).optional().describe('BT-159')
 })
 
 export type ComfortTradeProductType = z.infer<typeof ZComfortTradeProductType>

@@ -3,8 +3,8 @@ import { z } from 'zod'
 import { ZTextType, ZTextTypeXml } from '../../../../udt/TextTypeConverter'
 
 export const ZComfortApplicableProductCharacteristicType = z.object({
-    characteristic: ZTextType,
-    value: ZTextType
+    characteristic: ZTextType.describe('BT-160'),
+    value: ZTextType.describe('BT-161')
 })
 
 export type ComfortApplicableProductCharacteristicType = z.infer<typeof ZComfortApplicableProductCharacteristicType>

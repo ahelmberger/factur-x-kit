@@ -137,11 +137,18 @@ export const designTestObject_easy: ComfortProfile = {
                 name: 'High-Grade Screws'
             },
             productPriceAgreement: {
-                productGrossPricing: {
-                    grossPricePerItem: 23.8
+                productPricing: {
+                    basisPricePerItem: 20,
+                    priceAllowancesAndCharges: {
+                        allowances: [
+                            {
+                                actualAmount: 2
+                            }
+                        ]
+                    }
                 },
                 productNetPricing: {
-                    netPricePerItem: 20
+                    netPricePerItem: 18
                 }
             },
             delivery: { itemQuantity: { quantity: 5, unit: 'KGM' as UNIT_CODES } },

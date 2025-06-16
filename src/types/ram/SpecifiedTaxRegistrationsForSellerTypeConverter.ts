@@ -5,8 +5,8 @@ import { ZIdType } from '../udt/IdTypeConverter'
 import { ZIdTypeWithRequiredSchemeXml } from '../udt/IdTypeWithRequiredlSchemeConverter'
 
 export const ZSpecifiedTaxRegistrationsForSellerType = z.object({
-    vatId: ZIdType.optional(), // BT-31
-    localTaxId: ZIdType.optional() // BT-32
+    vatId: ZIdType.optional().describe('BT-31'), // BT-31
+    localTaxId: ZIdType.optional().describe('BT-32') // BT-32
 })
 
 export type SpecifiedTaxRegistrationsForSellerType = z.infer<typeof ZSpecifiedTaxRegistrationsForSellerType>

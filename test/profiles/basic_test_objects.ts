@@ -26,8 +26,8 @@ const testInvoiceLines: BasicTradeLineItem[] = [
             name: 'Premium Coffee Beans 1kg'
         },
         productPriceAgreement: {
-            productGrossPricing: {
-                grossPricePerItem: 23.8,
+            productPricing: {
+                basisPricePerItem: 20,
                 priceBaseQuantity: {
                     quantity: 1,
                     unit: UNIT_CODES.KILOGRAM
@@ -37,7 +37,7 @@ const testInvoiceLines: BasicTradeLineItem[] = [
                 }
             },
             productNetPricing: {
-                netPricePerItem: 20.0,
+                netPricePerItem: 19.0,
                 priceBaseQuantity: {
                     quantity: 1,
                     unit: UNIT_CODES.KILOGRAM

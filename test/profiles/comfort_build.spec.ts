@@ -1,4 +1,3 @@
-import { Schema } from 'node-schematron'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import objectPath from 'object-path'
@@ -6,6 +5,7 @@ import { validateXML } from 'xmllint-wasm'
 
 import { parseXML } from '../../src/core/xml'
 import { FacturX } from '../../src/index'
+import { Schema } from '../../src/node-schematron/Schema'
 import { ComfortProfileXml, isComfortProfileXml } from '../../src/profiles/comfort/ComfortProfileXml'
 import { removeUndefinedKeys } from '../testhelpers'
 import './codeDb/xPathDocumentFunction'
@@ -455,12 +455,12 @@ describe('Re-Check lower profiles', () => {
                 lineItem['ram:SpecifiedLineTradeAgreement']['ram:GrossPriceProductTradePrice']['ram:ChargeAmount'][
                     '#text'
                 ]
-            ).toBe('23.80')
+            ).toBe('20.00')
             expect(
                 lineItem['ram:SpecifiedLineTradeAgreement']['ram:NetPriceProductTradePrice']['ram:ChargeAmount'][
                     '#text'
                 ]
-            ).toBe('20.00')
+            ).toBe('19.00')
             expect(lineItem['ram:SpecifiedLineTradeDelivery']['ram:BilledQuantity']['#text']).toBe('5.00')
             expect(lineItem['ram:SpecifiedLineTradeDelivery']['ram:BilledQuantity']['@unitCode']).toBe('KGM')
             expect(

@@ -7,18 +7,18 @@ import {
     ZBasicPriceAllowanceTypeXml
 } from '../../../TradeAllowanceChargeType/BasicPriceAllowanceType'
 
-export const ZBasicGrossPriceProductTradePriceType = z.object({
-    grossPricePerItem: ZAmountType, // BT-148
-    priceBaseQuantity: ZQuantityType.optional(), // BT-149-1
-    priceAllowancesAndCharges: ZBasicPriceAllowanceType.optional()
+export const ZBasicPriceProductTradePriceType = z.object({
+    basisPricePerItem: ZAmountType.describe('BT-148'),
+    priceBaseQuantity: ZQuantityType.optional().describe('BT-149-1'),
+    priceAllowancesAndCharges: ZBasicPriceAllowanceType.optional().describe('BT-147-00')
 })
 
-export type BasicGrossPriceProductTradePriceType = z.infer<typeof ZBasicGrossPriceProductTradePriceType>
+export type BasicPriceProductTradePriceType = z.infer<typeof ZBasicPriceProductTradePriceType>
 
-export const ZBasicGrossPriceProductTradePriceTypeXml = z.object({
+export const ZBasicPriceProductTradePriceTypeXml = z.object({
     'ram:ChargeAmount': ZAmountTypeXml, // BT-148
     'ram:BasisQuantity': ZQuantityTypeXml.optional(), // BT-149-1
     'ram:AppliedTradeAllowanceCharge': ZBasicPriceAllowanceTypeXml.optional()
 })
 
-export type BasicGrossPriceProductTradePriceTypeXml = z.infer<typeof ZBasicGrossPriceProductTradePriceTypeXml>
+export type BasicPriceProductTradePriceTypeXml = z.infer<typeof ZBasicPriceProductTradePriceTypeXml>

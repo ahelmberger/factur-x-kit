@@ -4,8 +4,8 @@ import { ZAmountType, ZAmountTypeXml } from '../../../../udt/AmountTypeConverter
 import { ZQuantityType, ZQuantityTypeXml } from '../../../../udt/QuantityTypeConverter'
 
 export const ZBasicNetPriceProductTradePriceType = z.object({
-    netPricePerItem: ZAmountType, // BT-146
-    priceBaseQuantity: ZQuantityType.optional() // BT-149
+    netPricePerItem: ZAmountType.describe('BT-146'), // BT-146
+    priceBaseQuantity: ZQuantityType.optional().describe('BT-149') // BT-149
 })
 
 export type BasicNetPriceProductTradePriceType = z.infer<typeof ZBasicNetPriceProductTradePriceType>

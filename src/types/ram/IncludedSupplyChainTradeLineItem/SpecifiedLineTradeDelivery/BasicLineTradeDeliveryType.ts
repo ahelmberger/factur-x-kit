@@ -6,7 +6,7 @@ import {
 } from '../../../udt/QuantityWithRequiredUnitTypeConverter'
 
 export const ZBasicLineTradeDeliveryType = z.object({
-    itemQuantity: ZQuantityWithRequiredUnitType
+    itemQuantity: ZQuantityWithRequiredUnitType.describe('BT-129')
 })
 
 export type BasicLineTradeDeliveryType = z.infer<typeof ZBasicLineTradeDeliveryType>

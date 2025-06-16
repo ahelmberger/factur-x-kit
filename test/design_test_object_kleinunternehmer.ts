@@ -44,8 +44,8 @@ export const testDesignObjectKleinunternehmer: ComfortProfile = {
                 name: 'Toller Artikel'
             },
             productPriceAgreement: {
-                productGrossPricing: {
-                    grossPricePerItem: 10
+                productPricing: {
+                    basisPricePerItem: 10
                 },
                 productNetPricing: { netPricePerItem: 10 }
             },

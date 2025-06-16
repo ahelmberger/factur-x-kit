@@ -213,13 +213,13 @@ export const designTestObject: ComfortProfile = {
             },
             productPriceAgreement: {
                 referencedOrder: { lineId: 'CUST-PO-12345-LN10' },
-                productGrossPricing: {
-                    grossPricePerItem: 23.8,
+                productPricing: {
+                    basisPricePerItem: 20,
                     priceBaseQuantity: { quantity: 1, unit: 'KGM' as UNIT_CODES },
                     priceAllowancesAndCharges: { allowances: [{ actualAmount: 1 }] }
                 },
                 productNetPricing: {
-                    netPricePerItem: 5,
+                    netPricePerItem: 19,
                     priceBaseQuantity: { quantity: 1, unit: 'KGM' as UNIT_CODES }
                 }
             },

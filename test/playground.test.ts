@@ -1,15 +1,16 @@
-import { Schema } from 'node-schematron'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { printNode, zodToTs } from 'zod-to-ts'
 
 import { FacturX } from '../src/core/factur-x'
+import { Schema } from '../src/node-schematron/Schema'
 import { ImageDimensions } from '../src/pdfTemplates/invoiceBlocks/headerImage'
 import { dinA4Width, mmToPt } from '../src/pdfTemplates/types'
 import zugferdKitMultiPage from '../src/pdfTemplates/zugferdKitMultiPage'
 import { ZBasicWithoutLinesProfile } from '../src/profiles/basicwithoutlines/BasicWithoutLinesProfile'
 import { ZBasicWithoutLinesProfileXml } from '../src/profiles/basicwithoutlines/BasicWithoutLinesProfileXml'
-import { ZComfortProfile } from '../src/profiles/comfort'
+import { ZComfortProfile, isComfortProfile } from '../src/profiles/comfort'
+import { isMinimumProfile } from '../src/profiles/minimum'
 import { ZBasicTradeLineItem } from '../src/types/ram/IncludedSupplyChainTradeLineItem/BasicTradeLineItem'
 import { ZComfortTradeLineItem } from '../src/types/ram/IncludedSupplyChainTradeLineItem/ComfortTradeLineItem'
 import { designTestObject } from './design_test_object'
@@ -39,7 +40,25 @@ describe('playground', () => {
         const identifier4 = 'comfort'
         const { node: node4 } = zodToTs(ZComfortProfile, identifier4)
         const nodeString4 = printNode(node4)
-        //console.log(nodeString4)
+        const splittedString = nodeString4.split('\n')
+        let commentedString = ''
+        let currComment = ''
+        for (const line of splittedString) {
+            const trimmedText = line.trim()
+            if (trimmedText.startsWith('/**') && trimmedText.endsWith('*/')) {
+                const comment = trimmedText.replace('/**', '').replace('*/', '')
+                currComment = comment
+                continue
+            }
+            commentedString = `${commentedString}${line}`
+            if (currComment) {
+                commentedString = `${commentedString}\t//${currComment}`
+                currComment = ''
+            }
+            commentedString = `${commentedString}\n`
+        }
+        //console.log(commentedString)
+        console.log(isMinimumProfile(designTestObject))
     })
 })
 
@@ -102,14 +121,14 @@ describe.only('pdf-creation', () => {
         await fs.writeFile(path.join(__dirname, 'pdfs', 'createdPDFs', 'PDF_DESIGN_FR.pdf'), pdfBytesFR)
 
         const complexInstance = await FacturX.fromObject(designTestObject)
-        const pdfBytesDE_multiPage = await complexInstance.getPDF({
+        const pdfBytesEN_multiPage = await complexInstance.getPDF({
             locale: 'en-US',
             headerImage
         })
-        expect(pdfBytesDE_multiPage).toBeDefined()
+        expect(pdfBytesEN_multiPage).toBeDefined()
         await fs.writeFile(
             path.join(__dirname, 'pdfs', 'createdPDFs', 'PDF_DESIGN_EN_MultiPage.pdf'),
-            pdfBytesDE_multiPage
+            pdfBytesEN_multiPage
         )
 
         const kleinunternehmerInstance = await FacturX.fromObject(testDesignObjectKleinunternehmer)

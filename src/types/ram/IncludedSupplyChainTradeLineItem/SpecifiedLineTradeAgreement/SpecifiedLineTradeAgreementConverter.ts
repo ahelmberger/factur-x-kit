@@ -85,7 +85,7 @@ export class LineTradeAgreementConverter<
                 xml['ram:BuyerOrderReferencedDocument'] != null && this.referencedDocumentConverter
                     ? this.referencedDocumentConverter.toValue(xml['ram:BuyerOrderReferencedDocument'])
                     : undefined,
-            productGrossPricing:
+            productPricing:
                 xml['ram:GrossPriceProductTradePrice'] != null
                     ? this.grossPriceProductTradePriceConverter.toValue(xml['ram:GrossPriceProductTradePrice'])
                     : undefined,
@@ -103,8 +103,8 @@ export class LineTradeAgreementConverter<
                 value.referencedOrder != null && this.referencedDocumentConverter
                     ? this.referencedDocumentConverter.toXML(value.referencedOrder)
                     : undefined,
-            'ram:GrossPriceProductTradePrice': value.productGrossPricing
-                ? this.grossPriceProductTradePriceConverter.toXML(value.productGrossPricing)
+            'ram:GrossPriceProductTradePrice': value.productPricing
+                ? this.grossPriceProductTradePriceConverter.toXML(value.productPricing)
                 : undefined,
             'ram:NetPriceProductTradePrice':
                 value.productNetPricing != null

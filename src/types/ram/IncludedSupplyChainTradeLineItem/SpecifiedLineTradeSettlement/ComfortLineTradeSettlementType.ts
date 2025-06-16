@@ -8,32 +8,39 @@ import {
     ZReferencedDocumentType_additionalDocument_lineLevel_comfort
 } from '../../ReferencedDocumentType/ReferencedDocumentTypes'
 import {
-    ZBasicLineLevelTradeAllowanceChargeType,
-    ZBasicLineLevelTradeAllowanceChargeTypeXml
-} from '../../TradeAllowanceChargeType/BasicLineLevelAllowanceChargeType'
+    ZComfortLineLevelTradeAllowanceChargeType,
+    ZComfortLineLevelTradeAllowanceChargeTypeXml
+} from '../../TradeAllowanceChargeType/ComfortLineLevelAllowanceChargeType'
 import {
     ZBasicLineLevelTradeTaxType,
     ZBasicLineLevelTradeTaxTypeXml
 } from '../../TradeTaxType/BasicLineLevelTradeTaxType'
 
 export const ZComfortLineTradeSettlementType = z.object({
-    tax: ZBasicLineLevelTradeTaxType,
+    tax: ZBasicLineLevelTradeTaxType.describe('BG-30'),
     billingPeriod: z
         .object({
-            startDate: ZDateTimeType.optional(),
-            endDate: ZDateTimeType.optional()
-        })
-        .optional(),
-    lineLevelAllowancesAndCharges: ZBasicLineLevelTradeAllowanceChargeType.optional(),
-    lineTotals: z.object({
-        netTotal: ZAmountType
-    }),
-    additionalReferences: ZReferencedDocumentType_additionalDocument_lineLevel_comfort.array().max(1).optional(),
-    accountingInformation: z
-        .object({
-            id: ZIdType
+            startDate: ZDateTimeType.optional().describe('BT-134'),
+            endDate: ZDateTimeType.optional().describe('BT-135')
         })
         .optional()
+        .describe('BG-26'),
+    lineLevelAllowancesAndCharges: ZComfortLineLevelTradeAllowanceChargeType.optional(),
+    lineTotals: z
+        .object({
+            netTotal: ZAmountType.describe('BT-131')
+        })
+        .describe('BT-131-00'),
+    additionalReferences: ZReferencedDocumentType_additionalDocument_lineLevel_comfort.array()
+        .max(1)
+        .optional()
+        .describe('BT-128-00'),
+    accountingInformation: z
+        .object({
+            id: ZIdType.describe('BT-133')
+        })
+        .optional()
+        .describe('BT-133-00')
 })
 
 export type ComfortLineTradeSettlementType = z.infer<typeof ZComfortLineTradeSettlementType>
@@ -46,7 +53,7 @@ export const ZComfortLineTradeSettlementTypeXml = z.object({
             'ram:EndDateTime': ZDateTimeTypeXml.optional()
         })
         .optional(),
-    'ram:SpecifiedTradeAllowanceCharge': ZBasicLineLevelTradeAllowanceChargeTypeXml.optional(),
+    'ram:SpecifiedTradeAllowanceCharge': ZComfortLineLevelTradeAllowanceChargeTypeXml.optional(),
     'ram:SpecifiedTradeSettlementLineMonetarySummation': z.object({
         'ram:LineTotalAmount': ZAmountTypeXml
     }),

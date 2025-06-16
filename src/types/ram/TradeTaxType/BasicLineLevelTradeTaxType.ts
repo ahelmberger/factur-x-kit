@@ -6,9 +6,9 @@ import { ZPercentType, ZPercentTypeXml } from '../../udt/PercentTypeConverter'
 import { ZTextTypeXml } from '../../udt/TextTypeConverter'
 
 export const ZBasicLineLevelTradeTaxType = z.object({
-    typeCode: ZCodeType(TAX_TYPE_CODE),
-    categoryCode: ZCodeType(TAX_CATEGORY_CODES),
-    rateApplicablePercent: ZPercentType.optional()
+    typeCode: ZCodeType(TAX_TYPE_CODE).describe('BT-151-0'),
+    categoryCode: ZCodeType(TAX_CATEGORY_CODES).describe('BT-151'),
+    rateApplicablePercent: ZPercentType.optional().describe('BT-152')
 })
 
 export type BasicLineLevelTradeTaxType = z.infer<typeof ZBasicLineLevelTradeTaxType>

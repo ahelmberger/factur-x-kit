@@ -19,11 +19,11 @@ import {
 import { ZComfortTradeProductType, ZComfortTradeProductTypeXml } from './SpecifiedTradeProduct/ComfortTradeProduct'
 
 export const ZComfortTradeLineItem = z.object({
-    generalLineData: ZBasicAssociatedDocumentLineDocumentType,
-    productDescription: ZComfortTradeProductType,
-    productPriceAgreement: ZComfortLineTradeAgreementType,
-    delivery: ZBasicLineTradeDeliveryType,
-    settlement: ZComfortLineTradeSettlementType
+    generalLineData: ZBasicAssociatedDocumentLineDocumentType.describe('BT-126-00'),
+    productDescription: ZComfortTradeProductType.describe('BG-31'),
+    productPriceAgreement: ZComfortLineTradeAgreementType.describe('BG-29'),
+    delivery: ZBasicLineTradeDeliveryType.describe('BT-129-00'),
+    settlement: ZComfortLineTradeSettlementType.describe('BG-30-00')
 })
 
 export type ComfortTradeLineItem = z.infer<typeof ZComfortTradeLineItem>

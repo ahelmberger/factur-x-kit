@@ -22,8 +22,8 @@ const ZTradeChargeType = ZTradeAllowanceChargeBasisType_BasicLineLevel.extend({
 })
 
 export const ZBasicLineLevelTradeAllowanceChargeType = z.object({
-    allowances: ZTradeAllowanceType.array().optional(),
-    charges: ZTradeChargeType.array().optional()
+    allowances: ZTradeAllowanceType.array().optional().describe('BG-27'),
+    charges: ZTradeChargeType.array().optional().describe('BG-28')
 })
 
 export type BasicLineLevelTradeAllowanceChargeType = z.infer<typeof ZBasicLineLevelTradeAllowanceChargeType>

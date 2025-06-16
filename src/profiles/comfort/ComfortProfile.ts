@@ -26,39 +26,40 @@ import { ZTradePartyType } from '../basicwithoutlines/BasicWithoutLinesProfile'
 
 export const ZComfortProfile = z.object({
     meta: z.object({
-        businessProcessType: ZIdType.optional(),
-        guidelineSpecifiedDocumentContextParameter: z.literal('urn:cen.eu:en16931:2017')
+        businessProcessType: ZIdType.optional().describe('BT-23'),
+        guidelineSpecifiedDocumentContextParameter: z.literal('urn:cen.eu:en16931:2017').describe('BT-24')
     }),
     document: z.object({
-        id: ZIdType,
-        type: ZCodeType(DOCUMENT_TYPE_CODES),
-        dateOfIssue: ZDateTimeType,
+        id: ZIdType.describe('BT-1'),
+        type: ZCodeType(DOCUMENT_TYPE_CODES).describe('BT-3'),
+        dateOfIssue: ZDateTimeType.describe('BT-2'),
         currency: ZCodeType(CURRENCY_CODES),
-        notes: ZBasicDocumentLevelNoteType.array()
+        notes: ZBasicDocumentLevelNoteType.array().describe('BG-1')
     }),
     seller: ZTradePartyType.extend({
-        id: ZIdType.array().optional(),
-        globalId: ZIdTypeWithRequiredScheme(ISO6523_CODES).array().optional(),
+        id: ZIdType.array().optional().describe('BT-29'),
+        globalId: ZIdTypeWithRequiredScheme(ISO6523_CODES).array().optional().describe('BT-29-0'),
         specifiedLegalOrganization: z
             .object({
-                id: ZIdTypeWithOptionalScheme(ISO6523_CODES).optional(),
-                tradingBusinessName: ZTextType.optional()
+                id: ZIdTypeWithOptionalScheme(ISO6523_CODES).optional().describe('BT-30'),
+                tradingBusinessName: ZTextType.optional().describe('BT-28')
             })
-            .optional(),
-        taxIdentification: ZSpecifiedTaxRegistrationsForSellerType.optional(),
-        otherLegalInformation: ZTextType.optional(),
-        tradeContact: ZComfortTradeContactType.array().max(1).optional()
-    }),
+            .optional()
+            .describe('BT-30-00'),
+        taxIdentification: ZSpecifiedTaxRegistrationsForSellerType.optional().describe('BT-31-00'),
+        otherLegalInformation: ZTextType.optional().describe('BT-33'),
+        tradeContact: ZComfortTradeContactType.array().max(1).optional().describe('BG-6')
+    }).describe('BG-4'),
     buyer: ZTradePartyType.extend({
         specifiedLegalOrganization: z
             .object({
-                id: ZIdTypeWithOptionalScheme(ISO6523_CODES).optional(),
-                tradingBusinessName: ZTextType.optional()
+                id: ZIdTypeWithOptionalScheme(ISO6523_CODES).optional().describe('BT-47'),
+                tradingBusinessName: ZTextType.optional().describe('BT-45')
             })
             .optional(),
-        reference: ZTextType.optional(),
-        tradeContact: ZComfortTradeContactType.array().max(1).optional()
-    }),
+        reference: ZTextType.optional().describe('BT-10'),
+        tradeContact: ZComfortTradeContactType.array().max(1).optional().describe('BG-9')
+    }).describe('BG-7'),
     sellerTaxRepresentative: ZTradePartyType.omit({
         id: true,
         globalId: true,
@@ -66,17 +67,18 @@ export const ZComfortProfile = z.object({
         universalCommunicationAddressURI: true
     })
         .extend({
-            taxIdentification: ZSpecifiedTaxRegistrationsType
+            taxIdentification: ZSpecifiedTaxRegistrationsType.describe('BT-63-00')
         })
-        .optional(),
+        .optional()
+        .describe('BG-11'),
     invoiceLines: ZComfortTradeLineItem.array(),
     referencedDocuments: z
         .object({
-            orderReference: ZReferencedDocumentType_documentId.optional(),
-            contractReference: ZReferencedDocumentType_documentId.optional(),
+            orderReference: ZReferencedDocumentType_documentId.optional().describe('BT-13'),
+            contractReference: ZReferencedDocumentType_documentId.optional().describe('BT-12'),
             advanceShippingNotice: ZReferencedDocumentType_documentId.optional(),
             referencedInvoice: ZReferencedDocumentType_docId_issueDate.array().optional(),
-            orderConfirmationReference: ZReferencedDocumentType_documentId.optional(),
+            orderConfirmationReference: ZReferencedDocumentType_documentId.optional().describe('BT-14'),
             projectReference: z
                 .object({
                     id: ZIdType,

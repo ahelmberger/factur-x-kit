@@ -6,9 +6,9 @@ import { ZTokenType } from '../../../../xs/TokenConverter'
 export const ZComfortDesignatedProductClassificationType = z.object({
     productClass: z
         .object({
-            code: z.string(),
-            codeScheme: z.nativeEnum(UNTDID_7143),
-            codeSchemeVersion: ZTokenType.optional()
+            code: z.string().describe('BT-158'),
+            codeScheme: z.nativeEnum(UNTDID_7143).describe('BT-158-1'),
+            codeSchemeVersion: ZTokenType.optional().describe('BT-158-2')
         })
         .optional()
 })

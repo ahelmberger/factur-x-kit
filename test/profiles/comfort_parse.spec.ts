@@ -313,8 +313,8 @@ describe('Factur-X EN16931_Elektron', () => {
             })
             test('BT-150 - Item gross price', () => {
                 expect(
-                    testCases['EN16931_Elektron']?.invoiceLines?.[0].productPriceAgreement.productGrossPricing
-                        ?.grossPricePerItem
+                    testCases['EN16931_Elektron']?.invoiceLines?.[0].productPriceAgreement.productPricing
+                        ?.basisPricePerItem
                 ).toBe(43.2)
             })
             test('BT-129 - Invoiced quantity', () => {
@@ -361,8 +361,8 @@ describe('Factur-X EN16931_Elektron', () => {
             })
             test('BT-150 - Item gross price', () => {
                 expect(
-                    testCases['EN16931_Elektron']?.invoiceLines?.[1].productPriceAgreement.productGrossPricing
-                        ?.grossPricePerItem
+                    testCases['EN16931_Elektron']?.invoiceLines?.[1].productPriceAgreement.productPricing
+                        ?.basisPricePerItem
                 ).toBe(122.5)
             })
             test('BT-129 - Invoiced quantity', () => {
@@ -639,8 +639,7 @@ Handelsregisternummer: H A 123`)
             })
             test('BT-150 - Item gross price', () => {
                 expect(
-                    testCases[testCaseKey]?.invoiceLines?.[0].productPriceAgreement.productGrossPricing
-                        ?.grossPricePerItem
+                    testCases[testCaseKey]?.invoiceLines?.[0].productPriceAgreement.productPricing?.basisPricePerItem
                 ).toBe(9.9)
             })
             test('BT-129 - Invoiced quantity', () => {
@@ -685,8 +684,7 @@ Handelsregisternummer: H A 123`)
             })
             test('BT-150 - Item gross price', () => {
                 expect(
-                    testCases[testCaseKey]?.invoiceLines?.[1].productPriceAgreement.productGrossPricing
-                        ?.grossPricePerItem
+                    testCases[testCaseKey]?.invoiceLines?.[1].productPriceAgreement.productPricing?.basisPricePerItem
                 ).toBe(5.5)
             })
             test('BT-129 - Invoiced quantity', () => {

@@ -71,7 +71,7 @@ export default async function addItemTable(
             colHeader: `${textTranslations[locale].UNIT_PRICE}`,
             colWeight: 1.5,
             colContent: (lineItem: ComfortTradeLineItem) =>
-                `${currencyConverter.format(lineItem.productPriceAgreement.productNetPricing.netPricePerItem)}${convertAllowancesAndChargesToString(lineItem.productPriceAgreement.productGrossPricing?.priceAllowancesAndCharges, currencyConverter, locale, true)}`
+                `${checkAndAddPriceAllowance(lineItem, locale, currencyConverter)}${currencyConverter.format(lineItem.productPriceAgreement.productNetPricing.netPricePerItem)}`
         },
         {
             colAlignment: 'right',
@@ -226,4 +226,14 @@ function checkAndAddTax(
             break
         }
     }
+}
+
+function checkAndAddPriceAllowance(
+    lineItem: ComfortTradeLineItem,
+    locale: SupportedLocales,
+    currencyConverter: Intl.NumberFormat
+): string {
+    if (!lineItem.productPriceAgreement.productPricing?.priceAllowancesAndCharges?.allowances) return ''
+    if (lineItem.productPriceAgreement.productPricing.priceAllowancesAndCharges.allowances.length < 1) return ''
+    return `${currencyConverter.format(lineItem.productPriceAgreement.productPricing.basisPricePerItem)}${convertAllowancesAndChargesToString(lineItem.productPriceAgreement.productPricing?.priceAllowancesAndCharges, currencyConverter, locale, true)}\n= `
 }

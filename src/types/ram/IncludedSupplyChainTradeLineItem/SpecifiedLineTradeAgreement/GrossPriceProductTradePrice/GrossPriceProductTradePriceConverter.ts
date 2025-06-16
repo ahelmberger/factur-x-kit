@@ -9,14 +9,14 @@ import {
     allowedXmlTypes_TradeAllowanceChargeType
 } from '../../../TradeAllowanceChargeType/TradeAllowanceChargeTypeConverter'
 import {
-    BasicGrossPriceProductTradePriceType,
-    BasicGrossPriceProductTradePriceTypeXml,
-    ZBasicGrossPriceProductTradePriceType,
-    ZBasicGrossPriceProductTradePriceTypeXml
+    BasicPriceProductTradePriceType,
+    BasicPriceProductTradePriceTypeXml,
+    ZBasicPriceProductTradePriceType,
+    ZBasicPriceProductTradePriceTypeXml
 } from './BasicGrossPriceProductTradePriceType'
 
-export type allowedValueTypes_GrossPriceProductTradePrice = BasicGrossPriceProductTradePriceType
-export type allowedXmlTypes_GrossPriceProductTradePrice = BasicGrossPriceProductTradePriceTypeXml
+export type allowedValueTypes_GrossPriceProductTradePrice = BasicPriceProductTradePriceType
+export type allowedXmlTypes_GrossPriceProductTradePrice = BasicPriceProductTradePriceTypeXml
 
 export class GrossPriceProductTradePriceConverter<
     ValueType extends allowedValueTypes_GrossPriceProductTradePrice,
@@ -43,8 +43,8 @@ export class GrossPriceProductTradePriceConverter<
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mapXmlToValue(xml: any): any {
-        return {
-            grossPricePerItem: this.amountTypeConverter.toValue(xml['ram:ChargeAmount']),
+        const val = {
+            basisPricePerItem: this.amountTypeConverter.toValue(xml['ram:ChargeAmount']),
             priceBaseQuantity:
                 xml['ram:BasisQuantity'] != null
                     ? this.quantityTypeConverter.toValue(xml['ram:BasisQuantity'])
@@ -54,13 +54,15 @@ export class GrossPriceProductTradePriceConverter<
                     ? this.priceAllowanceAndChargeTypeConverter.toValue(xml['ram:AppliedTradeAllowanceCharge'])
                     : undefined
         }
+
+        return val
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mapValueToXml(value: any): any {
         return {
-            'ram:ChargeAmount': value.grossPricePerItem
-                ? this.amountTypeConverter.toXML(value.grossPricePerItem)
+            'ram:ChargeAmount': value.basisPricePerItem
+                ? this.amountTypeConverter.toXML(value.basisPricePerItem)
                 : undefined,
             'ram:BasisQuantity':
                 value.priceBaseQuantity != null ? this.quantityTypeConverter.toXML(value.priceBaseQuantity) : undefined,
@@ -72,12 +74,12 @@ export class GrossPriceProductTradePriceConverter<
     }
 
     public static basic(): GrossPriceProductTradePriceConverter<
-        BasicGrossPriceProductTradePriceType,
-        BasicGrossPriceProductTradePriceTypeXml
+        BasicPriceProductTradePriceType,
+        BasicPriceProductTradePriceTypeXml
     > {
         return new GrossPriceProductTradePriceConverter(
-            ZBasicGrossPriceProductTradePriceType,
-            ZBasicGrossPriceProductTradePriceTypeXml,
+            ZBasicPriceProductTradePriceType,
+            ZBasicPriceProductTradePriceTypeXml,
             TradeAllowanceChargeTypeConverter.basicPriceAllowanceLevel()
         )
     }

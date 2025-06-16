@@ -50,8 +50,8 @@ const lineObject1: ComfortTradeLineItem = {
         referencedOrder: {
             lineId: 'CUST-PO-12345-LN10'
         },
-        productGrossPricing: {
-            grossPricePerItem: 23.8,
+        productPricing: {
+            basisPricePerItem: 20,
             priceBaseQuantity: {
                 quantity: 1,
                 unit: UNIT_CODES.KILOGRAM
@@ -61,7 +61,7 @@ const lineObject1: ComfortTradeLineItem = {
             }
         },
         productNetPricing: {
-            netPricePerItem: 20.0,
+            netPricePerItem: 19.0,
             priceBaseQuantity: {
                 quantity: 1,
                 unit: UNIT_CODES.KILOGRAM

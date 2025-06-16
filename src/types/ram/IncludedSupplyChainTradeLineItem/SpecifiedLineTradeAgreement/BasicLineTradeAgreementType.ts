@@ -1,8 +1,8 @@
 import { z } from 'zod'
 
 import {
-    ZBasicGrossPriceProductTradePriceType,
-    ZBasicGrossPriceProductTradePriceTypeXml
+    ZBasicPriceProductTradePriceType,
+    ZBasicPriceProductTradePriceTypeXml
 } from './GrossPriceProductTradePrice/BasicGrossPriceProductTradePriceType'
 import {
     ZBasicNetPriceProductTradePriceType,
@@ -10,14 +10,14 @@ import {
 } from './NetPriceProductTradePrice/BasicNetPriceProductTradePriceType'
 
 export const ZBasicLineTradeAgreementType = z.object({
-    productGrossPricing: ZBasicGrossPriceProductTradePriceType.optional(),
+    productPricing: ZBasicPriceProductTradePriceType.optional(),
     productNetPricing: ZBasicNetPriceProductTradePriceType
 })
 
 export type BasicLineTradeAgreementType = z.infer<typeof ZBasicLineTradeAgreementType>
 
 export const ZBasicLineTradeAgreementTypeXml = z.object({
-    'ram:GrossPriceProductTradePrice': ZBasicGrossPriceProductTradePriceTypeXml.optional(), // BG-29-0
+    'ram:GrossPriceProductTradePrice': ZBasicPriceProductTradePriceTypeXml.optional(), // BG-29-0
     'ram:NetPriceProductTradePrice': ZBasicNetPriceProductTradePriceTypeXml // BT-146-00
 })
 

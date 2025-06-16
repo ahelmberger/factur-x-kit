@@ -4,7 +4,7 @@ import { ZAmountType, ZAmountTypeXml } from '../../udt/AmountTypeConverter'
 import { ZIndicatorTypeXml } from '../../udt/IndicatorTypeConverter'
 
 const ZInnerBasicPriceAllowanceType = z.object({
-    actualAmount: ZAmountType
+    actualAmount: ZAmountType.describe('BT-147')
 })
 
 export const ZBasicPriceAllowanceType = z.object({
