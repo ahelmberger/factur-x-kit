@@ -169,10 +169,11 @@ export const designTestObject_easy: ComfortProfile = {
             },
             productPriceAgreement: {
                 productNetPricing: {
-                    netPricePerItem: 15
+                    netPricePerItem: 15,
+                    priceBaseQuantity: { quantity: 3, unit: UNIT_CODES.KILOGRAM }
                 }
             },
-            delivery: { itemQuantity: { quantity: 2, unit: 'KGM' as UNIT_CODES } },
+            delivery: { itemQuantity: { quantity: 9, unit: UNIT_CODES.KILOGRAM } },
             settlement: {
                 tax: {
                     typeCode: 'VAT' as TAX_TYPE_CODE,

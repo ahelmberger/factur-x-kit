@@ -186,5 +186,11 @@ export const ZBasicWithoutLinesProfileXml = z.object({
 export type BasicWithoutLinesProfileXml = z.infer<typeof ZBasicWithoutLinesProfileXml>
 
 export function isBasicWithoutLinesProfileXml(data: unknown): data is BasicWithoutLinesProfileXml {
-    return ZBasicWithoutLinesProfileXml.safeParse(data).success
+    const result = ZBasicWithoutLinesProfileXml.safeParse(data)
+
+    if (!result.success) {
+        console.dir(data, { depth: null })
+        console.dir(result.error.errors, { depth: null })
+    }
+    return result.success
 }

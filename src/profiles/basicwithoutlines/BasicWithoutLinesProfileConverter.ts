@@ -1,6 +1,10 @@
 import { Converter } from '../convert'
-import { type BasicWithoutLinesProfile, ZBasicWithoutLinesProfile } from './BasicWithoutLinesProfile'
-import { type BasicWithoutLinesProfileXml, ZBasicWithoutLinesProfileXml } from './BasicWithoutLinesProfileXml'
+import {
+    type BasicWithoutLinesProfile,
+    isBasicWithoutLinesProfile,
+    isValidBasicWithoutLinesProfile
+} from './BasicWithoutLinesProfile'
+import { type BasicWithoutLinesProfileXml, isBasicWithoutLinesProfileXml } from './BasicWithoutLinesProfileXml'
 import mapping from './mapping'
 
 export class BasicWithoutLinesProfileConverter extends Converter<
@@ -8,23 +12,10 @@ export class BasicWithoutLinesProfileConverter extends Converter<
     BasicWithoutLinesProfileXml
 > {
     map = mapping
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    protected isProperObjectScheme(object: any): object is BasicWithoutLinesProfile {
-        const result = ZBasicWithoutLinesProfile.safeParse(object)
 
-        if (!result.success) {
-            console.log(result.error.errors)
-        }
-        return result.success
-    }
+    protected isProperObjectScheme = isBasicWithoutLinesProfile
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    protected isProperXMLScheme(xmlObject: any): xmlObject is BasicWithoutLinesProfileXml {
-        const result = ZBasicWithoutLinesProfileXml.safeParse(xmlObject)
+    protected isProperXMLScheme = isBasicWithoutLinesProfileXml
 
-        if (!result.success) {
-            console.log(result.error.errors)
-        }
-        return result.success
-    }
+    public validateProfile = isValidBasicWithoutLinesProfile
 }

@@ -191,5 +191,11 @@ export const ZComfortProfileXml = z.object({
 export type ComfortProfileXml = z.infer<typeof ZComfortProfileXml>
 
 export function isComfortProfileXml(data: unknown): data is ComfortProfileXml {
-    return ZComfortProfileXml.safeParse(data).success
+    const result = ZComfortProfileXml.safeParse(data)
+
+    if (!result.success) {
+        console.dir(data, { depth: null })
+        console.dir(result.error.errors, { depth: null })
+    }
+    return result.success
 }

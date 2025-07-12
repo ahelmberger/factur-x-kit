@@ -26,6 +26,60 @@ import { ZIdTypeWithOptionalScheme } from '../../types/udt/IdTypeWithOptionalSch
 import { ZIdTypeWithRequiredScheme } from '../../types/udt/IdTypeWithRequiredlSchemeConverter'
 import { ZTextType } from '../../types/udt/TextTypeConverter'
 import { ZTokenType } from '../../types/xs/TokenConverter'
+import {
+    BR_16,
+    BR_16_ERROR,
+    BR_21,
+    BR_21_ERROR,
+    BR_27,
+    BR_27_ERROR,
+    BR_28,
+    BR_28_ERROR,
+    BR_29,
+    BR_29_ERROR,
+    BR_30,
+    BR_30_ERROR,
+    BR_33,
+    BR_33_ERROR,
+    BR_38,
+    BR_38_ERROR,
+    BR_42,
+    BR_42_ERROR,
+    BR_44,
+    BR_44_ERROR,
+    BR_53,
+    BR_53_ERROR,
+    BR_61,
+    BR_61_ERROR
+} from '../businessRules/br'
+import {
+    BR_CO_9,
+    BR_CO_9_ERROR,
+    BR_CO_10,
+    BR_CO_10_ERROR,
+    BR_CO_11,
+    BR_CO_11_ERROR,
+    BR_CO_12,
+    BR_CO_12_ERROR,
+    BR_CO_13,
+    BR_CO_13_ERROR,
+    BR_CO_14,
+    BR_CO_14_ERROR,
+    BR_CO_15,
+    BR_CO_15_ERROR,
+    BR_CO_16,
+    BR_CO_16_ERROR
+} from '../businessRules/br_co'
+import {
+    BR_OWN_1,
+    BR_OWN_1_ERROR,
+    BR_OWN_2,
+    BR_OWN_2_ERROR,
+    BR_OWN_3,
+    BR_OWN_3_ERROR,
+    BR_OWN_4,
+    BR_OWN_4_ERROR
+} from '../businessRules/br_own'
 
 export const ZTradePartyType = z.object({
     id: ZIdType.optional(), // in seller this could be an array
@@ -45,7 +99,7 @@ export const ZTradePartyType = z.object({
     taxIdentification: ZSpecifiedTaxRegistrationsType.optional()
 })
 
-export const ZBasicWithoutLinesProfile = z.object({
+export const ZBasicWithoutLinesProfileStructure = z.object({
     meta: z.object({
         businessProcessType: ZIdType.optional(),
         guidelineSpecifiedDocumentContextParameter: z.literal('urn:factur-x.eu:1p0:basicwl')
@@ -142,8 +196,46 @@ export const ZBasicWithoutLinesProfile = z.object({
     })
 })
 
-export type BasicWithoutLinesProfile = z.infer<typeof ZBasicWithoutLinesProfile>
+export type BasicWithoutLinesProfile = z.infer<typeof ZBasicWithoutLinesProfileStructure>
+
+export const ZBasicWithoutLinesProfile = ZBasicWithoutLinesProfileStructure.refine(BR_OWN_1, BR_OWN_1_ERROR)
+    .refine(BR_OWN_2, BR_OWN_2_ERROR)
+    .refine(BR_OWN_3, BR_OWN_3_ERROR)
+    .refine(BR_OWN_4, BR_OWN_4_ERROR)
+
+    .refine(BR_CO_9, BR_CO_9_ERROR)
+    .refine(BR_CO_10, BR_CO_10_ERROR)
+    .refine(BR_CO_11, BR_CO_11_ERROR)
+    .refine(BR_CO_12, BR_CO_12_ERROR)
+    .refine(BR_CO_13, BR_CO_13_ERROR)
+    .refine(BR_CO_14, BR_CO_14_ERROR)
+    .refine(BR_CO_15, BR_CO_15_ERROR)
+    .refine(BR_CO_16, BR_CO_16_ERROR)
+
+    .refine(BR_16, BR_16_ERROR)
+    .refine(BR_21, BR_21_ERROR)
+    .refine(BR_27, BR_27_ERROR)
+    .refine(BR_28, BR_28_ERROR)
+    .refine(BR_29, BR_29_ERROR)
+    .refine(BR_30, BR_30_ERROR)
+    .refine(BR_33, BR_33_ERROR)
+    .refine(BR_38, BR_38_ERROR)
+    .refine(BR_42, BR_42_ERROR)
+    .refine(BR_44, BR_44_ERROR)
+    .refine(BR_53, BR_53_ERROR)
+    .refine(BR_61, BR_61_ERROR)
 
 export function isBasicWithoutLinesProfile(data: unknown): data is BasicWithoutLinesProfile {
-    return ZBasicWithoutLinesProfile.safeParse(data).success
+    return ZBasicWithoutLinesProfileStructure.safeParse(data).success
+}
+
+export function isValidBasicWithoutLinesProfile(data: unknown): { valid: boolean; errors?: string[] } {
+    const result = ZBasicWithoutLinesProfile.safeParse(data)
+    if (!result.success) {
+        return {
+            valid: false,
+            errors: result.error.issues.map(issue => issue.message)
+        }
+    }
+    return { valid: result.success }
 }

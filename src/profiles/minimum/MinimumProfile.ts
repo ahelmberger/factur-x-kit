@@ -10,8 +10,9 @@ import { ZDateTimeType } from '../../types/udt/DateTimeTypeConverter'
 import { ZIdType } from '../../types/udt/IdTypeConverter'
 import { ZIdTypeWithOptionalScheme } from '../../types/udt/IdTypeWithOptionalSchemeConverter'
 import { ZTextType } from '../../types/udt/TextTypeConverter'
+import { BR_CO_9, BR_CO_9_ERROR } from '../businessRules/br_co'
 
-export const ZMinimumProfile = z.object({
+export const ZMinimumProfileStructure = z.object({
     meta: z.object({
         businessProcessType: ZIdType.optional(),
         guidelineSpecifiedDocumentContextParameter: z.literal('urn:factur-x.eu:1p0:minimum')
@@ -48,8 +49,21 @@ export const ZMinimumProfile = z.object({
     })
 })
 
-export type MinimumProfile = z.infer<typeof ZMinimumProfile>
+export type MinimumProfile = z.infer<typeof ZMinimumProfileStructure>
+
+export const ZMinimumProfile = ZMinimumProfileStructure.refine(BR_CO_9, BR_CO_9_ERROR) // TODO ADD ALL VALID BRs
 
 export function isMinimumProfile(data: unknown): data is MinimumProfile {
-    return ZMinimumProfile.safeParse(data).success
+    return ZMinimumProfileStructure.safeParse(data).success
+}
+
+export function isValidMinimumProfile(data: unknown): { valid: boolean; errors?: string[] } {
+    const result = ZMinimumProfile.safeParse(data)
+    if (!result.success) {
+        return {
+            valid: false,
+            errors: result.error.issues.map(issue => issue.message)
+        }
+    }
+    return { valid: result.success }
 }

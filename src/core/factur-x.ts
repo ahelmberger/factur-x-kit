@@ -94,8 +94,6 @@ export class FacturX {
     }
 
     public static async fromObject(data: object): Promise<FacturX> {
-        // TODO: cannot use TypeGuards here - rely on given Profile
-        // order is important here - most extensive profiles first
         if (isComfortProfile(data)) {
             return new FacturX(data, new ComfortProfileConverter())
         }

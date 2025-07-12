@@ -7,7 +7,7 @@ import { Schema } from '../src/node-schematron/Schema'
 import { ImageDimensions } from '../src/pdfTemplates/invoiceBlocks/headerImage'
 import { dinA4Width, mmToPt } from '../src/pdfTemplates/types'
 import zugferdKitMultiPage from '../src/pdfTemplates/zugferdKitMultiPage'
-import { ZBasicWithoutLinesProfile } from '../src/profiles/basicwithoutlines/BasicWithoutLinesProfile'
+import { ZBasicWithoutLinesProfileStructure } from '../src/profiles/basicwithoutlines/BasicWithoutLinesProfile'
 import { ZBasicWithoutLinesProfileXml } from '../src/profiles/basicwithoutlines/BasicWithoutLinesProfileXml'
 import { ZComfortProfile, isComfortProfile } from '../src/profiles/comfort'
 import { isMinimumProfile } from '../src/profiles/minimum'
@@ -24,7 +24,7 @@ import { testComfortProfile } from './profiles/comfort_test_objects'
 describe('playground', () => {
     it('shall run', () => {
         const identifier = 'User'
-        const { node } = zodToTs(ZBasicWithoutLinesProfile, identifier)
+        const { node } = zodToTs(ZBasicWithoutLinesProfileStructure, identifier)
         const nodeString = printNode(node)
         //console.log(nodeString)
 

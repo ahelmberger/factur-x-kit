@@ -1,27 +1,14 @@
 import { Converter } from '../convert'
-import { type BasicProfile, ZBasicProfile } from './BasicProfile'
-import { type BasicProfileXml, ZBasicProfileXml } from './BasicProfileXml'
+import { type BasicProfile, isBasicProfile, isValidBasicProfile } from './BasicProfile'
+import { type BasicProfileXml, isBasicProfileXml } from './BasicProfileXml'
 import mapping from './mapping'
 
 export class BasicProfileConverter extends Converter<BasicProfile, BasicProfileXml> {
     map = mapping
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    protected isProperObjectScheme(object: any): object is BasicProfile {
-        const result = ZBasicProfile.safeParse(object)
 
-        if (!result.success) {
-            console.log(result.error.errors)
-        }
-        return result.success
-    }
+    protected isProperObjectScheme = isBasicProfile
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    protected isProperXMLScheme(xmlObject: any): xmlObject is BasicProfileXml {
-        const result = ZBasicProfileXml.safeParse(xmlObject)
+    protected isProperXMLScheme = isBasicProfileXml
 
-        if (!result.success) {
-            console.log(result.error.errors)
-        }
-        return result.success
-    }
+    public validateProfile = isValidBasicProfile
 }

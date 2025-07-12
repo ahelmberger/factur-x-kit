@@ -47,7 +47,8 @@ export function BR_CO_9(val: availableProfiles): boolean {
 }
 
 export const BR_CO_9_ERROR = {
-    error: "Seller VAT identifier (BT-31), Seller tax representative VAT identifier (BT-63), and Buyer VAT identifier (BT-48) must each be prefixed by a country code from ISO 3166-1 alpha-2 (with 'EL' permitted for Greece) to identify the Member State that issued them."
+    message:
+        "Seller VAT identifier (BT-31), Seller tax representative VAT identifier (BT-63), and Buyer VAT identifier (BT-48) must each be prefixed by a country code from ISO 3166-1 alpha-2 (with 'EL' permitted for Greece) to identify the Member State that issued them."
 }
 
 export function BR_CO_10(val: availableProfiles): boolean {
@@ -56,11 +57,8 @@ export function BR_CO_10(val: availableProfiles): boolean {
     let sumOfLineNetAmounts = 0
 
     for (const line of val.invoiceLines) {
-        if (line.settlement && line.settlement.lineTotals && typeof line.settlement.lineTotals.netTotal === 'number') {
+        if (line.settlement && line.settlement.lineTotals) {
             sumOfLineNetAmounts += line.settlement.lineTotals.netTotal
-        } else {
-            console.warn("BR-CO-10: Invoice line is missing settlement.lineTotals.netTotal or it's not a number.")
-            return false
         }
     }
 
@@ -68,7 +66,9 @@ export function BR_CO_10(val: availableProfiles): boolean {
 }
 
 export const BR_CO_10_ERROR = {
-    error: "The content of 'Sum of Invoice line net amount' (BT-106) must equal the sum of all 'Invoice line net amount' (BT-131) values."
+    message:
+        "The content of 'Sum of Invoice line net amount' (BT-106) must equal the sum of all 'Invoice line net amount' (BT-131) values.",
+    path: ['totals', 'sumWithoutAllowancesAndCharges']
 }
 
 export function BR_CO_11(val: availableProfiles): boolean {
@@ -88,7 +88,9 @@ export function BR_CO_11(val: availableProfiles): boolean {
 }
 
 export const BR_CO_11_ERROR = {
-    error: "The content of 'Sum of allowances on document level' (BT-107) must equal the sum of all 'Document level allowance amount' (BT-92) values."
+    message:
+        "The content of 'Sum of allowances on document level' (BT-107) must equal the sum of all 'Document level allowance amount' (BT-92) values.",
+    path: ['totals', 'allowanceTotalAmount']
 }
 
 export function BR_CO_12(val: availableProfiles): boolean {
@@ -108,7 +110,9 @@ export function BR_CO_12(val: availableProfiles): boolean {
 }
 
 export const BR_CO_12_ERROR = {
-    error: "The content of 'Sum of charges on document level' (BT-108) must equal the sum of all 'Document level charge amount' (BT-99) values."
+    message:
+        "The content of 'Sum of charges on document level' (BT-108) must equal the sum of all 'Document level charge amount' (BT-99) values.",
+    path: ['totals', 'chargeTotalAmount']
 }
 
 export function BR_CO_13(val: availableProfiles): boolean {
@@ -124,7 +128,9 @@ export function BR_CO_13(val: availableProfiles): boolean {
 }
 
 export const BR_CO_13_ERROR = {
-    error: "The content of 'Invoice total amount without VAT' (BT-109) must equal the 'Sum of Invoice line net amount' (BT-106) minus 'Sum of allowances on document level' (BT-107) plus 'Sum of charges on document level' (BT-108)."
+    message:
+        "The content of 'Invoice total amount without VAT' (BT-109) must equal the 'Sum of Invoice line net amount' (BT-106) minus 'Sum of allowances on document level' (BT-107) plus 'Sum of charges on document level' (BT-108).",
+    path: ['totals', 'netTotal']
 }
 
 export function BR_CO_14(val: availableProfiles): boolean {
@@ -148,7 +154,9 @@ export function BR_CO_14(val: availableProfiles): boolean {
 }
 
 export const BR_CO_14_ERROR = {
-    error: "The content of 'Invoice total VAT amount' (BT-110) must equal the sum of all 'VAT category tax amount' (BT-117) values."
+    message:
+        "The content of 'Invoice total VAT amount' (BT-110) must equal the sum of all 'VAT category tax amount' (BT-117) values.",
+    path: ['totals', 'taxTotal']
 }
 
 export function BR_CO_15(val: availableProfiles): boolean {
@@ -164,7 +172,9 @@ export function BR_CO_15(val: availableProfiles): boolean {
 }
 
 export const BR_CO_15_ERROR = {
-    error: "The content of 'Invoice total amount with VAT' (BT-112) must equal the sum of 'Invoice total amount without VAT' (BT-109) and 'Invoice total VAT amount' (BT-110)."
+    message:
+        "The content of 'Invoice total amount with VAT' (BT-112) must equal the sum of 'Invoice total amount without VAT' (BT-109) and 'Invoice total VAT amount' (BT-110).",
+    path: ['totals', 'grossTotal']
 }
 
 export function BR_CO_16(val: availableProfiles): boolean {
@@ -183,5 +193,7 @@ export function BR_CO_16(val: availableProfiles): boolean {
 }
 
 export const BR_CO_16_ERROR = {
-    error: "The content of 'Amount due for payment' (BT-115) must equal 'Invoice total amount with VAT' (BT-112) minus 'Paid amount' (BT-113) plus 'Rounding amount' (BT-114)."
+    message:
+        "The content of 'Amount due for payment' (BT-115) must equal 'Invoice total amount with VAT' (BT-112) minus 'Paid amount' (BT-113) plus 'Rounding amount' (BT-114).",
+    path: ['totals', 'openAmount']
 }

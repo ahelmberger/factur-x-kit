@@ -20,6 +20,8 @@ export const ZTradeAllowanceChargeBasisType = z.object({
     })
 })
 
+export type TradeAllowanceChargeBasisType = z.infer<typeof ZTradeAllowanceChargeBasisType>
+
 const ZTradeAllowanceType = ZTradeAllowanceChargeBasisType.extend({
     reasonCode: ZCodeType(ALLOWANCE_REASONS_CODES).optional()
 })

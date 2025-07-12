@@ -41,6 +41,7 @@ export abstract class Converter<Profile, ProfileXml> {
     protected readonly map: SimplifiedMappingItem[] = []
     protected abstract isProperXMLScheme(xmlObject: any): xmlObject is ProfileXml
     protected abstract isProperObjectScheme(object: any): object is Profile
+    public abstract validateProfile(profile: any): { valid: boolean; errors?: string[] }
 
     xml2obj(xml: object, map: SimplifiedMappingItem[] = this.map): Profile {
         let out: object = {}
@@ -62,6 +63,11 @@ export abstract class Converter<Profile, ProfileXml> {
     }
 
     obj2xml(obj: object, map: SimplifiedMappingItem[] = this.map): ProfileXml {
+        const checkerResults = this.validateProfile(obj)
+        if (!checkerResults.valid) {
+            console.warn('Profile Validation failed with the following errors:', checkerResults.errors)
+            throw new Error('There are Errors in the given Data. Please correct the data to get a valid Invoice')
+        }
         let xml: any = {}
 
         for (const item of map) {
@@ -74,7 +80,7 @@ export abstract class Converter<Profile, ProfileXml> {
         }
 
         if (!xml['rsm:CrossIndustryInvoice'])
-            throw new Error('Conversion from XML to Obj failed! No rsm:CrossIndustryInvoice')
+            throw new Error('Conversion from Obj to Xml failed! No rsm:CrossIndustryInvoice')
 
         if (!xml['rsm:CrossIndustryInvoice']['rsm:SupplyChainTradeTransaction']['ram:ApplicableHeaderTradeDelivery']) {
             const newSupplyChainTradeTransaction = Converter.insertPropertyBefore(

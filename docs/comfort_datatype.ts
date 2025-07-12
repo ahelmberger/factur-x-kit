@@ -190,7 +190,7 @@ interface comfort_scheme {
                 | {
                       // BT-157
                       id: string
-                      scheme?: ISO6523_CODES | undefined // BT-157-1
+                      scheme: ISO6523_CODES // BT-157-1
                   }
                 | undefined
             sellerProductId?: string | undefined // BT-155
@@ -224,13 +224,13 @@ interface comfort_scheme {
                       lineId?: string | undefined // BT-132
                   }
                 | undefined
-            productGrossPricing?:
+            productPricing?:
                 | {
-                      grossPricePerItem: number // BT-148
+                      basisPricePerItem: number // BT-148
                       priceBaseQuantity?:
                           | {
-                                quantity: number // BT-149
-                                unit?: UNIT_CODES | undefined // BT-150
+                                quantity: number // BT-149-1
+                                unit?: UNIT_CODES | undefined // BT-150-1
                             }
                           | undefined
                       priceAllowancesAndCharges?:

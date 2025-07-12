@@ -162,5 +162,11 @@ export const ZBasicProfileXml = z.object({
 export type BasicProfileXml = z.infer<typeof ZBasicProfileXml>
 
 export function isBasicProfileXml(data: unknown): data is BasicProfileXml {
-    return ZBasicProfileXml.safeParse(data).success
+    const result = ZBasicProfileXml.safeParse(data)
+
+    if (!result.success) {
+        console.dir(data, { depth: null })
+        console.dir(result.error.errors, { depth: null })
+    }
+    return result.success
 }

@@ -3,8 +3,10 @@ import { z } from 'zod'
 import { ZCodeType, ZCodeTypeXml } from '../../../CodeTypeConverter'
 import { COUNTRY_ID_CODES, ISO6523_CODES } from '../../../codes'
 import { ZIdType, ZIdTypeXml } from '../../../udt/IdTypeConverter'
-import { ZIdTypeWithOptionalScheme } from '../../../udt/IdTypeWithOptionalSchemeConverter'
-import { ZIdTypeWithRequiredSchemeXml } from '../../../udt/IdTypeWithRequiredlSchemeConverter'
+import {
+    ZIdTypeWithRequiredScheme,
+    ZIdTypeWithRequiredSchemeXml
+} from '../../../udt/IdTypeWithRequiredlSchemeConverter'
 import { ZTextType, ZTextTypeXml } from '../../../udt/TextTypeConverter'
 import {
     ZComfortApplicableProductCharacteristicType,
@@ -16,7 +18,7 @@ import {
 } from './DesignatedProductClassification/ComfortDesignatedProductClassificationType'
 
 export const ZComfortTradeProductType = z.object({
-    globalId: ZIdTypeWithOptionalScheme(ISO6523_CODES).optional().describe('BT-157'),
+    globalId: ZIdTypeWithRequiredScheme(ISO6523_CODES).optional().describe('BT-157'),
     sellerProductId: ZIdType.optional().describe('BT-155'),
     buyerProductId: ZIdType.optional().describe('BT-156'),
     name: ZTextType.describe('BT-153'),
