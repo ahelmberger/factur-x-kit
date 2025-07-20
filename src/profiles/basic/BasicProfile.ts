@@ -9,7 +9,7 @@ import {
     ZReferencedDocumentType_documentId
 } from '../../types/ram/ReferencedDocumentType/ReferencedDocumentTypes'
 import { ZSpecifiedTaxRegistrationsForSellerType } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter'
-import { ZSpecifiedTaxRegistrationsType } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter'
+import { ZSpecifiedVatRegistrationsType } from '../../types/ram/SpecifiedVatRegistrationsTypeConverter'
 import { ZBasicDocumentLevelTradeAllowanceChargeType } from '../../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType'
 import { ZBasicPaymentMeansType } from '../../types/ram/TradeSettlementPaymentMeansType/BasicTradeSettlementPaymentMeansType'
 import { ZBasicDocumentLevelTradeTaxType } from '../../types/ram/TradeTaxType/BasicDocumentLevelTradeTaxType'
@@ -111,7 +111,7 @@ export const ZBasicProfileStructure = z.object({
         universalCommunicationAddressURI: true
     })
         .extend({
-            taxIdentification: ZSpecifiedTaxRegistrationsType
+            taxIdentification: ZSpecifiedVatRegistrationsType
         })
         .optional(),
     invoiceLines: ZBasicTradeLineItem.array(),

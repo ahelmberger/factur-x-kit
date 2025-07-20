@@ -3,6 +3,7 @@ import { PAYMENT_MEANS_CODES } from '../../types/codes'
 import { DateTimeType } from '../../types/udt/DateTimeTypeConverter'
 import { isBasicWithoutLinesProfile } from '../basicwithoutlines'
 import { isMinimumProfile } from '../minimum'
+import { BusinessRuleWithError } from './br_co'
 
 export function BR_16(val: availableProfiles): boolean {
     if (isMinimumProfile(val)) return true
@@ -253,3 +254,18 @@ export const BR_61_ERROR = {
     message:
         'If the payment means type is SEPA, local credit transfer, or non-SEPA credit transfer, the Payment account identifier (BT-84) of the payee must be provided.'
 }
+
+export const BR: BusinessRuleWithError[] = [
+    { rule: BR_16, error: BR_16_ERROR },
+    { rule: BR_21, error: BR_21_ERROR },
+    { rule: BR_27, error: BR_27_ERROR },
+    { rule: BR_28, error: BR_28_ERROR },
+    { rule: BR_29, error: BR_29_ERROR },
+    { rule: BR_30, error: BR_30_ERROR },
+    { rule: BR_33, error: BR_33_ERROR },
+    { rule: BR_38, error: BR_38_ERROR },
+    { rule: BR_42, error: BR_42_ERROR },
+    { rule: BR_44, error: BR_44_ERROR },
+    { rule: BR_53, error: BR_53_ERROR },
+    { rule: BR_61, error: BR_61_ERROR }
+]

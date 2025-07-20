@@ -14,6 +14,7 @@ import { AdditionalReferencedDocumentConverter } from '../../types/ram/Reference
 import { ReferencedDocumentTypeConverter } from '../../types/ram/ReferencedDocumentType/ReferencedDocumentConverter'
 import { SpecifiedTaxRegistrationsForSellerTypeConverter } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter'
 import { SpecifiedTaxRegistrationsTypeConverter } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter'
+import { SpecifiedVatRegistrationsTypeConverter } from '../../types/ram/SpecifiedVatRegistrationsTypeConverter'
 import { TradeAllowanceChargeTypeConverter } from '../../types/ram/TradeAllowanceChargeType/TradeAllowanceChargeTypeConverter'
 import { TradeSettlementPaymentMeansTypeConverter } from '../../types/ram/TradeSettlementPaymentMeansType/TradeSettlementPaymentMeansTypeConverter'
 import { TradeTaxTypeConverter } from '../../types/ram/TradeTaxType/TradeTaxTypeConverter'
@@ -268,7 +269,7 @@ const mapping: MappingItem<ComfortProfile, ComfortProfileXml>[] = [
     {
         obj: 'sellerTaxRepresentative.taxIdentification',
         xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeAgreement.ram:SellerTaxRepresentativeTradeParty.ram:SpecifiedTaxRegistration',
-        converter: new SpecifiedTaxRegistrationsTypeConverter()
+        converter: new SpecifiedVatRegistrationsTypeConverter()
     },
     {
         obj: 'referencedDocuments.orderConfirmationReference',

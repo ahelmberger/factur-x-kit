@@ -165,13 +165,9 @@ interface comfort_scheme {
                   country: COUNTRY_ID_CODES // BT-69
                   countrySubDivision?: string | undefined // BT-68
               }
-              taxIdentification:
-                  | {
-                        vatId: string // BT-63
-                    }
-                  | {
-                        localTaxId: string // BT-63
-                    }
+              taxIdentification: {
+                  vatId: string // BT-63
+              }
           }
         | undefined
     invoiceLines: {

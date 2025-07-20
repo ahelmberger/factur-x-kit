@@ -1,5 +1,6 @@
 import { availableProfiles } from '../../core/factur-x'
 import { printError } from '../../types/Errors'
+import { BusinessRuleWithError } from './br_co'
 
 const TOLERANCE = 0.005
 
@@ -150,3 +151,10 @@ export const BR_OWN_4_ERROR = {
     message:
         'BR-OWN-4: The netTotal (BT-131) of each line must be the netPricePerItem (BT-146) multiplied with the itemQuantity (BT-129) divided by the priceBaseQuantity (BT-149, if available. Default for priceBaseQuantity is 1). Minus the sum of all lineLevelAllowances (BT-136) plus the sum of all lineLevelCharges (BT-141).'
 }
+
+export const BR_OWN: BusinessRuleWithError[] = [
+    { rule: BR_OWN_1, error: BR_OWN_1_ERROR },
+    { rule: BR_OWN_2, error: BR_OWN_2_ERROR },
+    { rule: BR_OWN_3, error: BR_OWN_3_ERROR },
+    { rule: BR_OWN_4, error: BR_OWN_4_ERROR }
+]

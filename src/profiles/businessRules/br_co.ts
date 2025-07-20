@@ -4,6 +4,26 @@ import { isMinimumProfile } from '../minimum'
 
 const TOLERANCE = 0.005
 
+export function BR_CO_3(val: availableProfiles): boolean {
+    if (isMinimumProfile(val)) return true
+    if (!('taxBreakdown' in val.totals)) return true
+    if (!val.totals.taxBreakdown || val.totals.taxBreakdown.length === 0) return true
+    for (const breakdown of val.totals.taxBreakdown) {
+        if (!('taxPointDate' in breakdown) || !breakdown.taxPointDate) continue
+        if (breakdown.taxPointDate && breakdown.dueDateTypeCode) {
+            console.warn(
+                `BR_CO_3 failed: Tax point date ${breakdown.taxPointDate} and tax point date code ${breakdown.dueDateTypeCode} are mutually exclusive.`
+            )
+            return false
+        }
+    }
+    return true
+}
+
+export const BR_CO_3_ERROR = {
+    message: 'Value added tax point date (BT-7) and value added tax point date code (BT-8) are mutually exclusive.'
+}
+
 export function BR_CO_9(val: availableProfiles): boolean {
     const countryCodePrefixes = Object.values(COUNTRY_ID_CODES) // ['AD', 'AE', 'AF', ...]
     const validGreekPrefix = 'EL'
@@ -382,3 +402,36 @@ export const BR_CO_26_ERROR = {
         "To allow the buyer to automatically identify the seller, either 'Seller identifier' (BT-29), 'Seller legal registration identifier' (BT-30), or 'Seller VAT identifier' (BT-31) must be present.",
     path: ['seller']
 }
+
+export type BusinessRule = (val: availableProfiles) => boolean
+export interface BusinessRuleError {
+    message: string
+    path?: string[]
+}
+
+export interface BusinessRuleWithError {
+    rule: BusinessRule
+    error: BusinessRuleError
+}
+
+export const BR_CO: BusinessRuleWithError[] = [
+    { rule: BR_CO_3, error: BR_CO_3_ERROR },
+    { rule: BR_CO_9, error: BR_CO_9_ERROR },
+    { rule: BR_CO_10, error: BR_CO_10_ERROR },
+    { rule: BR_CO_11, error: BR_CO_11_ERROR },
+    { rule: BR_CO_12, error: BR_CO_12_ERROR },
+    { rule: BR_CO_13, error: BR_CO_13_ERROR },
+    { rule: BR_CO_14, error: BR_CO_14_ERROR },
+    { rule: BR_CO_15, error: BR_CO_15_ERROR },
+    { rule: BR_CO_16, error: BR_CO_16_ERROR },
+    { rule: BR_CO_17, error: BR_CO_17_ERROR },
+    { rule: BR_CO_18, error: BR_CO_18_ERROR },
+    { rule: BR_CO_19, error: BR_CO_19_ERROR },
+    { rule: BR_CO_20, error: BR_CO_20_ERROR },
+    { rule: BR_CO_21, error: BR_CO_21_ERROR },
+    { rule: BR_CO_22, error: BR_CO_22_ERROR },
+    { rule: BR_CO_23, error: BR_CO_23_ERROR },
+    { rule: BR_CO_24, error: BR_CO_24_ERROR },
+    { rule: BR_CO_25, error: BR_CO_25_ERROR },
+    { rule: BR_CO_26, error: BR_CO_26_ERROR }
+]
