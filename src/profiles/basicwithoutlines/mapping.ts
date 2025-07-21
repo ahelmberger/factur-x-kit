@@ -23,18 +23,18 @@ import { IdTypeWithOptionalSchemeConverter } from '../../types/udt/IdTypeWithOpt
 import { IdTypeWithRequiredSchemeConverter } from '../../types/udt/IdTypeWithRequiredlSchemeConverter'
 import { TextTypeConverter } from '../../types/udt/TextTypeConverter'
 import { TokenTypeConverter } from '../../types/xs/TokenConverter'
-import type { BasicProfile } from '../basic/BasicProfile'
-import { BasicProfileXml } from '../basic/BasicProfileXml'
 import type { MappingItem } from '../convert'
+import { BasicWithoutLinesProfile } from './BasicWithoutLinesProfile'
+import { BasicWithoutLinesProfileXml } from './BasicWithoutLinesProfileXml'
 
-const mapping: MappingItem<BasicProfile, BasicProfileXml>[] = [
+const mapping: MappingItem<BasicWithoutLinesProfile, BasicWithoutLinesProfileXml>[] = [
     {
-        obj: 'meta.businessProcessType',
+        obj: 'businessProcessType',
         xml: 'rsm:CrossIndustryInvoice.rsm:ExchangedDocumentContext.ram:BusinessProcessSpecifiedDocumentContextParameter.ram:ID',
         converter: new IdTypeConverter()
     },
     {
-        obj: 'meta.guidelineSpecifiedDocumentContextParameter',
+        obj: 'profile',
         xml: 'rsm:CrossIndustryInvoice.rsm:ExchangedDocumentContext.ram:GuidelineSpecifiedDocumentContextParameter.ram:ID',
         converter: new IdTypeConverter()
     },
@@ -365,12 +365,12 @@ const mapping: MappingItem<BasicProfile, BasicProfileXml>[] = [
         converter: new ArrayConverter(TradeTaxTypeConverter.basicDocumentLevel())
     },
     {
-        obj: 'paymentInformation.billingPeriod.startDate',
+        obj: 'delivery.billingPeriod.startDate',
         xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeSettlement.ram:BillingSpecifiedPeriod.ram:StartDateTime',
         converter: new DateTimeTypeConverter()
     },
     {
-        obj: 'paymentInformation.billingPeriod.endDate',
+        obj: 'delivery.billingPeriod.endDate',
         xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeSettlement.ram:BillingSpecifiedPeriod.ram:EndDateTime',
         converter: new DateTimeTypeConverter()
     },

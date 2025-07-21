@@ -6,6 +6,7 @@ import {
     BasicWithoutLinesProfile,
     isBasicWithoutLinesProfile
 } from '../../src/profiles/basicwithoutlines/BasicWithoutLinesProfile'
+import { PROFILES } from '../../src/types/ProfileTypes'
 import {
     COUNTRY_ID_CODES,
     CURRENCY_CODES,
@@ -31,12 +32,10 @@ beforeAll(async () => {
 describe('7.2.2 - ExchangedDocumentContext - Page 43/85 f.', () => {
     describe('BG-2 - PROCESS CONTROL', () => {
         test('BT-23 - Business process type', () => {
-            expect(testCases['BASIC-WL_Einfach']?.meta.businessProcessType).toBe(undefined)
+            expect(testCases['BASIC-WL_Einfach']?.businessProcessType).toBe(undefined)
         })
         test('BT-24 - Specification identifier', () => {
-            expect(testCases['BASIC-WL_Einfach']?.meta.guidelineSpecifiedDocumentContextParameter).toBe(
-                'urn:factur-x.eu:1p0:basicwl'
-            )
+            expect(testCases['BASIC-WL_Einfach']?.profile).toBe(PROFILES.BASIC_WITHOUT_LINES)
         })
     })
 })

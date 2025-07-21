@@ -32,12 +32,12 @@ import { ComfortProfileXml } from './ComfortProfileXml'
 
 const mapping: MappingItem<ComfortProfile, ComfortProfileXml>[] = [
     {
-        obj: 'meta.businessProcessType',
+        obj: 'businessProcessType',
         xml: 'rsm:CrossIndustryInvoice.rsm:ExchangedDocumentContext.ram:BusinessProcessSpecifiedDocumentContextParameter.ram:ID',
         converter: new IdTypeConverter()
     },
     {
-        obj: 'meta.guidelineSpecifiedDocumentContextParameter',
+        obj: 'profile',
         xml: 'rsm:CrossIndustryInvoice.rsm:ExchangedDocumentContext.ram:GuidelineSpecifiedDocumentContextParameter.ram:ID',
         converter: new IdTypeConverter()
     },
@@ -417,12 +417,12 @@ const mapping: MappingItem<ComfortProfile, ComfortProfileXml>[] = [
         converter: new ArrayConverter(TradeTaxTypeConverter.comfortDocumentLevel())
     },
     {
-        obj: 'paymentInformation.billingPeriod.startDate',
+        obj: 'delivery.billingPeriod.startDate',
         xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeSettlement.ram:BillingSpecifiedPeriod.ram:StartDateTime',
         converter: new DateTimeTypeConverter()
     },
     {
-        obj: 'paymentInformation.billingPeriod.endDate',
+        obj: 'delivery.billingPeriod.endDate',
         xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeSettlement.ram:BillingSpecifiedPeriod.ram:EndDateTime',
         converter: new DateTimeTypeConverter()
     },

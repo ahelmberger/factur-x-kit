@@ -1,4 +1,5 @@
 import { ComfortProfile } from '../src/profiles/comfort'
+import { PROFILES } from '../src/types/ProfileTypes'
 import {
     COUNTRY_ID_CODES,
     CURRENCY_CODES,
@@ -11,9 +12,7 @@ import {
 } from '../src/types/codes'
 
 export const testDesignObjectKleinunternehmer: ComfortProfile = {
-    meta: {
-        guidelineSpecifiedDocumentContextParameter: 'urn:cen.eu:en16931:2017'
-    },
+    profile: PROFILES.COMFORT,
     document: {
         id: 'TEST1234',
         type: '380' as DOCUMENT_TYPE_CODES,

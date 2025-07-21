@@ -9,17 +9,19 @@ import { DateTimeTypeConverter } from '../../types/udt/DateTimeTypeConverter'
 import { IdTypeConverter } from '../../types/udt/IdTypeConverter'
 import { IdTypeWithOptionalSchemeConverter } from '../../types/udt/IdTypeWithOptionalSchemeConverter'
 import { TextTypeConverter } from '../../types/udt/TextTypeConverter'
-import type { SimplifiedMappingItem } from '../convert'
+import type { MappingItem } from '../convert'
+import { MinimumProfile } from './MinimumProfile'
+import { MinimumProfileXml } from './MinimumProfileXml'
 
-const mapping: SimplifiedMappingItem[] = [
+const mapping: MappingItem<MinimumProfile, MinimumProfileXml>[] = [
     //const mapping: MappingItem<MinimumProfile, MinimumProfileXml>[] = [
     {
-        obj: 'meta.businessProcessType',
+        obj: 'businessProcessType',
         xml: 'rsm:CrossIndustryInvoice.rsm:ExchangedDocumentContext.ram:BusinessProcessSpecifiedDocumentContextParameter.ram:ID',
         converter: new IdTypeConverter()
     },
     {
-        obj: 'meta.guidelineSpecifiedDocumentContextParameter',
+        obj: 'profile',
         xml: 'rsm:CrossIndustryInvoice.rsm:ExchangedDocumentContext.ram:GuidelineSpecifiedDocumentContextParameter.ram:ID',
         converter: new IdTypeConverter()
     },

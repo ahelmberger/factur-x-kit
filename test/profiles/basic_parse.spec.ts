@@ -28,10 +28,10 @@ beforeAll(async () => {
 describe('7.2.2 - ExchangedDocumentContext - Page 43/85 f.', () => {
     describe('BG-2 - PROCESS CONTROL', () => {
         test('BT-23 - Business process type', () => {
-            expect(testCases['BASIC_Taxifahrt']?.meta.businessProcessType).toBe(undefined)
+            expect(testCases['BASIC_Taxifahrt']?.businessProcessType).toBe(undefined)
         })
         test('BT-24 - Specification identifier', () => {
-            expect(testCases['BASIC_Taxifahrt']?.meta.guidelineSpecifiedDocumentContextParameter).toBe(
+            expect(testCases['BASIC_Taxifahrt']?.profile).toBe(
                 'urn:cen.eu:en16931:2017#compliant#urn:factur-x.eu:1p0:basic'
             )
         })

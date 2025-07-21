@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
 import { ZCodeType } from '../../types/CodeTypeConverter'
+import { PROFILES } from '../../types/ProfileTypes'
 import { CURRENCY_CODES, DOCUMENT_TYPE_CODES, ISO6523_CODES } from '../../types/codes'
 import { ZBasicTradeLineItem } from '../../types/ram/IncludedSupplyChainTradeLineItem/BasicTradeLineItem'
 import { ZBasicDocumentLevelNoteType } from '../../types/ram/NoteType/BasicDocumentLevelNoteType'
@@ -77,12 +78,8 @@ import {
 } from '../businessRules/br_own'
 
 export const ZBasicProfileStructure = z.object({
-    meta: z.object({
-        businessProcessType: ZIdType.optional(),
-        guidelineSpecifiedDocumentContextParameter: z.literal(
-            'urn:cen.eu:en16931:2017#compliant#urn:factur-x.eu:1p0:basic'
-        )
-    }),
+    businessProcessType: ZIdType.optional(),
+    profile: z.literal(PROFILES.BASIC),
     document: z.object({
         id: ZIdType,
         type: ZCodeType(DOCUMENT_TYPE_CODES),
@@ -132,7 +129,13 @@ export const ZBasicProfileStructure = z.object({
             })
                 .extend({ name: ZTextType.optional() })
                 .optional(),
-            deliveryDate: ZDateTimeType.optional()
+            deliveryDate: ZDateTimeType.optional(),
+            billingPeriod: z
+                .object({
+                    startDate: ZDateTimeType.optional(),
+                    endDate: ZDateTimeType.optional()
+                })
+                .optional()
         })
         .optional(),
     paymentInformation: z.object({
@@ -145,12 +148,6 @@ export const ZBasicProfileStructure = z.object({
             specifiedLegalOrganization: true
         }).optional(),
         paymentMeans: ZBasicPaymentMeansType.array().optional(),
-        billingPeriod: z
-            .object({
-                startDate: ZDateTimeType.optional(),
-                endDate: ZDateTimeType.optional()
-            })
-            .optional(),
         paymentTerms: z
             .object({
                 description: ZTextType.optional(),

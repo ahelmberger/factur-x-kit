@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
 import { ZCodeType } from '../../types/CodeTypeConverter'
+import { PROFILES } from '../../types/ProfileTypes'
 import { CURRENCY_CODES, DOCUMENT_TYPE_CODES, ISO6523_CODES } from '../../types/codes'
 import { ZComfortTradeContactType } from '../../types/ram/DefinedTradeContact/ComfortTradeContactType'
 import { ZComfortTradeLineItem } from '../../types/ram/IncludedSupplyChainTradeLineItem/ComfortTradeLineItem'
@@ -28,10 +29,8 @@ import { BR_CO } from '../businessRules/br_co'
 import { BR_OWN } from '../businessRules/br_own'
 
 const ZComfortProfileStructure = z.object({
-    meta: z.object({
-        businessProcessType: ZIdType.optional().describe('BT-23'),
-        guidelineSpecifiedDocumentContextParameter: z.literal('urn:cen.eu:en16931:2017').describe('BT-24')
-    }),
+    businessProcessType: ZIdType.optional().describe('BT-23'),
+    profile: z.literal(PROFILES.COMFORT).describe('BT-24'),
     document: z.object({
         id: ZIdType.describe('BT-1'),
         type: ZCodeType(DOCUMENT_TYPE_CODES).describe('BT-3'),
@@ -101,7 +100,13 @@ const ZComfortProfileStructure = z.object({
             })
                 .extend({ name: ZTextType.optional() })
                 .optional(),
-            deliveryDate: ZDateTimeType.optional()
+            deliveryDate: ZDateTimeType.optional(),
+            billingPeriod: z
+                .object({
+                    startDate: ZDateTimeType.optional(),
+                    endDate: ZDateTimeType.optional()
+                })
+                .optional()
         })
         .optional(),
     paymentInformation: z.object({
@@ -114,12 +119,6 @@ const ZComfortProfileStructure = z.object({
             specifiedLegalOrganization: true
         }).optional(),
         paymentMeans: ZComfortPaymentMeansType.array().optional(),
-        billingPeriod: z
-            .object({
-                startDate: ZDateTimeType.optional(),
-                endDate: ZDateTimeType.optional()
-            })
-            .optional(),
         paymentTerms: z
             .object({
                 description: ZTextType.optional(),

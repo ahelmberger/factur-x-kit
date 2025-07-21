@@ -1,4 +1,5 @@
 import { ComfortProfile } from '../../src/profiles/comfort'
+import { PROFILES } from '../../src/types/ProfileTypes'
 import {
     ALLOWANCE_REASONS_CODES,
     CHARGE_REASONS_CODES,
@@ -164,10 +165,8 @@ export const lineObject2: ComfortTradeLineItem = {
 
 export const testComfortProfile: ComfortProfile = {
     ...testBasicProfile,
-    meta: {
-        ...testBasicProfile.meta,
-        guidelineSpecifiedDocumentContextParameter: 'urn:cen.eu:en16931:2017'
-    },
+
+    profile: PROFILES.COMFORT,
     seller: {
         ...testBasicProfile.seller,
         otherLegalInformation: 'Verkauf',
@@ -238,7 +237,21 @@ export const testComfortProfile: ComfortProfile = {
             name: 'Procuring Project XY'
         }
     },
-
+    delivery: {
+        ...testBasicProfile.delivery,
+        billingPeriod: {
+            startDate: {
+                year: 2024,
+                month: 1,
+                day: 1
+            },
+            endDate: {
+                year: 2024,
+                month: 1,
+                day: 31
+            }
+        }
+    },
     paymentInformation: {
         ...testBasicProfile.paymentInformation,
         paymentMeans: [
@@ -261,18 +274,6 @@ export const testComfortProfile: ComfortProfile = {
                 }
             }
         ],
-        billingPeriod: {
-            startDate: {
-                year: 2024,
-                month: 1,
-                day: 1
-            },
-            endDate: {
-                year: 2024,
-                month: 1,
-                day: 31
-            }
-        },
         paymentTerms: {
             description: 'Payment due in 30 days',
             dueDate: {

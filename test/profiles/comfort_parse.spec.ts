@@ -3,6 +3,7 @@ import path from 'node:path'
 
 import { FacturX } from '../../src/index'
 import { ComfortProfile, isComfortProfile } from '../../src/profiles/comfort/ComfortProfile'
+import { PROFILES } from '../../src/types/ProfileTypes'
 import {
     COUNTRY_ID_CODES,
     CURRENCY_CODES,
@@ -32,12 +33,10 @@ describe('Factur-X EN16931_Elektron', () => {
     describe('7.2.2 - ExchangedDocumentContext - Page 43/85 f.', () => {
         describe('BG-2 - PROCESS CONTROL', () => {
             test('BT-23 - Business process type', () => {
-                expect(testCases['EN16931_Elektron']?.meta.businessProcessType).toBe('Baurechnung')
+                expect(testCases['EN16931_Elektron']?.businessProcessType).toBe('Baurechnung')
             })
             test('BT-24 - Specification identifier', () => {
-                expect(testCases['EN16931_Elektron']?.meta.guidelineSpecifiedDocumentContextParameter).toBe(
-                    'urn:cen.eu:en16931:2017'
-                )
+                expect(testCases['EN16931_Elektron']?.profile).toBe(PROFILES.COMFORT)
             })
         })
     })
@@ -395,12 +394,10 @@ describe('Tests for EN16931_Einfach_DueDate', () => {
     describe('7.2.2 - ExchangedDocumentContext - Page 43/85 f.', () => {
         describe('BG-2 - PROCESS CONTROL', () => {
             test('BT-23 - Business process type', () => {
-                expect(testCases[testCaseKey]?.meta.businessProcessType).toBeUndefined()
+                expect(testCases[testCaseKey]?.businessProcessType).toBeUndefined()
             })
             test('BT-24 - Specification identifier', () => {
-                expect(testCases[testCaseKey]?.meta.guidelineSpecifiedDocumentContextParameter).toBe(
-                    'urn:cen.eu:en16931:2017'
-                )
+                expect(testCases[testCaseKey]?.profile).toBe(PROFILES.COMFORT)
             })
         })
     })

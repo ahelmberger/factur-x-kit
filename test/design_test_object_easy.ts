@@ -1,4 +1,5 @@
 import { ComfortProfile } from '../src/profiles/comfort'
+import { PROFILES } from '../src/types/ProfileTypes'
 import {
     COUNTRY_ID_CODES,
     CURRENCY_CODES,
@@ -13,9 +14,7 @@ import {
 } from '../src/types/codes'
 
 export const designTestObject_easy: ComfortProfile = {
-    meta: {
-        guidelineSpecifiedDocumentContextParameter: 'urn:cen.eu:en16931:2017'
-    },
+    profile: PROFILES.COMFORT,
     document: {
         id: 'INV-2023-EASY-001',
         type: '380' as DOCUMENT_TYPE_CODES,
@@ -86,7 +85,11 @@ export const designTestObject_easy: ComfortProfile = {
         orderReference: { documentId: 'PO-BUYER-7788' }
     },
     delivery: {
-        deliveryDate: { year: 2023, month: 10, day: 5 }
+        deliveryDate: { year: 2023, month: 10, day: 5 },
+        billingPeriod: {
+            startDate: { year: 2024, month: 1, day: 1 },
+            endDate: { year: 2024, month: 1, day: 31 }
+        }
     },
     paymentInformation: {
         paymentMeans: [
@@ -100,10 +103,6 @@ export const designTestObject_easy: ComfortProfile = {
                 }
             }
         ],
-        billingPeriod: {
-            startDate: { year: 2024, month: 1, day: 1 },
-            endDate: { year: 2024, month: 1, day: 31 }
-        },
         paymentTerms: {
             description: 'Please pay the given amount within 30 days from invoice date.',
             dueDate: { year: 2024, month: 2, day: 1 }

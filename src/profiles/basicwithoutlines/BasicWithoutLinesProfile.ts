@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
 import { ZCodeType } from '../../types/CodeTypeConverter'
+import { PROFILES } from '../../types/ProfileTypes'
 import {
     COUNTRY_ID_CODES,
     CURRENCY_CODES,
@@ -101,10 +102,8 @@ export const ZTradePartyType = z.object({
 })
 
 export const ZBasicWithoutLinesProfileStructure = z.object({
-    meta: z.object({
-        businessProcessType: ZIdType.optional(),
-        guidelineSpecifiedDocumentContextParameter: z.literal('urn:factur-x.eu:1p0:basicwl')
-    }),
+    businessProcessType: ZIdType.optional(),
+    profile: z.literal(PROFILES.BASIC_WITHOUT_LINES).describe('BT-23'),
     document: z.object({
         id: ZIdType,
         type: ZCodeType(DOCUMENT_TYPE_CODES),
@@ -154,7 +153,13 @@ export const ZBasicWithoutLinesProfileStructure = z.object({
             })
                 .extend({ name: ZTextType.optional() })
                 .optional(),
-            deliveryDate: ZDateTimeType.optional()
+            deliveryDate: ZDateTimeType.optional(),
+            billingPeriod: z
+                .object({
+                    startDate: ZDateTimeType.optional(),
+                    endDate: ZDateTimeType.optional()
+                })
+                .optional()
         })
         .optional(),
     paymentInformation: z.object({
@@ -167,12 +172,6 @@ export const ZBasicWithoutLinesProfileStructure = z.object({
             specifiedLegalOrganization: true
         }).optional(),
         paymentMeans: ZBasicPaymentMeansType.array().optional(),
-        billingPeriod: z
-            .object({
-                startDate: ZDateTimeType.optional(),
-                endDate: ZDateTimeType.optional()
-            })
-            .optional(),
         paymentTerms: z
             .object({
                 description: ZTextType.optional(),

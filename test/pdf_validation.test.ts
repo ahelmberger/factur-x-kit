@@ -21,13 +21,13 @@ import {
 
 import FacturXPdf from '../src/core/pdf'
 import { MinimumProfile } from '../src/profiles/minimum/MinimumProfile'
+import { PROFILES } from '../src/types/ProfileTypes'
 import { COUNTRY_ID_CODES, CURRENCY_CODES, DOCUMENT_TYPE_CODES, ISO6523_CODES } from '../src/types/codes'
 
 const testObj: MinimumProfile = {
-    meta: {
-        businessProcessType: 'A1',
-        guidelineSpecifiedDocumentContextParameter: 'urn:factur-x.eu:1p0:minimum'
-    },
+    businessProcessType: 'A1',
+    profile: PROFILES.MINIMUM,
+
     document: {
         id: 'RE20248731',
         type: DOCUMENT_TYPE_CODES.COMMERCIAL_INVOICE,

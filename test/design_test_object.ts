@@ -1,4 +1,5 @@
 import { ComfortProfile } from '../src/profiles/comfort'
+import { PROFILES } from '../src/types/ProfileTypes'
 // Pfad ggf. anpassen
 import {
     ALLOWANCE_REASONS_CODES,
@@ -21,9 +22,7 @@ import {
 // Pfad ggf. anpassen
 
 export const designTestObject: ComfortProfile = {
-    meta: {
-        guidelineSpecifiedDocumentContextParameter: 'urn:cen.eu:en16931:2017'
-    },
+    profile: PROFILES.COMFORT,
     document: {
         id: 'INV-2023-00789',
         type: '380' as DOCUMENT_TYPE_CODES,
@@ -99,7 +98,11 @@ export const designTestObject: ComfortProfile = {
         ]
     },
     delivery: {
-        deliveryDate: { year: 2023, month: 10, day: 5 }
+        deliveryDate: { year: 2023, month: 10, day: 5 },
+        billingPeriod: {
+            startDate: { year: 2024, month: 1, day: 1 },
+            endDate: { year: 2024, month: 1, day: 31 }
+        }
     },
     paymentInformation: {
         paymentMeans: [
@@ -113,10 +116,7 @@ export const designTestObject: ComfortProfile = {
                 }
             }
         ],
-        billingPeriod: {
-            startDate: { year: 2024, month: 1, day: 1 },
-            endDate: { year: 2024, month: 1, day: 31 }
-        },
+
         paymentTerms: {
             description: 'Payment due within 30 days from date of invoice.',
             dueDate: { year: 2024, month: 2, day: 1 }

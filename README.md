@@ -73,8 +73,15 @@ await fs.writeFile('./invoice-data.json', JSON.stringify(obj, null, 4))
 
 ### Next steps
 
--   [ ] PDF-invoice creation
--   [ ] Attachment of Referenced Documents
--   [ ] Schematron and XSD Checker
+-   [x] PDF-invoice creation
+-   [ ] Business Rule Checker
+    -   [ ] Write checks for all BRs
+    -   [ ] Write tests for all BRs
+-   [x] Small Refactoring
+    -   [x] Remove meta group from profiles and lift the content on base level (profile and business context)
+    -   [x] move invoice period from payment information to delivery
 -   [ ] Docs
+-   [ ] Attachment of Referenced Documents
 -   [ ] Extended Profile
+    -   [ ] Initial step: Allow interpretation of Extended Profile but only read/write Comfort fields
+-   [ ] XRechnung Profile

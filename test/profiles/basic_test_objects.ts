@@ -1,4 +1,5 @@
 import { BasicProfile } from '../../src/profiles/basic'
+import { PROFILES } from '../../src/types/ProfileTypes'
 import {
     ALLOWANCE_REASONS_CODES,
     CURRENCY_CODES,
@@ -109,9 +110,9 @@ export default testInvoiceLines
 
 const testBasicProfile: BasicProfile = {
     ...testBasicWLProfile,
-    meta: {
-        guidelineSpecifiedDocumentContextParameter: 'urn:cen.eu:en16931:2017#compliant#urn:factur-x.eu:1p0:basic'
-    },
+
+    profile: PROFILES.BASIC,
+
     invoiceLines: testInvoiceLines,
     totals: {
         sumWithoutAllowancesAndCharges: 135, // 90 + 45

@@ -253,8 +253,8 @@ export const BR_CO_18_ERROR = {
 
 export function BR_CO_19(val: availableProfiles): boolean {
     if (isMinimumProfile(val)) return true
-    if (!val.paymentInformation.billingPeriod) return true
-    if (!val.paymentInformation.billingPeriod.startDate && !val.paymentInformation.billingPeriod.endDate) {
+    if (!val.delivery?.billingPeriod) return true
+    if (!val.delivery?.billingPeriod.startDate && !val.delivery.billingPeriod.endDate) {
         return false
     }
     return true

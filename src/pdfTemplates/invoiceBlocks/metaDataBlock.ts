@@ -50,12 +50,12 @@ export default async function addMetaBlock(
     if ('paymentInformation' in data) {
         let startDate = ''
         let endDate = ''
-        if (data.paymentInformation?.billingPeriod?.startDate) {
-            startDate = formatCustomDate(data.paymentInformation.billingPeriod.startDate, locale, true)
+        if (data.delivery?.billingPeriod?.startDate) {
+            startDate = formatCustomDate(data.delivery.billingPeriod.startDate, locale, true)
         }
 
-        if (data.paymentInformation?.billingPeriod?.endDate) {
-            endDate = formatCustomDate(data.paymentInformation.billingPeriod.endDate, locale, true)
+        if (data.delivery?.billingPeriod?.endDate) {
+            endDate = formatCustomDate(data.delivery.billingPeriod.endDate, locale, true)
         }
 
         billingPeriod = startDate && endDate ? `${startDate} - ${endDate}` : `${startDate}${endDate}`

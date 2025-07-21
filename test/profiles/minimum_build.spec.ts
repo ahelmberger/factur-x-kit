@@ -8,15 +8,15 @@ import { FacturX } from '../../src/index'
 import { Schema } from '../../src/node-schematron/Schema'
 import { MinimumProfile } from '../../src/profiles/minimum/MinimumProfile'
 import { isMinimumProfileXml } from '../../src/profiles/minimum/MinimumProfileXml'
+import { PROFILES } from '../../src/types/ProfileTypes'
 import { COUNTRY_ID_CODES, CURRENCY_CODES, DOCUMENT_TYPE_CODES, ISO6523_CODES } from '../../src/types/codes'
 import { removeUndefinedKeys } from '../testhelpers'
 import './codeDb/xPathDocumentFunction'
 
 const testObj: MinimumProfile = {
-    meta: {
-        businessProcessType: 'A1',
-        guidelineSpecifiedDocumentContextParameter: 'urn:factur-x.eu:1p0:minimum'
-    },
+    businessProcessType: 'A1',
+    profile: PROFILES.MINIMUM,
+
     document: {
         id: 'RE20248731',
         type: DOCUMENT_TYPE_CODES.COMMERCIAL_INVOICE,

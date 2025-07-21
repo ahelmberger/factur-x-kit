@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
 import { ZCodeType } from '../../types/CodeTypeConverter'
+import { PROFILES } from '../../types/ProfileTypes'
 import { CURRENCY_CODES, DOCUMENT_TYPE_CODES, ISO6523_CODES } from '../../types/codes'
 import { ZReferencedDocumentType_documentId } from '../../types/ram/ReferencedDocumentType/ReferencedDocumentTypes'
 import { ZSpecifiedTaxRegistrationsForSellerType } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter'
@@ -13,10 +14,8 @@ import { ZTextType } from '../../types/udt/TextTypeConverter'
 import { BR_CO_9, BR_CO_9_ERROR } from '../businessRules/br_co'
 
 export const ZMinimumProfileStructure = z.object({
-    meta: z.object({
-        businessProcessType: ZIdType.optional(),
-        guidelineSpecifiedDocumentContextParameter: z.literal('urn:factur-x.eu:1p0:minimum')
-    }),
+    businessProcessType: ZIdType.optional(),
+    profile: z.literal(PROFILES.MINIMUM).describe('BT-23'),
     document: z.object({
         id: ZIdType,
         type: ZCodeType(DOCUMENT_TYPE_CODES),

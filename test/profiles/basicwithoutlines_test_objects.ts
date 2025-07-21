@@ -1,4 +1,5 @@
 import { BasicWithoutLinesProfile } from '../../src/profiles/basicwithoutlines'
+import { PROFILES } from '../../src/types/ProfileTypes'
 import {
     ALLOWANCE_REASONS_CODES,
     CHARGE_REASONS_CODES,
@@ -14,10 +15,8 @@ import {
 } from '../../src/types/codes'
 
 const testBasicWLProfile: BasicWithoutLinesProfile = {
-    meta: {
-        businessProcessType: 'BP-12345',
-        guidelineSpecifiedDocumentContextParameter: 'urn:factur-x.eu:1p0:basicwl'
-    },
+    businessProcessType: 'BP-12345',
+    profile: PROFILES.BASIC_WITHOUT_LINES,
     document: {
         id: 'DOC-12345',
         type: DOCUMENT_TYPE_CODES.COMMERCIAL_INVOICE,
@@ -132,7 +131,11 @@ const testBasicWLProfile: BasicWithoutLinesProfile = {
                 countrySubDivision: 'Recipient State'
             }
         },
-        deliveryDate: { year: 2023, month: 10, day: 5 }
+        deliveryDate: { year: 2023, month: 10, day: 5 },
+        billingPeriod: {
+            startDate: { year: 2023, month: 10, day: 1 },
+            endDate: { year: 2023, month: 10, day: 31 }
+        }
     },
     paymentInformation: {
         creditorReference: 'CREDITOR-12345',
@@ -163,10 +166,6 @@ const testBasicWLProfile: BasicWithoutLinesProfile = {
                 payeeBankAccount: { iban: 'DE89370400440532013003', propriataryId: 'PAYEE-PROP-2' }
             }
         ],
-        billingPeriod: {
-            startDate: { year: 2023, month: 10, day: 1 },
-            endDate: { year: 2023, month: 10, day: 31 }
-        },
         paymentTerms: {
             description: 'Payment due in 30 days',
             dueDate: { year: 2023, month: 11, day: 1 },

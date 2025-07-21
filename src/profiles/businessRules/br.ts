@@ -86,16 +86,15 @@ function startDateBeforeEndDate(startDate: DateTimeType, endDate: DateTimeType):
 
 export function BR_29(val: availableProfiles): boolean {
     if (isMinimumProfile(val)) return true
-    if (!('billingPeriod' in val.paymentInformation)) return true
-    if (!val.paymentInformation.billingPeriod) return true
+    if (!('delivery' in val)) return true
+    if (!val.delivery) return true
+    if (!('billingPeriod' in val.delivery)) return true
+    if (!val.delivery?.billingPeriod) return true
 
-    if (!val.paymentInformation.billingPeriod.startDate || !val.paymentInformation.billingPeriod.endDate) {
+    if (!val.delivery.billingPeriod.startDate || !val.delivery.billingPeriod.endDate) {
         return true
     }
-    return startDateBeforeEndDate(
-        val.paymentInformation.billingPeriod.startDate,
-        val.paymentInformation.billingPeriod.endDate
-    )
+    return startDateBeforeEndDate(val.delivery.billingPeriod.startDate, val.delivery.billingPeriod.endDate)
 }
 
 export const BR_29_ERROR = {

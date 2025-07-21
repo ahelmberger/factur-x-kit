@@ -111,8 +111,7 @@ export default class FacturXPdf {
             ),
             modificationDate: new Date(),
             afRelationship:
-                obj.meta.guidelineSpecifiedDocumentContextParameter === 'urn:factur-x.eu:1p0:minimum' ||
-                obj.meta.guidelineSpecifiedDocumentContextParameter === 'urn:factur-x.eu:1p0:basicwl'
+                obj.profile === 'urn:factur-x.eu:1p0:minimum' || obj.profile === 'urn:factur-x.eu:1p0:basicwl'
                     ? AFRelationship.Data
                     : AFRelationship.Alternative
         })
@@ -121,7 +120,7 @@ export default class FacturXPdf {
             obj.document.id,
             `Invoice ${obj.document.id} from ${obj.seller.name}`,
             obj.seller.name,
-            FacturXPdf.getProfile(obj.meta.guidelineSpecifiedDocumentContextParameter)
+            FacturXPdf.getProfile(obj.profile)
         )
 
         return this.pdfDoc.save({ useObjectStreams: false })

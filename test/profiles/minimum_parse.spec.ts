@@ -4,6 +4,7 @@ import path from 'node:path'
 
 import { FacturX } from '../../src/index'
 import { MinimumProfile, isMinimumProfile } from '../../src/profiles/minimum/index'
+import { PROFILES } from '../../src/types/ProfileTypes'
 import { COUNTRY_ID_CODES, CURRENCY_CODES, DOCUMENT_TYPE_CODES } from '../../src/types/codes'
 
 type TestCases = Record<string, MinimumProfile | undefined>
@@ -25,12 +26,10 @@ beforeAll(async () => {
 describe('7.2.2 - ExchangedDocumentContext - Page 43/85 f.', () => {
     describe('BG-2 - PROCESS CONTROL', () => {
         test('BT-23 - Business process type', () => {
-            expect(testCases['MINIMUM_Rechnung']?.meta.businessProcessType).toBe(undefined)
+            expect(testCases['MINIMUM_Rechnung']?.businessProcessType).toBe(undefined)
         })
         test('BT-24 - Specification identifier', () => {
-            expect(testCases['MINIMUM_Rechnung']?.meta.guidelineSpecifiedDocumentContextParameter).toBe(
-                'urn:factur-x.eu:1p0:minimum'
-            )
+            expect(testCases['MINIMUM_Rechnung']?.profile).toBe(PROFILES.MINIMUM)
         })
     })
 })
