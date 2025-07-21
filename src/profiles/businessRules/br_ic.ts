@@ -387,5 +387,6 @@ export const BR_IC: BusinessRuleWithError[] = [
     { rule: BR_IC_8, error: BR_IC_8_ERROR },
     { rule: BR_IC_9, error: BR_IC_9_ERROR },
     { rule: BR_IC_10, error: BR_IC_10_ERROR },
-    { rule: BR_IC_11, error: BR_IC_11_ERROR }
+    { rule: BR_IC_11, error: BR_IC_11_ERROR },
+    { rule: BR_IC_12, error: BR_IC_12_ERROR }
 ]
