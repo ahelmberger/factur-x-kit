@@ -1,3 +1,4 @@
+import { PROFILES } from '../src/types/ProfileTypes'
 import {
     ALLOWANCE_REASONS_CODES,
     CHARGE_REASONS_CODES,
@@ -19,10 +20,8 @@ import {
 } from '../src/types/codes'
 
 interface comfort_scheme {
-    meta: {
-        businessProcessType?: string | undefined // BT-23
-        guidelineSpecifiedDocumentContextParameter: 'urn:cen.eu:en16931:2017' // BT-24
-    }
+    businessProcessType?: string | undefined // BT-23
+    profile: PROFILES.COMFORT // BT-24,
     document: {
         id: string // BT-1
         type: UNTDID_1153 // BT-3
@@ -436,6 +435,27 @@ interface comfort_scheme {
                   day: number
               }
             | undefined
+        billingPeriod?:
+            | {
+                  // BG-14
+                  startDate?:
+                      | {
+                            // BT-73
+                            year: number
+                            month: number
+                            day: number
+                        }
+                      | undefined
+                  endDate?:
+                      | {
+                            // BT-74
+                            year: number
+                            month: number
+                            day: number
+                        }
+                      | undefined
+              }
+            | undefined
     }
     paymentInformation: {
         creditorReference?: string | undefined // BT-90
@@ -490,27 +510,6 @@ interface comfort_scheme {
                         }
                       | undefined
               }[]
-            | undefined
-        billingPeriod?:
-            | {
-                  // BG-14
-                  startDate?:
-                      | {
-                            // BT-73
-                            year: number
-                            month: number
-                            day: number
-                        }
-                      | undefined
-                  endDate?:
-                      | {
-                            // BT-74
-                            year: number
-                            month: number
-                            day: number
-                        }
-                      | undefined
-              }
             | undefined
         paymentTerms?:
             | {

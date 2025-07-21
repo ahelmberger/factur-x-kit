@@ -1,9 +1,9 @@
+import { Schema } from 'node-schematron'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { printNode, zodToTs } from 'zod-to-ts'
 
 import { FacturX } from '../src/core/factur-x'
-import { Schema } from '../src/node-schematron/Schema'
 import { ImageDimensions } from '../src/pdfTemplates/invoiceBlocks/headerImage'
 import { dinA4Width, mmToPt } from '../src/pdfTemplates/types'
 import zugferdKitMultiPage from '../src/pdfTemplates/zugferdKitMultiPage'

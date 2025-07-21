@@ -1,3 +1,4 @@
+import { Schema } from 'node-schematron'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import objectPath from 'object-path'
@@ -5,7 +6,6 @@ import { validateXML } from 'xmllint-wasm'
 
 import { parseXML } from '../../src/core/xml'
 import { FacturX } from '../../src/index'
-import { Schema } from '../../src/node-schematron/Schema'
 import {
     BasicWithoutLinesProfileXml,
     isBasicWithoutLinesProfileXml
