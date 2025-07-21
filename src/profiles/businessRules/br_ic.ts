@@ -46,7 +46,7 @@ export function BR_IC_1(val: availableProfiles): boolean {
 
 export const BR_IC_1_ERROR = {
     message:
-        'An Invoice (INVOICE) that contains an item, an allowance, or a charge at the document level, where the VAT category code of the invoiced item (Invoiced item VAT category code (BT-151), Document level allowance VAT category code (BT-95) or Document level charge VAT category code (BT-102)) has the value Reverse charge specified, must contain exactly one VAT BREAKDOWN (BG-23) with the VAT category code (BT-118) having the value Reverse charge.',
+        'An Invoice (INVOICE) that contains an item, an allowance, or a charge at the document level, where the VAT category code of the invoiced item (Invoiced item VAT category code (BT-151), Document level allowance VAT category code (BT-95) or Document level charge VAT category code (BT-102)) has the value intra-community supply specified, must contain exactly one VAT BREAKDOWN (BG-23) with the VAT category code (BT-118) having the value intra-community supply.',
     path: ['totals', 'taxBreakdown']
 }
 
@@ -77,7 +77,7 @@ export function BR_IC_2(val: availableProfiles): boolean {
 
 export const BR_IC_2_ERROR = {
     message:
-        'An Invoice (INVOICE) that contains an item where the Invoiced item VAT category code (BT-151) has the value Reverse charge specified, must contain the Seller VAT identifier (BT-31), the Seller tax registration identifier (BT-32) or the Seller tax representative VAT identifier (BT-63) as well as the Buyer VAT identifier (BT-48) or the Buyer tax registration identifier.',
+        'An Invoice (INVOICE) that contains an item where the Invoiced item VAT category code (BT-151) has the value intra-community supply specified, must contain the Seller VAT identifier (BT-31), the Seller tax registration identifier (BT-32) or the Seller tax representative VAT identifier (BT-63) as well as the Buyer VAT identifier (BT-48) or the Buyer tax registration identifier.',
     path: ['seller', 'taxIdentification']
 }
 
@@ -107,7 +107,7 @@ export function BR_IC_3(val: availableProfiles): boolean {
 
 export const BR_IC_3_ERROR = {
     message:
-        'In an Invoice that contains a DOCUMENT LEVEL ALLOWANCES (BG-20) group, where the Document level allowance VAT category code (BT-95) has the value Reverse charge, either the Seller VAT identifier (BT-31), Seller tax registration identifier (BT-32) or Seller tax representative VAT identifier (BT-63) as well as the Buyer VAT identifier (BT-48) or the Buyer tax registration identifier must be present.',
+        'In an Invoice that contains a DOCUMENT LEVEL ALLOWANCES (BG-20) group, where the Document level allowance VAT category code (BT-95) has the value intra-community supply, either the Seller VAT identifier (BT-31), Seller tax registration identifier (BT-32) or Seller tax representative VAT identifier (BT-63) as well as the Buyer VAT identifier (BT-48) or the Buyer tax registration identifier must be present.',
     path: ['seller', 'taxIdentification']
 }
 
@@ -137,7 +137,7 @@ export function BR_IC_4(val: availableProfiles): boolean {
 
 export const BR_IC_4_ERROR = {
     message:
-        'In an Invoice that contains a DOCUMENT LEVEL CHARGES (BG-21) group, where the Document level charge VAT category code (BT-102) has the value Reverse charge, either the Seller VAT identifier (BT-31), Seller tax registration identifier (BT-32) or Seller tax representative VAT identifier (BT-63) as well as the Buyer VAT identifier (BT-48) or the Buyer tax registration identifier must be present.',
+        'In an Invoice that contains a DOCUMENT LEVEL CHARGES (BG-21) group, where the Document level charge VAT category code (BT-102) has the value intra-community supply, either the Seller VAT identifier (BT-31), Seller tax registration identifier (BT-32) or Seller tax representative VAT identifier (BT-63) as well as the Buyer VAT identifier (BT-48) or the Buyer tax registration identifier must be present.',
     path: ['seller', 'taxIdentification']
 }
 
@@ -162,7 +162,7 @@ export function BR_IC_5(val: availableProfiles): boolean {
 
 export const BR_IC_5_ERROR = {
     message:
-        'In an INVOICE LINE (BG-25), where Invoiced item VAT category code (BT-151) has the value Reverse charge, Invoiced item VAT rate (BT-152) must be equal to 0.',
+        'In an INVOICE LINE (BG-25), where Invoiced item VAT category code (BT-151) has the value intra-community supply, Invoiced item VAT rate (BT-152) must be equal to 0.',
     path: ['invoceLines', 'settlement', 'tax', 'rateApplicablePercent']
 }
 
@@ -186,7 +186,7 @@ export function BR_IC_6(val: availableProfiles): boolean {
 
 export const BR_IC_6_ERROR = {
     message:
-        'In a DOCUMENT LEVEL ALLOWANCES (BG-20), where Document level allowance VAT category code (BT-95) has the value Reverse charge, Document level allowance VAT rate (BT-96) must be equal to 0.',
+        'In a DOCUMENT LEVEL ALLOWANCES (BG-20), where Document level allowance VAT category code (BT-95) has the value intra-community supply, Document level allowance VAT rate (BT-96) must be equal to 0.',
     path: ['totals', 'documentLevelAllowancesAndCharges', 'allowances', 'categoryTradeTax', 'rateApplicablePercent']
 }
 
@@ -210,7 +210,7 @@ export function BR_IC_7(val: availableProfiles): boolean {
 
 export const BR_IC_7_ERROR = {
     message:
-        'In a DOCUMENT LEVEL CHARGES (BG-21), where Document level charge VAT category code (BT-102) has the value Reverse charge, Document level charge VAT rate (BT-103) must be equal to 0.',
+        'In a DOCUMENT LEVEL CHARGES (BG-21), where Document level charge VAT category code (BT-102) has the value intra-community supply, Document level charge VAT rate (BT-103) must be equal to 0.',
     path: ['totals', 'documentLevelAllowancesAndCharges', 'charges', 'categoryTradeTax', 'rateApplicablePercent']
 }
 
@@ -277,7 +277,7 @@ export function BR_IC_8(val: availableProfiles): boolean {
 
 export const BR_IC_8_ERROR = {
     message:
-        'In a VAT BREAKDOWN (BG-23), where the VAT category code (BT-118) has the value Reverse charge specified, the VAT category taxable amount (BT-116) must be equal to the sum of the Invoice line net amount (BT-131) minus the Document level allowance amount (BT-92) plus the Document level charge amount (BT-99), where Invoiced item VAT category code (BT-151), Document level allowance VAT category code (BT-95), and Document level charge VAT category code (BT-102) each have the value Reverse charge specified.',
+        'In a VAT BREAKDOWN (BG-23), where the VAT category code (BT-118) has the value intra-community supply specified, the VAT category taxable amount (BT-116) must be equal to the sum of the Invoice line net amount (BT-131) minus the Document level allowance amount (BT-92) plus the Document level charge amount (BT-99), where Invoiced item VAT category code (BT-151), Document level allowance VAT category code (BT-95), and Document level charge VAT category code (BT-102) each have the value intra-community supply specified.',
     path: ['totals', 'taxBreakdown', 'basisAmount']
 }
 
@@ -298,29 +298,11 @@ export function BR_IC_9(val: availableProfiles): boolean {
 
 export const BR_IC_9_ERROR = {
     message:
-        'The VAT category tax amount (BT-117) must be equal to 0 in a VAT BREAKDOWN (BG-23) where the VAT category code (BT-118) has the value Reverse charge.',
+        'The VAT category tax amount (BT-117) must be equal to 0 in a VAT BREAKDOWN (BG-23) where the VAT category code (BT-118) has the value intra-community supply.',
     path: ['totals', 'taxBreakdown', 'calculatedAmount']
 }
 
 export function BR_IC_10(val: availableProfiles): boolean {
-    if (isMinimumProfile(val)) return true
-    const taxBreakdownsWithIntraCommunityAvailable = val.totals.taxBreakdown.some(
-        tax => tax.categoryCode === TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES
-    )
-    if (!taxBreakdownsWithIntraCommunityAvailable) return true
-
-    if (!val.delivery?.deliveryDate && !val.delivery?.billingPeriod) return false
-
-    return true
-}
-
-export const BR_IC_10_ERROR = {
-    message:
-        'A VAT BREAKDOWN (BG-23) with the VAT category code (BT-118) having the value Reverse charge must contain a VAT exemption reason code (BT-121) with the value Reverse charge or a VAT exemption reason text (BT-120) with the value Reverse charge (or the equivalent in another language).',
-    path: ['totals', 'taxBreakdown', 'exemptionReason']
-}
-
-export function BR_IC_11(val: availableProfiles): boolean {
     if (isMinimumProfile(val)) return true
     const taxBreakdownsWithIntraCommunity = val.totals.taxBreakdown.filter(
         tax => tax.categoryCode === TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES
@@ -346,16 +328,52 @@ export function BR_IC_11(val: availableProfiles): boolean {
         )
             return false
 
-        // TODO: Check if the exemptionReason is equal to "Reverse charge" in the current language or any other language
+        // TODO: Check if the exemptionReason is equal to "intra-community supply" in the current language or any other language
     }
+
+    return true
+}
+
+export const BR_IC_10_ERROR = {
+    message:
+        'A VAT BREAKDOWN (BG-23) with the VAT category code (BT-118) having the value intra-community supply must contain a VAT exemption reason code (BT-121) with the value intra-community supply or a VAT exemption reason text (BT-120) with the value intra-community supply (or the equivalent in another language).',
+    path: ['totals', 'taxBreakdown', 'exemptionReason']
+}
+
+export function BR_IC_11(val: availableProfiles): boolean {
+    if (isMinimumProfile(val)) return true
+    const taxBreakdownsWithIntraCommunityAvailable = val.totals.taxBreakdown.some(
+        tax => tax.categoryCode === TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES
+    )
+    if (!taxBreakdownsWithIntraCommunityAvailable) return true
+
+    if (!val.delivery?.deliveryDate && !val.delivery?.billingPeriod) return false
 
     return true
 }
 
 export const BR_IC_11_ERROR = {
     message:
-        'A VAT BREAKDOWN (BG-23) with the VAT category code (BT-118) having the value Reverse charge must contain a VAT exemption reason code (BT-121) with the value Reverse charge or a VAT exemption reason text (BT-120) with the value Reverse charge (or the equivalent in another language).',
-    path: ['totals', 'taxBreakdown', 'exemptionReason']
+        'In an Invoice with a VAT breakdown (BG-23) where the VAT category code (BT-118) is "Intra-community supply" the Actual delivery date (BT-72) or the Invoicing period (BG-14) shall not be blank.',
+    path: ['delivery', 'deliveryDate']
+}
+
+export function BR_IC_12(val: availableProfiles): boolean {
+    if (isMinimumProfile(val)) return true
+    const taxBreakdownsWithIntraCommunityAvailable = val.totals.taxBreakdown.some(
+        tax => tax.categoryCode === TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES
+    )
+    if (!taxBreakdownsWithIntraCommunityAvailable) return true
+
+    if (!val.delivery?.recipient?.postalAddress.country) return false
+
+    return true
+}
+
+export const BR_IC_12_ERROR = {
+    message:
+        'In an Invoice with a VAT breakdown (BG-23) where the VAT category code (BT-118) is "Intra-community supply" the Deliver to country code (BT-80) shall not be blank.',
+    path: ['delivery', 'deliveryDate']
 }
 
 export const BR_IC: BusinessRuleWithError[] = [
@@ -368,5 +386,6 @@ export const BR_IC: BusinessRuleWithError[] = [
     { rule: BR_IC_7, error: BR_IC_7_ERROR },
     { rule: BR_IC_8, error: BR_IC_8_ERROR },
     { rule: BR_IC_9, error: BR_IC_9_ERROR },
-    { rule: BR_IC_10, error: BR_IC_10_ERROR }
+    { rule: BR_IC_10, error: BR_IC_10_ERROR },
+    { rule: BR_IC_11, error: BR_IC_11_ERROR }
 ]
