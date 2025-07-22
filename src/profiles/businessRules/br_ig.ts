@@ -186,58 +186,122 @@ export function BR_IG_8(val: availableProfiles): boolean {
     if (!('invoiceLines' in val)) return true
     if (!val.invoiceLines) return true
 
-    const sumOfLinesWithIgicTax = val.invoiceLines.reduce((sum, line) => {
+    // Step 1: Check which tax rates are available for IGIC
+
+    const availableTaxRatesInLines = val.invoiceLines.reduce((acc, line) => {
         if (line.settlement.tax.categoryCode === TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX) {
-            return sum + line.settlement.lineTotals.netTotal
+            const rate = line.settlement.tax.rateApplicablePercent
+            if (rate != null && rate >= 0) {
+                acc.add(rate)
+            }
         }
-        return sum
-    }, 0)
+        return acc
+    }, new Set<number>())
 
-    const sumOfDocumentLevelAllowancesWithIgicTax =
-        val.totals.documentLevelAllowancesAndCharges?.allowances?.reduce((sum, allowance) => {
+    const availableTaxRatesInAllowances =
+        val.totals.documentLevelAllowancesAndCharges?.allowances?.reduce((acc, allowance) => {
             if (allowance.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX) {
-                return sum + allowance.actualAmount
+                const rate = allowance.categoryTradeTax.rateApplicablePercent
+                if (rate != null && rate >= 0) {
+                    acc.add(rate)
+                }
             }
-            return sum
-        }, 0) || 0
+            return acc
+        }, new Set<number>()) || new Set<number>()
 
-    const sumOfDocumentLevelChargesWithIgicTax =
-        val.totals.documentLevelAllowancesAndCharges?.charges?.reduce((sum, charge) => {
+    const availableTaxRatesInCharges =
+        val.totals.documentLevelAllowancesAndCharges?.charges?.reduce((acc, charge) => {
             if (charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX) {
-                return sum + charge.actualAmount
+                const rate = charge.categoryTradeTax.rateApplicablePercent
+                if (rate != null && rate >= 0) {
+                    acc.add(rate)
+                }
+            }
+            return acc
+        }, new Set<number>()) || new Set<number>()
+
+    const allAvailableTaxRates = new Set([
+        ...availableTaxRatesInLines,
+        ...availableTaxRatesInAllowances,
+        ...availableTaxRatesInCharges
+    ])
+
+    // Step 2: Check whether there is exactly one Tax Breakdown for each tax rate in the totals and it contains the expected amount
+
+    for (const rate of allAvailableTaxRates) {
+        const taxBreakdownsWithIGICRate = val.totals.taxBreakdown.filter(
+            tax =>
+                tax.categoryCode === TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX &&
+                tax.rateApplicablePercent === rate
+        )
+
+        if (
+            !taxBreakdownsWithIGICRate ||
+            taxBreakdownsWithIGICRate.length === 0 ||
+            taxBreakdownsWithIGICRate.length > 1
+        ) {
+            return false
+        }
+
+        const taxBreakdownWithIGICRate = taxBreakdownsWithIGICRate[0]
+
+        const totalProvidedIGICRateTaxAmount = taxBreakdownWithIGICRate.basisAmount
+        const sumOfLinesWithIGICRateTax = val.invoiceLines.reduce((sum, line) => {
+            if (
+                line.settlement.tax.categoryCode === TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX &&
+                line.settlement.tax.rateApplicablePercent === rate
+            ) {
+                return sum + line.settlement.lineTotals.netTotal
             }
             return sum
-        }, 0) || 0
+        }, 0)
 
-    const totalExpectedIgicTaxAmount =
-        sumOfLinesWithIgicTax - sumOfDocumentLevelAllowancesWithIgicTax + sumOfDocumentLevelChargesWithIgicTax
+        const sumOfDocumentLevelAllowancesWithIGICRateTax =
+            val.totals.documentLevelAllowancesAndCharges?.allowances?.reduce((sum, allowance) => {
+                if (
+                    allowance.categoryTradeTax.categoryCode ===
+                        TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX &&
+                    allowance.categoryTradeTax.rateApplicablePercent === rate
+                ) {
+                    return sum + allowance.actualAmount
+                }
+                return sum
+            }, 0) || 0
 
-    const taxBreakdownWithIgic = val.totals.taxBreakdown.find(
-        tax => tax.categoryCode === TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX
-    )
+        const sumOfDocumentLevelChargesWithIGICRateTax =
+            val.totals.documentLevelAllowancesAndCharges?.charges?.reduce((sum, charge) => {
+                if (
+                    charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX &&
+                    charge.categoryTradeTax.rateApplicablePercent === rate
+                ) {
+                    return sum + charge.actualAmount
+                }
+                return sum
+            }, 0) || 0
 
-    if (!taxBreakdownWithIgic) {
-        return false
+        const totalExpectedIGICTaxAmount =
+            sumOfLinesWithIGICRateTax -
+            sumOfDocumentLevelAllowancesWithIGICRateTax +
+            sumOfDocumentLevelChargesWithIGICRateTax
+
+        if (
+            !(
+                totalProvidedIGICRateTaxAmount - 1 <= totalExpectedIGICTaxAmount &&
+                totalProvidedIGICRateTaxAmount + 1 >= totalExpectedIGICTaxAmount
+            )
+        ) {
+            return false
+        }
     }
 
-    const totalProvidedIgicTaxAmount = taxBreakdownWithIgic.basisAmount
-
-    if (
-        totalProvidedIgicTaxAmount - 1 <= totalExpectedIgicTaxAmount &&
-        totalProvidedIgicTaxAmount + 1 >= totalExpectedIgicTaxAmount
-    ) {
-        return true
-    }
-
-    return false
+    return true
 }
 
 export const BR_IG_8_ERROR = {
     message:
-        'In a VAT BREAKDOWN (BG-23), where the VAT category code (BT-118) has the value IGIC specified, the VAT category taxable amount (BT-116) must be equal to the sum of the Invoice line net amount (BT-131) minus the Document level allowance amount (BT-92) plus the Document level charge amount (BT-99), where Invoiced item VAT category code (BT-151), Document level allowance VAT category code (BT-95), and Document level charge VAT category code (BT-102) each have the value IGIC specified.',
+        'For each different value of VAT category rate (BT-119) where the VAT category code (BT-118) is "IGIC", the VAT category taxable amount (BT-116) in a VAT breakdown (BG-23) shall equal the sum of Invoice line net amounts (BT-131) plus the sum of document level charge amounts (BT-99) minus the sum of document level allowance amounts (BT-92) where the VAT category code (BT-151, BT-102, BT-95) is "IGIC" and the VAT rate (BT-152, BT-103, BT-96) equals the VAT category rate (BT-119)..',
     path: ['totals', 'taxBreakdown', 'basisAmount']
 }
-
 export function BR_IG_9(val: availableProfiles): boolean {
     if (isMinimumProfile(val)) return true
     const taxBreakdownsWithIgic = val.totals.taxBreakdown.filter(
