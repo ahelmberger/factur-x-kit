@@ -28,60 +28,18 @@ import { ZIdTypeWithOptionalScheme } from '../../types/udt/IdTypeWithOptionalSch
 import { ZIdTypeWithRequiredScheme } from '../../types/udt/IdTypeWithRequiredlSchemeConverter'
 import { ZTextType } from '../../types/udt/TextTypeConverter'
 import { ZTokenType } from '../../types/xs/TokenConverter'
-import {
-    BR_16,
-    BR_16_ERROR,
-    BR_21,
-    BR_21_ERROR,
-    BR_27,
-    BR_27_ERROR,
-    BR_28,
-    BR_28_ERROR,
-    BR_29,
-    BR_29_ERROR,
-    BR_30,
-    BR_30_ERROR,
-    BR_33,
-    BR_33_ERROR,
-    BR_38,
-    BR_38_ERROR,
-    BR_42,
-    BR_42_ERROR,
-    BR_44,
-    BR_44_ERROR,
-    BR_53,
-    BR_53_ERROR,
-    BR_61,
-    BR_61_ERROR
-} from '../businessRules/br'
-import {
-    BR_CO_9,
-    BR_CO_9_ERROR,
-    BR_CO_10,
-    BR_CO_10_ERROR,
-    BR_CO_11,
-    BR_CO_11_ERROR,
-    BR_CO_12,
-    BR_CO_12_ERROR,
-    BR_CO_13,
-    BR_CO_13_ERROR,
-    BR_CO_14,
-    BR_CO_14_ERROR,
-    BR_CO_15,
-    BR_CO_15_ERROR,
-    BR_CO_16,
-    BR_CO_16_ERROR
-} from '../businessRules/br_co'
-import {
-    BR_OWN_1,
-    BR_OWN_1_ERROR,
-    BR_OWN_2,
-    BR_OWN_2_ERROR,
-    BR_OWN_3,
-    BR_OWN_3_ERROR,
-    BR_OWN_4,
-    BR_OWN_4_ERROR
-} from '../businessRules/br_own'
+import { BR } from '../businessRules/br'
+import { BR_AE } from '../businessRules/br_ae'
+import { BR_CO } from '../businessRules/br_co'
+import { BR_E } from '../businessRules/br_e'
+import { BR_G } from '../businessRules/br_g'
+import { BR_IC } from '../businessRules/br_ic'
+import { BR_IG } from '../businessRules/br_ig'
+import { BR_IP } from '../businessRules/br_ip'
+import { BR_O } from '../businessRules/br_o'
+import { BR_OWN } from '../businessRules/br_own'
+import { BR_S } from '../businessRules/br_s'
+import { BR_Z } from '../businessRules/br_z'
 
 export const ZTradePartyType = z.object({
     id: ZIdType.optional(), // in seller this could be an array
@@ -198,32 +156,20 @@ export const ZBasicWithoutLinesProfileStructure = z.object({
 
 export type BasicWithoutLinesProfile = z.infer<typeof ZBasicWithoutLinesProfileStructure>
 
-export const ZBasicWithoutLinesProfile = ZBasicWithoutLinesProfileStructure.refine(BR_OWN_1, BR_OWN_1_ERROR)
-    .refine(BR_OWN_2, BR_OWN_2_ERROR)
-    .refine(BR_OWN_3, BR_OWN_3_ERROR)
-    .refine(BR_OWN_4, BR_OWN_4_ERROR)
-
-    .refine(BR_CO_9, BR_CO_9_ERROR)
-    .refine(BR_CO_10, BR_CO_10_ERROR)
-    .refine(BR_CO_11, BR_CO_11_ERROR)
-    .refine(BR_CO_12, BR_CO_12_ERROR)
-    .refine(BR_CO_13, BR_CO_13_ERROR)
-    .refine(BR_CO_14, BR_CO_14_ERROR)
-    .refine(BR_CO_15, BR_CO_15_ERROR)
-    .refine(BR_CO_16, BR_CO_16_ERROR)
-
-    .refine(BR_16, BR_16_ERROR)
-    .refine(BR_21, BR_21_ERROR)
-    .refine(BR_27, BR_27_ERROR)
-    .refine(BR_28, BR_28_ERROR)
-    .refine(BR_29, BR_29_ERROR)
-    .refine(BR_30, BR_30_ERROR)
-    .refine(BR_33, BR_33_ERROR)
-    .refine(BR_38, BR_38_ERROR)
-    .refine(BR_42, BR_42_ERROR)
-    .refine(BR_44, BR_44_ERROR)
-    .refine(BR_53, BR_53_ERROR)
-    .refine(BR_61, BR_61_ERROR)
+export const ZBasicWithoutLinesProfile = [
+    ...BR,
+    ...BR_CO,
+    ...BR_OWN,
+    ...BR_AE,
+    ...BR_E,
+    ...BR_G,
+    ...BR_IC,
+    ...BR_IG,
+    ...BR_IP,
+    ...BR_O,
+    ...BR_S,
+    ...BR_Z
+].reduce<z.ZodTypeAny>((schema, rule) => schema.refine(rule.rule, rule.error), ZBasicWithoutLinesProfileStructure)
 
 export function isBasicWithoutLinesProfile(data: unknown): data is BasicWithoutLinesProfile {
     return ZBasicWithoutLinesProfileStructure.safeParse(data).success

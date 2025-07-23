@@ -1,11 +1,11 @@
 import { availableProfiles } from '../../core/factur-x'
 import { printError } from '../../types/Errors'
+import { PROFILES } from '../../types/ProfileTypes'
 import { TAX_CATEGORY_CODES } from '../../types/codes'
-import { isMinimumProfile } from '../minimum'
 import { BusinessRuleWithError } from './br_co'
 
 export function BR_S_1(val: availableProfiles): boolean {
-    if (isMinimumProfile(val)) return true
+    if (val.profile === PROFILES.MINIMUM) return true
 
     let linesWithStandardTaxExisting = false
     if ('invoiceLines' in val && val.invoiceLines) {
@@ -36,7 +36,7 @@ export function BR_S_1(val: availableProfiles): boolean {
 
 export const BR_S_1_ERROR = {
     message:
-        'An Invoice that contains an Invoice line (BG-25), a Document level allowance (BG-20) or a Document level charge (BG-21) where the VAT category code (BT-151, BT-95 or BT-102) is "Standard Rate" shall contain in the VAT breakdown (BG-23) at least one VAT category code (BT-118) equal with "Standard Rate".',
+        '[BR-S-1] An Invoice that contains an Invoice line (BG-25), a Document level allowance (BG-20) or a Document level charge (BG-21) where the VAT category code (BT-151, BT-95 or BT-102) is "Standard Rate" shall contain in the VAT breakdown (BG-23) at least one VAT category code (BT-118) equal with "Standard Rate".',
     path: ['totals', 'taxBreakdown']
 }
 
@@ -62,12 +62,12 @@ export function BR_S_2(val: availableProfiles): boolean {
 
 export const BR_S_2_ERROR = {
     message:
-        'An Invoice that contains an Invoice line (BG-25) where the Invoiced item VAT category code (BT-151) is "Standard Rate" shall contain the Seller VAT Identifier (BT-31), the Seller tax registration identifier (BT-32) and/or the Seller tax representative VAT identifier (BT-63).',
+        '[BR-S-2] An Invoice that contains an Invoice line (BG-25) where the Invoiced item VAT category code (BT-151) is "Standard Rate" shall contain the Seller VAT Identifier (BT-31), the Seller tax registration identifier (BT-32) and/or the Seller tax representative VAT identifier (BT-63).',
     path: ['seller', 'taxIdentification']
 }
 
 export function BR_S_3(val: availableProfiles): boolean {
-    if (isMinimumProfile(val)) return true
+    if (val.profile === PROFILES.MINIMUM) return true
 
     const allowancesWithStandardTaxExisting = val.totals.documentLevelAllowancesAndCharges?.allowances?.some(
         allowance => allowance.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.STANDARD_RATE
@@ -87,12 +87,12 @@ export function BR_S_3(val: availableProfiles): boolean {
 
 export const BR_S_3_ERROR = {
     message:
-        'An Invoice that contains a Document level allowance (BG-20) where the Document level allowance VAT category code (BT-95) is "Standard Rate" shall contain the Seller VAT Identifier (BT-31), the Seller tax registration identifier (BT-32) and/or the Seller tax representative VAT identifier (BT-63).',
+        '[BR-S-3] An Invoice that contains a Document level allowance (BG-20) where the Document level allowance VAT category code (BT-95) is "Standard Rate" shall contain the Seller VAT Identifier (BT-31), the Seller tax registration identifier (BT-32) and/or the Seller tax representative VAT identifier (BT-63).',
     path: ['seller', 'taxIdentification']
 }
 
 export function BR_S_4(val: availableProfiles): boolean {
-    if (isMinimumProfile(val)) return true
+    if (val.profile === PROFILES.MINIMUM) return true
 
     const chargesWithStandardTaxExisting = val.totals.documentLevelAllowancesAndCharges?.charges?.some(
         charge => charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.STANDARD_RATE
@@ -112,7 +112,7 @@ export function BR_S_4(val: availableProfiles): boolean {
 
 export const BR_S_4_ERROR = {
     message:
-        'An Invoice that contains a Document level charge (BG-21) where the Document level charge VAT category code (BT-102) is "Standard Rate" shall contain the Seller VAT Identifier (BT-31), the Seller Tax registration identifier (BT-32) and/or the Seller tax representative VAT identifier (BT-63).',
+        '[BR-S-4] An Invoice that contains a Document level charge (BG-21) where the Document level charge VAT category code (BT-102) is "Standard Rate" shall contain the Seller VAT Identifier (BT-31), the Seller Tax registration identifier (BT-32) and/or the Seller tax representative VAT identifier (BT-63).',
     path: ['seller', 'taxIdentification']
 }
 
@@ -133,12 +133,12 @@ export function BR_S_5(val: availableProfiles): boolean {
 
 export const BR_S_5_ERROR = {
     message:
-        'In an Invoice line (BG-25) where the Invoiced item VAT category code (BT-151) is "Standard Rate" the invoiced item VAT rate (BT-152) shall be greater than 0 (zero).',
+        '[BR-S-5] In an Invoice line (BG-25) where the Invoiced item VAT category code (BT-151) is "Standard Rate" the invoiced item VAT rate (BT-152) shall be greater than 0 (zero).',
     path: ['invoceLines', 'settlement', 'tax', 'rateApplicablePercent']
 }
 
 export function BR_S_6(val: availableProfiles): boolean {
-    if (isMinimumProfile(val)) return true
+    if (val.profile === PROFILES.MINIMUM) return true
     if (!val.totals.documentLevelAllowancesAndCharges?.allowances) return true
     for (const allowance of val.totals.documentLevelAllowancesAndCharges.allowances) {
         if (allowance.categoryTradeTax.categoryCode !== TAX_CATEGORY_CODES.STANDARD_RATE) continue
@@ -156,12 +156,12 @@ export function BR_S_6(val: availableProfiles): boolean {
 
 export const BR_S_6_ERROR = {
     message:
-        'In a Document level allowance (BG-20) where the Document level allowance VAT category code (BT-95) is "Standard Rate" the Document level allowance VAT rate (BT-96) shall be greater than zero.',
+        '[BR-S-6] In a Document level allowance (BG-20) where the Document level allowance VAT category code (BT-95) is "Standard Rate" the Document level allowance VAT rate (BT-96) shall be greater than zero.',
     path: ['totals', 'documentLevelAllowancesAndCharges', 'allowances', 'categoryTradeTax', 'rateApplicablePercent']
 }
 
 export function BR_S_7(val: availableProfiles): boolean {
-    if (isMinimumProfile(val)) return true
+    if (val.profile === PROFILES.MINIMUM) return true
     if (!val.totals.documentLevelAllowancesAndCharges?.charges) return true
     for (const charge of val.totals.documentLevelAllowancesAndCharges.charges) {
         if (charge.categoryTradeTax.categoryCode !== TAX_CATEGORY_CODES.STANDARD_RATE) continue
@@ -179,7 +179,7 @@ export function BR_S_7(val: availableProfiles): boolean {
 
 export const BR_S_7_ERROR = {
     message:
-        'In a Document level charge (BG-21) where the Document level charge VAT category code (BT-102) is "Standard Rate" the Document level charge VAT rate (BT-103) shall be greater than zero.',
+        '[BR-S-7] In a Document level charge (BG-21) where the Document level charge VAT category code (BT-102) is "Standard Rate" the Document level charge VAT rate (BT-103) shall be greater than zero.',
     path: ['totals', 'documentLevelAllowancesAndCharges', 'charges', 'categoryTradeTax', 'rateApplicablePercent']
 }
 
@@ -297,11 +297,11 @@ export function BR_S_8(val: availableProfiles): boolean {
 
 export const BR_S_8_ERROR = {
     message:
-        'For each different value of VAT category rate (BT-119) where the VAT category code (BT-118) is "Standard Rate", the VAT category taxable amount (BT-116) in a VAT breakdown (BG-23) shall equal the sum of Invoice line net amounts (BT-131) plus the sum of document level charge amounts (BT-99) minus the sum of document level allowance amounts (BT-92) where the VAT category code (BT-151, BT-102, BT-95) is "Standard Rate" and the VAT rate (BT-152, BT-103, BT-96) equals the VAT category rate (BT-119)..',
+        '[BR-S-8] For each different value of VAT category rate (BT-119) where the VAT category code (BT-118) is "Standard Rate", the VAT category taxable amount (BT-116) in a VAT breakdown (BG-23) shall equal the sum of Invoice line net amounts (BT-131) plus the sum of document level charge amounts (BT-99) minus the sum of document level allowance amounts (BT-92) where the VAT category code (BT-151, BT-102, BT-95) is "Standard Rate" and the VAT rate (BT-152, BT-103, BT-96) equals the VAT category rate (BT-119)..',
     path: ['totals', 'taxBreakdown', 'basisAmount']
 }
 export function BR_S_9(val: availableProfiles): boolean {
-    if (isMinimumProfile(val)) return true
+    if (val.profile === PROFILES.MINIMUM) return true
     const taxBreakdownsWithStandardRate = val.totals.taxBreakdown.filter(
         tax => tax.categoryCode === TAX_CATEGORY_CODES.STANDARD_RATE
     )
@@ -319,12 +319,12 @@ export function BR_S_9(val: availableProfiles): boolean {
 
 export const BR_S_9_ERROR = {
     message:
-        'The VAT category tax amount (BT-117) in a VAT breakdown (BG-23) where VAT category code (BT-118) is "Standard Rate" shall equal the VAT category taxable amount (BT-116) multiplied by the VAT category rate (BT-119).',
+        '[BR-S-9] The VAT category tax amount (BT-117) in a VAT breakdown (BG-23) where VAT category code (BT-118) is "Standard Rate" shall equal the VAT category taxable amount (BT-116) multiplied by the VAT category rate (BT-119).',
     path: ['totals', 'taxBreakdown', 'calculatedAmount']
 }
 
 export function BR_S_10(val: availableProfiles): boolean {
-    if (isMinimumProfile(val)) return true
+    if (val.profile === PROFILES.MINIMUM) return true
     const taxBreakdownsWithStandardRate = val.totals.taxBreakdown.filter(
         tax => tax.categoryCode === TAX_CATEGORY_CODES.STANDARD_RATE
     )
@@ -340,7 +340,7 @@ export function BR_S_10(val: availableProfiles): boolean {
 
 export const BR_S_10_ERROR = {
     message:
-        'A VAT Breakdown (BG-23) with VAT Category code (BT-118) "Standard Rate" shall not have a VAT exemption reason code (BT-121) or VAT exemption reason text (BT-120).',
+        '[BR-S-10] A VAT Breakdown (BG-23) with VAT Category code (BT-118) "Standard Rate" shall not have a VAT exemption reason code (BT-121) or VAT exemption reason text (BT-120).',
     path: ['totals', 'taxBreakdown', 'exemptionReason']
 }
 

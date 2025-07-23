@@ -25,8 +25,17 @@ import { ZIdTypeWithRequiredScheme } from '../../types/udt/IdTypeWithRequiredlSc
 import { ZTextType } from '../../types/udt/TextTypeConverter'
 import { ZTradePartyType } from '../basicwithoutlines/BasicWithoutLinesProfile'
 import { BR } from '../businessRules/br'
+import { BR_AE } from '../businessRules/br_ae'
 import { BR_CO } from '../businessRules/br_co'
+import { BR_E } from '../businessRules/br_e'
+import { BR_G } from '../businessRules/br_g'
+import { BR_IC } from '../businessRules/br_ic'
+import { BR_IG } from '../businessRules/br_ig'
+import { BR_IP } from '../businessRules/br_ip'
+import { BR_O } from '../businessRules/br_o'
 import { BR_OWN } from '../businessRules/br_own'
+import { BR_S } from '../businessRules/br_s'
+import { BR_Z } from '../businessRules/br_z'
 
 const ZComfortProfileStructure = z.object({
     businessProcessType: ZIdType.optional().describe('BT-23'),
@@ -146,10 +155,20 @@ const ZComfortProfileStructure = z.object({
 
 export type ComfortProfile = z.infer<typeof ZComfortProfileStructure>
 
-export const ZComfortProfile = [...BR, ...BR_CO, ...BR_OWN].reduce<z.ZodTypeAny>(
-    (schema, rule) => schema.refine(rule.rule, rule.error),
-    ZComfortProfileStructure // Starte mit deinem Basis-Schema
-)
+export const ZComfortProfile = [
+    ...BR,
+    ...BR_CO,
+    ...BR_OWN,
+    ...BR_AE,
+    ...BR_E,
+    ...BR_G,
+    ...BR_IC,
+    ...BR_IG,
+    ...BR_IP,
+    ...BR_O,
+    ...BR_S,
+    ...BR_Z
+].reduce<z.ZodTypeAny>((schema, rule) => schema.refine(rule.rule, rule.error), ZComfortProfileStructure)
 
 export function isComfortProfile(data: unknown): data is ComfortProfile {
     const result = ZComfortProfileStructure.safeParse(data)

@@ -1,13 +1,12 @@
 import { availableProfiles } from '../../core/factur-x'
+import { PROFILES } from '../../types/ProfileTypes'
 import { PAYMENT_MEANS_CODES } from '../../types/codes'
 import { DateTimeType } from '../../types/udt/DateTimeTypeConverter'
-import { isBasicWithoutLinesProfile } from '../basicwithoutlines'
-import { isMinimumProfile } from '../minimum'
 import { BusinessRuleWithError } from './br_co'
 
 export function BR_16(val: availableProfiles): boolean {
-    if (isMinimumProfile(val)) return true
-    if (isBasicWithoutLinesProfile(val)) return true
+    if (val.profile === PROFILES.MINIMUM) return true
+    if (val.profile === PROFILES.BASIC_WITHOUT_LINES) return true
 
     if (!('invoiceLines' in val)) return false
     if (!val.invoiceLines) return false
@@ -17,12 +16,13 @@ export function BR_16(val: availableProfiles): boolean {
 }
 
 export const BR_16_ERROR = {
-    message: 'An Invoice (INVOICE) must contain at least one Invoice Line (invoiceLine - BG-25).'
+    message: '[BR-16] An Invoice (INVOICE) must contain at least one Invoice Line (invoiceLine - BG-25).',
+    path: ['invoiceLines']
 }
 
 export function BR_21(val: availableProfiles): boolean {
-    if (isMinimumProfile(val)) return true
-    if (isBasicWithoutLinesProfile(val)) return true
+    if (val.profile === PROFILES.MINIMUM) return true
+    if (val.profile === PROFILES.BASIC_WITHOUT_LINES) return true
 
     if (!('invoiceLines' in val)) return true
     if (!val.invoiceLines) return true
@@ -36,12 +36,13 @@ export function BR_21(val: availableProfiles): boolean {
 }
 
 export const BR_21_ERROR = {
-    message: 'Every Invoice Line (invoiceLine - BG-25) needs to have a unique lineId (BT-126).'
+    message: '[BR-21] Every Invoice Line (invoiceLine - BG-25) needs to have a unique lineId (BT-126).',
+    path: ['invoiceLines', 'generalLineData', 'lineId']
 }
 
 export function BR_27(val: availableProfiles): boolean {
-    if (isMinimumProfile(val)) return true
-    if (isBasicWithoutLinesProfile(val)) return true
+    if (val.profile === PROFILES.MINIMUM) return true
+    if (val.profile === PROFILES.BASIC_WITHOUT_LINES) return true
 
     if (!('invoiceLines' in val)) return true
     if (!val.invoiceLines) return true
@@ -55,12 +56,13 @@ export function BR_27(val: availableProfiles): boolean {
 }
 
 export const BR_27_ERROR = {
-    message: 'The netPricePerItem (BT-146) of each invoice line must not be negative.'
+    message: '[BR-27] The netPricePerItem (BT-146) of each invoice line must not be negative.',
+    path: ['invoiceLines', 'productPriceAgreement', 'productNetPricing', 'netPricePerItem']
 }
 
 export function BR_28(val: availableProfiles): boolean {
-    if (isMinimumProfile(val)) return true
-    if (isBasicWithoutLinesProfile(val)) return true
+    if (val.profile === PROFILES.MINIMUM) return true
+    if (val.profile === PROFILES.BASIC_WITHOUT_LINES) return true
 
     if (!('invoiceLines' in val)) return true
     if (!val.invoiceLines) return true
@@ -75,7 +77,8 @@ export function BR_28(val: availableProfiles): boolean {
 }
 
 export const BR_28_ERROR = {
-    message: 'The basisPricePerItem (BT-148) of each invoice line must not be negative.'
+    message: '[BR-28] The basisPricePerItem (BT-148) of each invoice line must not be negative.',
+    path: ['invoiceLines', 'productPriceAgreement', 'productPricing', 'basisPricePerItem']
 }
 
 function startDateBeforeEndDate(startDate: DateTimeType, endDate: DateTimeType): boolean {
@@ -85,7 +88,7 @@ function startDateBeforeEndDate(startDate: DateTimeType, endDate: DateTimeType):
 }
 
 export function BR_29(val: availableProfiles): boolean {
-    if (isMinimumProfile(val)) return true
+    if (val.profile === PROFILES.MINIMUM) return true
     if (!('delivery' in val)) return true
     if (!val.delivery) return true
     if (!('billingPeriod' in val.delivery)) return true
@@ -99,12 +102,13 @@ export function BR_29(val: availableProfiles): boolean {
 
 export const BR_29_ERROR = {
     message:
-        'If start- and end date of the billing Period is given, the endDate (BT-74) must be on or after the startDate (BT-73).'
+        '[BR-29] If start- and end date of the billing Period is given, the endDate (BT-74) must be on or after the startDate (BT-73).',
+    path: ['delivery', 'billingPeriod']
 }
 
 export function BR_30(val: availableProfiles): boolean {
-    if (isMinimumProfile(val)) return true
-    if (isBasicWithoutLinesProfile(val)) return true
+    if (val.profile === PROFILES.MINIMUM) return true
+    if (val.profile === PROFILES.BASIC_WITHOUT_LINES) return true
 
     if (!('invoiceLines' in val)) return true
     if (!val.invoiceLines) return true
@@ -122,7 +126,8 @@ export function BR_30(val: availableProfiles): boolean {
 
 export const BR_30_ERROR = {
     message:
-        'If the start and end dates of the invoice line period are given, the Invoice line period end date (BT-135) must be on or after the Invoice line period start date (BT-134).'
+        '[BR-30] If the start and end dates of the invoice line period are given, the Invoice line period end date (BT-135) must be on or after the Invoice line period start date (BT-134).',
+    path: ['invoiceLines', 'settlement', 'billingPeriod']
 }
 
 interface allowanceAndChargeReasonCheckerType {
@@ -136,7 +141,7 @@ function checkAllowanceAndChargeReasons(val: allowanceAndChargeReasonCheckerType
 }
 
 export function BR_33(val: availableProfiles): boolean {
-    if (isMinimumProfile(val)) return true
+    if (val.profile === PROFILES.MINIMUM) return true
     if (!val.totals.documentLevelAllowancesAndCharges) return true
     if (!val.totals.documentLevelAllowancesAndCharges.allowances) return true
     if (val.totals.documentLevelAllowancesAndCharges.allowances.length === 0) return true
@@ -150,11 +155,12 @@ export function BR_33(val: availableProfiles): boolean {
 
 export const BR_33_ERROR = {
     message:
-        'Any DOCUMENT LEVEL ALLOWANCES (BG-20) for the invoice as a whole must have a Document level allowance reason (BT-97) or a corresponding Document level allowance reason code (BT-98).'
+        '[BR-33] Any DOCUMENT LEVEL ALLOWANCES (BG-20) for the invoice as a whole must have a Document level allowance reason (BT-97) or a corresponding Document level allowance reason code (BT-98).',
+    path: ['totals', 'documentLevelAllowancesAndCharges', 'allowances', 'reason']
 }
 
 export function BR_38(val: availableProfiles): boolean {
-    if (isMinimumProfile(val)) return true
+    if (val.profile === PROFILES.MINIMUM) return true
     if (!val.totals.documentLevelAllowancesAndCharges) return true
     if (!val.totals.documentLevelAllowancesAndCharges.charges) return true
     if (val.totals.documentLevelAllowancesAndCharges.charges.length === 0) return true
@@ -168,7 +174,8 @@ export function BR_38(val: availableProfiles): boolean {
 
 export const BR_38_ERROR = {
     message:
-        'Each Document level charge (BG-21) must include a Document level charge reason (BT-104) or a corresponding Document level charge reason code (BT-105).'
+        '[BR-38] Each Document level charge (BG-21) must include a Document level charge reason (BT-104) or a corresponding Document level charge reason code (BT-105).',
+    path: ['totals', 'documentLevelAllowancesAndCharges', 'charges', 'reason']
 }
 
 export function BR_42(val: availableProfiles): boolean {
@@ -190,7 +197,8 @@ export function BR_42(val: availableProfiles): boolean {
 
 export const BR_42_ERROR = {
     message:
-        'Each Invoice line âllowance (BG-27) must include an Invoice line allowance reason (BT-139) or a corresponding Invoice line allowance reason code (BT-140).'
+        '[BR-42] Each Invoice line âllowance (BG-27) must include an Invoice line allowance reason (BT-139) or a corresponding Invoice line allowance reason code (BT-140).',
+    path: ['invoiceLines', 'settlement', 'lineLevelAllowancesAndCharges', 'allowances', 'reason']
 }
 
 export function BR_44(val: availableProfiles): boolean {
@@ -212,7 +220,8 @@ export function BR_44(val: availableProfiles): boolean {
 
 export const BR_44_ERROR = {
     message:
-        'Each Invoice line charges (BG-28) must include an Invoice line charge reason (BT-144) or a corresponding Invoice line charge reason code (BT-145).'
+        '[BR-44] Each Invoice line charges (BG-28) must include an Invoice line charge reason (BT-144) or a corresponding Invoice line charge reason code (BT-145).',
+    path: ['invoiceLines', 'settlement', 'lineLevelAllowancesAndCharges', 'charges', 'reason']
 }
 
 export function BR_53(val: availableProfiles): boolean {
@@ -227,11 +236,12 @@ export function BR_53(val: availableProfiles): boolean {
 
 export const BR_53_ERROR = {
     message:
-        'If a currency for VAT accounting has been specified, the Invoice total VAT amount in accounting currency (BT-111) must be provided.'
+        '[BR-53] If a currency for VAT accounting has been specified, the Invoice total VAT amount in accounting currency (BT-111) must be provided.',
+    path: ['totals', 'taxTotal']
 }
 
 export function BR_61(val: availableProfiles): boolean {
-    if (isMinimumProfile(val)) return true
+    if (val.profile === PROFILES.MINIMUM) return true
     if (!('paymentMeans' in val.paymentInformation)) return true
     if (!val.paymentInformation.paymentMeans) return true
     if (val.paymentInformation.paymentMeans.length === 0) return true
@@ -251,7 +261,8 @@ export function BR_61(val: availableProfiles): boolean {
 
 export const BR_61_ERROR = {
     message:
-        'If the payment means type is SEPA, local credit transfer, or non-SEPA credit transfer, the Payment account identifier (BT-84) of the payee must be provided.'
+        '[BR-61] If the payment means type is SEPA, local credit transfer, or non-SEPA credit transfer, the Payment account identifier (BT-84) of the payee must be provided.',
+    path: ['paymentInformation', 'paymentMeans', 'payeeBankAccount']
 }
 
 export const BR: BusinessRuleWithError[] = [

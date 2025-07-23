@@ -11,11 +11,22 @@ import { ZDateTimeType } from '../../types/udt/DateTimeTypeConverter'
 import { ZIdType } from '../../types/udt/IdTypeConverter'
 import { ZIdTypeWithOptionalScheme } from '../../types/udt/IdTypeWithOptionalSchemeConverter'
 import { ZTextType } from '../../types/udt/TextTypeConverter'
-import { BR_CO_9, BR_CO_9_ERROR } from '../businessRules/br_co'
+import { BR } from '../businessRules/br'
+import { BR_AE } from '../businessRules/br_ae'
+import { BR_CO } from '../businessRules/br_co'
+import { BR_E } from '../businessRules/br_e'
+import { BR_G } from '../businessRules/br_g'
+import { BR_IC } from '../businessRules/br_ic'
+import { BR_IG } from '../businessRules/br_ig'
+import { BR_IP } from '../businessRules/br_ip'
+import { BR_O } from '../businessRules/br_o'
+import { BR_OWN } from '../businessRules/br_own'
+import { BR_S } from '../businessRules/br_s'
+import { BR_Z } from '../businessRules/br_z'
 
 export const ZMinimumProfileStructure = z.object({
     businessProcessType: ZIdType.optional(),
-    profile: z.literal(PROFILES.MINIMUM).describe('BT-23'),
+    profile: z.literal(PROFILES.MINIMUM).describe('BT-24'),
     document: z.object({
         id: ZIdType,
         type: ZCodeType(DOCUMENT_TYPE_CODES),
@@ -50,7 +61,20 @@ export const ZMinimumProfileStructure = z.object({
 
 export type MinimumProfile = z.infer<typeof ZMinimumProfileStructure>
 
-export const ZMinimumProfile = ZMinimumProfileStructure.refine(BR_CO_9, BR_CO_9_ERROR) // TODO ADD ALL VALID BRs
+export const ZMinimumProfile = [
+    ...BR,
+    ...BR_CO,
+    ...BR_OWN,
+    ...BR_AE,
+    ...BR_E,
+    ...BR_G,
+    ...BR_IC,
+    ...BR_IG,
+    ...BR_IP,
+    ...BR_O,
+    ...BR_S,
+    ...BR_Z
+].reduce<z.ZodTypeAny>((schema, rule) => schema.refine(rule.rule, rule.error), ZMinimumProfileStructure)
 
 export function isMinimumProfile(data: unknown): data is MinimumProfile {
     return ZMinimumProfileStructure.safeParse(data).success

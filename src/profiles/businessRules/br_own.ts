@@ -46,7 +46,7 @@ export function BR_OWN_1(val: availableProfiles): boolean {
 
 export const BR_OWN_1_ERROR = {
     message:
-        'BR-OWN-1: The netPricePerItem (BT-146) must be equal to the basisPricePerItem (BT-148) minus the sum of all priceAllowances (BT-147) in each invoiceLine (BG-25)',
+        '[BR-OWN-1] The netPricePerItem (BT-146) must be equal to the basisPricePerItem (BT-148) minus the sum of all priceAllowances (BT-147) in each invoiceLine (BG-25)',
     path: ['invoiceLines', 'productPriceAgreement', 'itemQuantity', 'productPricing', 'priceBaseQuantity']
 }
 
@@ -72,7 +72,8 @@ export function BR_OWN_2(val: availableProfiles): boolean {
 
 export const BR_OWN_2_ERROR = {
     message:
-        'BR-OWN-2: The unit of measure of the item price base quantity (BT-150) must be the same as the unit of measure of the invoiced quantity (BT-130) in each invoiceLine.'
+        '[BR-OWN-2] The unit of measure of the item price base quantity (BT-150) must be the same as the unit of measure of the invoiced quantity (BT-130) in each invoiceLine.',
+    path: ['invoiceLines', 'productPriceAgreement', 'productNetPricing', 'priceBaseQuantity', 'unit']
 }
 
 export function BR_OWN_3(val: availableProfiles): boolean {
@@ -103,7 +104,7 @@ export function BR_OWN_3(val: availableProfiles): boolean {
 
 export const BR_OWN_3_ERROR = {
     message:
-        'BR-OWN-3: If an item price base quantity is specified for the Gross Price, then both its quantity (BT-149-1) and its unit of measure (BT-150-1) must be identical to the item price base quantity (BT-149 and BT-150) of the Net Item Price in each invoiceLine.',
+        '[BR-OWN-3] If an item price base quantity is specified for the Gross Price, then both its quantity (BT-149-1) and its unit of measure (BT-150-1) must be identical to the item price base quantity (BT-149 and BT-150) of the Net Item Price in each invoiceLine.',
     path: ['invoiceLines', 'productPriceAgreement', 'itemQuantity', 'productPricing', 'priceBaseQuantity']
 }
 
@@ -149,7 +150,8 @@ export function BR_OWN_4(val: availableProfiles): boolean {
 
 export const BR_OWN_4_ERROR = {
     message:
-        'BR-OWN-4: The netTotal (BT-131) of each line must be the netPricePerItem (BT-146) multiplied with the itemQuantity (BT-129) divided by the priceBaseQuantity (BT-149, if available. Default for priceBaseQuantity is 1). Minus the sum of all lineLevelAllowances (BT-136) plus the sum of all lineLevelCharges (BT-141).'
+        '[BR-OWN-4] The netTotal (BT-131) of each line must be the netPricePerItem (BT-146) multiplied with the itemQuantity (BT-129) divided by the priceBaseQuantity (BT-149, if available. Default for priceBaseQuantity is 1). Minus the sum of all lineLevelAllowances (BT-136) plus the sum of all lineLevelCharges (BT-141).',
+    path: ['invoiceLines', 'settlement', 'lineTotals', 'netTotal']
 }
 
 export const BR_OWN: BusinessRuleWithError[] = [
