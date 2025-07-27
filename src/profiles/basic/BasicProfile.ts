@@ -34,6 +34,7 @@ import { BR_O } from '../businessRules/br_o'
 import { BR_OWN } from '../businessRules/br_own'
 import { BR_S } from '../businessRules/br_s'
 import { BR_Z } from '../businessRules/br_z'
+import { validationResult } from '../convert'
 
 export const ZBasicProfileStructure = z.object({
     businessProcessType: ZIdType.optional(),
@@ -43,7 +44,7 @@ export const ZBasicProfileStructure = z.object({
         type: ZCodeType(DOCUMENT_TYPE_CODES),
         dateOfIssue: ZDateTimeType,
         currency: ZCodeType(CURRENCY_CODES),
-        notes: ZBasicDocumentLevelNoteType.array()
+        notes: ZBasicDocumentLevelNoteType.array().optional()
     }),
     seller: ZTradePartyType.extend({
         id: ZIdType.array().optional(),
@@ -151,12 +152,12 @@ export const ZBasicProfile = [
     ...BR_Z
 ].reduce<z.ZodTypeAny>((schema, rule) => schema.refine(rule.rule, rule.error), ZBasicProfileStructure)
 
-export function isValidBasicProfile(data: unknown): { valid: boolean; errors?: string[] } {
+export function isValidBasicProfile(data: unknown): validationResult {
     const result = ZBasicProfile.safeParse(data)
     if (!result.success) {
         return {
             valid: false,
-            errors: result.error.issues.map(issue => issue.message)
+            errors: result.error.issues.map(issue => ({ message: issue.message, path: issue.path }))
         }
     }
     return { valid: result.success }

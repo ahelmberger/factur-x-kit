@@ -1,5 +1,4 @@
 import { availableProfiles } from '../../core/factur-x'
-import { printError } from '../../types/Errors'
 import { PROFILES } from '../../types/ProfileTypes'
 import { TAX_CATEGORY_CODES } from '../../types/codes'
 import { BusinessRuleWithError } from './br_co'
@@ -138,7 +137,7 @@ export function BR_IP_5(val: availableProfiles): boolean {
         )
             continue
         if (line.settlement.tax.rateApplicablePercent == null || line.settlement.tax.rateApplicablePercent < 0) {
-            printError(`Business Rule BR-IP-5 is being violated in invoiceLine ${line.generalLineData.lineId}`)
+            //printError(`Business Rule BR-IP-5 is being violated in invoiceLine ${line.generalLineData.lineId}`)
             return false
         }
     }
@@ -165,7 +164,7 @@ export function BR_IP_6(val: availableProfiles): boolean {
             allowance.categoryTradeTax.rateApplicablePercent == null ||
             allowance.categoryTradeTax.rateApplicablePercent < 0
         ) {
-            printError(`Business Rule BR-IP-6 is being violated in allowance with amount ${allowance.actualAmount}`)
+            //printError(`Business Rule BR-IP-6 is being violated in allowance with amount ${allowance.actualAmount}`)
             return false
         }
     }
@@ -192,7 +191,7 @@ export function BR_IP_7(val: availableProfiles): boolean {
             charge.categoryTradeTax.rateApplicablePercent == null ||
             charge.categoryTradeTax.rateApplicablePercent < 0
         ) {
-            printError(`Business Rule BR-IP-7 is being violated in charge with amount ${charge.actualAmount}`)
+            //printError(`Business Rule BR-IP-7 is being violated in charge with amount ${charge.actualAmount}`)
             return false
         }
     }

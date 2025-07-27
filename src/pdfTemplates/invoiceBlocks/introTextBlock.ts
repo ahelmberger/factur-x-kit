@@ -23,7 +23,7 @@ export default async function addIntroTextBlock(
     const xPosition = options?.position?.x || 25 * mmToPt
     const maxWidth = dinA4Width * mmToPt - xPosition - 15 * mmToPt
 
-    if (!('notes' in data.document)) return yPosition
+    if (!('notes' in data.document) || !data.document.notes) return yPosition
     const introNotes = data.document.notes.filter(note => note.subject === SUBJECT_CODES.INTRODUCTION)
     let currentY = yPosition
     for (const note of introNotes) {

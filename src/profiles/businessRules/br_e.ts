@@ -1,5 +1,4 @@
 import { availableProfiles } from '../../core/factur-x'
-import { printError } from '../../types/Errors'
 import { PROFILES } from '../../types/ProfileTypes'
 import { TAX_CATEGORY_CODES } from '../../types/codes'
 import { BusinessRuleWithError } from './br_co'
@@ -122,7 +121,7 @@ export function BR_E_5(val: availableProfiles): boolean {
     for (const line of val.invoiceLines) {
         if (line.settlement.tax.categoryCode !== TAX_CATEGORY_CODES.EXEMPT_FROM_TAX) continue
         if (line.settlement.tax.rateApplicablePercent !== 0) {
-            printError(`Business Rule BR-E-5 is being violated in invoiceLine ${line.generalLineData.lineId}`)
+            //printError(`Business Rule BR-E-5 is being violated in invoiceLine ${line.generalLineData.lineId}`)
             return false
         }
     }
@@ -142,7 +141,7 @@ export function BR_E_6(val: availableProfiles): boolean {
     for (const allowance of val.totals.documentLevelAllowancesAndCharges.allowances) {
         if (allowance.categoryTradeTax.categoryCode !== TAX_CATEGORY_CODES.EXEMPT_FROM_TAX) continue
         if (allowance.categoryTradeTax.rateApplicablePercent !== 0) {
-            printError(`Business Rule BR-E-6 is being violated in allowance with amount ${allowance.actualAmount}`)
+            //printError(`Business Rule BR-E-6 is being violated in allowance with amount ${allowance.actualAmount}`)
             return false
         }
     }
@@ -162,7 +161,7 @@ export function BR_E_7(val: availableProfiles): boolean {
     for (const charge of val.totals.documentLevelAllowancesAndCharges.charges) {
         if (charge.categoryTradeTax.categoryCode !== TAX_CATEGORY_CODES.EXEMPT_FROM_TAX) continue
         if (charge.categoryTradeTax.rateApplicablePercent !== 0) {
-            printError(`Business Rule BR-E-7 is being violated in charge with amount ${charge.actualAmount}`)
+            //printError(`Business Rule BR-E-7 is being violated in charge with amount ${charge.actualAmount}`)
             return false
         }
     }

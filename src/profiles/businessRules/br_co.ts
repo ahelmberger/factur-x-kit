@@ -11,9 +11,9 @@ export function BR_CO_3(val: availableProfiles): boolean {
     for (const breakdown of val.totals.taxBreakdown) {
         if (!('taxPointDate' in breakdown) || !breakdown.taxPointDate) continue
         if (breakdown.taxPointDate && breakdown.dueDateTypeCode) {
-            console.warn(
+            /*//console.warn(
                 `BR_CO_3 failed: Tax point date ${breakdown.taxPointDate} and tax point date code ${breakdown.dueDateTypeCode} are mutually exclusive.`
-            )
+            )*/
             return false
         }
     }
@@ -226,9 +226,9 @@ export function BR_CO_17(val: availableProfiles): boolean {
         if (!breakdown.rateApplicablePercent) continue
         const calculatedAmount = (breakdown.basisAmount * breakdown.rateApplicablePercent) / 100
         if (Math.abs(calculatedAmount - breakdown.calculatedAmount) >= TOLERANCE) {
-            console.warn(
+            /*console.warn(
                 `BR_CO_17 failed for rate ${breakdown.rateApplicablePercent}%, basis amount ${breakdown.basisAmount}, calculated amount ${breakdown.calculatedAmount}`
-            )
+            )*/
             return false
         }
     }
@@ -248,7 +248,7 @@ export function BR_CO_18(val: availableProfiles): boolean {
 }
 
 export const BR_CO_18_ERROR = {
-    message: "[BR-CO-18] An invoice needs ta have at least one item in 'TaxBreakdown' (BG-23)",
+    message: "[BR-CO-18] An invoice needs to have at least one item in 'TaxBreakdown' (BG-23)",
     path: ['totals', 'taxBreakdown']
 }
 
@@ -273,9 +273,7 @@ export function BR_CO_20(val: availableProfiles): boolean {
     for (const line of val.invoiceLines) {
         if (!line.settlement.billingPeriod) continue
         if (!line.settlement.billingPeriod.startDate && !line.settlement.billingPeriod.endDate) {
-            console.warn(
-                `BR_CO_20 failed for line with ID ${line.generalLineData.lineId}: Billing period start date and end date are both missing.`
-            )
+            //console.warn(`BR_CO_20 failed for line with ID ${line.generalLineData.lineId}: Billing period start date and end date are both missing.`)
             return false
         }
     }
@@ -295,9 +293,7 @@ export function BR_CO_21(val: availableProfiles): boolean {
     if (val.totals.documentLevelAllowancesAndCharges.allowances.length === 0) return true
     for (const allowance of val.totals.documentLevelAllowancesAndCharges.allowances) {
         if (!allowance.reason && !allowance.reasonCode) {
-            console.warn(
-                `BR_CO_21 failed: Document level allowance with amount ${allowance.actualAmount} has neither reason nor reason code.`
-            )
+            //console.warn(`BR_CO_21 failed: Document level allowance with amount ${allowance.actualAmount} has neither reason nor reason code.`)
             return false
         }
     }
@@ -317,9 +313,7 @@ export function BR_CO_22(val: availableProfiles): boolean {
     if (val.totals.documentLevelAllowancesAndCharges.charges.length === 0) return true
     for (const charge of val.totals.documentLevelAllowancesAndCharges.charges) {
         if (!charge.reason && !charge.reasonCode) {
-            console.warn(
-                `BR_CO_22 failed: Document level charge with amount ${charge.actualAmount} has neither reason nor reason code.`
-            )
+            //console.warn(`BR_CO_22 failed: Document level charge with amount ${charge.actualAmount} has neither reason nor reason code.`)
             return false
         }
     }
@@ -339,9 +333,7 @@ export function BR_CO_23(val: availableProfiles): boolean {
         if (!line.settlement.lineLevelAllowancesAndCharges?.allowances) continue
         for (const allowance of line.settlement.lineLevelAllowancesAndCharges.allowances) {
             if (!allowance.reason && !allowance.reasonCode) {
-                console.warn(
-                    `BR_CO_23 failed: Invoice line allowance with amount ${allowance.actualAmount} in invoice line with id ${line.generalLineData.lineId} has neither reason nor reason code.`
-                )
+                //console.warn(`BR_CO_23 failed: Invoice line allowance with amount ${allowance.actualAmount} in invoice line with id ${line.generalLineData.lineId} has neither reason nor reason code.`)
                 return false
             }
         }
@@ -362,9 +354,7 @@ export function BR_CO_24(val: availableProfiles): boolean {
         if (!line.settlement.lineLevelAllowancesAndCharges?.charges) continue
         for (const charge of line.settlement.lineLevelAllowancesAndCharges.charges) {
             if (!charge.reason && !charge.reasonCode) {
-                console.warn(
-                    `BR_CO_24 failed: Invoice line charge with amount ${charge.actualAmount} in invoice line with id ${line.generalLineData.lineId} has neither reason nor reason code.`
-                )
+                //console.warn(`BR_CO_24 failed: Invoice line charge with amount ${charge.actualAmount} in invoice line with id ${line.generalLineData.lineId} has neither reason nor reason code.`)
                 return false
             }
         }

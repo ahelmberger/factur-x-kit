@@ -36,6 +36,7 @@ import { BR_O } from '../businessRules/br_o'
 import { BR_OWN } from '../businessRules/br_own'
 import { BR_S } from '../businessRules/br_s'
 import { BR_Z } from '../businessRules/br_z'
+import { validationResult } from '../convert'
 
 const ZComfortProfileStructure = z.object({
     businessProcessType: ZIdType.optional().describe('BT-23'),
@@ -45,7 +46,7 @@ const ZComfortProfileStructure = z.object({
         type: ZCodeType(DOCUMENT_TYPE_CODES).describe('BT-3'),
         dateOfIssue: ZDateTimeType.describe('BT-2'),
         currency: ZCodeType(CURRENCY_CODES),
-        notes: ZBasicDocumentLevelNoteType.array().describe('BG-1')
+        notes: ZBasicDocumentLevelNoteType.array().optional().describe('BG-1')
     }),
     seller: ZTradePartyType.extend({
         id: ZIdType.array().optional().describe('BT-29'),
@@ -175,12 +176,12 @@ export function isComfortProfile(data: unknown): data is ComfortProfile {
     return result.success
 }
 
-export function isValidComfortProfile(data: unknown): { valid: boolean; errors?: string[] } {
+export function isValidComfortProfile(data: unknown): validationResult {
     const result = ZComfortProfile.safeParse(data)
     if (!result.success) {
         return {
             valid: false,
-            errors: result.error.issues.map(issue => issue.message)
+            errors: result.error.issues.map(issue => ({ message: issue.message, path: issue.path }))
         }
     }
     return { valid: result.success }

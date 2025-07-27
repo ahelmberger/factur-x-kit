@@ -1,7 +1,6 @@
 import { Schema } from 'node-schematron'
 import fs from 'node:fs/promises'
 import path from 'node:path'
-import { printNode, zodToTs } from 'zod-to-ts'
 
 import { FacturX } from '../src/core/factur-x'
 import { ImageDimensions } from '../src/pdfTemplates/invoiceBlocks/headerImage'
@@ -21,7 +20,7 @@ import { testComfortProfile } from './profiles/comfort_test_objects'
 
 // This is just a testcase which helps me printing out the ts-objects which are built from the zod types
 
-describe('playground', () => {
+/*describe('playground', () => {
     it('shall run', () => {
         const identifier = 'User'
         const { node } = zodToTs(ZBasicWithoutLinesProfileStructure, identifier)
@@ -44,10 +43,10 @@ describe('playground', () => {
         let commentedString = ''
         let currComment = ''
         for (const line of splittedString) {
-            const trimmedText = line.trim()
-            if (trimmedText.startsWith('/**') && trimmedText.endsWith('*/')) {
-                const comment = trimmedText.replace('/**', '').replace('*/', '')
-                currComment = comment
+            const trimmedText = line.trim()*/
+//if (trimmedText.startsWith('/**') && trimmedText.endsWith('*/')) {
+//     const comment = trimmedText.replace('/**', '').replace('*/', '')
+/*       currComment = comment
                 continue
             }
             commentedString = `${commentedString}${line}`
@@ -60,7 +59,7 @@ describe('playground', () => {
         //console.log(commentedString)
         console.log(isMinimumProfile(designTestObject))
     })
-})
+})*/
 
 describe('factur-x validity check', () => {
     let xml: string

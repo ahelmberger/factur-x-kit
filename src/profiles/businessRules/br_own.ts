@@ -1,5 +1,4 @@
 import { availableProfiles } from '../../core/factur-x'
-import { printError } from '../../types/Errors'
 import { BusinessRuleWithError } from './br_co'
 
 const TOLERANCE = 0.005
@@ -21,7 +20,7 @@ export function BR_OWN_1(val: availableProfiles): boolean {
                 line.productPriceAgreement.productPricing.basisPricePerItem
             ) {
                 ruleResult = false
-                printError(`Business Rule BR-OWN-1 is being violated in invoiceLine ${line.generalLineData.lineId}`)
+                //printError(`Business Rule BR-OWN-1 is being violated in invoiceLine ${line.generalLineData.lineId}`)
             }
             continue
         }
@@ -37,7 +36,7 @@ export function BR_OWN_1(val: availableProfiles): boolean {
             line.productPriceAgreement.productPricing.basisPricePerItem - allowanceSum
         ) {
             ruleResult = false
-            printError(`Business Rule BR-OWN-1 is being violated in invoiceLine ${line.generalLineData.lineId}`)
+            //printError(`Business Rule BR-OWN-1 is being violated in invoiceLine ${line.generalLineData.lineId}`)
         }
     }
 
@@ -63,7 +62,7 @@ export function BR_OWN_2(val: availableProfiles): boolean {
         const quantityUnit = line.delivery.itemQuantity.unit
         if (!(priceBaseQuantityUnit === quantityUnit)) {
             ruleResult = false
-            printError(`Business Rule BR-OWN-2 is being violated in invoiceLine ${line.generalLineData.lineId}`)
+            //printError(`Business Rule BR-OWN-2 is being violated in invoiceLine ${line.generalLineData.lineId}`)
         }
     }
 
@@ -95,7 +94,7 @@ export function BR_OWN_3(val: availableProfiles): boolean {
             !(netPriceBaseQuantityAmount === basisPriceBaseQuantityAmount)
         ) {
             ruleResult = false
-            printError(`Business Rule BR-OWN-3 is being violated in invoiceLine ${line.generalLineData.lineId}`)
+            //printError(`Business Rule BR-OWN-3 is being violated in invoiceLine ${line.generalLineData.lineId}`)
         }
     }
 
@@ -141,7 +140,7 @@ export function BR_OWN_4(val: availableProfiles): boolean {
 
         if (Math.abs(calculatedLineNetSum - line.settlement.lineTotals.netTotal) > TOLERANCE) {
             ruleResult = false
-            printError(`Business Rule BR-OWN-4 is being violated in invoiceLine ${line.generalLineData.lineId}`)
+            //printError(`Business Rule BR-OWN-4 is being violated in invoiceLine ${line.generalLineData.lineId}`)
         }
     }
 

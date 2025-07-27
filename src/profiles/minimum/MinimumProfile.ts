@@ -23,6 +23,7 @@ import { BR_O } from '../businessRules/br_o'
 import { BR_OWN } from '../businessRules/br_own'
 import { BR_S } from '../businessRules/br_s'
 import { BR_Z } from '../businessRules/br_z'
+import { validationResult } from '../convert'
 
 export const ZMinimumProfileStructure = z.object({
     businessProcessType: ZIdType.optional(),
@@ -80,12 +81,12 @@ export function isMinimumProfile(data: unknown): data is MinimumProfile {
     return ZMinimumProfileStructure.safeParse(data).success
 }
 
-export function isValidMinimumProfile(data: unknown): { valid: boolean; errors?: string[] } {
+export function isValidMinimumProfile(data: unknown): validationResult {
     const result = ZMinimumProfile.safeParse(data)
     if (!result.success) {
         return {
             valid: false,
-            errors: result.error.issues.map(issue => issue.message)
+            errors: result.error.issues.map(issue => ({ message: issue.message, path: issue.path }))
         }
     }
     return { valid: result.success }

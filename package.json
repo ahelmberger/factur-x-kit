@@ -1,5 +1,5 @@
 {
-    "name": "zugferd-kit",
+    "name": "factur-x-kit",
     "version": "0.0.2",
     "description": "Read and Write Hybrid Invoice Documents (EN 16931 / Factur-X / ZUGFeRD / eRechnung / XRechnung) in Javascript / Typescript.",
     "keywords": [
@@ -11,11 +11,11 @@
         "hybrid invoice documents"
     ],
     "bugs": {
-        "url": "https://github.com/NikolaiMe/zugferd-kit/issues"
+        "url": "https://github.com/NikolaiMe/factur-x-kit/issues"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/NikolaiMe/zugferd-kit.git"
+        "url": "https://github.com/NikolaiMe/factur-x-kit.git"
     },
     "license": "MIT",
     "author": "Nikolai Merz (https://github.com/NikolaiMe)",
@@ -37,7 +37,6 @@
         "fontoxpath": "^3.33.2",
         "object-path": "^0.11.8",
         "pdf-lib": "^1.17.1",
-        "slimdom": "^4.3.5",
         "zod": "^3.24.1"
     },
     "devDependencies": {

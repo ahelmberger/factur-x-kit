@@ -12,6 +12,7 @@ import {
 } from '../profiles/basicwithoutlines/index'
 import { ComfortProfile, isComfortProfile } from '../profiles/comfort/ComfortProfile'
 import { ComfortProfileConverter } from '../profiles/comfort/ComfortProfileConverter'
+import { validationResult } from '../profiles/convert'
 import { MinimumProfile, MinimumProfileConverter, isMinimumProfile } from '../profiles/minimum/index'
 import FacturXPdf from './pdf'
 import { buildXML, parseXML } from './xml'
@@ -39,6 +40,10 @@ export class FacturX {
 
     get pdf() {
         return this._pdf
+    }
+
+    public validate(): validationResult {
+        return this.converter.validateProfile(this.profile)
     }
 
     /**

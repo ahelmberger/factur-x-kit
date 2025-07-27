@@ -117,7 +117,7 @@ function addNotes(data: availableProfiles, currentY: number, settings: Settings)
     let { fontSize, lineHeight } = settings
     const { page, font, fontBold, locale, xPosition, maxWidth, color } = settings
 
-    if (!('notes' in data.document)) return currentY
+    if (!('notes' in data.document) || !data.document.notes) return currentY
     const notes = data.document.notes.filter(note => note.subject == undefined)
     for (const note of notes) {
         page.drawText(note.content, {

@@ -1,5 +1,4 @@
 import { availableProfiles } from '../../core/factur-x'
-import { printError } from '../../types/Errors'
 import { PROFILES } from '../../types/ProfileTypes'
 import { EXEMPTION_REASON_CODES, TAX_CATEGORY_CODES } from '../../types/codes'
 import { BusinessRuleWithError } from './br_co'
@@ -136,7 +135,7 @@ export function BR_O_5(val: availableProfiles): boolean {
     for (const line of val.invoiceLines) {
         if (line.settlement.tax.categoryCode !== TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX) continue
         if (line.settlement.tax.rateApplicablePercent != null) {
-            printError(`Business Rule BR-O-5 is being violated in invoiceLine ${line.generalLineData.lineId}`)
+            //printError(`Business Rule BR-O-5 is being violated in invoiceLine ${line.generalLineData.lineId}`)
             return false
         }
     }
@@ -156,7 +155,7 @@ export function BR_O_6(val: availableProfiles): boolean {
     for (const allowance of val.totals.documentLevelAllowancesAndCharges.allowances) {
         if (allowance.categoryTradeTax.categoryCode !== TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX) continue
         if (allowance.categoryTradeTax.rateApplicablePercent != null) {
-            printError(`Business Rule BR-O-6 is being violated in allowance with amount ${allowance.actualAmount}`)
+            //printError(`Business Rule BR-O-6 is being violated in allowance with amount ${allowance.actualAmount}`)
             return false
         }
     }
@@ -176,7 +175,7 @@ export function BR_O_7(val: availableProfiles): boolean {
     for (const charge of val.totals.documentLevelAllowancesAndCharges.charges) {
         if (charge.categoryTradeTax.categoryCode !== TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX) continue
         if (charge.categoryTradeTax.rateApplicablePercent != null) {
-            printError(`Business Rule BR-O-7 is being violated in charge with amount ${charge.actualAmount}`)
+            //printError(`Business Rule BR-O-7 is being violated in charge with amount ${charge.actualAmount}`)
             return false
         }
     }
@@ -343,7 +342,7 @@ export function BR_O_12(val: availableProfiles): boolean {
 
     for (const line of val.invoiceLines) {
         if (line.settlement.tax.categoryCode !== TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX) {
-            printError(`Business Rule BR-O-12 is being violated in invoiceLine ${line.generalLineData.lineId}`)
+            //printError(`Business Rule BR-O-12 is being violated in invoiceLine ${line.generalLineData.lineId}`)
             return false
         }
     }

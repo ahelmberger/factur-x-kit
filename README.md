@@ -80,6 +80,9 @@ await fs.writeFile('./invoice-data.json', JSON.stringify(obj, null, 4))
 -   [x] Small Refactoring
     -   [x] Remove meta group from profiles and lift the content on base level (profile and business context)
     -   [x] move invoice period from payment information to delivery
+-   [ ] Upgrade to zod 4
+    -   [ ] Switch BR function from zod.refine to zod.check
+    -   [ ] Add proper paths to BR-Errors (including correct array item)
 -   [ ] Docs
 -   [ ] Attachment of Referenced Documents
 -   [ ] Extended Profile
