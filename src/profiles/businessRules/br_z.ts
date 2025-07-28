@@ -232,8 +232,8 @@ export function BR_Z_8(val: availableProfiles): boolean {
     const totalProvidedZeroRatedTaxAmount = taxBreakdownForZeroRated.basisAmount
 
     if (
-        totalProvidedZeroRatedTaxAmount - 1 <= totalExpectedZeroRatedTaxAmount &&
-        totalProvidedZeroRatedTaxAmount + 1 >= totalExpectedZeroRatedTaxAmount
+        totalProvidedZeroRatedTaxAmount - 0.1 <= totalExpectedZeroRatedTaxAmount &&
+        totalProvidedZeroRatedTaxAmount + 0.1 >= totalExpectedZeroRatedTaxAmount
     ) {
         return true
     }

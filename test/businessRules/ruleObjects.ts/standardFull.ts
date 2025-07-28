@@ -62,6 +62,17 @@ export const standardTestObject: ComfortProfile = {
             }
         ]
     },
+    sellerTaxRepresentative: {
+        name: 'Tax Representative',
+        postalAddress: {
+            postcode: '10176',
+            addressLineOne: 'Geschäftsweg 123',
+            city: 'Berlin',
+            country: 'DE' as COUNTRY_ID_CODES,
+            countrySubDivision: 'Berlin'
+        },
+        taxIdentification: { vatId: 'DE987654321' }
+    },
     buyer: {
         id: 'CUST-00456',
         name: 'Innovatech Corp.',

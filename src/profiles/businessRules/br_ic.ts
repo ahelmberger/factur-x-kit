@@ -288,8 +288,8 @@ export function BR_IC_8(val: availableProfiles): boolean {
     const totalProvidedIntraCommunityTaxAmount = taxBreakdownWithIntraCommunity.basisAmount
 
     if (
-        totalProvidedIntraCommunityTaxAmount - 1 <= totalExpectedIntraCommunityTaxAmount &&
-        totalProvidedIntraCommunityTaxAmount + 1 >= totalExpectedIntraCommunityTaxAmount
+        totalProvidedIntraCommunityTaxAmount - 0.1 <= totalExpectedIntraCommunityTaxAmount &&
+        totalProvidedIntraCommunityTaxAmount + 0.1 >= totalExpectedIntraCommunityTaxAmount
     ) {
         return true
     }

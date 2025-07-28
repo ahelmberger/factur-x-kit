@@ -229,8 +229,8 @@ export function BR_E_8(val: availableProfiles): boolean {
     const totalProvidedExemptTaxAmount = taxBreakdownForExempt.basisAmount
 
     if (
-        totalProvidedExemptTaxAmount - 1 <= totalExpectedExemptTaxAmount &&
-        totalProvidedExemptTaxAmount + 1 >= totalExpectedExemptTaxAmount
+        totalProvidedExemptTaxAmount - 0.1 <= totalExpectedExemptTaxAmount &&
+        totalProvidedExemptTaxAmount + 0.1 >= totalExpectedExemptTaxAmount
     ) {
         return true
     }

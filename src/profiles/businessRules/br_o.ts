@@ -249,8 +249,8 @@ export function BR_O_8(val: availableProfiles): boolean {
     const totalProvidedNotSubjectToVatAmount = taxBreakdownForNotSubjectToVat.basisAmount
 
     if (
-        totalProvidedNotSubjectToVatAmount - 1 <= totalExpectedNotSubjectToVatAmount &&
-        totalProvidedNotSubjectToVatAmount + 1 >= totalExpectedNotSubjectToVatAmount
+        totalProvidedNotSubjectToVatAmount - 0.1 <= totalExpectedNotSubjectToVatAmount &&
+        totalProvidedNotSubjectToVatAmount + 0.1 >= totalExpectedNotSubjectToVatAmount
     ) {
         return true
     }

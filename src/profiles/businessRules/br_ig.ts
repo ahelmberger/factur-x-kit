@@ -285,8 +285,8 @@ export function BR_IG_8(val: availableProfiles): boolean {
 
         if (
             !(
-                totalProvidedIGICRateTaxAmount - 1 <= totalExpectedIGICTaxAmount &&
-                totalProvidedIGICRateTaxAmount + 1 >= totalExpectedIGICTaxAmount
+                totalProvidedIGICRateTaxAmount - 0.1 <= totalExpectedIGICTaxAmount &&
+                totalProvidedIGICRateTaxAmount + 0.1 >= totalExpectedIGICTaxAmount
             )
         ) {
             return false

@@ -228,8 +228,8 @@ export function BR_G_8(val: availableProfiles): boolean {
     const totalProvidedExportOutsideEUTaxAmount = taxBreakdownWithExportOutsideEU.basisAmount
 
     if (
-        totalProvidedExportOutsideEUTaxAmount - 1 <= totalExpectedExportOutsideEUTaxAmount &&
-        totalProvidedExportOutsideEUTaxAmount + 1 >= totalExpectedExportOutsideEUTaxAmount
+        totalProvidedExportOutsideEUTaxAmount - 0.1 <= totalExpectedExportOutsideEUTaxAmount &&
+        totalProvidedExportOutsideEUTaxAmount + 0.1 >= totalExpectedExportOutsideEUTaxAmount
     ) {
         return true
     }

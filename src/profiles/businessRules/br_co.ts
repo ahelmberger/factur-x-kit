@@ -264,7 +264,7 @@ export function BR_CO_19(val: availableProfiles): boolean {
 export const BR_CO_19_ERROR = {
     message:
         "[BR-CO-19] If the 'Invoicing period' group (billingPeriod - BG-14) is used, either the 'Invoicing period start date' (BT-73) or the 'Invoicing period end date' (BT-74) or both must be filled.",
-    path: ['paymentInformation', 'billingPeriod']
+    path: ['delivery', 'billingPeriod']
 }
 
 export function BR_CO_20(val: availableProfiles): boolean {
@@ -322,7 +322,7 @@ export function BR_CO_22(val: availableProfiles): boolean {
 
 export const BR_CO_22_ERROR = {
     message:
-        "[BR-CO-22] Each 'Document level allowances' group (BG-21) must contain either a 'Document level allowance reason' (BT-104) or a 'Document level allowance reason code' (BT-105), or both.",
+        "[BR-CO-22] Each 'Document level charge' group (BG-21) must contain either a 'Document level charge reason' (BT-104) or a 'Document level charge reason code' (BT-105), or both.",
     path: ['totals', 'documentLevelAllowancesAndCharges', 'charges', 'reason']
 }
 

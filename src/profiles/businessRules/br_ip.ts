@@ -321,8 +321,8 @@ export function BR_IP_8(val: availableProfiles): boolean {
 
         if (
             !(
-                totalProvidedIPSIRateTaxAmount - 1 <= totalExpectedIPSITaxAmount &&
-                totalProvidedIPSIRateTaxAmount + 1 >= totalExpectedIPSITaxAmount
+                totalProvidedIPSIRateTaxAmount - 0.1 <= totalExpectedIPSITaxAmount &&
+                totalProvidedIPSIRateTaxAmount + 0.1 >= totalExpectedIPSITaxAmount
             )
         ) {
             return false

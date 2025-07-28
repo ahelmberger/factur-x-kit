@@ -283,8 +283,8 @@ export function BR_S_8(val: availableProfiles): boolean {
 
         if (
             !(
-                totalProvidedStandardRateTaxAmount - 1 <= totalExpectedStandardTaxAmount &&
-                totalProvidedStandardRateTaxAmount + 1 >= totalExpectedStandardTaxAmount
+                totalProvidedStandardRateTaxAmount - 0.1 <= totalExpectedStandardTaxAmount &&
+                totalProvidedStandardRateTaxAmount + 0.1 >= totalExpectedStandardTaxAmount
             )
         ) {
             return false

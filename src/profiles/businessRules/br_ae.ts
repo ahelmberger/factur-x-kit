@@ -251,8 +251,8 @@ export function BR_AE_8(val: availableProfiles): boolean {
     const totalProvidedReverseChargeTaxAmount = taxBreakdownWithReverseCharge.basisAmount
 
     if (
-        totalProvidedReverseChargeTaxAmount - 1 <= totalExpectedReverseChargeTaxAmount &&
-        totalProvidedReverseChargeTaxAmount + 1 >= totalExpectedReverseChargeTaxAmount
+        totalProvidedReverseChargeTaxAmount - 0.1 <= totalExpectedReverseChargeTaxAmount &&
+        totalProvidedReverseChargeTaxAmount + 0.1 >= totalExpectedReverseChargeTaxAmount
     ) {
         return true
     }
