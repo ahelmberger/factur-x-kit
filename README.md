@@ -75,7 +75,7 @@ await fs.writeFile('./invoice-data.json', JSON.stringify(obj, null, 4))
 
 -   [x] PDF-invoice creation
 -   [ ] Business Rule Checker
-    -   [ ] Write checks for all BRs
+    -   [x] Write checks for all BRs
     -   [ ] Write tests for all BRs
 -   [x] Small Refactoring
     -   [x] Remove meta group from profiles and lift the content on base level (profile and business context)
@@ -88,3 +88,5 @@ await fs.writeFile('./invoice-data.json', JSON.stringify(obj, null, 4))
 -   [ ] Extended Profile
     -   [ ] Initial step: Allow interpretation of Extended Profile but only read/write Comfort fields
 -   [ ] XRechnung Profile
+-   [ ] Invoice Creation helper functions (different functions for different types of invoices)
+    -   Only pass necessary data to a function, and totals/tax-breakdown and unintuitive fields are filled automatically

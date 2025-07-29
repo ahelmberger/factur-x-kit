@@ -1531,7 +1531,7 @@ describe('br-co-25', () => {
     })
 })
 
-describe.only('br-co-26', () => {
+describe('br-co-26', () => {
     test('BR-CO-26 positive test: Seller identifier is given', async () => {
         const data: ComfortProfile = {
             ...noTaxEasy,
