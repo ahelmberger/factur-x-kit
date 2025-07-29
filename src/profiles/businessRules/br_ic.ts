@@ -61,12 +61,10 @@ export function BR_IC_2(val: availableProfiles): boolean {
     if (!linesWithIntraCommunityTaxExisting) return true
 
     if (
-        (val.seller.taxIdentification?.localTaxId ||
-            val.seller.taxIdentification?.vatId ||
-            val.sellerTaxRepresentative?.taxIdentification?.vatId) &&
+        (val.seller.taxIdentification?.vatId || val.sellerTaxRepresentative?.taxIdentification?.vatId) &&
         val.buyer.taxIdentification &&
-        (('vatId' in val.buyer.taxIdentification && val.buyer.taxIdentification?.vatId) ||
-            ('localTaxId' in val.buyer.taxIdentification && val.buyer.taxIdentification?.localTaxId))
+        'vatId' in val.buyer.taxIdentification &&
+        val.buyer.taxIdentification?.vatId
     ) {
         return true
     }
@@ -76,7 +74,7 @@ export function BR_IC_2(val: availableProfiles): boolean {
 
 export const BR_IC_2_ERROR = {
     message:
-        '[BR-IC-2] An Invoice (INVOICE) that contains an item where the Invoiced item VAT category code (BT-151) has the value intra-community supply specified, must contain the Seller VAT identifier (BT-31), the Seller tax registration identifier (BT-32) or the Seller tax representative VAT identifier (BT-63) as well as the Buyer VAT identifier (BT-48) or the Buyer tax registration identifier.',
+        '[BR-IC-2] An Invoice (INVOICE) that contains an item where the Invoiced item VAT category code (BT-151) has the value intra-community supply specified, must contain the Seller VAT identifier (BT-31) the Seller tax representative VAT identifier (BT-63) as well as the Buyer VAT identifier (BT-48).',
     path: ['seller', 'taxIdentification']
 }
 
@@ -91,12 +89,10 @@ export function BR_IC_3(val: availableProfiles): boolean {
     if (!allowancesWithIntraCommunityTaxExisting) return true
 
     if (
-        (val.seller.taxIdentification?.localTaxId ||
-            val.seller.taxIdentification?.vatId ||
-            val.sellerTaxRepresentative?.taxIdentification?.vatId) &&
+        (val.seller.taxIdentification?.vatId || val.sellerTaxRepresentative?.taxIdentification?.vatId) &&
         val.buyer.taxIdentification &&
-        (('vatId' in val.buyer.taxIdentification && val.buyer.taxIdentification?.vatId) ||
-            ('localTaxId' in val.buyer.taxIdentification && val.buyer.taxIdentification?.localTaxId))
+        'vatId' in val.buyer.taxIdentification &&
+        val.buyer.taxIdentification?.vatId
     ) {
         return true
     }
@@ -106,7 +102,7 @@ export function BR_IC_3(val: availableProfiles): boolean {
 
 export const BR_IC_3_ERROR = {
     message:
-        '[BR-IC-3] In an Invoice that contains a DOCUMENT LEVEL ALLOWANCES (BG-20) group, where the Document level allowance VAT category code (BT-95) has the value intra-community supply, either the Seller VAT identifier (BT-31), Seller tax registration identifier (BT-32) or Seller tax representative VAT identifier (BT-63) as well as the Buyer VAT identifier (BT-48) or the Buyer tax registration identifier must be present.',
+        '[BR-IC-3] In an Invoice that contains a DOCUMENT LEVEL ALLOWANCES (BG-20) group, where the Document level allowance VAT category code (BT-95) has the value intra-community supply, either the Seller VAT identifier (BT-31) or Seller tax representative VAT identifier (BT-63) as well as the Buyer VAT identifier (BT-48) must be present.',
     path: ['seller', 'taxIdentification']
 }
 
@@ -121,12 +117,10 @@ export function BR_IC_4(val: availableProfiles): boolean {
     if (!chargesWithIntraCommunityTaxExisting) return true
 
     if (
-        (val.seller.taxIdentification?.localTaxId ||
-            val.seller.taxIdentification?.vatId ||
-            val.sellerTaxRepresentative?.taxIdentification?.vatId) &&
+        (val.seller.taxIdentification?.vatId || val.sellerTaxRepresentative?.taxIdentification?.vatId) &&
         val.buyer.taxIdentification &&
-        (('vatId' in val.buyer.taxIdentification && val.buyer.taxIdentification?.vatId) ||
-            ('localTaxId' in val.buyer.taxIdentification && val.buyer.taxIdentification?.localTaxId))
+        'vatId' in val.buyer.taxIdentification &&
+        val.buyer.taxIdentification?.vatId
     ) {
         return true
     }
@@ -136,7 +130,7 @@ export function BR_IC_4(val: availableProfiles): boolean {
 
 export const BR_IC_4_ERROR = {
     message:
-        '[BR-IC-4] In an Invoice that contains a DOCUMENT LEVEL CHARGES (BG-21) group, where the Document level charge VAT category code (BT-102) has the value intra-community supply, either the Seller VAT identifier (BT-31), Seller tax registration identifier (BT-32) or Seller tax representative VAT identifier (BT-63) as well as the Buyer VAT identifier (BT-48) or the Buyer tax registration identifier must be present.',
+        '[BR-IC-4] In an Invoice that contains a DOCUMENT LEVEL CHARGES (BG-21) group, where the Document level charge VAT category code (BT-102) has the value intra-community supply, either the Seller VAT identifier (BT-31) or Seller tax representative VAT identifier (BT-63) as well as the Buyer VAT identifier (BT-48) must be present.',
     path: ['seller', 'taxIdentification']
 }
 
@@ -395,7 +389,7 @@ export function BR_IC_12(val: availableProfiles): boolean {
 export const BR_IC_12_ERROR = {
     message:
         '[BR-IC-12] In an Invoice with a VAT breakdown (BG-23) where the VAT category code (BT-118) is "Intra-community supply" the Deliver to country code (BT-80) shall not be blank.',
-    path: ['delivery', 'deliveryDate']
+    path: ['delivery', 'recipient', 'postalAddress']
 }
 
 export const BR_IC: BusinessRuleWithError[] = [
