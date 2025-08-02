@@ -40,7 +40,7 @@ export function BR_IP_1(val: availableProfiles): boolean {
 
 export const BR_IP_1_ERROR = {
     message:
-        '[BR-IP-] An Invoice that contains an Invoice line (BG-25), a Document level allowance (BG-20) or a Document level charge (BG-21) where the VAT category code (BT-151, BT-95 or BT-102) is "IPSI" shall contain in the VAT breakdown (BG-23) at least one VAT category code (BT-118) equal with "IPSI".',
+        '[BR-IP-1] An Invoice that contains an Invoice line (BG-25), a Document level allowance (BG-20) or a Document level charge (BG-21) where the VAT category code (BT-151, BT-95 or BT-102) is "IPSI" shall contain in the VAT breakdown (BG-23) at least one VAT category code (BT-118) equal with "IPSI".',
     path: ['totals', 'taxBreakdown']
 }
 
