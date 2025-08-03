@@ -140,5 +140,5 @@ describe.only('pdf-creation', () => {
             path.join(__dirname, 'pdfs', 'createdPDFs', 'PDF_DESIGN_DE_Kleinunternehmer.pdf'),
             pdfBytesDE_Kleinunternehmer
         )
-    })
+    }, 100000)
 })

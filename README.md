@@ -76,17 +76,17 @@ await fs.writeFile('./invoice-data.json', JSON.stringify(obj, null, 4))
 -   [x] PDF-invoice creation
 -   [ ] Business Rule Checker
     -   [x] Write checks for all BRs
-    -   [ ] Write tests for all BRs
+    -   [x] Write tests for all BRs
 -   [x] Small Refactoring
     -   [x] Remove meta group from profiles and lift the content on base level (profile and business context)
     -   [x] move invoice period from payment information to delivery
--   [ ] Upgrade to zod 4
-    -   [ ] Switch BR function from zod.refine to zod.check
-    -   [ ] Add proper paths to BR-Errors (including correct array item)
 -   [ ] Docs
--   [ ] Attachment of Referenced Documents
 -   [ ] Extended Profile
-    -   [ ] Initial step: Allow interpretation of Extended Profile but only read/write Comfort fields
+    -   [x] Initial step: Allow interpretation of Extended Profile but only read/write Comfort fields
+-   [ ] Attachment of Referenced Documents
 -   [ ] XRechnung Profile
 -   [ ] Invoice Creation helper functions (different functions for different types of invoices)
     -   Only pass necessary data to a function, and totals/tax-breakdown and unintuitive fields are filled automatically
+-   [ ] Upgrade to zod 4
+    -   [ ] Switch BR function from zod.refine to zod.check
+    -   [ ] Add proper paths to BR-Errors (including correct array item)

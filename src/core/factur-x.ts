@@ -13,16 +13,23 @@ import {
 import { ComfortProfile, isComfortProfile } from '../profiles/comfort/ComfortProfile'
 import { ComfortProfileConverter } from '../profiles/comfort/ComfortProfileConverter'
 import { validationResult } from '../profiles/convert'
+import { ExtendedProfile, ExtendedProfileConverter, isExtendedProfile } from '../profiles/extended'
 import { MinimumProfile, MinimumProfileConverter, isMinimumProfile } from '../profiles/minimum/index'
 import FacturXPdf from './pdf'
 import { buildXML, parseXML } from './xml'
 
-export type availableProfiles = MinimumProfile | BasicWithoutLinesProfile | BasicProfile | ComfortProfile
+export type availableProfiles =
+    | MinimumProfile
+    | BasicWithoutLinesProfile
+    | BasicProfile
+    | ComfortProfile
+    | ExtendedProfile
 export type availableConverters =
     | MinimumProfileConverter
     | BasicWithoutLinesProfileConverter
     | BasicProfileConverter
     | ComfortProfileConverter
+    | ExtendedProfileConverter
 
 export class FacturX {
     private profile: availableProfiles
@@ -99,6 +106,10 @@ export class FacturX {
     }
 
     public static async fromObject(data: object): Promise<FacturX> {
+        if (isExtendedProfile(data)) {
+            console.warn('ExtendedProfile is not yet implemented, using ComfortProfileConverter as fallback')
+            return new FacturX(data, new ExtendedProfileConverter())
+        }
         if (isComfortProfile(data)) {
             return new FacturX(data, new ComfortProfileConverter())
         }
@@ -170,7 +181,14 @@ export class FacturX {
                 instance._fromXML = xml
                 break
             }
-            case 'urn:cen.eu:en16931:2017#conformant#urn:factur-x.eu:1p0:extended':
+            case 'urn:cen.eu:en16931:2017#conformant#urn:factur-x.eu:1p0:extended': {
+                console.warn('ExtendedProfile is not yet implemented, using ComfortProfileConverter as fallback')
+                const converter = new ExtendedProfileConverter()
+                const data = converter.xml2obj(obj)
+                instance = new FacturX(data, converter)
+                instance._fromXML = xml
+                break
+            }
             case 'urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0':
                 throw new Error(`Profile not yet implemented: ${profileId}`)
             default:
