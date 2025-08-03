@@ -1,6 +1,8 @@
 import { availableProfiles } from '../../core/factur-x'
 import { BusinessRuleWithError } from './br_co'
 
+// BR-OWN: Own Business Rules for Factur-X based on rules which are given in the Factur-X documentation but not covered by the Business Rules
+
 const TOLERANCE = 0.005
 
 export function BR_OWN_1(val: availableProfiles): boolean {
