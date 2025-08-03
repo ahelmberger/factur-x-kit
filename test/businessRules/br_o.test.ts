@@ -975,7 +975,7 @@ describe('BR-O', () => {
             }
             const instance = await FacturX.fromObject(data)
             const validationResult = instance.validate()
-            console.log(validationResult.errors)
+
             expect(validationResult.valid).toBeFalsy()
             expect(validationResult.errors?.length).toBe(3)
             expect(validationResult.errors?.map(error => error?.message)).toContain(
@@ -1035,7 +1035,7 @@ describe('BR-O', () => {
             }
             const instance = await FacturX.fromObject(data)
             const validationResult = instance.validate()
-            console.log(validationResult.errors)
+
             expect(validationResult.valid).toBeFalsy()
             expect(validationResult.errors?.length).toBe(3)
             expect(validationResult.errors?.map(error => error?.message)).toContain(
@@ -1095,7 +1095,7 @@ describe('BR-O', () => {
             }
             const instance = await FacturX.fromObject(data)
             const validationResult = instance.validate()
-            console.log(validationResult.errors)
+
             expect(validationResult.valid).toBeFalsy()
             expect(validationResult.errors?.length).toBe(3)
             expect(validationResult.errors?.map(error => error?.message)).toContain(

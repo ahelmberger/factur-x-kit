@@ -618,24 +618,13 @@ describe('Build and check XML', () => {
     })
 
     test('Builds Valid XML According to SCHEMATRON Schema', async () => {
-        let start = performance.now()
         const convertedXML = await instance.getXML()
-        console.log('Time to create XML: ', `${performance.now() - start}`)
-
-        start = performance.now()
         const schematron = (
             await fs.readFile(path.join(__dirname, 'schematronSchemes', 'Factur-X_1.0.07_BASICWL.sch'), 'utf-8')
         ).toString()
-        console.log('Time to read Schema file: ', `${performance.now() - start}`)
 
-        start = performance.now()
         const schema = Schema.fromString(schematron)
-        console.log('Time to read create Schematron file: ', `${performance.now() - start}`)
-
-        start = performance.now()
         const result = schema.validateString(convertedXML)
-        console.log('Time to validate xml: ', `${performance.now() - start}`)
-
         if (result.length > 0) console.log(result.map(res => res.message?.trim()))
 
         expect(result.length).toBe(0)

@@ -1545,7 +1545,6 @@ describe('br-co-26', () => {
 
         instance = await FacturX.fromObject(data)
         const validationResult = instance.validate()
-        console.log(validationResult.errors)
 
         expect(validationResult.valid).toBeTruthy()
         expect(validationResult.errors).toBeUndefined()
