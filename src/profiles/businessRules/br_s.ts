@@ -191,7 +191,7 @@ export function BR_S_8(val: availableProfiles): boolean {
     const availableTaxRatesInLines = val.invoiceLines.reduce((acc, line) => {
         if (line.settlement.tax.categoryCode === TAX_CATEGORY_CODES.STANDARD_RATE) {
             const rate = line.settlement.tax.rateApplicablePercent
-            if (rate != null && rate >= 0) {
+            if (rate != null && rate > 0) {
                 acc.add(rate)
             }
         }
@@ -202,7 +202,7 @@ export function BR_S_8(val: availableProfiles): boolean {
         val.totals.documentLevelAllowancesAndCharges?.allowances?.reduce((acc, allowance) => {
             if (allowance.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.STANDARD_RATE) {
                 const rate = allowance.categoryTradeTax.rateApplicablePercent
-                if (rate != null && rate >= 0) {
+                if (rate != null && rate > 0) {
                     acc.add(rate)
                 }
             }
@@ -213,7 +213,7 @@ export function BR_S_8(val: availableProfiles): boolean {
         val.totals.documentLevelAllowancesAndCharges?.charges?.reduce((acc, charge) => {
             if (charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.STANDARD_RATE) {
                 const rate = charge.categoryTradeTax.rateApplicablePercent
-                if (rate != null && rate >= 0) {
+                if (rate != null && rate > 0) {
                     acc.add(rate)
                 }
             }
