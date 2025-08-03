@@ -53,12 +53,9 @@ export function BR_O_2(val: availableProfiles): boolean {
     if (!linesWithNotSubjectToVatExisting) return true
 
     if (
-        val.seller.taxIdentification?.localTaxId ||
         val.seller.taxIdentification?.vatId ||
         val.sellerTaxRepresentative?.taxIdentification?.vatId ||
-        (val.buyer.taxIdentification &&
-            (('vatId' in val.buyer.taxIdentification && val.buyer.taxIdentification?.vatId) ||
-                ('localTaxId' in val.buyer.taxIdentification && val.buyer.taxIdentification?.localTaxId)))
+        (val.buyer.taxIdentification && 'vatId' in val.buyer.taxIdentification && val.buyer.taxIdentification?.vatId)
     ) {
         return false
     }
@@ -81,12 +78,9 @@ export function BR_O_3(val: availableProfiles): boolean {
     if (!allowancesWithNotSubjectToVatExisting) return true
 
     if (
-        val.seller.taxIdentification?.localTaxId ||
         val.seller.taxIdentification?.vatId ||
         val.sellerTaxRepresentative?.taxIdentification?.vatId ||
-        (val.buyer.taxIdentification &&
-            (('vatId' in val.buyer.taxIdentification && val.buyer.taxIdentification?.vatId) ||
-                ('localTaxId' in val.buyer.taxIdentification && val.buyer.taxIdentification?.localTaxId)))
+        (val.buyer.taxIdentification && 'vatId' in val.buyer.taxIdentification && val.buyer.taxIdentification?.vatId)
     ) {
         return false
     }
@@ -109,12 +103,9 @@ export function BR_O_4(val: availableProfiles): boolean {
     if (!chargesWithNotSubjectToVatExisting) return true
 
     if (
-        val.seller.taxIdentification?.localTaxId ||
         val.seller.taxIdentification?.vatId ||
         val.sellerTaxRepresentative?.taxIdentification?.vatId ||
-        (val.buyer.taxIdentification &&
-            (('vatId' in val.buyer.taxIdentification && val.buyer.taxIdentification?.vatId) ||
-                ('localTaxId' in val.buyer.taxIdentification && val.buyer.taxIdentification?.localTaxId)))
+        (val.buyer.taxIdentification && 'vatId' in val.buyer.taxIdentification && val.buyer.taxIdentification?.vatId)
     ) {
         return false
     }
