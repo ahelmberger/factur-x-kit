@@ -48,7 +48,7 @@ export const testDesignObjectKleinunternehmer: ComfortProfile = {
                 },
                 productNetPricing: { netPricePerItem: 10 }
             },
-            delivery: { itemQuantity: { quantity: 1, unit: 'NAR' as UNIT_CODES } },
+            delivery: { itemQuantity: { quantity: 1.5, unit: 'NAR' as UNIT_CODES } },
             settlement: {
                 tax: {
                     typeCode: 'VAT' as TAX_TYPE_CODE,
@@ -63,7 +63,7 @@ export const testDesignObjectKleinunternehmer: ComfortProfile = {
                         }
                     ]
                 },
-                lineTotals: { netTotal: 9.9 }
+                lineTotals: { netTotal: 14.9 }
             }
         }
     ],
@@ -122,18 +122,18 @@ export const testDesignObjectKleinunternehmer: ComfortProfile = {
                 calculatedAmount: 0,
                 typeCode: 'VAT' as TAX_TYPE_CODE,
                 exemptionReason: 'Umsatzsteuerbefreit nach §19 UStG',
-                basisAmount: 9.9,
+                basisAmount: 14.9,
                 categoryCode: 'E' as TAX_CATEGORY_CODES,
                 rateApplicablePercent: 0
             }
         ],
-        sumWithoutAllowancesAndCharges: 9.9,
+        sumWithoutAllowancesAndCharges: 14.9,
         chargeTotalAmount: 0,
         allowanceTotalAmount: 0,
-        netTotal: 9.9,
+        netTotal: 14.9,
         taxTotal: [{ amount: 0, currency: 'EUR' as CURRENCY_CODES }],
-        grossTotal: 9.9,
-        prepaidAmount: 9.9,
+        grossTotal: 14.9,
+        prepaidAmount: 14.9,
         openAmount: 0
     }
 }

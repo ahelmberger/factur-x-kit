@@ -47,7 +47,7 @@ export class TradeAllowanceChargeTypeConverter<
     ValueType extends allowedValueTypes_TradeAllowanceChargeType,
     XmlType extends allowedXmlTypes_TradeAllowanceChargeType
 > extends BaseTypeConverter<ValueType, XmlType> {
-    amountTypeConverter = new AmountTypeConverter()
+    amountTypeConverter: AmountTypeConverter
     textTypeConverter = new TextTypeConverter()
     taxTypeCodeConverter = new CodeTypeConverter(TAX_TYPE_CODE)
     taxCategoryCodeConverter = new CodeTypeConverter(TAX_CATEGORY_CODES)
@@ -59,10 +59,15 @@ export class TradeAllowanceChargeTypeConverter<
     private valueSchema: z.ZodType<ValueType>
     private xmlSchema: z.ZodType<XmlType>
 
-    constructor(valueSchema: z.ZodType<ValueType>, xmlSchema: z.ZodType<XmlType>) {
+    constructor(
+        valueSchema: z.ZodType<ValueType>,
+        xmlSchema: z.ZodType<XmlType>,
+        amountTypeConverter = new AmountTypeConverter()
+    ) {
         super()
         this.valueSchema = valueSchema
         this.xmlSchema = xmlSchema
+        this.amountTypeConverter = amountTypeConverter
     }
 
     _toValue(xml: XmlType): ValueType {
@@ -217,7 +222,11 @@ export class TradeAllowanceChargeTypeConverter<
         BasicPriceAllowanceType,
         BasicPriceAllowanceTypeXml
     > {
-        return new TradeAllowanceChargeTypeConverter(ZBasicPriceAllowanceType, ZBasicPriceAllowanceTypeXml)
+        return new TradeAllowanceChargeTypeConverter(
+            ZBasicPriceAllowanceType,
+            ZBasicPriceAllowanceTypeXml,
+            new AmountTypeConverter(4)
+        )
     }
 
     public static comfortLineLevel(): TradeAllowanceChargeTypeConverter<

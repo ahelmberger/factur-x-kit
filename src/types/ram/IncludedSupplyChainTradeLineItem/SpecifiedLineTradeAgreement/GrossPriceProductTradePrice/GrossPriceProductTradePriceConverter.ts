@@ -22,7 +22,7 @@ export class GrossPriceProductTradePriceConverter<
     ValueType extends allowedValueTypes_GrossPriceProductTradePrice,
     XmlType extends allowedXmlTypes_GrossPriceProductTradePrice
 > extends ExtendableBaseTypeConverter<ValueType, XmlType> {
-    amountTypeConverter = new AmountTypeConverter()
+    amountTypeConverter = new AmountTypeConverter(4)
     quantityTypeConverter = new QuantityTypeConverter()
     priceAllowanceAndChargeTypeConverter: TradeAllowanceChargeTypeConverter<
         allowedValueTypes_TradeAllowanceChargeType,

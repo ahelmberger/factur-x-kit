@@ -34,7 +34,7 @@ export class PercentTypeConverter extends BaseTypeConverter<PercentType, Percent
         }
 
         return {
-            '#text': data.toFixed(2) // TODO: how many decimal places does PercentType have?
+            '#text': data.toFixed(4)
         }
     }
 }

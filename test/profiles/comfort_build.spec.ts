@@ -455,12 +455,12 @@ describe('Re-Check lower profiles', () => {
                 lineItem['ram:SpecifiedLineTradeAgreement']['ram:GrossPriceProductTradePrice']['ram:ChargeAmount'][
                     '#text'
                 ]
-            ).toBe('20.00')
+            ).toBe('20.0000')
             expect(
                 lineItem['ram:SpecifiedLineTradeAgreement']['ram:NetPriceProductTradePrice']['ram:ChargeAmount'][
                     '#text'
                 ]
-            ).toBe('19.00')
+            ).toBe('19.0000')
             expect(lineItem['ram:SpecifiedLineTradeDelivery']['ram:BilledQuantity']['#text']).toBe('5.00')
             expect(lineItem['ram:SpecifiedLineTradeDelivery']['ram:BilledQuantity']['@unitCode']).toBe('KGM')
             expect(
@@ -473,7 +473,7 @@ describe('Re-Check lower profiles', () => {
                 lineItem['ram:SpecifiedLineTradeSettlement']['ram:ApplicableTradeTax']['ram:RateApplicablePercent'][
                     '#text'
                 ]
-            ).toBe('19.00')
+            ).toBe('19.0000')
             expect(
                 lineItem['ram:SpecifiedLineTradeSettlement']['ram:SpecifiedTradeSettlementLineMonetarySummation'][
                     'ram:LineTotalAmount'
@@ -492,7 +492,7 @@ describe('Re-Check lower profiles', () => {
                 lineItem['ram:SpecifiedLineTradeAgreement']['ram:NetPriceProductTradePrice']['ram:ChargeAmount'][
                     '#text'
                 ]
-            ).toBe('15.00')
+            ).toBe('15.0000')
             expect(lineItem['ram:SpecifiedLineTradeDelivery']['ram:BilledQuantity']['#text']).toBe('2.00')
             expect(lineItem['ram:SpecifiedLineTradeDelivery']['ram:BilledQuantity']['@unitCode']).toBe('KGM')
             expect(
@@ -505,7 +505,7 @@ describe('Re-Check lower profiles', () => {
                 lineItem['ram:SpecifiedLineTradeSettlement']['ram:ApplicableTradeTax']['ram:RateApplicablePercent'][
                     '#text'
                 ]
-            ).toBe('19.00')
+            ).toBe('19.0000')
             expect(
                 lineItem['ram:SpecifiedLineTradeSettlement']['ram:SpecifiedTradeSettlementLineMonetarySummation'][
                     'ram:LineTotalAmount'

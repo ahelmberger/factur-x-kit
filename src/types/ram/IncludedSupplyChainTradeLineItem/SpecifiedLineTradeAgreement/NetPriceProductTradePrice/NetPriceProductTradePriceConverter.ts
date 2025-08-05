@@ -17,7 +17,7 @@ export class NetPriceProductTradePriceConverter<
     ValueType extends allowedValueTypes_NetPriceProductTradePrice,
     XmlType extends allowedXmlTypes_NetPriceProductTradePrice
 > extends ExtendableBaseTypeConverter<ValueType, XmlType> {
-    amountTypeConverter = new AmountTypeConverter()
+    amountTypeConverter = new AmountTypeConverter(4)
     quantityTypeConverter = new QuantityTypeConverter()
 
     constructor(

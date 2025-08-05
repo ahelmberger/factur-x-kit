@@ -50,7 +50,7 @@ export class QuantityTypeConverter extends BaseTypeConverter<QuantityType, Quant
         }
 
         return {
-            '#text': data.quantity.toFixed(2),
+            '#text': data.quantity.toFixed(4),
             '@unitCode': data.unit
         }
     }

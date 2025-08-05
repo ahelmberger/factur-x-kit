@@ -498,7 +498,7 @@ describe('7.3.3 - SupplyChainTradeTransaction - Page 44/85 ff.', () => {
                 expect(Array.isArray(taxBreakdown)).toBeFalsy()
                 expect(taxBreakdown['ram:CalculatedAmount']['#text']).toBe('0.00')
                 expect(taxBreakdown['ram:CategoryCode']['#text']).toBe('E')
-                expect(taxBreakdown['ram:RateApplicablePercent']['#text']).toBe('0.00')
+                expect(taxBreakdown['ram:RateApplicablePercent']['#text']).toBe('0.0000')
             })
         })
 

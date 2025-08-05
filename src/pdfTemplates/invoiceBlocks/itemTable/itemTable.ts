@@ -26,7 +26,18 @@ export default async function addItemTable(
 ): Promise<[number, TableInformation | undefined]> {
     const yPosition = options?.position?.y || (dinA4Height - 85) * mmToPt
     const xPosition = options?.position?.x || 25 * mmToPt
-    const currencyConverter = new Intl.NumberFormat(locale, { style: 'currency', currency: data.document.currency })
+    const currencyConverter = new Intl.NumberFormat(locale, {
+        style: 'currency',
+        currency: data.document.currency
+    })
+
+    const currencyConverterPricePerUnit = new Intl.NumberFormat(locale, {
+        style: 'currency',
+        currency: data.document.currency,
+        minimumFractionDigits: 2, // Mindestens 2 Nachkommastellen anzeigen
+        maximumFractionDigits: 4 // Maximal 4 Nachkommastellen anzeigen (rundet, wenn mehr)
+    })
+
     const createCountryName = new Intl.DisplayNames([locale], { type: 'region', style: 'long', fallback: 'code' })
 
     if (!('invoiceLines' in data)) return [yPosition, undefined]
@@ -47,9 +58,7 @@ export default async function addItemTable(
 
                 let baseQuantityText = ''
                 if (priceBaseQuantity) {
-                    const quantity = priceBaseQuantity.quantity
-                    const unit = priceBaseQuantity.unit ? unitSymbols[locale][priceBaseQuantity.unit] : ''
-                    baseQuantityText = ` (${quantity} ${unit})`
+                    baseQuantityText = ` (${new Intl.NumberFormat(locale, { style: 'decimal', maximumFractionDigits: 4 }).format(priceBaseQuantity.quantity)} ${priceBaseQuantity.unit ? unitSymbols[locale][priceBaseQuantity.unit] : ''})`
                 }
 
                 const productId = lineItem.productDescription.sellerProductId
@@ -64,14 +73,14 @@ export default async function addItemTable(
             colHeader: `${textTranslations[locale].QUANTITY}`,
             colWeight: 1.5,
             colContent: (lineItem: ComfortTradeLineItem) =>
-                `${new Intl.NumberFormat(locale, { style: 'decimal' }).format(lineItem.delivery.itemQuantity.quantity)} ${lineItem.delivery.itemQuantity.unit ? unitSymbols[locale][lineItem.delivery.itemQuantity.unit] : ''}`
+                `${new Intl.NumberFormat(locale, { style: 'decimal', maximumFractionDigits: 4 }).format(lineItem.delivery.itemQuantity.quantity)} ${lineItem.delivery.itemQuantity.unit ? unitSymbols[locale][lineItem.delivery.itemQuantity.unit] : ''}`
         },
         {
             colAlignment: 'right',
             colHeader: `${textTranslations[locale].UNIT_PRICE}`,
             colWeight: 1.5,
             colContent: (lineItem: ComfortTradeLineItem) =>
-                `${checkAndAddPriceAllowance(lineItem, locale, currencyConverter)}${currencyConverter.format(lineItem.productPriceAgreement.productNetPricing.netPricePerItem)}`
+                `${checkAndAddPriceAllowance(lineItem, locale, currencyConverterPricePerUnit)}${currencyConverterPricePerUnit.format(lineItem.productPriceAgreement.productNetPricing.netPricePerItem)}`
         },
         {
             colAlignment: 'right',

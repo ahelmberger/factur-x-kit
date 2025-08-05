@@ -14,6 +14,12 @@ export const ZAmountTypeXml = z.object({
 export type AmountTypeXml = z.infer<typeof ZAmountTypeXml>
 
 export class AmountTypeConverter extends BaseTypeConverter<AmountType, AmountTypeXml> {
+    private decimalPlaces: number
+
+    constructor(decimalPlaces = 2) {
+        super()
+        this.decimalPlaces = decimalPlaces
+    }
     _toValue(xml: AmountTypeXml) {
         const { success, data, error } = ZAmountTypeXml.safeParse(xml)
         if (!success) {
@@ -37,7 +43,7 @@ export class AmountTypeConverter extends BaseTypeConverter<AmountType, AmountTyp
             throw new TypeConverterError('INVALID_VALUE')
         }
         return {
-            '#text': data.toFixed(2)
+            '#text': data.toFixed(this.decimalPlaces)
         }
     }
 }

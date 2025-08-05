@@ -130,6 +130,16 @@ describe.only('pdf-creation', () => {
             pdfBytesEN_multiPage
         )
 
+        const pdfBytesDE_multiPage = await complexInstance.getPDF({
+            locale: 'de-DE',
+            headerImage
+        })
+        expect(pdfBytesDE_multiPage).toBeDefined()
+        await fs.writeFile(
+            path.join(__dirname, 'pdfs', 'createdPDFs', 'PDF_DESIGN_DE_MultiPage.pdf'),
+            pdfBytesDE_multiPage
+        )
+
         const kleinunternehmerInstance = await FacturX.fromObject(testDesignObjectKleinunternehmer)
         const pdfBytesDE_Kleinunternehmer = await kleinunternehmerInstance.getPDF({
             locale: 'de-DE',
