@@ -1,5 +1,5 @@
 export default {
-    semi: false,
+    semi: true,
     tabWidth: 4,
     trailingComma: 'none',
     singleQuote: true,
@@ -10,4 +10,4 @@ export default {
     importOrderSeparation: true,
     importOrderSortSpecifiers: true,
     importOrderGroupNamespaceSpecifiers: true
-}
+};
