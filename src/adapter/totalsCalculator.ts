@@ -107,7 +107,7 @@ export function createComfortTradeLineItemFromSimpleInput(easyLine: SimpleTradeL
     };
 }
 
-export type taxExemptionReason = z.infer<typeof zExemptionReason>;
+export type TaxExemptionReason = z.infer<typeof zExemptionReason>;
 
 function findExistingTaxInBreakdown(
     taxBreakdown: ComfortDocumentLevelTradeTaxType[],
@@ -127,11 +127,9 @@ function findExistingTaxInBreakdown(
     return taxBreakdown.find(breakdownItem => breakdownItem.categoryCode === tax.categoryCode);
 }
 
-type ExemptionReasons = z.infer<typeof zExemptionReason>;
-
 function createNewTaxBreakdownItem(
     tax: BasicLineLevelTradeTaxType,
-    exemptionReasons?: ExemptionReasons[],
+    exemptionReasons?: TaxExemptionReason[],
     taxDueDates?: TaxDueDate[]
 ): ComfortDocumentLevelTradeTaxType {
     const taxBreakdownItem: ComfortDocumentLevelTradeTaxType = {
@@ -146,7 +144,7 @@ function createNewTaxBreakdownItem(
     return taxBreakdownItem;
 }
 
-type TaxDueDate = z.infer<typeof zTaxDueDate>;
+export type TaxDueDate = z.infer<typeof zTaxDueDate>;
 
 function createTaxDueDate(tax: BasicLineLevelTradeTaxType, optionalTaxDueDates?: TaxDueDate[]) {
     if (!optionalTaxDueDates || optionalTaxDueDates.length === 0) {
@@ -167,7 +165,7 @@ function createTaxDueDate(tax: BasicLineLevelTradeTaxType, optionalTaxDueDates?:
     return {};
 }
 
-function createExemptionReason(taxCategory: TAX_CATEGORY_CODES, exemptionReasons?: ExemptionReasons[]) {
+function createExemptionReason(taxCategory: TAX_CATEGORY_CODES, exemptionReasons?: TaxExemptionReason[]) {
     if (
         taxCategory === TAX_CATEGORY_CODES.IGIC ||
         taxCategory === TAX_CATEGORY_CODES.IPSI ||
@@ -223,10 +221,10 @@ function createExemptionReason(taxCategory: TAX_CATEGORY_CODES, exemptionReasons
     }
 }
 
-export function createTaxBreakdownFromTradeLineItems(
+function createTaxBreakdownFromTradeLineItems(
     tradeLineItems: ComfortTradeLineItem[],
     documentLevelAllowancesAndCharges?: BasicDocumentLevelTradeAllowanceChargeType,
-    exemptionReasons?: taxExemptionReason[]
+    exemptionReasons?: TaxExemptionReason[]
 ): ComfortDocumentLevelTradeTaxType[] {
     let taxBreakdown = tradeLineItems.reduce((acc, line) => {
         let tax = findExistingTaxInBreakdown(acc, line.settlement.tax);
@@ -268,7 +266,7 @@ export function createTaxBreakdownFromTradeLineItems(
     });
 }
 
-type DocumentLevelAllowancesAndCharges = z.infer<typeof ZBasicDocumentLevelTradeAllowanceChargeType_modified>;
+export type DocumentLevelAllowancesAndCharges = z.infer<typeof ZBasicDocumentLevelTradeAllowanceChargeType_modified>;
 
 function createDocumentLevelAllowancesAndCharges(
     simpleDocumentLevelAllowancesAndCharges?: DocumentLevelAllowancesAndCharges
@@ -301,7 +299,7 @@ function calculateAllowanceAndChargeSum(
     return { allowanceTotalAmount, chargeTotalAmount };
 }
 
-type ForeignTaxCurrency = z.infer<typeof ZOptionalForeignTaxCurrencyType>;
+export type ForeignTaxCurrency = z.infer<typeof ZOptionalForeignTaxCurrencyType>;
 function calculateTaxSum(
     taxBreakdown: ComfortDocumentLevelTradeTaxType[],
     invoiceCurrency: CURRENCY_CODES,

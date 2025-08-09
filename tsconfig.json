@@ -1,3 +1,18 @@
 {
-    "extends": "@tsconfig/recommended/tsconfig.json"
+    "extends": "@tsconfig/recommended/tsconfig.json",
+    "compilerOptions": {
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "declaration": true,
+        "noEmit": true
+    },
+    "include": [
+        "src/**/*" // Sagt TypeScript, welche Dateien in 'src' es kompilieren soll
+    ],
+    "exclude": [
+        "node_modules",
+        "**/*.spec.ts", // Beispiel: Testdateien ausschließen
+        "**/*.test.ts",
+        "dist"
+    ]
 }

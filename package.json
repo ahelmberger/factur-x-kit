@@ -24,8 +24,11 @@
         "Joachim Schwarm (https://github.com/schwarmco)"
     ],
     "type": "module",
-    "main": "src/index.ts",
+    "main": "./dist/index.js",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.t.ts",
     "scripts": {
+        "build": "tsup",
         "convert": "ts-node ./scripts/xpathconverter.ts",
         "prepare": "husky",
         "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\"",
