@@ -38,7 +38,7 @@ export const exportOutsideEUInvoice: ComfortProfile = {
             settlement: {
                 tax: {
                     typeCode: 'VAT' as TAX_TYPE_CODE,
-                    categoryCode: TAX_CATEGORY_CODES.FREE_EXPORT_ITEM_TAX_NOT_CHARGED,
+                    categoryCode: TAX_CATEGORY_CODES.EXPORT_TAX_NOT_CHARGED,
                     rateApplicablePercent: 0
                 },
                 lineTotals: { netTotal: 5 }
@@ -60,7 +60,7 @@ export const exportOutsideEUInvoice: ComfortProfile = {
             settlement: {
                 tax: {
                     typeCode: 'VAT' as TAX_TYPE_CODE,
-                    categoryCode: TAX_CATEGORY_CODES.FREE_EXPORT_ITEM_TAX_NOT_CHARGED,
+                    categoryCode: TAX_CATEGORY_CODES.EXPORT_TAX_NOT_CHARGED,
                     rateApplicablePercent: 0
                 },
                 lineTotals: { netTotal: 5 }
@@ -124,7 +124,7 @@ export const exportOutsideEUInvoice: ComfortProfile = {
                 exemptionReason: 'Export outside EU',
                 exemptionReasonCode: EXEMPTION_REASON_CODES.Export_outside_the_EU,
                 basisAmount: 10,
-                categoryCode: TAX_CATEGORY_CODES.FREE_EXPORT_ITEM_TAX_NOT_CHARGED,
+                categoryCode: TAX_CATEGORY_CODES.EXPORT_TAX_NOT_CHARGED,
                 rateApplicablePercent: 0
             }
         ],
@@ -136,7 +136,7 @@ export const exportOutsideEUInvoice: ComfortProfile = {
                     reasonCode: ALLOWANCE_REASONS_CODES.Discount,
                     categoryTradeTax: {
                         typeCode: TAX_TYPE_CODE.VALUE_ADDED_TAX_VAT,
-                        categoryCode: TAX_CATEGORY_CODES.FREE_EXPORT_ITEM_TAX_NOT_CHARGED,
+                        categoryCode: TAX_CATEGORY_CODES.EXPORT_TAX_NOT_CHARGED,
                         rateApplicablePercent: 0
                     }
                 }
@@ -147,7 +147,7 @@ export const exportOutsideEUInvoice: ComfortProfile = {
                     reasonCode: CHARGE_REASONS_CODES.Handling,
                     categoryTradeTax: {
                         typeCode: TAX_TYPE_CODE.VALUE_ADDED_TAX_VAT,
-                        categoryCode: TAX_CATEGORY_CODES.FREE_EXPORT_ITEM_TAX_NOT_CHARGED,
+                        categoryCode: TAX_CATEGORY_CODES.EXPORT_TAX_NOT_CHARGED,
                         rateApplicablePercent: 0
                     }
                 }

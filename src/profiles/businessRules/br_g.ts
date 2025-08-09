@@ -9,16 +9,16 @@ export function BR_G_1(val: availableProfiles): boolean {
     let linesWithExportOutsideEUTaxExisting = false
     if ('invoiceLines' in val && val.invoiceLines) {
         linesWithExportOutsideEUTaxExisting = val.invoiceLines.some(
-            line => line.settlement.tax.categoryCode === TAX_CATEGORY_CODES.FREE_EXPORT_ITEM_TAX_NOT_CHARGED
+            line => line.settlement.tax.categoryCode === TAX_CATEGORY_CODES.EXPORT_TAX_NOT_CHARGED
         )
     }
 
     const allowancesWithExportOutsideEUTaxExisting = val.totals.documentLevelAllowancesAndCharges?.allowances?.some(
-        allowance => allowance.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.FREE_EXPORT_ITEM_TAX_NOT_CHARGED
+        allowance => allowance.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.EXPORT_TAX_NOT_CHARGED
     )
 
     const chargesWithExportOutsideEUTaxExisting = val.totals.documentLevelAllowancesAndCharges?.charges?.some(
-        charge => charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.FREE_EXPORT_ITEM_TAX_NOT_CHARGED
+        charge => charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.EXPORT_TAX_NOT_CHARGED
     )
     if (
         !linesWithExportOutsideEUTaxExisting &&
@@ -28,7 +28,7 @@ export function BR_G_1(val: availableProfiles): boolean {
         return true
 
     const taxBreakdownWithExportOutsideEU = val.totals.taxBreakdown.filter(
-        tax => tax.categoryCode === TAX_CATEGORY_CODES.FREE_EXPORT_ITEM_TAX_NOT_CHARGED
+        tax => tax.categoryCode === TAX_CATEGORY_CODES.EXPORT_TAX_NOT_CHARGED
     )
 
     if (taxBreakdownWithExportOutsideEU.length === 1) {
@@ -48,7 +48,7 @@ export function BR_G_2(val: availableProfiles): boolean {
     if (!val.invoiceLines) return true
 
     const linesWithExportOutsideEUTaxExisting = val.invoiceLines.some(
-        line => line.settlement.tax.categoryCode === TAX_CATEGORY_CODES.FREE_EXPORT_ITEM_TAX_NOT_CHARGED
+        line => line.settlement.tax.categoryCode === TAX_CATEGORY_CODES.EXPORT_TAX_NOT_CHARGED
     )
     if (!linesWithExportOutsideEUTaxExisting) return true
 
@@ -69,7 +69,7 @@ export function BR_G_3(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true
 
     const allowancesWithExportOutsideEUTaxExisting = val.totals.documentLevelAllowancesAndCharges?.allowances?.some(
-        allowance => allowance.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.FREE_EXPORT_ITEM_TAX_NOT_CHARGED
+        allowance => allowance.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.EXPORT_TAX_NOT_CHARGED
     )
     if (!allowancesWithExportOutsideEUTaxExisting) return true
 
@@ -90,7 +90,7 @@ export function BR_G_4(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true
 
     const chargesWithExportOutsideEUTaxExisting = val.totals.documentLevelAllowancesAndCharges?.charges?.some(
-        charge => charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.FREE_EXPORT_ITEM_TAX_NOT_CHARGED
+        charge => charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.EXPORT_TAX_NOT_CHARGED
     )
     if (!chargesWithExportOutsideEUTaxExisting) return true
 
@@ -112,7 +112,7 @@ export function BR_G_5(val: availableProfiles): boolean {
     if (!val.invoiceLines) return true
 
     for (const line of val.invoiceLines) {
-        if (line.settlement.tax.categoryCode !== TAX_CATEGORY_CODES.FREE_EXPORT_ITEM_TAX_NOT_CHARGED) continue
+        if (line.settlement.tax.categoryCode !== TAX_CATEGORY_CODES.EXPORT_TAX_NOT_CHARGED) continue
         if (line.settlement.tax.rateApplicablePercent !== 0) {
             //printError(`Business Rule BR-E-5 is being violated in invoiceLine ${line.generalLineData.lineId}`)
             return false
@@ -132,7 +132,7 @@ export function BR_G_6(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true
     if (!val.totals.documentLevelAllowancesAndCharges?.allowances) return true
     for (const allowance of val.totals.documentLevelAllowancesAndCharges.allowances) {
-        if (allowance.categoryTradeTax.categoryCode !== TAX_CATEGORY_CODES.FREE_EXPORT_ITEM_TAX_NOT_CHARGED) continue
+        if (allowance.categoryTradeTax.categoryCode !== TAX_CATEGORY_CODES.EXPORT_TAX_NOT_CHARGED) continue
         if (allowance.categoryTradeTax.rateApplicablePercent !== 0) {
             //printError(`Business Rule BR-E-6 is being violated in allowance with amount ${allowance.actualAmount}`)
             return false
@@ -152,7 +152,7 @@ export function BR_G_7(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true
     if (!val.totals.documentLevelAllowancesAndCharges?.charges) return true
     for (const charge of val.totals.documentLevelAllowancesAndCharges.charges) {
-        if (charge.categoryTradeTax.categoryCode !== TAX_CATEGORY_CODES.FREE_EXPORT_ITEM_TAX_NOT_CHARGED) continue
+        if (charge.categoryTradeTax.categoryCode !== TAX_CATEGORY_CODES.EXPORT_TAX_NOT_CHARGED) continue
         if (charge.categoryTradeTax.rateApplicablePercent !== 0) {
             //printError(`Business Rule BR-E-7 is being violated in charge with amount ${charge.actualAmount}`)
             return false
@@ -173,13 +173,13 @@ export function BR_G_8(val: availableProfiles): boolean {
     if (!val.invoiceLines) return true
 
     const linesWithExportOutsideEuTaxExisting = val.invoiceLines.some(
-        line => line.settlement.tax.categoryCode === TAX_CATEGORY_CODES.FREE_EXPORT_ITEM_TAX_NOT_CHARGED
+        line => line.settlement.tax.categoryCode === TAX_CATEGORY_CODES.EXPORT_TAX_NOT_CHARGED
     )
     const allowancesWithExportOutsideEuTaxExisting = val.totals.documentLevelAllowancesAndCharges?.allowances?.some(
-        allowance => allowance.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.FREE_EXPORT_ITEM_TAX_NOT_CHARGED
+        allowance => allowance.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.EXPORT_TAX_NOT_CHARGED
     )
     const chargesWithExportOutsideEuTaxExisting = val.totals.documentLevelAllowancesAndCharges?.charges?.some(
-        charge => charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.FREE_EXPORT_ITEM_TAX_NOT_CHARGED
+        charge => charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.EXPORT_TAX_NOT_CHARGED
     )
 
     if (
@@ -190,7 +190,7 @@ export function BR_G_8(val: availableProfiles): boolean {
         return true
 
     const sumOfLinesWithExportOutsideEUTax = val.invoiceLines.reduce((sum, line) => {
-        if (line.settlement.tax.categoryCode === TAX_CATEGORY_CODES.FREE_EXPORT_ITEM_TAX_NOT_CHARGED) {
+        if (line.settlement.tax.categoryCode === TAX_CATEGORY_CODES.EXPORT_TAX_NOT_CHARGED) {
             return sum + line.settlement.lineTotals.netTotal
         }
         return sum
@@ -198,7 +198,7 @@ export function BR_G_8(val: availableProfiles): boolean {
 
     const sumOfDocumentLevelAllowancesWithExportOutsideEUTax =
         val.totals.documentLevelAllowancesAndCharges?.allowances?.reduce((sum, allowance) => {
-            if (allowance.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.FREE_EXPORT_ITEM_TAX_NOT_CHARGED) {
+            if (allowance.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.EXPORT_TAX_NOT_CHARGED) {
                 return sum + allowance.actualAmount
             }
             return sum
@@ -206,7 +206,7 @@ export function BR_G_8(val: availableProfiles): boolean {
 
     const sumOfDocumentLevelChargesWithExportOutsideEUTax =
         val.totals.documentLevelAllowancesAndCharges?.charges?.reduce((sum, charge) => {
-            if (charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.FREE_EXPORT_ITEM_TAX_NOT_CHARGED) {
+            if (charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.EXPORT_TAX_NOT_CHARGED) {
                 return sum + charge.actualAmount
             }
             return sum
@@ -218,7 +218,7 @@ export function BR_G_8(val: availableProfiles): boolean {
         sumOfDocumentLevelChargesWithExportOutsideEUTax
 
     const taxBreakdownWithExportOutsideEU = val.totals.taxBreakdown.find(
-        tax => tax.categoryCode === TAX_CATEGORY_CODES.FREE_EXPORT_ITEM_TAX_NOT_CHARGED
+        tax => tax.categoryCode === TAX_CATEGORY_CODES.EXPORT_TAX_NOT_CHARGED
     )
 
     if (!taxBreakdownWithExportOutsideEU) {
@@ -246,7 +246,7 @@ export const BR_G_8_ERROR = {
 export function BR_G_9(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true
     const taxBreakdownsWithExportOutsideEU = val.totals.taxBreakdown.filter(
-        tax => tax.categoryCode === TAX_CATEGORY_CODES.FREE_EXPORT_ITEM_TAX_NOT_CHARGED
+        tax => tax.categoryCode === TAX_CATEGORY_CODES.EXPORT_TAX_NOT_CHARGED
     )
 
     if (taxBreakdownsWithExportOutsideEU.length === 0) return true
@@ -267,7 +267,7 @@ export const BR_G_9_ERROR = {
 export function BR_G_10(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true
     const taxBreakdownsWithExportOutsideEU = val.totals.taxBreakdown.filter(
-        tax => tax.categoryCode === TAX_CATEGORY_CODES.FREE_EXPORT_ITEM_TAX_NOT_CHARGED
+        tax => tax.categoryCode === TAX_CATEGORY_CODES.EXPORT_TAX_NOT_CHARGED
     )
 
     if (taxBreakdownsWithExportOutsideEU.length === 0) return true

@@ -9,22 +9,16 @@ export function BR_IC_1(val: availableProfiles): boolean {
     let linesWithIntraCommunityTaxExisting = false
     if ('invoiceLines' in val && val.invoiceLines) {
         linesWithIntraCommunityTaxExisting = val.invoiceLines.some(
-            line =>
-                line.settlement.tax.categoryCode ===
-                TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES
+            line => line.settlement.tax.categoryCode === TAX_CATEGORY_CODES.INTRA_COMMUNITY_SUPPLY_VAT_EXEMPT
         )
     }
 
     const allowancesWithIntraCommunityTaxExisting = val.totals.documentLevelAllowancesAndCharges?.allowances?.some(
-        allowance =>
-            allowance.categoryTradeTax.categoryCode ===
-            TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES
+        allowance => allowance.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.INTRA_COMMUNITY_SUPPLY_VAT_EXEMPT
     )
 
     const chargesWithIntraCommunityTaxExisting = val.totals.documentLevelAllowancesAndCharges?.charges?.some(
-        charge =>
-            charge.categoryTradeTax.categoryCode ===
-            TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES
+        charge => charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.INTRA_COMMUNITY_SUPPLY_VAT_EXEMPT
     )
     if (
         !linesWithIntraCommunityTaxExisting &&
@@ -34,7 +28,7 @@ export function BR_IC_1(val: availableProfiles): boolean {
         return true
 
     const taxBreakdownWithIntraCommunity = val.totals.taxBreakdown.filter(
-        tax => tax.categoryCode === TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES
+        tax => tax.categoryCode === TAX_CATEGORY_CODES.INTRA_COMMUNITY_SUPPLY_VAT_EXEMPT
     )
 
     if (taxBreakdownWithIntraCommunity.length === 1) {
@@ -54,9 +48,7 @@ export function BR_IC_2(val: availableProfiles): boolean {
     if (!val.invoiceLines) return true
 
     const linesWithIntraCommunityTaxExisting = val.invoiceLines.some(
-        line =>
-            line.settlement.tax.categoryCode ===
-            TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES
+        line => line.settlement.tax.categoryCode === TAX_CATEGORY_CODES.INTRA_COMMUNITY_SUPPLY_VAT_EXEMPT
     )
     if (!linesWithIntraCommunityTaxExisting) return true
 
@@ -82,9 +74,7 @@ export function BR_IC_3(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true
 
     const allowancesWithIntraCommunityTaxExisting = val.totals.documentLevelAllowancesAndCharges?.allowances?.some(
-        allowance =>
-            allowance.categoryTradeTax.categoryCode ===
-            TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES
+        allowance => allowance.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.INTRA_COMMUNITY_SUPPLY_VAT_EXEMPT
     )
     if (!allowancesWithIntraCommunityTaxExisting) return true
 
@@ -110,9 +100,7 @@ export function BR_IC_4(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true
 
     const chargesWithIntraCommunityTaxExisting = val.totals.documentLevelAllowancesAndCharges?.charges?.some(
-        charge =>
-            charge.categoryTradeTax.categoryCode ===
-            TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES
+        charge => charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.INTRA_COMMUNITY_SUPPLY_VAT_EXEMPT
     )
     if (!chargesWithIntraCommunityTaxExisting) return true
 
@@ -139,11 +127,7 @@ export function BR_IC_5(val: availableProfiles): boolean {
     if (!val.invoiceLines) return true
 
     for (const line of val.invoiceLines) {
-        if (
-            line.settlement.tax.categoryCode !==
-            TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES
-        )
-            continue
+        if (line.settlement.tax.categoryCode !== TAX_CATEGORY_CODES.INTRA_COMMUNITY_SUPPLY_VAT_EXEMPT) continue
         if (line.settlement.tax.rateApplicablePercent !== 0) {
             //printError(`Business Rule BR-E-5 is being violated in invoiceLine ${line.generalLineData.lineId}`)
             return false
@@ -163,11 +147,7 @@ export function BR_IC_6(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true
     if (!val.totals.documentLevelAllowancesAndCharges?.allowances) return true
     for (const allowance of val.totals.documentLevelAllowancesAndCharges.allowances) {
-        if (
-            allowance.categoryTradeTax.categoryCode !==
-            TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES
-        )
-            continue
+        if (allowance.categoryTradeTax.categoryCode !== TAX_CATEGORY_CODES.INTRA_COMMUNITY_SUPPLY_VAT_EXEMPT) continue
         if (allowance.categoryTradeTax.rateApplicablePercent !== 0) {
             //printError(`Business Rule BR-E-6 is being violated in allowance with amount ${allowance.actualAmount}`)
             return false
@@ -187,11 +167,7 @@ export function BR_IC_7(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true
     if (!val.totals.documentLevelAllowancesAndCharges?.charges) return true
     for (const charge of val.totals.documentLevelAllowancesAndCharges.charges) {
-        if (
-            charge.categoryTradeTax.categoryCode !==
-            TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES
-        )
-            continue
+        if (charge.categoryTradeTax.categoryCode !== TAX_CATEGORY_CODES.INTRA_COMMUNITY_SUPPLY_VAT_EXEMPT) continue
         if (charge.categoryTradeTax.rateApplicablePercent !== 0) {
             //printError(`Business Rule BR-E-7 is being violated in charge with amount ${charge.actualAmount}`)
             return false
@@ -212,19 +188,13 @@ export function BR_IC_8(val: availableProfiles): boolean {
     if (!val.invoiceLines) return true
 
     const linesWithIntraCommunityTaxExisting = val.invoiceLines.some(
-        line =>
-            line.settlement.tax.categoryCode ===
-            TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES
+        line => line.settlement.tax.categoryCode === TAX_CATEGORY_CODES.INTRA_COMMUNITY_SUPPLY_VAT_EXEMPT
     )
     const allowancesWithIntraCommunityTaxExisting = val.totals.documentLevelAllowancesAndCharges?.allowances?.some(
-        allowance =>
-            allowance.categoryTradeTax.categoryCode ===
-            TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES
+        allowance => allowance.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.INTRA_COMMUNITY_SUPPLY_VAT_EXEMPT
     )
     const chargesWithIntraCommunityTaxExisting = val.totals.documentLevelAllowancesAndCharges?.charges?.some(
-        charge =>
-            charge.categoryTradeTax.categoryCode ===
-            TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES
+        charge => charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.INTRA_COMMUNITY_SUPPLY_VAT_EXEMPT
     )
 
     if (
@@ -235,10 +205,7 @@ export function BR_IC_8(val: availableProfiles): boolean {
         return true
 
     const sumOfLinesWithIntraCommunityTax = val.invoiceLines.reduce((sum, line) => {
-        if (
-            line.settlement.tax.categoryCode ===
-            TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES
-        ) {
+        if (line.settlement.tax.categoryCode === TAX_CATEGORY_CODES.INTRA_COMMUNITY_SUPPLY_VAT_EXEMPT) {
             return sum + line.settlement.lineTotals.netTotal
         }
         return sum
@@ -246,10 +213,7 @@ export function BR_IC_8(val: availableProfiles): boolean {
 
     const sumOfDocumentLevelAllowancesWithIntraCommunityTax =
         val.totals.documentLevelAllowancesAndCharges?.allowances?.reduce((sum, allowance) => {
-            if (
-                allowance.categoryTradeTax.categoryCode ===
-                TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES
-            ) {
+            if (allowance.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.INTRA_COMMUNITY_SUPPLY_VAT_EXEMPT) {
                 return sum + allowance.actualAmount
             }
             return sum
@@ -257,10 +221,7 @@ export function BR_IC_8(val: availableProfiles): boolean {
 
     const sumOfDocumentLevelChargesWithIntraCommunityTax =
         val.totals.documentLevelAllowancesAndCharges?.charges?.reduce((sum, charge) => {
-            if (
-                charge.categoryTradeTax.categoryCode ===
-                TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES
-            ) {
+            if (charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.INTRA_COMMUNITY_SUPPLY_VAT_EXEMPT) {
                 return sum + charge.actualAmount
             }
             return sum
@@ -272,7 +233,7 @@ export function BR_IC_8(val: availableProfiles): boolean {
         sumOfDocumentLevelChargesWithIntraCommunityTax
 
     const taxBreakdownWithIntraCommunity = val.totals.taxBreakdown.find(
-        tax => tax.categoryCode === TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES
+        tax => tax.categoryCode === TAX_CATEGORY_CODES.INTRA_COMMUNITY_SUPPLY_VAT_EXEMPT
     )
 
     if (!taxBreakdownWithIntraCommunity) {
@@ -300,7 +261,7 @@ export const BR_IC_8_ERROR = {
 export function BR_IC_9(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true
     const taxBreakdownsWithIntraCommunity = val.totals.taxBreakdown.filter(
-        tax => tax.categoryCode === TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES
+        tax => tax.categoryCode === TAX_CATEGORY_CODES.INTRA_COMMUNITY_SUPPLY_VAT_EXEMPT
     )
 
     if (taxBreakdownsWithIntraCommunity.length === 0) return true
@@ -321,7 +282,7 @@ export const BR_IC_9_ERROR = {
 export function BR_IC_10(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true
     const taxBreakdownsWithIntraCommunity = val.totals.taxBreakdown.filter(
-        tax => tax.categoryCode === TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES
+        tax => tax.categoryCode === TAX_CATEGORY_CODES.INTRA_COMMUNITY_SUPPLY_VAT_EXEMPT
     )
 
     if (taxBreakdownsWithIntraCommunity.length === 0) return true
@@ -359,7 +320,7 @@ export const BR_IC_10_ERROR = {
 export function BR_IC_11(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true
     const taxBreakdownsWithIntraCommunityAvailable = val.totals.taxBreakdown.some(
-        tax => tax.categoryCode === TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES
+        tax => tax.categoryCode === TAX_CATEGORY_CODES.INTRA_COMMUNITY_SUPPLY_VAT_EXEMPT
     )
     if (!taxBreakdownsWithIntraCommunityAvailable) return true
 
@@ -377,7 +338,7 @@ export const BR_IC_11_ERROR = {
 export function BR_IC_12(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true
     const taxBreakdownsWithIntraCommunityAvailable = val.totals.taxBreakdown.some(
-        tax => tax.categoryCode === TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES
+        tax => tax.categoryCode === TAX_CATEGORY_CODES.INTRA_COMMUNITY_SUPPLY_VAT_EXEMPT
     )
     if (!taxBreakdownsWithIntraCommunityAvailable) return true
 

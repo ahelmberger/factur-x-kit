@@ -38,7 +38,7 @@ export const intraCommunityInvoice: ComfortProfile = {
             settlement: {
                 tax: {
                     typeCode: 'VAT' as TAX_TYPE_CODE,
-                    categoryCode: TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES,
+                    categoryCode: TAX_CATEGORY_CODES.INTRA_COMMUNITY_SUPPLY_VAT_EXEMPT,
                     rateApplicablePercent: 0
                 },
                 lineTotals: { netTotal: 5 }
@@ -60,7 +60,7 @@ export const intraCommunityInvoice: ComfortProfile = {
             settlement: {
                 tax: {
                     typeCode: 'VAT' as TAX_TYPE_CODE,
-                    categoryCode: TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES,
+                    categoryCode: TAX_CATEGORY_CODES.INTRA_COMMUNITY_SUPPLY_VAT_EXEMPT,
                     rateApplicablePercent: 0
                 },
                 lineTotals: { netTotal: 5 }
@@ -136,7 +136,7 @@ export const intraCommunityInvoice: ComfortProfile = {
                 exemptionReason: 'Intra Community Supply',
                 exemptionReasonCode: EXEMPTION_REASON_CODES.Intra_Community_supply,
                 basisAmount: 10,
-                categoryCode: TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES,
+                categoryCode: TAX_CATEGORY_CODES.INTRA_COMMUNITY_SUPPLY_VAT_EXEMPT,
                 rateApplicablePercent: 0
             }
         ],
@@ -148,8 +148,7 @@ export const intraCommunityInvoice: ComfortProfile = {
                     reasonCode: ALLOWANCE_REASONS_CODES.Discount,
                     categoryTradeTax: {
                         typeCode: TAX_TYPE_CODE.VALUE_ADDED_TAX_VAT,
-                        categoryCode:
-                            TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES,
+                        categoryCode: TAX_CATEGORY_CODES.INTRA_COMMUNITY_SUPPLY_VAT_EXEMPT,
                         rateApplicablePercent: 0
                     }
                 }
@@ -160,8 +159,7 @@ export const intraCommunityInvoice: ComfortProfile = {
                     reasonCode: CHARGE_REASONS_CODES.Handling,
                     categoryTradeTax: {
                         typeCode: TAX_TYPE_CODE.VALUE_ADDED_TAX_VAT,
-                        categoryCode:
-                            TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES,
+                        categoryCode: TAX_CATEGORY_CODES.INTRA_COMMUNITY_SUPPLY_VAT_EXEMPT,
                         rateApplicablePercent: 0
                     }
                 }

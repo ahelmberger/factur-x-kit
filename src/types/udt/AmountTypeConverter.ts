@@ -1,5 +1,6 @@
 import { z } from 'zod'
 
+import { round } from '../../helper/calculation'
 import { BaseTypeConverter, TypeConverterError } from '../BaseTypeConverter'
 
 export const ZAmountType = z.number()
@@ -43,7 +44,7 @@ export class AmountTypeConverter extends BaseTypeConverter<AmountType, AmountTyp
             throw new TypeConverterError('INVALID_VALUE')
         }
         return {
-            '#text': data.toFixed(this.decimalPlaces)
+            '#text': round(data, this.decimalPlaces).toFixed(this.decimalPlaces)
         }
     }
 }

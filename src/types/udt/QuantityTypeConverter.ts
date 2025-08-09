@@ -1,5 +1,6 @@
 import { z } from 'zod'
 
+import { round } from '../../helper/calculation'
 import { BaseTypeConverter, TypeConverterError } from '../BaseTypeConverter'
 import { UNIT_CODES } from '../codes'
 
@@ -50,7 +51,7 @@ export class QuantityTypeConverter extends BaseTypeConverter<QuantityType, Quant
         }
 
         return {
-            '#text': data.quantity.toFixed(4),
+            '#text': round(data.quantity, 4).toFixed(4),
             '@unitCode': data.unit
         }
     }

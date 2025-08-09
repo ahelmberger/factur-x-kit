@@ -348,7 +348,7 @@ describe('BR-G', () => {
                         settlement: {
                             tax: {
                                 typeCode: 'VAT' as TAX_TYPE_CODE,
-                                categoryCode: TAX_CATEGORY_CODES.FREE_EXPORT_ITEM_TAX_NOT_CHARGED,
+                                categoryCode: TAX_CATEGORY_CODES.EXPORT_TAX_NOT_CHARGED,
                                 rateApplicablePercent: 1
                             },
                             lineTotals: { netTotal: 5 }
@@ -390,7 +390,7 @@ describe('BR-G', () => {
                                 reasonCode: ALLOWANCE_REASONS_CODES.Discount,
                                 categoryTradeTax: {
                                     typeCode: TAX_TYPE_CODE.VALUE_ADDED_TAX_VAT,
-                                    categoryCode: TAX_CATEGORY_CODES.FREE_EXPORT_ITEM_TAX_NOT_CHARGED,
+                                    categoryCode: TAX_CATEGORY_CODES.EXPORT_TAX_NOT_CHARGED,
                                     rateApplicablePercent: 1
                                 }
                             }
@@ -431,7 +431,7 @@ describe('BR-G', () => {
                                 reasonCode: CHARGE_REASONS_CODES.Fitting,
                                 categoryTradeTax: {
                                     typeCode: TAX_TYPE_CODE.VALUE_ADDED_TAX_VAT,
-                                    categoryCode: TAX_CATEGORY_CODES.FREE_EXPORT_ITEM_TAX_NOT_CHARGED,
+                                    categoryCode: TAX_CATEGORY_CODES.EXPORT_TAX_NOT_CHARGED,
                                     rateApplicablePercent: 1
                                 }
                             }
@@ -471,7 +471,7 @@ describe('BR-G', () => {
                             exemptionReason: 'No Tax needed',
                             exemptionReasonCode: EXEMPTION_REASON_CODES.Export_outside_the_EU,
                             basisAmount: 12,
-                            categoryCode: TAX_CATEGORY_CODES.FREE_EXPORT_ITEM_TAX_NOT_CHARGED,
+                            categoryCode: TAX_CATEGORY_CODES.EXPORT_TAX_NOT_CHARGED,
                             rateApplicablePercent: 0
                         }
                     ]
@@ -509,7 +509,7 @@ describe('BR-G', () => {
                             exemptionReason: 'Export Outside EU',
                             exemptionReasonCode: EXEMPTION_REASON_CODES.Export_outside_the_EU,
                             basisAmount: 10,
-                            categoryCode: TAX_CATEGORY_CODES.FREE_EXPORT_ITEM_TAX_NOT_CHARGED,
+                            categoryCode: TAX_CATEGORY_CODES.EXPORT_TAX_NOT_CHARGED,
                             rateApplicablePercent: 0
                         }
                     ],
@@ -544,7 +544,7 @@ describe('BR-G', () => {
                             exemptionReason: 'No Tax needed',
                             exemptionReasonCode: undefined,
                             basisAmount: 10,
-                            categoryCode: TAX_CATEGORY_CODES.FREE_EXPORT_ITEM_TAX_NOT_CHARGED,
+                            categoryCode: TAX_CATEGORY_CODES.EXPORT_TAX_NOT_CHARGED,
                             rateApplicablePercent: 0
                         }
                     ]
@@ -569,7 +569,7 @@ describe('BR-G', () => {
                             exemptionReason: undefined,
                             exemptionReasonCode: EXEMPTION_REASON_CODES.Export_outside_the_EU,
                             basisAmount: 10,
-                            categoryCode: TAX_CATEGORY_CODES.FREE_EXPORT_ITEM_TAX_NOT_CHARGED,
+                            categoryCode: TAX_CATEGORY_CODES.EXPORT_TAX_NOT_CHARGED,
                             rateApplicablePercent: 0
                         }
                     ]
@@ -594,7 +594,7 @@ describe('BR-G', () => {
                             exemptionReason: undefined,
                             exemptionReasonCode: undefined,
                             basisAmount: 10,
-                            categoryCode: TAX_CATEGORY_CODES.FREE_EXPORT_ITEM_TAX_NOT_CHARGED,
+                            categoryCode: TAX_CATEGORY_CODES.EXPORT_TAX_NOT_CHARGED,
                             rateApplicablePercent: 0
                         }
                     ]
@@ -621,7 +621,7 @@ describe('BR-G', () => {
                             exemptionReason: 'export outside eu',
                             exemptionReasonCode: EXEMPTION_REASON_CODES.Reverse_charge,
                             basisAmount: 10,
-                            categoryCode: TAX_CATEGORY_CODES.FREE_EXPORT_ITEM_TAX_NOT_CHARGED,
+                            categoryCode: TAX_CATEGORY_CODES.EXPORT_TAX_NOT_CHARGED,
                             rateApplicablePercent: 0
                         }
                     ]

@@ -9,16 +9,16 @@ export function BR_O_1(val: availableProfiles): boolean {
     let linesWithNotSubjectToVatExisting = false
     if ('invoiceLines' in val && val.invoiceLines) {
         linesWithNotSubjectToVatExisting = val.invoiceLines.some(
-            line => line.settlement.tax.categoryCode === TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX
+            line => line.settlement.tax.categoryCode === TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT
         )
     }
 
     const allowancesWithNotSubjectToVatExisting = val.totals.documentLevelAllowancesAndCharges?.allowances?.some(
-        allowance => allowance.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX
+        allowance => allowance.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT
     )
 
     const chargesWithNotSubjectToVatExisting = val.totals.documentLevelAllowancesAndCharges?.charges?.some(
-        charge => charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX
+        charge => charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT
     )
     if (
         !linesWithNotSubjectToVatExisting &&
@@ -28,7 +28,7 @@ export function BR_O_1(val: availableProfiles): boolean {
         return true
 
     const taxBreakdownForNotSubjectToVat = val.totals.taxBreakdown.filter(
-        tax => tax.categoryCode === TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX
+        tax => tax.categoryCode === TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT
     )
 
     if (taxBreakdownForNotSubjectToVat.length === 1) {
@@ -48,7 +48,7 @@ export function BR_O_2(val: availableProfiles): boolean {
     if (!val.invoiceLines) return true
 
     const linesWithNotSubjectToVatExisting = val.invoiceLines.some(
-        line => line.settlement.tax.categoryCode === TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX
+        line => line.settlement.tax.categoryCode === TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT
     )
     if (!linesWithNotSubjectToVatExisting) return true
 
@@ -73,7 +73,7 @@ export function BR_O_3(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true
 
     const allowancesWithNotSubjectToVatExisting = val.totals.documentLevelAllowancesAndCharges?.allowances?.some(
-        allowance => allowance.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX
+        allowance => allowance.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT
     )
     if (!allowancesWithNotSubjectToVatExisting) return true
 
@@ -98,7 +98,7 @@ export function BR_O_4(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true
 
     const chargesWithNotSubjectToVatExisting = val.totals.documentLevelAllowancesAndCharges?.charges?.some(
-        charge => charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX
+        charge => charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT
     )
     if (!chargesWithNotSubjectToVatExisting) return true
 
@@ -124,7 +124,7 @@ export function BR_O_5(val: availableProfiles): boolean {
     if (!val.invoiceLines) return true
 
     for (const line of val.invoiceLines) {
-        if (line.settlement.tax.categoryCode !== TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX) continue
+        if (line.settlement.tax.categoryCode !== TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT) continue
         if (line.settlement.tax.rateApplicablePercent != null) {
             //printError(`Business Rule BR-O-5 is being violated in invoiceLine ${line.generalLineData.lineId}`)
             return false
@@ -144,7 +144,7 @@ export function BR_O_6(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true
     if (!val.totals.documentLevelAllowancesAndCharges?.allowances) return true
     for (const allowance of val.totals.documentLevelAllowancesAndCharges.allowances) {
-        if (allowance.categoryTradeTax.categoryCode !== TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX) continue
+        if (allowance.categoryTradeTax.categoryCode !== TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT) continue
         if (allowance.categoryTradeTax.rateApplicablePercent != null) {
             //printError(`Business Rule BR-O-6 is being violated in allowance with amount ${allowance.actualAmount}`)
             return false
@@ -164,7 +164,7 @@ export function BR_O_7(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true
     if (!val.totals.documentLevelAllowancesAndCharges?.charges) return true
     for (const charge of val.totals.documentLevelAllowancesAndCharges.charges) {
-        if (charge.categoryTradeTax.categoryCode !== TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX) continue
+        if (charge.categoryTradeTax.categoryCode !== TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT) continue
         if (charge.categoryTradeTax.rateApplicablePercent != null) {
             //printError(`Business Rule BR-O-7 is being violated in charge with amount ${charge.actualAmount}`)
             return false
@@ -185,13 +185,13 @@ export function BR_O_8(val: availableProfiles): boolean {
     if (!val.invoiceLines) return true
 
     const linesWithNotSubjectToVatTaxExisting = val.invoiceLines.some(
-        line => line.settlement.tax.categoryCode === TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX
+        line => line.settlement.tax.categoryCode === TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT
     )
     const allowancesWithNotSubjectToVatTaxExisting = val.totals.documentLevelAllowancesAndCharges?.allowances?.some(
-        allowance => allowance.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX
+        allowance => allowance.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT
     )
     const chargesWithNotSubjectToVatTaxExisting = val.totals.documentLevelAllowancesAndCharges?.charges?.some(
-        charge => charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX
+        charge => charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT
     )
 
     if (
@@ -202,7 +202,7 @@ export function BR_O_8(val: availableProfiles): boolean {
         return true
 
     const sumOfLinesWithNotSubjectToVat = val.invoiceLines.reduce((sum, line) => {
-        if (line.settlement.tax.categoryCode === TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX) {
+        if (line.settlement.tax.categoryCode === TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT) {
             return sum + line.settlement.lineTotals.netTotal
         }
         return sum
@@ -210,7 +210,7 @@ export function BR_O_8(val: availableProfiles): boolean {
 
     const sumOfDocumentLevelAllowancesWithNotSubjectToVat =
         val.totals.documentLevelAllowancesAndCharges?.allowances?.reduce((sum, allowance) => {
-            if (allowance.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX) {
+            if (allowance.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT) {
                 return sum + allowance.actualAmount
             }
             return sum
@@ -218,7 +218,7 @@ export function BR_O_8(val: availableProfiles): boolean {
 
     const sumOfDocumentLevelChargesWithNotSubjectToVat =
         val.totals.documentLevelAllowancesAndCharges?.charges?.reduce((sum, charge) => {
-            if (charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX) {
+            if (charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT) {
                 return sum + charge.actualAmount
             }
             return sum
@@ -230,7 +230,7 @@ export function BR_O_8(val: availableProfiles): boolean {
         sumOfDocumentLevelChargesWithNotSubjectToVat
 
     const taxBreakdownForNotSubjectToVat = val.totals.taxBreakdown.find(
-        tax => tax.categoryCode === TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX
+        tax => tax.categoryCode === TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT
     )
 
     if (!taxBreakdownForNotSubjectToVat) {
@@ -258,7 +258,7 @@ export const BR_O_8_ERROR = {
 export function BR_O_9(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true
     const taxBreakdownsForNotSubjectToVat = val.totals.taxBreakdown.filter(
-        tax => tax.categoryCode === TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX
+        tax => tax.categoryCode === TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT
     )
 
     if (taxBreakdownsForNotSubjectToVat.length === 0) return true
@@ -279,7 +279,7 @@ export const BR_O_9_ERROR = {
 export function BR_O_10(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true
     const taxBreakdownsForNotSubjectToVat = val.totals.taxBreakdown.filter(
-        tax => tax.categoryCode === TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX
+        tax => tax.categoryCode === TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT
     )
 
     if (taxBreakdownsForNotSubjectToVat.length === 0) return true
@@ -305,7 +305,7 @@ export const BR_O_10_ERROR = {
 export function BR_O_11(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true
     const taxBreakdownForNotSubjectToVatAvailable = val.totals.taxBreakdown.some(
-        tax => tax.categoryCode === TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX
+        tax => tax.categoryCode === TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT
     )
 
     if (!taxBreakdownForNotSubjectToVatAvailable) return true
@@ -326,13 +326,13 @@ export function BR_O_12(val: availableProfiles): boolean {
         return true
     }
     const taxBreakdownForNotSubjectToVatAvailable = val.totals.taxBreakdown.some(
-        tax => tax.categoryCode === TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX
+        tax => tax.categoryCode === TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT
     )
 
     if (!taxBreakdownForNotSubjectToVatAvailable) return true
 
     for (const line of val.invoiceLines) {
-        if (line.settlement.tax.categoryCode !== TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX) {
+        if (line.settlement.tax.categoryCode !== TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT) {
             //printError(`Business Rule BR-O-12 is being violated in invoiceLine ${line.generalLineData.lineId}`)
             return false
         }
@@ -350,13 +350,13 @@ export const BR_O_12_ERROR = {
 export function BR_O_13(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true
     const taxBreakdownForNotSubjectToVatAvailable = val.totals.taxBreakdown.some(
-        tax => tax.categoryCode === TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX
+        tax => tax.categoryCode === TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT
     )
 
     if (!taxBreakdownForNotSubjectToVatAvailable) return true
 
     const allowancesWithOtherCategoriesAvailable = val.totals.documentLevelAllowancesAndCharges?.allowances?.some(
-        allowance => allowance.categoryTradeTax.categoryCode !== TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX
+        allowance => allowance.categoryTradeTax.categoryCode !== TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT
     )
     if (allowancesWithOtherCategoriesAvailable) return false
 
@@ -372,13 +372,13 @@ export const BR_O_13_ERROR = {
 export function BR_O_14(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true
     const taxBreakdownForNotSubjectToVatAvailable = val.totals.taxBreakdown.some(
-        tax => tax.categoryCode === TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX
+        tax => tax.categoryCode === TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT
     )
 
     if (!taxBreakdownForNotSubjectToVatAvailable) return true
 
     const chargesWithOtherCategoriesAvailable = val.totals.documentLevelAllowancesAndCharges?.charges?.some(
-        charge => charge.categoryTradeTax.categoryCode !== TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX
+        charge => charge.categoryTradeTax.categoryCode !== TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT
     )
     if (chargesWithOtherCategoriesAvailable) return false
 

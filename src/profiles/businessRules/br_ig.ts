@@ -9,22 +9,20 @@ export function BR_IG_1(val: availableProfiles): boolean {
     let linesWithIgicTaxExisting = false
     if ('invoiceLines' in val && val.invoiceLines) {
         linesWithIgicTaxExisting = val.invoiceLines.some(
-            line => line.settlement.tax.categoryCode === TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX
+            line => line.settlement.tax.categoryCode === TAX_CATEGORY_CODES.IGIC
         )
     }
 
     const allowancesWithIgicTaxExisting = val.totals.documentLevelAllowancesAndCharges?.allowances?.some(
-        allowance => allowance.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX
+        allowance => allowance.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.IGIC
     )
 
     const chargesWithIgicTaxExisting = val.totals.documentLevelAllowancesAndCharges?.charges?.some(
-        charge => charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX
+        charge => charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.IGIC
     )
     if (!linesWithIgicTaxExisting && !allowancesWithIgicTaxExisting && !chargesWithIgicTaxExisting) return true
 
-    const taxBreakdownWithIgic = val.totals.taxBreakdown.filter(
-        tax => tax.categoryCode === TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX
-    )
+    const taxBreakdownWithIgic = val.totals.taxBreakdown.filter(tax => tax.categoryCode === TAX_CATEGORY_CODES.IGIC)
 
     if (taxBreakdownWithIgic.length >= 1) {
         return true
@@ -43,7 +41,7 @@ export function BR_IG_2(val: availableProfiles): boolean {
     if (!val.invoiceLines) return true
 
     const linesWithIgicTaxExisting = val.invoiceLines.some(
-        line => line.settlement.tax.categoryCode === TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX
+        line => line.settlement.tax.categoryCode === TAX_CATEGORY_CODES.IGIC
     )
     if (!linesWithIgicTaxExisting) return true
 
@@ -68,7 +66,7 @@ export function BR_IG_3(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true
 
     const allowancesWithIgicTaxExisting = val.totals.documentLevelAllowancesAndCharges?.allowances?.some(
-        allowance => allowance.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX
+        allowance => allowance.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.IGIC
     )
     if (!allowancesWithIgicTaxExisting) return true
 
@@ -93,7 +91,7 @@ export function BR_IG_4(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true
 
     const chargesWithIgicTaxExisting = val.totals.documentLevelAllowancesAndCharges?.charges?.some(
-        charge => charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX
+        charge => charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.IGIC
     )
     if (!chargesWithIgicTaxExisting) return true
 
@@ -119,7 +117,7 @@ export function BR_IG_5(val: availableProfiles): boolean {
     if (!val.invoiceLines) return true
 
     for (const line of val.invoiceLines) {
-        if (line.settlement.tax.categoryCode !== TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX) continue
+        if (line.settlement.tax.categoryCode !== TAX_CATEGORY_CODES.IGIC) continue
         if (line.settlement.tax.rateApplicablePercent == null || line.settlement.tax.rateApplicablePercent < 0) {
             //printError(`Business Rule BR-IG-5 is being violated in invoiceLine ${line.generalLineData.lineId}`)
             return false
@@ -139,7 +137,7 @@ export function BR_IG_6(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true
     if (!val.totals.documentLevelAllowancesAndCharges?.allowances) return true
     for (const allowance of val.totals.documentLevelAllowancesAndCharges.allowances) {
-        if (allowance.categoryTradeTax.categoryCode !== TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX) continue
+        if (allowance.categoryTradeTax.categoryCode !== TAX_CATEGORY_CODES.IGIC) continue
         if (
             allowance.categoryTradeTax.rateApplicablePercent == null ||
             allowance.categoryTradeTax.rateApplicablePercent < 0
@@ -162,7 +160,7 @@ export function BR_IG_7(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true
     if (!val.totals.documentLevelAllowancesAndCharges?.charges) return true
     for (const charge of val.totals.documentLevelAllowancesAndCharges.charges) {
-        if (charge.categoryTradeTax.categoryCode !== TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX) continue
+        if (charge.categoryTradeTax.categoryCode !== TAX_CATEGORY_CODES.IGIC) continue
         if (
             charge.categoryTradeTax.rateApplicablePercent == null ||
             charge.categoryTradeTax.rateApplicablePercent < 0
@@ -188,7 +186,7 @@ export function BR_IG_8(val: availableProfiles): boolean {
     // Step 1: Check which tax rates are available for IGIC
 
     const availableTaxRatesInLines = val.invoiceLines.reduce((acc, line) => {
-        if (line.settlement.tax.categoryCode === TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX) {
+        if (line.settlement.tax.categoryCode === TAX_CATEGORY_CODES.IGIC) {
             const rate = line.settlement.tax.rateApplicablePercent
             if (rate != null && rate >= 0) {
                 acc.add(rate)
@@ -199,7 +197,7 @@ export function BR_IG_8(val: availableProfiles): boolean {
 
     const availableTaxRatesInAllowances =
         val.totals.documentLevelAllowancesAndCharges?.allowances?.reduce((acc, allowance) => {
-            if (allowance.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX) {
+            if (allowance.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.IGIC) {
                 const rate = allowance.categoryTradeTax.rateApplicablePercent
                 if (rate != null && rate >= 0) {
                     acc.add(rate)
@@ -210,7 +208,7 @@ export function BR_IG_8(val: availableProfiles): boolean {
 
     const availableTaxRatesInCharges =
         val.totals.documentLevelAllowancesAndCharges?.charges?.reduce((acc, charge) => {
-            if (charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX) {
+            if (charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.IGIC) {
                 const rate = charge.categoryTradeTax.rateApplicablePercent
                 if (rate != null && rate >= 0) {
                     acc.add(rate)
@@ -229,9 +227,7 @@ export function BR_IG_8(val: availableProfiles): boolean {
 
     for (const rate of allAvailableTaxRates) {
         const taxBreakdownsWithIGICRate = val.totals.taxBreakdown.filter(
-            tax =>
-                tax.categoryCode === TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX &&
-                tax.rateApplicablePercent === rate
+            tax => tax.categoryCode === TAX_CATEGORY_CODES.IGIC && tax.rateApplicablePercent === rate
         )
 
         if (
@@ -247,7 +243,7 @@ export function BR_IG_8(val: availableProfiles): boolean {
         const totalProvidedIGICRateTaxAmount = taxBreakdownWithIGICRate.basisAmount
         const sumOfLinesWithIGICRateTax = val.invoiceLines.reduce((sum, line) => {
             if (
-                line.settlement.tax.categoryCode === TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX &&
+                line.settlement.tax.categoryCode === TAX_CATEGORY_CODES.IGIC &&
                 line.settlement.tax.rateApplicablePercent === rate
             ) {
                 return sum + line.settlement.lineTotals.netTotal
@@ -258,8 +254,7 @@ export function BR_IG_8(val: availableProfiles): boolean {
         const sumOfDocumentLevelAllowancesWithIGICRateTax =
             val.totals.documentLevelAllowancesAndCharges?.allowances?.reduce((sum, allowance) => {
                 if (
-                    allowance.categoryTradeTax.categoryCode ===
-                        TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX &&
+                    allowance.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.IGIC &&
                     allowance.categoryTradeTax.rateApplicablePercent === rate
                 ) {
                     return sum + allowance.actualAmount
@@ -270,7 +265,7 @@ export function BR_IG_8(val: availableProfiles): boolean {
         const sumOfDocumentLevelChargesWithIGICRateTax =
             val.totals.documentLevelAllowancesAndCharges?.charges?.reduce((sum, charge) => {
                 if (
-                    charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX &&
+                    charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.IGIC &&
                     charge.categoryTradeTax.rateApplicablePercent === rate
                 ) {
                     return sum + charge.actualAmount
@@ -303,9 +298,7 @@ export const BR_IG_8_ERROR = {
 }
 export function BR_IG_9(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true
-    const taxBreakdownsWithIgic = val.totals.taxBreakdown.filter(
-        tax => tax.categoryCode === TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX
-    )
+    const taxBreakdownsWithIgic = val.totals.taxBreakdown.filter(tax => tax.categoryCode === TAX_CATEGORY_CODES.IGIC)
 
     if (taxBreakdownsWithIgic.length === 0) return true
 
@@ -326,9 +319,7 @@ export const BR_IG_9_ERROR = {
 
 export function BR_IG_10(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true
-    const taxBreakdownsWithIgic = val.totals.taxBreakdown.filter(
-        tax => tax.categoryCode === TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX
-    )
+    const taxBreakdownsWithIgic = val.totals.taxBreakdown.filter(tax => tax.categoryCode === TAX_CATEGORY_CODES.IGIC)
 
     if (taxBreakdownsWithIgic.length === 0) return true
 

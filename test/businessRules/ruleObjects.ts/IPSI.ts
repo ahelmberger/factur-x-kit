@@ -140,8 +140,7 @@ export const IPSIInvoice: ComfortProfile = {
                     reason: 'Loyalty Program Discount',
                     categoryTradeTax: {
                         typeCode: 'VAT' as TAX_TYPE_CODE,
-                        categoryCode:
-                            TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA,
+                        categoryCode: TAX_CATEGORY_CODES.IPSI,
                         rateApplicablePercent: 19
                     }
                 },
@@ -151,8 +150,7 @@ export const IPSIInvoice: ComfortProfile = {
                     reason: 'Allowance',
                     categoryTradeTax: {
                         typeCode: 'VAT' as TAX_TYPE_CODE,
-                        categoryCode:
-                            TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA,
+                        categoryCode: TAX_CATEGORY_CODES.IPSI,
                         rateApplicablePercent: 0
                     }
                 }
@@ -164,8 +162,7 @@ export const IPSIInvoice: ComfortProfile = {
                     reason: 'Standard Shipping Fee',
                     categoryTradeTax: {
                         typeCode: 'VAT' as TAX_TYPE_CODE,
-                        categoryCode:
-                            TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA,
+                        categoryCode: TAX_CATEGORY_CODES.IPSI,
                         rateApplicablePercent: 19
                     }
                 }
@@ -179,7 +176,7 @@ export const IPSIInvoice: ComfortProfile = {
                 calculatedAmount: 23.09,
                 typeCode: 'VAT' as TAX_TYPE_CODE,
                 basisAmount: 121.5,
-                categoryCode: TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA,
+                categoryCode: TAX_CATEGORY_CODES.IPSI,
                 rateApplicablePercent: 19,
                 taxPointDate: { year: 2024, month: 1, day: 15 }
             },
@@ -187,7 +184,7 @@ export const IPSIInvoice: ComfortProfile = {
                 calculatedAmount: 0,
                 typeCode: 'VAT' as TAX_TYPE_CODE,
                 basisAmount: 30,
-                categoryCode: TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA,
+                categoryCode: TAX_CATEGORY_CODES.IPSI,
                 rateApplicablePercent: 0,
                 taxPointDate: { year: 2024, month: 1, day: 15 }
             }
@@ -256,7 +253,7 @@ export const IPSIInvoice: ComfortProfile = {
             settlement: {
                 tax: {
                     typeCode: 'VAT' as TAX_TYPE_CODE,
-                    categoryCode: TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA,
+                    categoryCode: TAX_CATEGORY_CODES.IPSI,
                     rateApplicablePercent: 19
                 },
                 lineLevelAllowancesAndCharges: {
@@ -304,7 +301,7 @@ export const IPSIInvoice: ComfortProfile = {
             settlement: {
                 tax: {
                     typeCode: 'VAT' as TAX_TYPE_CODE,
-                    categoryCode: TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA,
+                    categoryCode: TAX_CATEGORY_CODES.IPSI,
                     rateApplicablePercent: 19
                 },
                 lineLevelAllowancesAndCharges: {
@@ -333,7 +330,7 @@ export const IPSIInvoice: ComfortProfile = {
             settlement: {
                 tax: {
                     typeCode: 'VAT' as TAX_TYPE_CODE,
-                    categoryCode: TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA,
+                    categoryCode: TAX_CATEGORY_CODES.IPSI,
                     rateApplicablePercent: 0
                 },
                 lineTotals: { netTotal: 31 }
@@ -453,8 +450,7 @@ export const IPSINoTaxInvoice: ComfortProfile = {
                     reason: 'Loyalty Program Discount',
                     categoryTradeTax: {
                         typeCode: 'VAT' as TAX_TYPE_CODE,
-                        categoryCode:
-                            TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA,
+                        categoryCode: TAX_CATEGORY_CODES.IPSI,
                         rateApplicablePercent: 0
                     }
                 }
@@ -466,8 +462,7 @@ export const IPSINoTaxInvoice: ComfortProfile = {
                     reason: 'Standard Shipping Fee',
                     categoryTradeTax: {
                         typeCode: 'VAT' as TAX_TYPE_CODE,
-                        categoryCode:
-                            TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA,
+                        categoryCode: TAX_CATEGORY_CODES.IPSI,
                         rateApplicablePercent: 0
                     }
                 }
@@ -481,7 +476,7 @@ export const IPSINoTaxInvoice: ComfortProfile = {
                 calculatedAmount: 0,
                 typeCode: 'VAT' as TAX_TYPE_CODE,
                 basisAmount: 120.5,
-                categoryCode: TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA,
+                categoryCode: TAX_CATEGORY_CODES.IPSI,
                 rateApplicablePercent: 0,
                 taxPointDate: { year: 2024, month: 1, day: 15 }
             }
@@ -521,7 +516,7 @@ export const IPSINoTaxInvoice: ComfortProfile = {
             settlement: {
                 tax: {
                     typeCode: 'VAT' as TAX_TYPE_CODE,
-                    categoryCode: TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA,
+                    categoryCode: TAX_CATEGORY_CODES.IPSI,
                     rateApplicablePercent: 0
                 },
                 lineLevelAllowancesAndCharges: {
@@ -569,7 +564,7 @@ export const IPSINoTaxInvoice: ComfortProfile = {
             settlement: {
                 tax: {
                     typeCode: 'VAT' as TAX_TYPE_CODE,
-                    categoryCode: TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA,
+                    categoryCode: TAX_CATEGORY_CODES.IPSI,
                     rateApplicablePercent: 0
                 },
                 lineLevelAllowancesAndCharges: {

@@ -406,8 +406,7 @@ describe('BR-IC', () => {
                         settlement: {
                             tax: {
                                 typeCode: 'VAT' as TAX_TYPE_CODE,
-                                categoryCode:
-                                    TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES,
+                                categoryCode: TAX_CATEGORY_CODES.INTRA_COMMUNITY_SUPPLY_VAT_EXEMPT,
                                 rateApplicablePercent: 1
                             },
                             lineTotals: { netTotal: 5 }
@@ -449,8 +448,7 @@ describe('BR-IC', () => {
                                 reasonCode: ALLOWANCE_REASONS_CODES.Discount,
                                 categoryTradeTax: {
                                     typeCode: TAX_TYPE_CODE.VALUE_ADDED_TAX_VAT,
-                                    categoryCode:
-                                        TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES,
+                                    categoryCode: TAX_CATEGORY_CODES.INTRA_COMMUNITY_SUPPLY_VAT_EXEMPT,
                                     rateApplicablePercent: 1
                                 }
                             }
@@ -491,8 +489,7 @@ describe('BR-IC', () => {
                                 reasonCode: CHARGE_REASONS_CODES.Fitting,
                                 categoryTradeTax: {
                                     typeCode: TAX_TYPE_CODE.VALUE_ADDED_TAX_VAT,
-                                    categoryCode:
-                                        TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES,
+                                    categoryCode: TAX_CATEGORY_CODES.INTRA_COMMUNITY_SUPPLY_VAT_EXEMPT,
                                     rateApplicablePercent: 1
                                 }
                             }
@@ -532,8 +529,7 @@ describe('BR-IC', () => {
                             exemptionReason: 'No Tax needed',
                             exemptionReasonCode: EXEMPTION_REASON_CODES.Intra_Community_supply,
                             basisAmount: 12,
-                            categoryCode:
-                                TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES,
+                            categoryCode: TAX_CATEGORY_CODES.INTRA_COMMUNITY_SUPPLY_VAT_EXEMPT,
                             rateApplicablePercent: 0
                         }
                     ]
@@ -571,8 +567,7 @@ describe('BR-IC', () => {
                             exemptionReason: 'Export Outside EU',
                             exemptionReasonCode: EXEMPTION_REASON_CODES.Intra_Community_supply,
                             basisAmount: 10,
-                            categoryCode:
-                                TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES,
+                            categoryCode: TAX_CATEGORY_CODES.INTRA_COMMUNITY_SUPPLY_VAT_EXEMPT,
                             rateApplicablePercent: 0
                         }
                     ],
@@ -607,8 +602,7 @@ describe('BR-IC', () => {
                             exemptionReason: 'No Tax needed',
                             exemptionReasonCode: undefined,
                             basisAmount: 10,
-                            categoryCode:
-                                TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES,
+                            categoryCode: TAX_CATEGORY_CODES.INTRA_COMMUNITY_SUPPLY_VAT_EXEMPT,
                             rateApplicablePercent: 0
                         }
                     ]
@@ -633,8 +627,7 @@ describe('BR-IC', () => {
                             exemptionReason: undefined,
                             exemptionReasonCode: EXEMPTION_REASON_CODES.Intra_Community_supply,
                             basisAmount: 10,
-                            categoryCode:
-                                TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES,
+                            categoryCode: TAX_CATEGORY_CODES.INTRA_COMMUNITY_SUPPLY_VAT_EXEMPT,
                             rateApplicablePercent: 0
                         }
                     ]
@@ -659,8 +652,7 @@ describe('BR-IC', () => {
                             exemptionReason: undefined,
                             exemptionReasonCode: undefined,
                             basisAmount: 10,
-                            categoryCode:
-                                TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES,
+                            categoryCode: TAX_CATEGORY_CODES.INTRA_COMMUNITY_SUPPLY_VAT_EXEMPT,
                             rateApplicablePercent: 0
                         }
                     ]
@@ -687,8 +679,7 @@ describe('BR-IC', () => {
                             exemptionReason: 'Intra community',
                             exemptionReasonCode: EXEMPTION_REASON_CODES.Reverse_charge,
                             basisAmount: 10,
-                            categoryCode:
-                                TAX_CATEGORY_CODES.VAT_EXEMPT_FOR_EEA_INTRA_COMMUNITY_SUPPLY_OF_GOODS_AND_SERVICES,
+                            categoryCode: TAX_CATEGORY_CODES.INTRA_COMMUNITY_SUPPLY_VAT_EXEMPT,
                             rateApplicablePercent: 0
                         }
                     ]

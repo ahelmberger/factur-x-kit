@@ -2,7 +2,7 @@ import { availableProfiles } from '../../core/factur-x'
 import { PROFILES } from '../../types/ProfileTypes'
 import { COUNTRY_ID_CODES } from '../../types/codes'
 
-const TOLERANCE = 0.005
+const TOLERANCE = 0.0051
 
 export function BR_CO_3(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true

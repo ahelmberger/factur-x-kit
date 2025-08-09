@@ -1,6 +1,7 @@
 import { PDFFont, PDFPage, RGB } from 'pdf-lib'
 
 import { availableProfiles } from '../../../core/factur-x'
+import { round } from '../../../helper/calculation'
 import { ComfortTradeLineItem } from '../../../types/ram/IncludedSupplyChainTradeLineItem/ComfortTradeLineItem'
 import attachedDocumentTypes from '../../texts/codeTranslations/attachedDocumentTypes'
 import iso6523 from '../../texts/codeTranslations/iso6523'
@@ -58,7 +59,7 @@ export default async function addItemTable(
 
                 let baseQuantityText = ''
                 if (priceBaseQuantity) {
-                    baseQuantityText = ` (${new Intl.NumberFormat(locale, { style: 'decimal', maximumFractionDigits: 4 }).format(priceBaseQuantity.quantity)} ${priceBaseQuantity.unit ? unitSymbols[locale][priceBaseQuantity.unit] : ''})`
+                    baseQuantityText = ` (${new Intl.NumberFormat(locale, { style: 'decimal', maximumFractionDigits: 4 }).format(round(priceBaseQuantity.quantity, 4))} ${priceBaseQuantity.unit ? unitSymbols[locale][priceBaseQuantity.unit] : ''})`
                 }
 
                 const productId = lineItem.productDescription.sellerProductId
@@ -73,21 +74,21 @@ export default async function addItemTable(
             colHeader: `${textTranslations[locale].QUANTITY}`,
             colWeight: 1.5,
             colContent: (lineItem: ComfortTradeLineItem) =>
-                `${new Intl.NumberFormat(locale, { style: 'decimal', maximumFractionDigits: 4 }).format(lineItem.delivery.itemQuantity.quantity)} ${lineItem.delivery.itemQuantity.unit ? unitSymbols[locale][lineItem.delivery.itemQuantity.unit] : ''}`
+                `${new Intl.NumberFormat(locale, { style: 'decimal', maximumFractionDigits: 4 }).format(round(lineItem.delivery.itemQuantity.quantity, 4))} ${lineItem.delivery.itemQuantity.unit ? unitSymbols[locale][lineItem.delivery.itemQuantity.unit] : ''}`
         },
         {
             colAlignment: 'right',
             colHeader: `${textTranslations[locale].UNIT_PRICE}`,
             colWeight: 1.5,
             colContent: (lineItem: ComfortTradeLineItem) =>
-                `${checkAndAddPriceAllowance(lineItem, locale, currencyConverterPricePerUnit)}${currencyConverterPricePerUnit.format(lineItem.productPriceAgreement.productNetPricing.netPricePerItem)}`
+                `${checkAndAddPriceAllowance(lineItem, locale, currencyConverterPricePerUnit)}${currencyConverterPricePerUnit.format(round(lineItem.productPriceAgreement.productNetPricing.netPricePerItem, 4))}`
         },
         {
             colAlignment: 'right',
             colHeader: `${textTranslations[locale].TOTAL_PRICE_PER_ITEM}`,
             colWeight: 1.5,
             colContent: (lineItem: ComfortTradeLineItem) =>
-                `${currencyConverter.format(lineItem.settlement.lineTotals.netTotal)}`
+                `${currencyConverter.format(round(lineItem.settlement.lineTotals.netTotal, 2))}`
         }
     ]
 
@@ -230,7 +231,7 @@ function checkAndAddTax(
                 colHeader: `${textTranslations[locale].TAX}`,
                 colWeight: 1,
                 colContent: (lineItem: ComfortTradeLineItem) =>
-                    `${lineItem.settlement.tax.rateApplicablePercent ? new Intl.NumberFormat(locale, { style: 'percent' }).format(lineItem.settlement.tax.rateApplicablePercent / 100) : '--'}`
+                    `${lineItem.settlement.tax.rateApplicablePercent ? new Intl.NumberFormat(locale, { style: 'percent', maximumFractionDigits: 4 }).format(round(lineItem.settlement.tax.rateApplicablePercent / 100, 4)) : '--'}`
             })
             break
         }
@@ -244,5 +245,5 @@ function checkAndAddPriceAllowance(
 ): string {
     if (!lineItem.productPriceAgreement.productPricing?.priceAllowancesAndCharges?.allowances) return ''
     if (lineItem.productPriceAgreement.productPricing.priceAllowancesAndCharges.allowances.length < 1) return ''
-    return `${currencyConverter.format(lineItem.productPriceAgreement.productPricing.basisPricePerItem)}${convertAllowancesAndChargesToString(lineItem.productPriceAgreement.productPricing?.priceAllowancesAndCharges, currencyConverter, locale, true)}\n= `
+    return `${currencyConverter.format(round(lineItem.productPriceAgreement.productPricing.basisPricePerItem, 4))}${convertAllowancesAndChargesToString(lineItem.productPriceAgreement.productPricing?.priceAllowancesAndCharges, currencyConverter, locale, true, undefined, 4)}\n= `
 }

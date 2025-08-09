@@ -1,22 +1,16 @@
 import { Schema } from 'node-schematron'
+import exp from 'node:constants'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 
+import { totalsCalculator } from '../src/adapter/totalsCalculator'
 import { FacturX } from '../src/core/factur-x'
-import { ImageDimensions } from '../src/pdfTemplates/invoiceBlocks/headerImage'
 import { dinA4Width, mmToPt } from '../src/pdfTemplates/types'
-import zugferdKitMultiPage from '../src/pdfTemplates/zugferdKitMultiPage'
-import { ZBasicWithoutLinesProfileStructure } from '../src/profiles/basicwithoutlines/BasicWithoutLinesProfile'
-import { ZBasicWithoutLinesProfileXml } from '../src/profiles/basicwithoutlines/BasicWithoutLinesProfileXml'
-import { ZComfortProfile, isComfortProfile } from '../src/profiles/comfort'
-import { isMinimumProfile } from '../src/profiles/minimum'
-import { ZBasicTradeLineItem } from '../src/types/ram/IncludedSupplyChainTradeLineItem/BasicTradeLineItem'
-import { ZComfortTradeLineItem } from '../src/types/ram/IncludedSupplyChainTradeLineItem/ComfortTradeLineItem'
 import { designTestObject } from './design_test_object'
 import { designTestObject_easy } from './design_test_object_easy'
 import { testDesignObjectKleinunternehmer } from './design_test_object_kleinunternehmer'
+import { designTestObject_preCalc } from './design_test_object_preCalc'
 import './profiles/codeDb/xPathDocumentFunction'
-import { testComfortProfile } from './profiles/comfort_test_objects'
 
 // This is just a testcase which helps me printing out the ts-objects which are built from the zod types
 
@@ -86,7 +80,7 @@ describe('factur-x validity check', () => {
 })
 
 describe.only('pdf-creation', () => {
-    test.only('pdf creation', async () => {
+    test('pdf creation', async () => {
         const projectRoot = process.cwd()
         const imagePath = path.join(projectRoot, 'assets', 'images', 'test_header', 'header.jpg')
 

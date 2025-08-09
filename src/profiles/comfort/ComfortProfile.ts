@@ -38,7 +38,22 @@ import { BR_S } from '../businessRules/br_s'
 import { BR_Z } from '../businessRules/br_z'
 import { validationResult } from '../convert'
 
-const ZComfortProfileStructure = z.object({
+export const ZComfortTotalsType = z.object({
+    sumWithoutAllowancesAndCharges: ZAmountType,
+    documentLevelAllowancesAndCharges: ZBasicDocumentLevelTradeAllowanceChargeType.optional(),
+    allowanceTotalAmount: ZAmountType.optional(),
+    chargeTotalAmount: ZAmountType.optional(),
+    netTotal: ZAmountType,
+    taxBreakdown: ZComfortDocumentLevelTradeTaxType.array(),
+    taxTotal: ZAmountTypeWithRequiredCurrency.array().max(2).optional(),
+    taxCurrency: ZCodeType(CURRENCY_CODES).optional(),
+    roundingAmount: ZAmountType.optional(),
+    grossTotal: ZAmountType,
+    prepaidAmount: ZAmountType.optional(),
+    openAmount: ZAmountType
+})
+
+export const ZComfortProfileStructure = z.object({
     businessProcessType: ZIdType.optional().describe('BT-23'),
     profile: z.literal(PROFILES.COMFORT).describe('BT-24'),
     document: z.object({
@@ -138,20 +153,7 @@ const ZComfortProfileStructure = z.object({
             .optional(),
         specifiedTradeAccountingAccount: ZIdType.optional()
     }),
-    totals: z.object({
-        sumWithoutAllowancesAndCharges: ZAmountType,
-        documentLevelAllowancesAndCharges: ZBasicDocumentLevelTradeAllowanceChargeType.optional(),
-        allowanceTotalAmount: ZAmountType.optional(),
-        chargeTotalAmount: ZAmountType.optional(),
-        netTotal: ZAmountType,
-        taxBreakdown: ZComfortDocumentLevelTradeTaxType.array(),
-        taxTotal: ZAmountTypeWithRequiredCurrency.array().max(2).optional(),
-        taxCurrency: ZCodeType(CURRENCY_CODES).optional(),
-        roundingAmount: ZAmountType.optional(),
-        grossTotal: ZAmountType,
-        prepaidAmount: ZAmountType.optional(),
-        openAmount: ZAmountType
-    })
+    totals: ZComfortTotalsType
 })
 
 export type ComfortProfile = z.infer<typeof ZComfortProfileStructure>

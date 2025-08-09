@@ -424,7 +424,7 @@ describe('BR-IG', () => {
                         settlement: {
                             tax: {
                                 typeCode: 'VAT' as TAX_TYPE_CODE,
-                                categoryCode: TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX,
+                                categoryCode: TAX_CATEGORY_CODES.IGIC,
                                 rateApplicablePercent: undefined
                             },
                             lineTotals: { netTotal: 0 }
@@ -461,7 +461,7 @@ describe('BR-IG', () => {
                         settlement: {
                             tax: {
                                 typeCode: 'VAT' as TAX_TYPE_CODE,
-                                categoryCode: TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX,
+                                categoryCode: TAX_CATEGORY_CODES.IGIC,
                                 rateApplicablePercent: -1
                             },
                             lineTotals: { netTotal: 0 }
@@ -503,7 +503,7 @@ describe('BR-IG', () => {
                                 reasonCode: ALLOWANCE_REASONS_CODES.Discount,
                                 categoryTradeTax: {
                                     typeCode: TAX_TYPE_CODE.VALUE_ADDED_TAX_VAT,
-                                    categoryCode: TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX,
+                                    categoryCode: TAX_CATEGORY_CODES.IGIC,
                                     rateApplicablePercent: -1
                                 }
                             }
@@ -535,7 +535,7 @@ describe('BR-IG', () => {
                                 reasonCode: ALLOWANCE_REASONS_CODES.Discount,
                                 categoryTradeTax: {
                                     typeCode: TAX_TYPE_CODE.VALUE_ADDED_TAX_VAT,
-                                    categoryCode: TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX,
+                                    categoryCode: TAX_CATEGORY_CODES.IGIC,
                                     rateApplicablePercent: undefined
                                 }
                             }
@@ -577,7 +577,7 @@ describe('BR-IG', () => {
                                 reasonCode: CHARGE_REASONS_CODES.Acceptance,
                                 categoryTradeTax: {
                                     typeCode: TAX_TYPE_CODE.VALUE_ADDED_TAX_VAT,
-                                    categoryCode: TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX,
+                                    categoryCode: TAX_CATEGORY_CODES.IGIC,
                                     rateApplicablePercent: -1
                                 }
                             }
@@ -609,7 +609,7 @@ describe('BR-IG', () => {
                                 reasonCode: CHARGE_REASONS_CODES.Acceptance,
                                 categoryTradeTax: {
                                     typeCode: TAX_TYPE_CODE.VALUE_ADDED_TAX_VAT,
-                                    categoryCode: TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX,
+                                    categoryCode: TAX_CATEGORY_CODES.IGIC,
                                     rateApplicablePercent: undefined
                                 }
                             }
@@ -647,7 +647,7 @@ describe('BR-IG', () => {
                             calculatedAmount: 23.09,
                             typeCode: 'VAT' as TAX_TYPE_CODE,
                             basisAmount: 121.5,
-                            categoryCode: TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX,
+                            categoryCode: TAX_CATEGORY_CODES.IGIC,
                             rateApplicablePercent: 19,
                             taxPointDate: { year: 2024, month: 1, day: 15 }
                         },
@@ -655,7 +655,7 @@ describe('BR-IG', () => {
                             calculatedAmount: 0,
                             typeCode: 'VAT' as TAX_TYPE_CODE,
                             basisAmount: 35,
-                            categoryCode: TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX,
+                            categoryCode: TAX_CATEGORY_CODES.IGIC,
                             rateApplicablePercent: 0,
                             taxPointDate: { year: 2024, month: 1, day: 15 }
                         }
@@ -682,7 +682,7 @@ describe('BR-IG', () => {
                             calculatedAmount: 23.09,
                             typeCode: 'VAT' as TAX_TYPE_CODE,
                             basisAmount: 121.5,
-                            categoryCode: TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX,
+                            categoryCode: TAX_CATEGORY_CODES.IGIC,
                             rateApplicablePercent: 19,
                             taxPointDate: { year: 2024, month: 1, day: 15 }
                         }
@@ -719,7 +719,7 @@ describe('BR-IG', () => {
                             calculatedAmount: 24.09,
                             typeCode: 'VAT' as TAX_TYPE_CODE,
                             basisAmount: 121.5,
-                            categoryCode: TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX,
+                            categoryCode: TAX_CATEGORY_CODES.IGIC,
                             rateApplicablePercent: 19,
                             taxPointDate: { year: 2024, month: 1, day: 15 }
                         },
@@ -727,7 +727,7 @@ describe('BR-IG', () => {
                             calculatedAmount: 0,
                             typeCode: 'VAT' as TAX_TYPE_CODE,
                             basisAmount: 30,
-                            categoryCode: TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX,
+                            categoryCode: TAX_CATEGORY_CODES.IGIC,
                             rateApplicablePercent: 0,
                             taxPointDate: { year: 2024, month: 1, day: 15 }
                         }

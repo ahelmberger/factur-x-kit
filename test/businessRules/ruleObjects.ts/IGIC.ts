@@ -140,7 +140,7 @@ export const IGICInvoice: ComfortProfile = {
                     reason: 'Loyalty Program Discount',
                     categoryTradeTax: {
                         typeCode: 'VAT' as TAX_TYPE_CODE,
-                        categoryCode: TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX,
+                        categoryCode: TAX_CATEGORY_CODES.IGIC,
                         rateApplicablePercent: 19
                     }
                 },
@@ -150,7 +150,7 @@ export const IGICInvoice: ComfortProfile = {
                     reason: 'Allowance',
                     categoryTradeTax: {
                         typeCode: 'VAT' as TAX_TYPE_CODE,
-                        categoryCode: TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX,
+                        categoryCode: TAX_CATEGORY_CODES.IGIC,
                         rateApplicablePercent: 0
                     }
                 }
@@ -162,7 +162,7 @@ export const IGICInvoice: ComfortProfile = {
                     reason: 'Standard Shipping Fee',
                     categoryTradeTax: {
                         typeCode: 'VAT' as TAX_TYPE_CODE,
-                        categoryCode: TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX,
+                        categoryCode: TAX_CATEGORY_CODES.IGIC,
                         rateApplicablePercent: 19
                     }
                 }
@@ -176,7 +176,7 @@ export const IGICInvoice: ComfortProfile = {
                 calculatedAmount: 23.09,
                 typeCode: 'VAT' as TAX_TYPE_CODE,
                 basisAmount: 121.5,
-                categoryCode: TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX,
+                categoryCode: TAX_CATEGORY_CODES.IGIC,
                 rateApplicablePercent: 19,
                 taxPointDate: { year: 2024, month: 1, day: 15 }
             },
@@ -184,7 +184,7 @@ export const IGICInvoice: ComfortProfile = {
                 calculatedAmount: 0,
                 typeCode: 'VAT' as TAX_TYPE_CODE,
                 basisAmount: 30,
-                categoryCode: TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX,
+                categoryCode: TAX_CATEGORY_CODES.IGIC,
                 rateApplicablePercent: 0,
                 taxPointDate: { year: 2024, month: 1, day: 15 }
             }
@@ -253,7 +253,7 @@ export const IGICInvoice: ComfortProfile = {
             settlement: {
                 tax: {
                     typeCode: 'VAT' as TAX_TYPE_CODE,
-                    categoryCode: TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX,
+                    categoryCode: TAX_CATEGORY_CODES.IGIC,
                     rateApplicablePercent: 19
                 },
                 lineLevelAllowancesAndCharges: {
@@ -301,7 +301,7 @@ export const IGICInvoice: ComfortProfile = {
             settlement: {
                 tax: {
                     typeCode: 'VAT' as TAX_TYPE_CODE,
-                    categoryCode: TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX,
+                    categoryCode: TAX_CATEGORY_CODES.IGIC,
                     rateApplicablePercent: 19
                 },
                 lineLevelAllowancesAndCharges: {
@@ -330,7 +330,7 @@ export const IGICInvoice: ComfortProfile = {
             settlement: {
                 tax: {
                     typeCode: 'VAT' as TAX_TYPE_CODE,
-                    categoryCode: TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX,
+                    categoryCode: TAX_CATEGORY_CODES.IGIC,
                     rateApplicablePercent: 0
                 },
                 lineTotals: { netTotal: 31 }
@@ -450,7 +450,7 @@ export const IGICNoTaxInvoice: ComfortProfile = {
                     reason: 'Loyalty Program Discount',
                     categoryTradeTax: {
                         typeCode: 'VAT' as TAX_TYPE_CODE,
-                        categoryCode: TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX,
+                        categoryCode: TAX_CATEGORY_CODES.IGIC,
                         rateApplicablePercent: 0
                     }
                 }
@@ -462,7 +462,7 @@ export const IGICNoTaxInvoice: ComfortProfile = {
                     reason: 'Standard Shipping Fee',
                     categoryTradeTax: {
                         typeCode: 'VAT' as TAX_TYPE_CODE,
-                        categoryCode: TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX,
+                        categoryCode: TAX_CATEGORY_CODES.IGIC,
                         rateApplicablePercent: 0
                     }
                 }
@@ -476,7 +476,7 @@ export const IGICNoTaxInvoice: ComfortProfile = {
                 calculatedAmount: 0,
                 typeCode: 'VAT' as TAX_TYPE_CODE,
                 basisAmount: 120.5,
-                categoryCode: TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX,
+                categoryCode: TAX_CATEGORY_CODES.IGIC,
                 rateApplicablePercent: 0,
                 taxPointDate: { year: 2024, month: 1, day: 15 }
             }
@@ -516,7 +516,7 @@ export const IGICNoTaxInvoice: ComfortProfile = {
             settlement: {
                 tax: {
                     typeCode: 'VAT' as TAX_TYPE_CODE,
-                    categoryCode: TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX,
+                    categoryCode: TAX_CATEGORY_CODES.IGIC,
                     rateApplicablePercent: 0
                 },
                 lineLevelAllowancesAndCharges: {
@@ -564,7 +564,7 @@ export const IGICNoTaxInvoice: ComfortProfile = {
             settlement: {
                 tax: {
                     typeCode: 'VAT' as TAX_TYPE_CODE,
-                    categoryCode: TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX,
+                    categoryCode: TAX_CATEGORY_CODES.IGIC,
                     rateApplicablePercent: 0
                 },
                 lineLevelAllowancesAndCharges: {

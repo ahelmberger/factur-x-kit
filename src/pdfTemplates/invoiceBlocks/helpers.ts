@@ -1,5 +1,6 @@
 import { PDFFont } from 'pdf-lib'
 
+import { round } from '../../helper/calculation'
 import { BasicLineLevelTradeAllowanceChargeType } from '../../types/ram/TradeAllowanceChargeType/BasicLineLevelAllowanceChargeType'
 import textTranslations from '../texts/textTranslations'
 import { SupportedLocales } from '../types'
@@ -59,16 +60,17 @@ export function convertAllowancesAndChargesToString(
     currencyConverter: Intl.NumberFormat,
     locale: SupportedLocales,
     newLineAtStart?: boolean,
-    addReason?: boolean
+    addReason?: boolean,
+    roundingDecimals = 2
 ): string {
     if (!allowanceAndCharge) return ''
     const formattedAllowances =
         allowanceAndCharge.allowances?.map(allowance => {
-            return `\n${addReason ? `${allowance.reason ? allowance.reason : textTranslations[locale]['ALLOWANCE']}:\n` : ''}- ${currencyConverter.format(allowance.actualAmount)}`
+            return `\n${addReason ? `${allowance.reason ? allowance.reason : textTranslations[locale]['ALLOWANCE']}:\n` : ''}- ${currencyConverter.format(round(allowance.actualAmount, roundingDecimals))}`
         }) || []
     const formattedCharges =
         allowanceAndCharge.charges?.map(charge => {
-            return `\n${addReason ? `${charge.reason ? charge.reason : textTranslations[locale]['CHARGE']}:\n` : ''}+ ${currencyConverter.format(charge.actualAmount)}`
+            return `\n${addReason ? `${charge.reason ? charge.reason : textTranslations[locale]['CHARGE']}:\n` : ''}+ ${currencyConverter.format(round(charge.actualAmount, roundingDecimals))}`
         }) || []
     const allowanceAndChargeString = `${formattedAllowances.join('')}${formattedCharges.join('')}`
     if (newLineAtStart) return allowanceAndChargeString

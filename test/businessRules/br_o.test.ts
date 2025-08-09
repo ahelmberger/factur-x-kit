@@ -527,7 +527,7 @@ describe('BR-O', () => {
                         settlement: {
                             tax: {
                                 typeCode: 'VAT' as TAX_TYPE_CODE,
-                                categoryCode: TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX,
+                                categoryCode: TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT,
                                 rateApplicablePercent: 1
                             },
                             lineTotals: { netTotal: 5 }
@@ -555,7 +555,7 @@ describe('BR-O', () => {
                         settlement: {
                             tax: {
                                 typeCode: 'VAT' as TAX_TYPE_CODE,
-                                categoryCode: TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX,
+                                categoryCode: TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT,
                                 rateApplicablePercent: 0
                             },
                             lineTotals: { netTotal: 5 }
@@ -597,7 +597,7 @@ describe('BR-O', () => {
                                 reasonCode: ALLOWANCE_REASONS_CODES.Discount,
                                 categoryTradeTax: {
                                     typeCode: TAX_TYPE_CODE.VALUE_ADDED_TAX_VAT,
-                                    categoryCode: TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX,
+                                    categoryCode: TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT,
                                     rateApplicablePercent: 0
                                 }
                             }
@@ -628,7 +628,7 @@ describe('BR-O', () => {
                                 reasonCode: ALLOWANCE_REASONS_CODES.Discount,
                                 categoryTradeTax: {
                                     typeCode: TAX_TYPE_CODE.VALUE_ADDED_TAX_VAT,
-                                    categoryCode: TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX,
+                                    categoryCode: TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT,
                                     rateApplicablePercent: 10
                                 }
                             }
@@ -669,7 +669,7 @@ describe('BR-O', () => {
                                 reasonCode: CHARGE_REASONS_CODES.Fitting,
                                 categoryTradeTax: {
                                     typeCode: TAX_TYPE_CODE.VALUE_ADDED_TAX_VAT,
-                                    categoryCode: TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX,
+                                    categoryCode: TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT,
                                     rateApplicablePercent: 1
                                 }
                             }
@@ -700,7 +700,7 @@ describe('BR-O', () => {
                                 reasonCode: CHARGE_REASONS_CODES.Fitting,
                                 categoryTradeTax: {
                                     typeCode: TAX_TYPE_CODE.VALUE_ADDED_TAX_VAT,
-                                    categoryCode: TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX,
+                                    categoryCode: TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT,
                                     rateApplicablePercent: 0
                                 }
                             }
@@ -739,7 +739,7 @@ describe('BR-O', () => {
                             typeCode: 'VAT' as TAX_TYPE_CODE,
                             exemptionReason: 'No Tax needed',
                             basisAmount: 12,
-                            categoryCode: TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX,
+                            categoryCode: TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT,
                             rateApplicablePercent: 0
                         }
                     ]
@@ -776,7 +776,7 @@ describe('BR-O', () => {
                             typeCode: 'VAT' as TAX_TYPE_CODE,
                             exemptionReason: 'No Tax needed',
                             basisAmount: 10,
-                            categoryCode: TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX,
+                            categoryCode: TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT,
                             rateApplicablePercent: 0
                         }
                     ],
@@ -811,7 +811,7 @@ describe('BR-O', () => {
                             exemptionReason: 'No Tax needed',
                             exemptionReasonCode: undefined,
                             basisAmount: 10,
-                            categoryCode: TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX,
+                            categoryCode: TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT,
                             rateApplicablePercent: 0
                         }
                     ]
@@ -836,7 +836,7 @@ describe('BR-O', () => {
                             exemptionReason: undefined,
                             exemptionReasonCode: EXEMPTION_REASON_CODES.Not_subject_to_VAT,
                             basisAmount: 10,
-                            categoryCode: TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX,
+                            categoryCode: TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT,
                             rateApplicablePercent: 0
                         }
                     ]
@@ -861,7 +861,7 @@ describe('BR-O', () => {
                             exemptionReason: undefined,
                             exemptionReasonCode: undefined,
                             basisAmount: 10,
-                            categoryCode: TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX,
+                            categoryCode: TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT,
                             rateApplicablePercent: 0
                         }
                     ]
@@ -890,7 +890,7 @@ describe('BR-O', () => {
                             exemptionReason: 'Not Subject to VAT',
                             exemptionReasonCode: undefined,
                             basisAmount: 10,
-                            categoryCode: TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX,
+                            categoryCode: TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT,
                             rateApplicablePercent: 0
                         },
                         {
@@ -958,7 +958,7 @@ describe('BR-O', () => {
                             exemptionReason: 'Not Subject to VAT',
                             exemptionReasonCode: undefined,
                             basisAmount: 10,
-                            categoryCode: TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX,
+                            categoryCode: TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT,
                             rateApplicablePercent: 0
                         },
                         {
@@ -1003,7 +1003,7 @@ describe('BR-O', () => {
                             exemptionReason: 'Not Subject to VAT',
                             exemptionReasonCode: undefined,
                             basisAmount: 10,
-                            categoryCode: TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX,
+                            categoryCode: TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT,
                             rateApplicablePercent: 0
                         },
                         {
@@ -1063,7 +1063,7 @@ describe('BR-O', () => {
                             exemptionReason: 'Not Subject to VAT',
                             exemptionReasonCode: undefined,
                             basisAmount: 10,
-                            categoryCode: TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX,
+                            categoryCode: TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT,
                             rateApplicablePercent: 0
                         },
                         {

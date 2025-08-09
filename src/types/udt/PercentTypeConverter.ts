@@ -1,5 +1,6 @@
 import { z } from 'zod'
 
+import { round } from '../../helper/calculation'
 import { BaseTypeConverter, TypeConverterError } from '../BaseTypeConverter'
 
 export const ZPercentType = z.number()
@@ -34,7 +35,7 @@ export class PercentTypeConverter extends BaseTypeConverter<PercentType, Percent
         }
 
         return {
-            '#text': data.toFixed(4)
+            '#text': round(data, 4).toFixed(4)
         }
     }
 }

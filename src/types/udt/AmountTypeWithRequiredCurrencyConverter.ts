@@ -1,5 +1,6 @@
 import { z } from 'zod'
 
+import { round } from '../../helper/calculation'
 import { BaseTypeConverter, TypeConverterError } from '../BaseTypeConverter'
 import { CURRENCY_CODES } from '../codes'
 
@@ -53,7 +54,7 @@ export class AmountTypeWithRequiredCurrencyConverter extends BaseTypeConverter<
         }
 
         return {
-            '#text': data.amount.toFixed(2),
+            '#text': round(data.amount, 2).toFixed(2),
             '@currencyID': data.currency
         }
     }

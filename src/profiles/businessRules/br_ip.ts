@@ -9,28 +9,20 @@ export function BR_IP_1(val: availableProfiles): boolean {
     let linesWithIPSITaxExisting = false
     if ('invoiceLines' in val && val.invoiceLines) {
         linesWithIPSITaxExisting = val.invoiceLines.some(
-            line =>
-                line.settlement.tax.categoryCode ===
-                TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA
+            line => line.settlement.tax.categoryCode === TAX_CATEGORY_CODES.IPSI
         )
     }
 
     const allowancesWithIPSITaxExisting = val.totals.documentLevelAllowancesAndCharges?.allowances?.some(
-        allowance =>
-            allowance.categoryTradeTax.categoryCode ===
-            TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA
+        allowance => allowance.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.IPSI
     )
 
     const chargesWithIPSITaxExisting = val.totals.documentLevelAllowancesAndCharges?.charges?.some(
-        charge =>
-            charge.categoryTradeTax.categoryCode ===
-            TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA
+        charge => charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.IPSI
     )
     if (!linesWithIPSITaxExisting && !allowancesWithIPSITaxExisting && !chargesWithIPSITaxExisting) return true
 
-    const taxBreakdownWithIPSI = val.totals.taxBreakdown.filter(
-        tax => tax.categoryCode === TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA
-    )
+    const taxBreakdownWithIPSI = val.totals.taxBreakdown.filter(tax => tax.categoryCode === TAX_CATEGORY_CODES.IPSI)
 
     if (taxBreakdownWithIPSI.length >= 1) {
         return true
@@ -49,9 +41,7 @@ export function BR_IP_2(val: availableProfiles): boolean {
     if (!val.invoiceLines) return true
 
     const linesWithIPSITaxExisting = val.invoiceLines.some(
-        line =>
-            line.settlement.tax.categoryCode ===
-            TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA
+        line => line.settlement.tax.categoryCode === TAX_CATEGORY_CODES.IPSI
     )
     if (!linesWithIPSITaxExisting) return true
 
@@ -76,9 +66,7 @@ export function BR_IP_3(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true
 
     const allowancesWithIPSITaxExisting = val.totals.documentLevelAllowancesAndCharges?.allowances?.some(
-        allowance =>
-            allowance.categoryTradeTax.categoryCode ===
-            TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA
+        allowance => allowance.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.IPSI
     )
     if (!allowancesWithIPSITaxExisting) return true
 
@@ -103,9 +91,7 @@ export function BR_IP_4(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true
 
     const chargesWithIPSITaxExisting = val.totals.documentLevelAllowancesAndCharges?.charges?.some(
-        charge =>
-            charge.categoryTradeTax.categoryCode ===
-            TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA
+        charge => charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.IPSI
     )
     if (!chargesWithIPSITaxExisting) return true
 
@@ -131,11 +117,7 @@ export function BR_IP_5(val: availableProfiles): boolean {
     if (!val.invoiceLines) return true
 
     for (const line of val.invoiceLines) {
-        if (
-            line.settlement.tax.categoryCode !==
-            TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA
-        )
-            continue
+        if (line.settlement.tax.categoryCode !== TAX_CATEGORY_CODES.IPSI) continue
         if (line.settlement.tax.rateApplicablePercent == null || line.settlement.tax.rateApplicablePercent < 0) {
             //printError(`Business Rule BR-IP-5 is being violated in invoiceLine ${line.generalLineData.lineId}`)
             return false
@@ -155,11 +137,7 @@ export function BR_IP_6(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true
     if (!val.totals.documentLevelAllowancesAndCharges?.allowances) return true
     for (const allowance of val.totals.documentLevelAllowancesAndCharges.allowances) {
-        if (
-            allowance.categoryTradeTax.categoryCode !==
-            TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA
-        )
-            continue
+        if (allowance.categoryTradeTax.categoryCode !== TAX_CATEGORY_CODES.IPSI) continue
         if (
             allowance.categoryTradeTax.rateApplicablePercent == null ||
             allowance.categoryTradeTax.rateApplicablePercent < 0
@@ -182,11 +160,7 @@ export function BR_IP_7(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true
     if (!val.totals.documentLevelAllowancesAndCharges?.charges) return true
     for (const charge of val.totals.documentLevelAllowancesAndCharges.charges) {
-        if (
-            charge.categoryTradeTax.categoryCode !==
-            TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA
-        )
-            continue
+        if (charge.categoryTradeTax.categoryCode !== TAX_CATEGORY_CODES.IPSI) continue
         if (
             charge.categoryTradeTax.rateApplicablePercent == null ||
             charge.categoryTradeTax.rateApplicablePercent < 0
@@ -212,10 +186,7 @@ export function BR_IP_8(val: availableProfiles): boolean {
     // Step 1: Check which tax rates are available for IPSI
 
     const availableTaxRatesInLines = val.invoiceLines.reduce((acc, line) => {
-        if (
-            line.settlement.tax.categoryCode ===
-            TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA
-        ) {
+        if (line.settlement.tax.categoryCode === TAX_CATEGORY_CODES.IPSI) {
             const rate = line.settlement.tax.rateApplicablePercent
             if (rate != null && rate >= 0) {
                 acc.add(rate)
@@ -226,10 +197,7 @@ export function BR_IP_8(val: availableProfiles): boolean {
 
     const availableTaxRatesInAllowances =
         val.totals.documentLevelAllowancesAndCharges?.allowances?.reduce((acc, allowance) => {
-            if (
-                allowance.categoryTradeTax.categoryCode ===
-                TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA
-            ) {
+            if (allowance.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.IPSI) {
                 const rate = allowance.categoryTradeTax.rateApplicablePercent
                 if (rate != null && rate >= 0) {
                     acc.add(rate)
@@ -240,10 +208,7 @@ export function BR_IP_8(val: availableProfiles): boolean {
 
     const availableTaxRatesInCharges =
         val.totals.documentLevelAllowancesAndCharges?.charges?.reduce((acc, charge) => {
-            if (
-                charge.categoryTradeTax.categoryCode ===
-                TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA
-            ) {
+            if (charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.IPSI) {
                 const rate = charge.categoryTradeTax.rateApplicablePercent
                 if (rate != null && rate >= 0) {
                     acc.add(rate)
@@ -262,10 +227,7 @@ export function BR_IP_8(val: availableProfiles): boolean {
 
     for (const rate of allAvailableTaxRates) {
         const taxBreakdownsWithIPSIRate = val.totals.taxBreakdown.filter(
-            tax =>
-                tax.categoryCode ===
-                    TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA &&
-                tax.rateApplicablePercent === rate
+            tax => tax.categoryCode === TAX_CATEGORY_CODES.IPSI && tax.rateApplicablePercent === rate
         )
 
         if (
@@ -281,8 +243,7 @@ export function BR_IP_8(val: availableProfiles): boolean {
         const totalProvidedIPSIRateTaxAmount = taxBreakdownWithIPSIRate.basisAmount
         const sumOfLinesWithIPSIRateTax = val.invoiceLines.reduce((sum, line) => {
             if (
-                line.settlement.tax.categoryCode ===
-                    TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA &&
+                line.settlement.tax.categoryCode === TAX_CATEGORY_CODES.IPSI &&
                 line.settlement.tax.rateApplicablePercent === rate
             ) {
                 return sum + line.settlement.lineTotals.netTotal
@@ -293,8 +254,7 @@ export function BR_IP_8(val: availableProfiles): boolean {
         const sumOfDocumentLevelAllowancesWithIPSIRateTax =
             val.totals.documentLevelAllowancesAndCharges?.allowances?.reduce((sum, allowance) => {
                 if (
-                    allowance.categoryTradeTax.categoryCode ===
-                        TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA &&
+                    allowance.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.IPSI &&
                     allowance.categoryTradeTax.rateApplicablePercent === rate
                 ) {
                     return sum + allowance.actualAmount
@@ -305,8 +265,7 @@ export function BR_IP_8(val: availableProfiles): boolean {
         const sumOfDocumentLevelChargesWithIPSIRateTax =
             val.totals.documentLevelAllowancesAndCharges?.charges?.reduce((sum, charge) => {
                 if (
-                    charge.categoryTradeTax.categoryCode ===
-                        TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA &&
+                    charge.categoryTradeTax.categoryCode === TAX_CATEGORY_CODES.IPSI &&
                     charge.categoryTradeTax.rateApplicablePercent === rate
                 ) {
                     return sum + charge.actualAmount
@@ -340,9 +299,7 @@ export const BR_IP_8_ERROR = {
 
 export function BR_IP_9(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true
-    const taxBreakdownsWithIPSI = val.totals.taxBreakdown.filter(
-        tax => tax.categoryCode === TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA
-    )
+    const taxBreakdownsWithIPSI = val.totals.taxBreakdown.filter(tax => tax.categoryCode === TAX_CATEGORY_CODES.IPSI)
 
     if (taxBreakdownsWithIPSI.length === 0) return true
 
@@ -363,9 +320,7 @@ export const BR_IP_9_ERROR = {
 
 export function BR_IP_10(val: availableProfiles): boolean {
     if (val.profile === PROFILES.MINIMUM) return true
-    const taxBreakdownsWithIPSI = val.totals.taxBreakdown.filter(
-        tax => tax.categoryCode === TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA
-    )
+    const taxBreakdownsWithIPSI = val.totals.taxBreakdown.filter(tax => tax.categoryCode === TAX_CATEGORY_CODES.IPSI)
 
     if (taxBreakdownsWithIPSI.length === 0) return true
 

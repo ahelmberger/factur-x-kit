@@ -424,8 +424,7 @@ describe('BR-IP', () => {
                         settlement: {
                             tax: {
                                 typeCode: 'VAT' as TAX_TYPE_CODE,
-                                categoryCode:
-                                    TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA,
+                                categoryCode: TAX_CATEGORY_CODES.IPSI,
                                 rateApplicablePercent: undefined
                             },
                             lineTotals: { netTotal: 0 }
@@ -462,8 +461,7 @@ describe('BR-IP', () => {
                         settlement: {
                             tax: {
                                 typeCode: 'VAT' as TAX_TYPE_CODE,
-                                categoryCode:
-                                    TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA,
+                                categoryCode: TAX_CATEGORY_CODES.IPSI,
                                 rateApplicablePercent: -1
                             },
                             lineTotals: { netTotal: 0 }
@@ -505,8 +503,7 @@ describe('BR-IP', () => {
                                 reasonCode: ALLOWANCE_REASONS_CODES.Discount,
                                 categoryTradeTax: {
                                     typeCode: TAX_TYPE_CODE.VALUE_ADDED_TAX_VAT,
-                                    categoryCode:
-                                        TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA,
+                                    categoryCode: TAX_CATEGORY_CODES.IPSI,
                                     rateApplicablePercent: -1
                                 }
                             }
@@ -538,8 +535,7 @@ describe('BR-IP', () => {
                                 reasonCode: ALLOWANCE_REASONS_CODES.Discount,
                                 categoryTradeTax: {
                                     typeCode: TAX_TYPE_CODE.VALUE_ADDED_TAX_VAT,
-                                    categoryCode:
-                                        TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA,
+                                    categoryCode: TAX_CATEGORY_CODES.IPSI,
                                     rateApplicablePercent: undefined
                                 }
                             }
@@ -581,8 +577,7 @@ describe('BR-IP', () => {
                                 reasonCode: CHARGE_REASONS_CODES.Acceptance,
                                 categoryTradeTax: {
                                     typeCode: TAX_TYPE_CODE.VALUE_ADDED_TAX_VAT,
-                                    categoryCode:
-                                        TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA,
+                                    categoryCode: TAX_CATEGORY_CODES.IPSI,
                                     rateApplicablePercent: -1
                                 }
                             }
@@ -614,8 +609,7 @@ describe('BR-IP', () => {
                                 reasonCode: CHARGE_REASONS_CODES.Acceptance,
                                 categoryTradeTax: {
                                     typeCode: TAX_TYPE_CODE.VALUE_ADDED_TAX_VAT,
-                                    categoryCode:
-                                        TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA,
+                                    categoryCode: TAX_CATEGORY_CODES.IPSI,
                                     rateApplicablePercent: undefined
                                 }
                             }
@@ -653,8 +647,7 @@ describe('BR-IP', () => {
                             calculatedAmount: 23.09,
                             typeCode: 'VAT' as TAX_TYPE_CODE,
                             basisAmount: 121.5,
-                            categoryCode:
-                                TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA,
+                            categoryCode: TAX_CATEGORY_CODES.IPSI,
                             rateApplicablePercent: 19,
                             taxPointDate: { year: 2024, month: 1, day: 15 }
                         },
@@ -662,8 +655,7 @@ describe('BR-IP', () => {
                             calculatedAmount: 0,
                             typeCode: 'VAT' as TAX_TYPE_CODE,
                             basisAmount: 35,
-                            categoryCode:
-                                TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA,
+                            categoryCode: TAX_CATEGORY_CODES.IPSI,
                             rateApplicablePercent: 0,
                             taxPointDate: { year: 2024, month: 1, day: 15 }
                         }
@@ -690,8 +682,7 @@ describe('BR-IP', () => {
                             calculatedAmount: 23.09,
                             typeCode: 'VAT' as TAX_TYPE_CODE,
                             basisAmount: 121.5,
-                            categoryCode:
-                                TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA,
+                            categoryCode: TAX_CATEGORY_CODES.IPSI,
                             rateApplicablePercent: 19,
                             taxPointDate: { year: 2024, month: 1, day: 15 }
                         }
@@ -728,8 +719,7 @@ describe('BR-IP', () => {
                             calculatedAmount: 24.09,
                             typeCode: 'VAT' as TAX_TYPE_CODE,
                             basisAmount: 121.5,
-                            categoryCode:
-                                TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA,
+                            categoryCode: TAX_CATEGORY_CODES.IPSI,
                             rateApplicablePercent: 19,
                             taxPointDate: { year: 2024, month: 1, day: 15 }
                         },
@@ -737,8 +727,7 @@ describe('BR-IP', () => {
                             calculatedAmount: 0,
                             typeCode: 'VAT' as TAX_TYPE_CODE,
                             basisAmount: 30,
-                            categoryCode:
-                                TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA,
+                            categoryCode: TAX_CATEGORY_CODES.IPSI,
                             rateApplicablePercent: 0,
                             taxPointDate: { year: 2024, month: 1, day: 15 }
                         }

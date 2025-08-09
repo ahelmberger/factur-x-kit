@@ -35,11 +35,11 @@ describe('BR-S', () => {
                     taxBreakdown: [
                         {
                             ...StandardInvoice.totals.taxBreakdown[0],
-                            categoryCode: TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX // Changed to a different tax category
+                            categoryCode: TAX_CATEGORY_CODES.IGIC // Changed to a different tax category
                         },
                         {
                             ...StandardInvoice.totals.taxBreakdown[1],
-                            categoryCode: TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX // Changed to a different tax category
+                            categoryCode: TAX_CATEGORY_CODES.IGIC // Changed to a different tax category
                         }
                     ]
                 }

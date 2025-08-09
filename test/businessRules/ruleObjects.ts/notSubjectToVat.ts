@@ -38,7 +38,7 @@ export const notSubjectToVatInvoice: ComfortProfile = {
             settlement: {
                 tax: {
                     typeCode: 'VAT' as TAX_TYPE_CODE,
-                    categoryCode: TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX
+                    categoryCode: TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT
                 },
                 lineTotals: { netTotal: 5 }
             }
@@ -59,7 +59,7 @@ export const notSubjectToVatInvoice: ComfortProfile = {
             settlement: {
                 tax: {
                     typeCode: 'VAT' as TAX_TYPE_CODE,
-                    categoryCode: TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX
+                    categoryCode: TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT
                 },
                 lineTotals: { netTotal: 5 }
             }
@@ -121,7 +121,7 @@ export const notSubjectToVatInvoice: ComfortProfile = {
                 exemptionReason: 'Nout subject to VAT',
                 exemptionReasonCode: EXEMPTION_REASON_CODES.Not_subject_to_VAT,
                 basisAmount: 10,
-                categoryCode: TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX,
+                categoryCode: TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT,
                 rateApplicablePercent: 0
             }
         ],
@@ -133,7 +133,7 @@ export const notSubjectToVatInvoice: ComfortProfile = {
                     reasonCode: ALLOWANCE_REASONS_CODES.Discount,
                     categoryTradeTax: {
                         typeCode: TAX_TYPE_CODE.VALUE_ADDED_TAX_VAT,
-                        categoryCode: TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX
+                        categoryCode: TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT
                     }
                 }
             ],
@@ -143,7 +143,7 @@ export const notSubjectToVatInvoice: ComfortProfile = {
                     reasonCode: CHARGE_REASONS_CODES.Handling,
                     categoryTradeTax: {
                         typeCode: TAX_TYPE_CODE.VALUE_ADDED_TAX_VAT,
-                        categoryCode: TAX_CATEGORY_CODES.SERVICE_OUTSIDE_SCOPE_OF_TAX
+                        categoryCode: TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT
                     }
                 }
             ]

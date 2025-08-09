@@ -1,6 +1,7 @@
 import { PDFFont, PDFPage, RGB, rgb } from 'pdf-lib'
 
 import { availableProfiles } from '../../core/factur-x'
+import { round } from '../../helper/calculation'
 import { TAX_CATEGORY_CODES } from '../../types/codes'
 import textTranslations from '../texts/textTranslations'
 import { SupportedLocales, dinA4Height, mmToPt } from '../types'
@@ -137,15 +138,15 @@ function printTaxBreakdown(
                   style: 'percent',
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2
-              }).format(tax.rateApplicablePercent / 100)}) `
+              }).format(round(tax.rateApplicablePercent / 100, 4))}) `
             : ''
 
         let taxDescription = ''
         switch (tax.categoryCode) {
-            case TAX_CATEGORY_CODES.CANARY_ISLANDS_GENERAL_INDIRECT_TAX:
+            case TAX_CATEGORY_CODES.IGIC:
                 taxDescription = `IGIC${taxRate}`
                 break
-            case TAX_CATEGORY_CODES.TAX_FOR_PRODUCTION_SERVICES_AND_IMPORTATION_IN_CEUTA_AND_MELILLA:
+            case TAX_CATEGORY_CODES.IPSI:
                 taxDescription = `IPSI${taxRate}`
                 break
             case TAX_CATEGORY_CODES.VAT_REVERSE_CHARGE:
@@ -313,7 +314,7 @@ function printMonetarySummaryLine(
         font,
         color
     })
-    const lineAmount = `${negativeAmount ? '- ' : ''}${currencyConverter.format(amount)}`
+    const lineAmount = `${negativeAmount ? '- ' : ''}${currencyConverter.format(round(amount, 2))}`
     page.drawText(lineAmount, {
         x: xRightAlignedText(rightBorder, lineAmount, font, fontSize),
         y: currentY,
