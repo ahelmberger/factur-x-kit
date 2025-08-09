@@ -301,14 +301,17 @@ function calculateTaxSum(
     foreignTaxCurrency?: ForeignTaxCurrency
 ): [AmountTypeWithRequiredCurrency] | [AmountTypeWithRequiredCurrency, AmountTypeWithRequiredCurrency] {
     const taxInInvoiceCurrency: AmountTypeWithRequiredCurrency = {
-        amount: taxBreakdown.reduce((sum, tax) => sum + tax.calculatedAmount, 0),
+        amount: round(
+            taxBreakdown.reduce((sum, tax) => sum + tax.calculatedAmount, 0),
+            2
+        ),
         currency: invoiceCurrency
     }
     if (!foreignTaxCurrency) {
         return [taxInInvoiceCurrency]
     }
     const taxInForeignCurrency: AmountTypeWithRequiredCurrency = {
-        amount: taxInInvoiceCurrency.amount * foreignTaxCurrency.exchangeRate,
+        amount: round(taxInInvoiceCurrency.amount * foreignTaxCurrency.exchangeRate, 2),
         currency: foreignTaxCurrency.taxCurrency
     }
 
