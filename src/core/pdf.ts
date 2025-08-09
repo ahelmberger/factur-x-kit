@@ -1,5 +1,5 @@
-import * as fs from 'fs'
-import fontkit from '@pdf-lib/fontkit'
+import * as fs from 'fs';
+import fontkit from '@pdf-lib/fontkit';
 import {
     PDFArray,
     PDFContext,
@@ -12,52 +12,52 @@ import {
     PDFStream,
     PDFString,
     decodePDFRawStream
-} from 'pdf-lib'
-import { AFRelationship, EmbeddedFileOptions } from 'pdf-lib/cjs/core/embedders/FileEmbedder'
+} from 'pdf-lib';
+import { AFRelationship, EmbeddedFileOptions } from 'pdf-lib/cjs/core/embedders/FileEmbedder';
 
-import { ImageDimensions } from '../pdfTemplates/invoiceBlocks/headerImage'
-import { SupportedLocales, ZugferdKitPDFTemplate } from '../pdfTemplates/types'
-import zugferdKitSinglePage from '../pdfTemplates/zugferdKitSinglePage'
-import { availableProfiles } from './factur-x'
+import { ImageDimensions } from '../pdfTemplates/invoiceBlocks/headerImage';
+import { SupportedLocales, ZugferdKitPDFTemplate } from '../pdfTemplates/types';
+import zugferdKitSinglePage from '../pdfTemplates/zugferdKitSinglePage';
+import { availableProfiles } from './factur-x';
 
-const FACTUR_X_FILENAME = PDFString.of('factur-x.xml').decodeText()
+const FACTUR_X_FILENAME = PDFString.of('factur-x.xml').decodeText();
 
 export default class FacturXPdf {
-    private pdfDoc: PDFDocument
+    private pdfDoc: PDFDocument;
 
     public constructor(pdf: PDFDocument) {
-        this.pdfDoc = pdf
+        this.pdfDoc = pdf;
     }
 
     /**Create instance by passing an existing PDF/A-3 with FacturX XML */
     public static async createFromFacturXPDF(bytes: string | Uint8Array | ArrayBuffer): Promise<FacturXPdf> {
-        const pdf: PDFDocument = await PDFDocument.load(bytes)
-        const instance = new FacturXPdf(pdf)
-        return instance
+        const pdf: PDFDocument = await PDFDocument.load(bytes);
+        const instance = new FacturXPdf(pdf);
+        return instance;
     }
 
     /**Create instance by passing an existing non PDF/A-3 Compliant pdf.
      * Please make sure that all fonts are properly embedded! */
     public static async createFromNonCompliantPDF(bytes: string | Uint8Array | ArrayBuffer): Promise<FacturXPdf> {
-        const pdfDoc: PDFDocument = await PDFDocument.load(bytes)
-        const pdfDocWithICCProfile = FacturXPdf.addsRGB2014ColorProfile(pdfDoc)
-        return new FacturXPdf(pdfDocWithICCProfile)
+        const pdfDoc: PDFDocument = await PDFDocument.load(bytes);
+        const pdfDocWithICCProfile = FacturXPdf.addsRGB2014ColorProfile(pdfDoc);
+        return new FacturXPdf(pdfDocWithICCProfile);
     }
 
     /**Create instance by creating a completely new PDFDocument */
     public static async create(): Promise<FacturXPdf> {
-        const pdfDoc = await PDFDocument.create()
+        const pdfDoc = await PDFDocument.create();
         //fontkit is needed to properly embed fonts in pdf (as needed in PDF/A-3)
-        pdfDoc.registerFontkit(fontkit)
-        const pdfDocWithICCProfile = FacturXPdf.addsRGB2014ColorProfile(pdfDoc)
-        return new FacturXPdf(pdfDocWithICCProfile)
+        pdfDoc.registerFontkit(fontkit);
+        const pdfDocWithICCProfile = FacturXPdf.addsRGB2014ColorProfile(pdfDoc);
+        return new FacturXPdf(pdfDocWithICCProfile);
     }
 
     /**Create instance by using your own pdf-lib PDFDocument
      * Please make sure that all fonts are properly embedded! */
     public static async createFromPDFDocument(pdfDoc: PDFDocument): Promise<FacturXPdf> {
-        const pdfDocWithICCProfile = FacturXPdf.addsRGB2014ColorProfile(pdfDoc)
-        return new FacturXPdf(pdfDocWithICCProfile)
+        const pdfDocWithICCProfile = FacturXPdf.addsRGB2014ColorProfile(pdfDoc);
+        return new FacturXPdf(pdfDocWithICCProfile);
     }
 
     public extractEmbeddedXML(): Buffer | null {
@@ -69,14 +69,14 @@ export default class FacturXPdf {
             ) {
                 const stream = object
                     .lookup(PDFName.of('EF'), PDFDict)
-                    .lookup(PDFName.of('F'), PDFStream) as PDFRawStream
-                const data = decodePDFRawStream(stream).decode()
+                    .lookup(PDFName.of('F'), PDFStream) as PDFRawStream;
+                const data = decodePDFRawStream(stream).decode();
 
-                return Buffer.from(data)
+                return Buffer.from(data);
             }
         }
 
-        return null
+        return null;
     }
 
     public async createPDFContent(
@@ -84,22 +84,22 @@ export default class FacturXPdf {
         template?: ZugferdKitPDFTemplate,
         locale?: SupportedLocales,
         headerImage?: {
-            path: string
-            dimensions: ImageDimensions
+            path: string;
+            dimensions: ImageDimensions;
         }
     ): Promise<void> {
         //TODO: Correct implementation of PDF Invoice
         if (!template) {
-            this.pdfDoc = await zugferdKitSinglePage(data, this.pdfDoc, locale || 'en-US', headerImage)
-            return
+            this.pdfDoc = await zugferdKitSinglePage(data, this.pdfDoc, locale || 'en-US', headerImage);
+            return;
         }
 
-        this.pdfDoc = await template(data, this.pdfDoc, locale || 'en-US')
+        this.pdfDoc = await template(data, this.pdfDoc, locale || 'en-US');
     }
 
     public async createFacturXPDF(xml: string, obj: availableProfiles): Promise<Uint8Array> {
-        this.removeAttachment('factur-x.xml')
-        const encoder = new TextEncoder()
+        this.removeAttachment('factur-x.xml');
+        const encoder = new TextEncoder();
 
         this.embedXML(encoder.encode(xml), {
             mimeType: 'text/xml',
@@ -114,40 +114,40 @@ export default class FacturXPdf {
                 obj.profile === 'urn:factur-x.eu:1p0:minimum' || obj.profile === 'urn:factur-x.eu:1p0:basicwl'
                     ? AFRelationship.Data
                     : AFRelationship.Alternative
-        })
+        });
         this.addMetadata(
             new Date(obj.document.dateOfIssue.year, obj.document.dateOfIssue.month - 1, obj.document.dateOfIssue.day),
             obj.document.id,
             `Invoice ${obj.document.id} from ${obj.seller.name}`,
             obj.seller.name,
             FacturXPdf.getProfile(obj.profile)
-        )
+        );
 
-        return this.pdfDoc.save({ useObjectStreams: false })
+        return this.pdfDoc.save({ useObjectStreams: false });
     }
 
     private static getProfile(guidelineSpecifiedDocumentContextParameter: string): string {
         switch (guidelineSpecifiedDocumentContextParameter) {
             case 'urn:factur-x.eu:1p0:minimum':
-                return 'MINIMUM'
+                return 'MINIMUM';
             case 'urn:factur-x.eu:1p0:basicwl':
-                return 'BASIC WL'
+                return 'BASIC WL';
             case 'urn:cen.eu:en16931:2017#compliant#urn:factur-x.eu:1p0:basic':
-                return 'BASIC'
+                return 'BASIC';
             case 'urn:cen.eu:en16931:2017':
-                return 'EN 16931'
+                return 'EN 16931';
             case 'urn:cen.eu:en16931:2017#conformant#urn:factur-x.eu:1p0:extended':
-                return 'EXTENDED'
+                return 'EXTENDED';
             case 'urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0':
-                return 'XRECHNUNG'
+                return 'XRECHNUNG';
             default:
-                throw new Error('Unknown Profile received')
+                throw new Error('Unknown Profile received');
         }
     }
 
     /**Color Profile is needed for PDF/A-3 compliance */
     private static addsRGB2014ColorProfile(pdfDoc: PDFDocument): PDFDocument {
-        const iccBuffer = fs.readFileSync('./assets/iccprofile/sRGB2014.icc')
+        const iccBuffer = fs.readFileSync('./assets/iccprofile/sRGB2014.icc');
 
         const pdfDocWithICCProfile = this.setColorProfile({
             identifier: 'sRGB2014',
@@ -155,8 +155,8 @@ export default class FacturXPdf {
             subType: 'GTS_PDFA1',
             iccBuffer,
             pdfDoc
-        })
-        return pdfDocWithICCProfile
+        });
+        return pdfDocWithICCProfile;
     }
 
     private static setColorProfile({
@@ -166,16 +166,16 @@ export default class FacturXPdf {
         identifier,
         pdfDoc
     }: {
-        identifier: string
-        info?: string
-        subType: string
-        iccBuffer: Buffer
-        pdfDoc: PDFDocument
+        identifier: string;
+        info?: string;
+        subType: string;
+        iccBuffer: Buffer;
+        pdfDoc: PDFDocument;
     }): PDFDocument {
         const iccStream = pdfDoc.context.stream(iccBuffer, {
             Length: iccBuffer.length,
             N: 3
-        })
+        });
 
         const outputIntent = pdfDoc.context.obj({
             Type: 'OutputIntent',
@@ -183,11 +183,11 @@ export default class FacturXPdf {
             OutputConditionIdentifier: PDFString.of(identifier),
             Info: info ? PDFString.of(info) : PDFString.of(identifier),
             DestOutputProfile: pdfDoc.context.register(iccStream)
-        })
+        });
 
-        const outputIntentRef = pdfDoc.context.register(outputIntent)
-        pdfDoc.catalog.set(PDFName.of('OutputIntents'), pdfDoc.context.obj([outputIntentRef]))
-        return pdfDoc
+        const outputIntentRef = pdfDoc.context.register(outputIntent);
+        pdfDoc.catalog.set(PDFName.of('OutputIntents'), pdfDoc.context.obj([outputIntentRef]));
+        return pdfDoc;
     }
 
     /**This function is basically the same function which is used in pdf-lib for embedding files (see: pdf-lib\src\core\embedders\FileEmbedder.ts).
@@ -199,7 +199,7 @@ export default class FacturXPdf {
         ref: PDFRef,
         options: EmbeddedFileOptions
     ): Promise<PDFRef> {
-        const { mimeType, description, creationDate, modificationDate, afRelationship } = options
+        const { mimeType, description, creationDate, modificationDate, afRelationship } = options;
 
         const embeddedFileStream = context.flateStream(xml, {
             Type: 'EmbeddedFile',
@@ -209,8 +209,8 @@ export default class FacturXPdf {
                 CreationDate: creationDate ? PDFString.fromDate(creationDate) : undefined,
                 ModDate: modificationDate ? PDFString.fromDate(modificationDate) : undefined
             }
-        })
-        const embeddedFileStreamRef = context.register(embeddedFileStream)
+        });
+        const embeddedFileStreamRef = context.register(embeddedFileStream);
 
         const fileSpecDict = context.obj({
             Type: 'Filespec',
@@ -219,9 +219,9 @@ export default class FacturXPdf {
             EF: { F: embeddedFileStreamRef, UF: embeddedFileStreamRef },
             Desc: description ? PDFHexString.fromText(description) : undefined,
             AFRelationship: afRelationship ?? undefined
-        })
-        context.assign(ref, fileSpecDict)
-        return ref
+        });
+        context.assign(ref, fileSpecDict);
+        return ref;
     }
 
     /**This function is the same function which is used in pdf-lib for embedding files (see pdf-lib\src\api\PDFEmbeddedFile.ts).
@@ -235,25 +235,25 @@ export default class FacturXPdf {
             this.pdfDoc.context,
             this.pdfDoc.context.nextRef(),
             options
-        )
+        );
 
         if (!this.pdfDoc.catalog.has(PDFName.of('Names'))) {
-            this.pdfDoc.catalog.set(PDFName.of('Names'), this.pdfDoc.context.obj({}))
+            this.pdfDoc.catalog.set(PDFName.of('Names'), this.pdfDoc.context.obj({}));
         }
-        const Names = this.pdfDoc.catalog.lookup(PDFName.of('Names'), PDFDict)
+        const Names = this.pdfDoc.catalog.lookup(PDFName.of('Names'), PDFDict);
 
         if (!Names.has(PDFName.of('EmbeddedFiles'))) {
-            Names.set(PDFName.of('EmbeddedFiles'), this.pdfDoc.context.obj({}))
+            Names.set(PDFName.of('EmbeddedFiles'), this.pdfDoc.context.obj({}));
         }
-        const EmbeddedFiles = Names.lookup(PDFName.of('EmbeddedFiles'), PDFDict)
+        const EmbeddedFiles = Names.lookup(PDFName.of('EmbeddedFiles'), PDFDict);
 
         if (!EmbeddedFiles.has(PDFName.of('Names'))) {
-            EmbeddedFiles.set(PDFName.of('Names'), this.pdfDoc.context.obj([]))
+            EmbeddedFiles.set(PDFName.of('Names'), this.pdfDoc.context.obj([]));
         }
-        const EFNames = EmbeddedFiles.lookup(PDFName.of('Names'), PDFArray)
+        const EFNames = EmbeddedFiles.lookup(PDFName.of('Names'), PDFArray);
 
-        EFNames.push(PDFHexString.fromText('factur-x.xml'))
-        EFNames.push(ref)
+        EFNames.push(PDFHexString.fromText('factur-x.xml'));
+        EFNames.push(ref);
 
         /**
          * The AF-Tag is needed to achieve PDF-A3 compliance for embedded files
@@ -264,42 +264,42 @@ export default class FacturXPdf {
          */
 
         if (!this.pdfDoc.catalog.has(PDFName.of('AF'))) {
-            this.pdfDoc.catalog.set(PDFName.of('AF'), this.pdfDoc.context.obj([]))
+            this.pdfDoc.catalog.set(PDFName.of('AF'), this.pdfDoc.context.obj([]));
         }
-        const AF = this.pdfDoc.catalog.lookup(PDFName.of('AF'), PDFArray)
-        AF.push(ref)
+        const AF = this.pdfDoc.catalog.lookup(PDFName.of('AF'), PDFArray);
+        AF.push(ref);
     }
 
     private static findAndDeleteAttachmentFromNamesArray(pdfDoc: PDFDocument, xmlName: string): PDFRef | undefined {
         const EFNamesArray = pdfDoc.catalog
             .lookupMaybe(PDFName.of('Names'), PDFDict)
             ?.lookupMaybe(PDFName.of('EmbeddedFiles'), PDFDict)
-            ?.lookupMaybe(PDFName.of('Names'), PDFArray)
+            ?.lookupMaybe(PDFName.of('Names'), PDFArray);
 
         // Search for Object in Names Array and delete it from there
-        if (!EFNamesArray) return undefined
-        let dictRef: PDFRef | undefined
+        if (!EFNamesArray) return undefined;
+        let dictRef: PDFRef | undefined;
         for (let i = 0; i < EFNamesArray?.asArray().length; i++) {
             if (EFNamesArray.get(i) instanceof PDFHexString || EFNamesArray.get(i) instanceof PDFString) {
-                const name = EFNamesArray.get(i) as PDFString
+                const name = EFNamesArray.get(i) as PDFString;
                 if (name.decodeText() === xmlName) {
-                    dictRef = EFNamesArray.get(i + 1) as PDFRef
-                    EFNamesArray.remove(i + 1)
-                    EFNamesArray.remove(i)
-                    return dictRef
+                    dictRef = EFNamesArray.get(i + 1) as PDFRef;
+                    EFNamesArray.remove(i + 1);
+                    EFNamesArray.remove(i);
+                    return dictRef;
                 }
             }
         }
     }
 
     private static findAndDeleteAttachmentFromAFArray(pdfDoc: PDFDocument, ref: PDFRef | undefined) {
-        if (!ref) return
-        const AFArray = pdfDoc.catalog.lookupMaybe(PDFName.of('AF'), PDFArray)
-        if (!AFArray) return
+        if (!ref) return;
+        const AFArray = pdfDoc.catalog.lookupMaybe(PDFName.of('AF'), PDFArray);
+        if (!AFArray) return;
         for (let i = 0; i < AFArray.asArray().length; i++) {
             if (AFArray.get(i) === ref) {
-                AFArray.remove(i)
-                return
+                AFArray.remove(i);
+                return;
             }
         }
     }
@@ -308,50 +308,50 @@ export default class FacturXPdf {
         pdfDoc: PDFDocument,
         dictRef: PDFRef | undefined
     ): PDFStream | undefined {
-        if (!dictRef) return undefined
+        if (!dictRef) return undefined;
         const stream: PDFStream | undefined = pdfDoc.context
             .lookup(dictRef, PDFDict)
             .lookupMaybe(PDFName.of('EF'), PDFDict)
-            ?.lookup(PDFName.of('F'), PDFStream)
-        pdfDoc.context.delete(dictRef)
-        return stream
+            ?.lookup(PDFName.of('F'), PDFStream);
+        pdfDoc.context.delete(dictRef);
+        return stream;
     }
 
     private static findPdfStreamRef(pdfDoc: PDFDocument, targetStream: PDFStream): PDFRef | undefined {
         for (const [ref, object] of pdfDoc.context.enumerateIndirectObjects()) {
             if (object instanceof PDFStream && object === targetStream) {
-                return ref
+                return ref;
             }
         }
-        return undefined
+        return undefined;
     }
 
     private static deleteStream(pdfDoc: PDFDocument, stream: PDFStream | undefined) {
         if (stream) {
-            const streamRef = this.findPdfStreamRef(pdfDoc, stream)
-            if (streamRef) pdfDoc.context.delete(streamRef)
+            const streamRef = this.findPdfStreamRef(pdfDoc, stream);
+            if (streamRef) pdfDoc.context.delete(streamRef);
         }
     }
 
     private async removeAttachment(attachmentName: string): Promise<void> {
-        const dictRef = FacturXPdf.findAndDeleteAttachmentFromNamesArray(this.pdfDoc, attachmentName)
-        const stream = FacturXPdf.findAndDeleteAttachmentDict(this.pdfDoc, dictRef)
-        FacturXPdf.deleteStream(this.pdfDoc, stream)
-        FacturXPdf.findAndDeleteAttachmentFromAFArray(this.pdfDoc, dictRef)
+        const dictRef = FacturXPdf.findAndDeleteAttachmentFromNamesArray(this.pdfDoc, attachmentName);
+        const stream = FacturXPdf.findAndDeleteAttachmentDict(this.pdfDoc, dictRef);
+        FacturXPdf.deleteStream(this.pdfDoc, stream);
+        FacturXPdf.findAndDeleteAttachmentFromAFArray(this.pdfDoc, dictRef);
     }
 
     private addMetadata(date: Date, documentId: string, title: string, author: string, profile: string) {
-        const id = PDFString.of(documentId)
-        this.pdfDoc.context.trailerInfo.ID = this.pdfDoc.context.obj([id, id])
+        const id = PDFString.of(documentId);
+        this.pdfDoc.context.trailerInfo.ID = this.pdfDoc.context.obj([id, id]);
 
-        const producer = 'pdf-lib'
-        const creator = 'zugferd-kit'
-        this.pdfDoc.setTitle(title)
-        this.pdfDoc.setAuthor(author)
-        this.pdfDoc.setProducer(producer)
-        this.pdfDoc.setCreator(creator)
-        this.pdfDoc.setCreationDate(date)
-        this.pdfDoc.setModificationDate(date)
+        const producer = 'pdf-lib';
+        const creator = 'zugferd-kit';
+        this.pdfDoc.setTitle(title);
+        this.pdfDoc.setAuthor(author);
+        this.pdfDoc.setProducer(producer);
+        this.pdfDoc.setCreator(creator);
+        this.pdfDoc.setCreationDate(date);
+        this.pdfDoc.setModificationDate(date);
 
         const metadataXML = `
             <?xpacket begin="" id="${documentId}"?>
@@ -441,19 +441,19 @@ export default class FacturXPdf {
                 </rdf:RDF>
               </x:xmpmeta>
             <?xpacket end="w"?>
-        `.trim()
+        `.trim();
 
         const metadataStream = this.pdfDoc.context.stream(metadataXML, {
             Type: 'Metadata',
             Subtype: 'XML',
             Length: metadataXML.length
-        })
-        const metadataStreamRef = this.pdfDoc.context.register(metadataStream)
-        this.pdfDoc.catalog.set(PDFName.of('Metadata'), metadataStreamRef)
+        });
+        const metadataStreamRef = this.pdfDoc.context.register(metadataStream);
+        this.pdfDoc.catalog.set(PDFName.of('Metadata'), metadataStreamRef);
     }
 
     // remove millisecond from date
     private static formatDate(date: Date) {
-        return date.toISOString().split('.')[0] + 'Z'
+        return date.toISOString().split('.')[0] + 'Z';
     }
 }

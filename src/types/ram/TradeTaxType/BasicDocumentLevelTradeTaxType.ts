@@ -1,10 +1,10 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
-import { ZCodeType } from '../../CodeTypeConverter'
-import { EXEMPTION_REASON_CODES, TAX_CATEGORY_CODES, TAX_TYPE_CODE, TIME_REFERENCE_CODES } from '../../codes'
-import { ZAmountType, ZAmountTypeXml } from '../../udt/AmountTypeConverter'
-import { ZPercentType, ZPercentTypeXml } from '../../udt/PercentTypeConverter'
-import { ZTextType, ZTextTypeXml } from '../../udt/TextTypeConverter'
+import { ZCodeType } from '../../CodeTypeConverter';
+import { EXEMPTION_REASON_CODES, TAX_CATEGORY_CODES, TAX_TYPE_CODE, TIME_REFERENCE_CODES } from '../../codes';
+import { ZAmountType, ZAmountTypeXml } from '../../udt/AmountTypeConverter';
+import { ZPercentType, ZPercentTypeXml } from '../../udt/PercentTypeConverter';
+import { ZTextType, ZTextTypeXml } from '../../udt/TextTypeConverter';
 
 export const ZBasicDocumentLevelTradeTaxType = z.object({
     calculatedAmount: ZAmountType,
@@ -15,9 +15,9 @@ export const ZBasicDocumentLevelTradeTaxType = z.object({
     exemptionReasonCode: ZCodeType(EXEMPTION_REASON_CODES).optional(),
     dueDateTypeCode: ZCodeType(TIME_REFERENCE_CODES).optional(),
     rateApplicablePercent: ZPercentType.optional()
-})
+});
 
-export type BasicDocumentLevelTradeTaxType = z.infer<typeof ZBasicDocumentLevelTradeTaxType>
+export type BasicDocumentLevelTradeTaxType = z.infer<typeof ZBasicDocumentLevelTradeTaxType>;
 
 export const ZBasicDocumentLevelTradeTaxTypeXml = z.object({
     'ram:CalculatedAmount': ZAmountTypeXml,
@@ -28,6 +28,6 @@ export const ZBasicDocumentLevelTradeTaxTypeXml = z.object({
     'ram:ExemptionReasonCode': ZTextTypeXml.optional(),
     'ram:DueDateTypeCode': ZTextTypeXml.optional(),
     'ram:RateApplicablePercent': ZPercentTypeXml.optional()
-})
+});
 
-export type BasicDocumentLevelTradeTaxTypeXml = z.infer<typeof ZBasicDocumentLevelTradeTaxTypeXml>
+export type BasicDocumentLevelTradeTaxTypeXml = z.infer<typeof ZBasicDocumentLevelTradeTaxTypeXml>;

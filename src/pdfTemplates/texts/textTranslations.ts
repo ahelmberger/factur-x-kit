@@ -1,4 +1,4 @@
-import { TranslatedTexts } from './types'
+import { TranslatedTexts } from './types';
 
 export const translations_en = {
     ATTN: 'ATTN',
@@ -53,7 +53,7 @@ export const translations_en = {
 
     VAT_EXMPTION_REASON: 'VAT Exemption Reason',
     ALREADY_PAID: 'This invoice has already been paid'
-}
+};
 
 const translations_de: typeof translations_en = {
     ATTN: 'z.Hd.',
@@ -108,7 +108,7 @@ const translations_de: typeof translations_en = {
 
     VAT_EXMPTION_REASON: 'Grund für Umsatzsteuerbefreiung',
     ALREADY_PAID: 'Diese Rechnung wurde bereits beglichen'
-}
+};
 
 const translations_fr: typeof translations_en = {
     ATTN: "À l'attention de",
@@ -163,14 +163,14 @@ const translations_fr: typeof translations_en = {
 
     VAT_EXMPTION_REASON: 'Raison de l’exemption de TVA',
     ALREADY_PAID: 'Cette facture a déjà été réglée'
-}
+};
 
-export type TranslationKeys = `${keyof typeof translations_en}`
+export type TranslationKeys = `${keyof typeof translations_en}`;
 
 const translations: TranslatedTexts<`${keyof typeof translations_en}`> = {
     'en-US': translations_en,
     'de-DE': translations_de,
     'fr-FR': translations_fr
-}
+};
 
-export default Object.freeze(translations)
+export default Object.freeze(translations);

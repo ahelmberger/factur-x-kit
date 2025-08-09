@@ -1,5 +1,5 @@
-import { FacturX } from '../../src'
-import { ComfortProfile } from '../../src/profiles/comfort'
+import { FacturX } from '../../src';
+import { ComfortProfile } from '../../src/profiles/comfort';
 import {
     ALLOWANCE_REASONS_CODES,
     CHARGE_REASONS_CODES,
@@ -8,18 +8,18 @@ import {
     EXEMPTION_REASON_CODES,
     TAX_CATEGORY_CODES,
     TAX_TYPE_CODE
-} from '../../src/types/codes'
-import { zeroRatedInvoice } from './ruleObjects.ts/zeroRated'
+} from '../../src/types/codes';
+import { zeroRatedInvoice } from './ruleObjects.ts/zeroRated';
 
 describe('BR-Z', () => {
     describe('BR-Z-1', () => {
         test('BR-Z-1 positive test: VAT Breakdown available', async () => {
-            const instance = await FacturX.fromObject(zeroRatedInvoice)
-            const validationResult = instance.validate()
+            const instance = await FacturX.fromObject(zeroRatedInvoice);
+            const validationResult = instance.validate();
 
-            expect(validationResult.valid).toBeTruthy()
-            expect(validationResult.errors).toBeUndefined()
-        })
+            expect(validationResult.valid).toBeTruthy();
+            expect(validationResult.errors).toBeUndefined();
+        });
 
         test('BR-Z-1 negative test: VAT breakdown with wrong tax-category', async () => {
             const data: ComfortProfile = {
@@ -37,26 +37,26 @@ describe('BR-Z', () => {
                         }
                     ]
                 }
-            }
-            const instance = await FacturX.fromObject(data)
-            const validationResult = instance.validate()
+            };
+            const instance = await FacturX.fromObject(data);
+            const validationResult = instance.validate();
 
-            expect(validationResult.valid).toBeFalsy()
-            expect(validationResult.errors?.length).toBe(2) // When there is no tax breakdown the sum will also be incorrect --> BR-Z-8 will also fail
+            expect(validationResult.valid).toBeFalsy();
+            expect(validationResult.errors?.length).toBe(2); // When there is no tax breakdown the sum will also be incorrect --> BR-Z-8 will also fail
             expect(validationResult.errors?.map(error => error?.message)).toContain(
                 '[BR-Z-1] An Invoice (INVOICE) that contains an item, an allowance, or a charge at the document level, where the VAT category code of the invoiced item (Invoiced item VAT category code (BT-151), Document level allowance VAT category code (BT-95) or Document level charge VAT category code (BT-102)) has the value "Zero rated" specified, must contain exactly one VAT BREAKDOWN (BG-23) with the VAT category code (BT-118) having the value "Zero rated".'
-            )
-        })
-    })
+            );
+        });
+    });
 
     describe('BR-Z-2', () => {
         test('BR-Z-2 positive test: Seller VAT ID available', async () => {
-            const instance = await FacturX.fromObject(zeroRatedInvoice)
-            const validationResult = instance.validate()
+            const instance = await FacturX.fromObject(zeroRatedInvoice);
+            const validationResult = instance.validate();
 
-            expect(validationResult.valid).toBeTruthy()
-            expect(validationResult.errors).toBeUndefined()
-        })
+            expect(validationResult.valid).toBeTruthy();
+            expect(validationResult.errors).toBeUndefined();
+        });
 
         test('BR-Z-2 positive test: Seller local tax id available', async () => {
             const data: ComfortProfile = {
@@ -68,13 +68,13 @@ describe('BR-Z', () => {
                     allowanceTotalAmount: 0,
                     chargeTotalAmount: 0
                 }
-            }
-            const instance = await FacturX.fromObject(data)
-            const validationResult = instance.validate()
+            };
+            const instance = await FacturX.fromObject(data);
+            const validationResult = instance.validate();
 
-            expect(validationResult.valid).toBeTruthy()
-            expect(validationResult.errors).toBeUndefined()
-        })
+            expect(validationResult.valid).toBeTruthy();
+            expect(validationResult.errors).toBeUndefined();
+        });
 
         test('BR-Z-2 positive test: Seller tax representative VAT id available', async () => {
             const data: ComfortProfile = {
@@ -95,13 +95,13 @@ describe('BR-Z', () => {
                     allowanceTotalAmount: 0,
                     chargeTotalAmount: 0
                 }
-            }
-            const instance = await FacturX.fromObject(data)
-            const validationResult = instance.validate()
+            };
+            const instance = await FacturX.fromObject(data);
+            const validationResult = instance.validate();
 
-            expect(validationResult.valid).toBeTruthy()
-            expect(validationResult.errors).toBeUndefined()
-        })
+            expect(validationResult.valid).toBeTruthy();
+            expect(validationResult.errors).toBeUndefined();
+        });
 
         test('BR-Z-2 negative test: No seller Tax ID', async () => {
             const data: ComfortProfile = {
@@ -113,24 +113,24 @@ describe('BR-Z', () => {
                     allowanceTotalAmount: 0,
                     chargeTotalAmount: 0
                 }
-            }
-            const instance = await FacturX.fromObject(data)
-            const validationResult = instance.validate()
-            expect(validationResult.valid).toBeFalsy()
-            expect(validationResult.errors?.length).toBe(1)
+            };
+            const instance = await FacturX.fromObject(data);
+            const validationResult = instance.validate();
+            expect(validationResult.valid).toBeFalsy();
+            expect(validationResult.errors?.length).toBe(1);
             expect(validationResult.errors?.map(error => error?.message)).toContain(
                 '[BR-Z-2] An Invoice (INVOICE) that contains an item where the Invoiced item VAT category code (BT-151) has the value "Zero rated" specified, must contain the Seller VAT identifier (BT-31), the Seller tax registration identifier (BT-32) or the Seller tax representative VAT identifier (BT-63).'
-            )
-        })
-    })
+            );
+        });
+    });
     describe('BR-Z-3', () => {
         test('BR-Z-3 positive test: Seller VAT available', async () => {
-            const instance = await FacturX.fromObject(zeroRatedInvoice)
-            const validationResult = instance.validate()
+            const instance = await FacturX.fromObject(zeroRatedInvoice);
+            const validationResult = instance.validate();
 
-            expect(validationResult.valid).toBeTruthy()
-            expect(validationResult.errors).toBeUndefined()
-        })
+            expect(validationResult.valid).toBeTruthy();
+            expect(validationResult.errors).toBeUndefined();
+        });
 
         test('BR-Z-3 positive test: Seller local tax id available', async () => {
             const data: ComfortProfile = {
@@ -150,13 +150,13 @@ describe('BR-Z', () => {
                     prepaidAmount: 0,
                     openAmount: 9
                 }
-            }
-            const instance = await FacturX.fromObject(data)
-            const validationResult = instance.validate()
+            };
+            const instance = await FacturX.fromObject(data);
+            const validationResult = instance.validate();
 
-            expect(validationResult.valid).toBeTruthy()
-            expect(validationResult.errors).toBeUndefined()
-        })
+            expect(validationResult.valid).toBeTruthy();
+            expect(validationResult.errors).toBeUndefined();
+        });
 
         test('BR-Z-3 positive test: Seller tax representative VAT id available', async () => {
             const data: ComfortProfile = {
@@ -185,13 +185,13 @@ describe('BR-Z', () => {
                     prepaidAmount: 0,
                     openAmount: 9
                 }
-            }
-            const instance = await FacturX.fromObject(data)
-            const validationResult = instance.validate()
+            };
+            const instance = await FacturX.fromObject(data);
+            const validationResult = instance.validate();
 
-            expect(validationResult.valid).toBeTruthy()
-            expect(validationResult.errors).toBeUndefined()
-        })
+            expect(validationResult.valid).toBeTruthy();
+            expect(validationResult.errors).toBeUndefined();
+        });
 
         test('BR-Z-3 negative test: No seller Tax ID', async () => {
             const data: ComfortProfile = {
@@ -211,25 +211,25 @@ describe('BR-Z', () => {
                     prepaidAmount: 0,
                     openAmount: 9
                 }
-            }
-            const instance = await FacturX.fromObject(data)
-            const validationResult = instance.validate()
+            };
+            const instance = await FacturX.fromObject(data);
+            const validationResult = instance.validate();
 
-            expect(validationResult.valid).toBeFalsy()
-            expect(validationResult.errors?.length).toBe(2)
+            expect(validationResult.valid).toBeFalsy();
+            expect(validationResult.errors?.length).toBe(2);
             expect(validationResult.errors?.map(error => error?.message)).toContain(
                 '[BR-Z-3] In an Invoice that contains a DOCUMENT LEVEL ALLOWANCES (BG-20) group, where the Document level allowance VAT category code (BT-95) has the value "Zero rated", either the Seller VAT identifier (BT-31), Seller tax registration identifier (BT-32) or Seller tax representative VAT identifier (BT-63) must be present.'
-            )
-        })
-    })
+            );
+        });
+    });
     describe('BR-Z-4', () => {
         test('BR-Z-4 positive test: Seller VAT available', async () => {
-            const instance = await FacturX.fromObject(zeroRatedInvoice)
-            const validationResult = instance.validate()
+            const instance = await FacturX.fromObject(zeroRatedInvoice);
+            const validationResult = instance.validate();
 
-            expect(validationResult.valid).toBeTruthy()
-            expect(validationResult.errors).toBeUndefined()
-        })
+            expect(validationResult.valid).toBeTruthy();
+            expect(validationResult.errors).toBeUndefined();
+        });
 
         test('BR-Z-4 positive test: Seller local tax id available', async () => {
             const data: ComfortProfile = {
@@ -249,13 +249,13 @@ describe('BR-Z', () => {
                     prepaidAmount: 0,
                     openAmount: 11
                 }
-            }
-            const instance = await FacturX.fromObject(data)
-            const validationResult = instance.validate()
+            };
+            const instance = await FacturX.fromObject(data);
+            const validationResult = instance.validate();
 
-            expect(validationResult.valid).toBeTruthy()
-            expect(validationResult.errors).toBeUndefined()
-        })
+            expect(validationResult.valid).toBeTruthy();
+            expect(validationResult.errors).toBeUndefined();
+        });
 
         test('BR-Z-4 positive test: Seller tax representative VAT id available', async () => {
             const data: ComfortProfile = {
@@ -284,13 +284,13 @@ describe('BR-Z', () => {
                     prepaidAmount: 0,
                     openAmount: 11
                 }
-            }
-            const instance = await FacturX.fromObject(data)
-            const validationResult = instance.validate()
+            };
+            const instance = await FacturX.fromObject(data);
+            const validationResult = instance.validate();
 
-            expect(validationResult.valid).toBeTruthy()
-            expect(validationResult.errors).toBeUndefined()
-        })
+            expect(validationResult.valid).toBeTruthy();
+            expect(validationResult.errors).toBeUndefined();
+        });
 
         test('BR-Z-4 negative test: No seller Tax ID', async () => {
             const data: ComfortProfile = {
@@ -310,26 +310,26 @@ describe('BR-Z', () => {
                     prepaidAmount: 0,
                     openAmount: 11
                 }
-            }
-            const instance = await FacturX.fromObject(data)
-            const validationResult = instance.validate()
+            };
+            const instance = await FacturX.fromObject(data);
+            const validationResult = instance.validate();
 
-            expect(validationResult.valid).toBeFalsy()
-            expect(validationResult.errors?.length).toBe(2)
+            expect(validationResult.valid).toBeFalsy();
+            expect(validationResult.errors?.length).toBe(2);
             expect(validationResult.errors?.map(error => error?.message)).toContain(
                 '[BR-Z-4] In an Invoice that contains a DOCUMENT LEVEL CHARGES (BG-21) group, where the Document level charge VAT category code (BT-102) has the value "Zero rated", either the Seller VAT identifier (BT-31), Seller tax registration identifier (BT-32) or Seller tax representative VAT identifier (BT-63) must be present.'
-            )
-        })
-    })
+            );
+        });
+    });
 
     describe('BR-Z-5', () => {
         test('BR-Z-5 positive test: Tax Rate in Line equals 0', async () => {
-            const instance = await FacturX.fromObject(zeroRatedInvoice)
-            const validationResult = instance.validate()
+            const instance = await FacturX.fromObject(zeroRatedInvoice);
+            const validationResult = instance.validate();
 
-            expect(validationResult.valid).toBeTruthy()
-            expect(validationResult.errors).toBeUndefined()
-        })
+            expect(validationResult.valid).toBeTruthy();
+            expect(validationResult.errors).toBeUndefined();
+        });
 
         test('BR-Z-5 negative test: Tax Rate in Line is not 0', async () => {
             const data: ComfortProfile = {
@@ -348,25 +348,25 @@ describe('BR-Z', () => {
                     },
                     { ...zeroRatedInvoice.invoiceLines[1] }
                 ]
-            }
-            const instance = await FacturX.fromObject(data)
-            const validationResult = instance.validate()
-            expect(validationResult.valid).toBeFalsy()
-            expect(validationResult.errors?.length).toBe(1)
+            };
+            const instance = await FacturX.fromObject(data);
+            const validationResult = instance.validate();
+            expect(validationResult.valid).toBeFalsy();
+            expect(validationResult.errors?.length).toBe(1);
             expect(validationResult.errors?.map(error => error?.message)).toContain(
                 '[BR-Z-5] In an INVOICE LINE (BG-25), where Invoiced item VAT category code (BT-151) has the value "Zero rated", Invoiced item VAT rate (BT-152) must be equal to 0.'
-            )
-        })
-    })
+            );
+        });
+    });
 
     describe('BR-Z-6', () => {
         test('BR-Z-6 positive test: Tax Rate in allowance equals 0', async () => {
-            const instance = await FacturX.fromObject(zeroRatedInvoice)
-            const validationResult = instance.validate()
+            const instance = await FacturX.fromObject(zeroRatedInvoice);
+            const validationResult = instance.validate();
 
-            expect(validationResult.valid).toBeTruthy()
-            expect(validationResult.errors).toBeUndefined()
-        })
+            expect(validationResult.valid).toBeTruthy();
+            expect(validationResult.errors).toBeUndefined();
+        });
 
         test('BR-Z-6 negative test: Tax Rate in allowance is not 0', async () => {
             const data: ComfortProfile = {
@@ -388,26 +388,26 @@ describe('BR-Z', () => {
                         ]
                     }
                 }
-            }
-            const instance = await FacturX.fromObject(data)
-            const validationResult = instance.validate()
+            };
+            const instance = await FacturX.fromObject(data);
+            const validationResult = instance.validate();
 
-            expect(validationResult.valid).toBeFalsy()
-            expect(validationResult.errors?.length).toBe(1)
+            expect(validationResult.valid).toBeFalsy();
+            expect(validationResult.errors?.length).toBe(1);
             expect(validationResult.errors?.map(error => error?.message)).toContain(
                 '[BR-Z-6] In a DOCUMENT LEVEL ALLOWANCES (BG-20), where Document level allowance VAT category code (BT-95) has the value "Zero rated", Document level allowance VAT rate (BT-96) must be equal to 0.'
-            )
-        })
-    })
+            );
+        });
+    });
 
     describe('BR-Z-7', () => {
         test('BR-Z-7 positive test: Tax Rate in allowance equals 0', async () => {
-            const instance = await FacturX.fromObject(zeroRatedInvoice)
-            const validationResult = instance.validate()
+            const instance = await FacturX.fromObject(zeroRatedInvoice);
+            const validationResult = instance.validate();
 
-            expect(validationResult.valid).toBeTruthy()
-            expect(validationResult.errors).toBeUndefined()
-        })
+            expect(validationResult.valid).toBeTruthy();
+            expect(validationResult.errors).toBeUndefined();
+        });
 
         test('BR-Z-7 negative test: Tax Rate in allowance is not 0', async () => {
             const data: ComfortProfile = {
@@ -429,26 +429,26 @@ describe('BR-Z', () => {
                         ]
                     }
                 }
-            }
-            const instance = await FacturX.fromObject(data)
-            const validationResult = instance.validate()
+            };
+            const instance = await FacturX.fromObject(data);
+            const validationResult = instance.validate();
 
-            expect(validationResult.valid).toBeFalsy()
-            expect(validationResult.errors?.length).toBe(1)
+            expect(validationResult.valid).toBeFalsy();
+            expect(validationResult.errors?.length).toBe(1);
             expect(validationResult.errors?.map(error => error?.message)).toContain(
                 '[BR-Z-7] In a DOCUMENT LEVEL CHARGES (BG-21), where Document level charge VAT category code (BT-102) has the value "Zero rated", Document level charge VAT rate (BT-103) must be equal to 0.'
-            )
-        })
-    })
+            );
+        });
+    });
 
     describe('BR-Z-8', () => {
         test('BR-Z-8 positive test: tax basis is the correct sum', async () => {
-            const instance = await FacturX.fromObject(zeroRatedInvoice)
-            const validationResult = instance.validate()
+            const instance = await FacturX.fromObject(zeroRatedInvoice);
+            const validationResult = instance.validate();
 
-            expect(validationResult.valid).toBeTruthy()
-            expect(validationResult.errors).toBeUndefined()
-        })
+            expect(validationResult.valid).toBeTruthy();
+            expect(validationResult.errors).toBeUndefined();
+        });
 
         test('BR-Z-8 negative test: tax basis is not the correct sum of lines allowances and charges', async () => {
             const data: ComfortProfile = {
@@ -465,26 +465,26 @@ describe('BR-Z', () => {
                         }
                     ]
                 }
-            }
-            const instance = await FacturX.fromObject(data)
-            const validationResult = instance.validate()
+            };
+            const instance = await FacturX.fromObject(data);
+            const validationResult = instance.validate();
 
-            expect(validationResult.valid).toBeFalsy()
-            expect(validationResult.errors?.length).toBe(1)
+            expect(validationResult.valid).toBeFalsy();
+            expect(validationResult.errors?.length).toBe(1);
             expect(validationResult.errors?.map(error => error?.message)).toContain(
                 '[BR-Z-8] In a VAT BREAKDOWN (BG-23), where the VAT category code (BT-118) has the value "Zero rated" specified, the VAT category taxable amount (BT-116) must be equal to the sum of the Invoice line net amount (BT-131) minus the Document level allowance amount (BT-92) plus the Document level charge amount (BT-99), where Invoiced item VAT category code (BT-151), Document level allowance VAT category code (BT-95), and Document level charge VAT category code (BT-102) each have the value "Zero rated" specified.'
-            )
-        })
-    })
+            );
+        });
+    });
 
     describe('BR-Z-9', () => {
         test('BR-Z-9 positive test: tax sum is 0', async () => {
-            const instance = await FacturX.fromObject(zeroRatedInvoice)
-            const validationResult = instance.validate()
+            const instance = await FacturX.fromObject(zeroRatedInvoice);
+            const validationResult = instance.validate();
 
-            expect(validationResult.valid).toBeTruthy()
-            expect(validationResult.errors).toBeUndefined()
-        })
+            expect(validationResult.valid).toBeTruthy();
+            expect(validationResult.errors).toBeUndefined();
+        });
 
         test('BR-Z-9 negative test: tax sum is not 0', async () => {
             const data: ComfortProfile = {
@@ -507,16 +507,16 @@ describe('BR-Z', () => {
                     prepaidAmount: 0,
                     openAmount: 11
                 }
-            }
-            const instance = await FacturX.fromObject(data)
-            const validationResult = instance.validate()
-            expect(validationResult.valid).toBeFalsy()
-            expect(validationResult.errors?.length).toBe(1)
+            };
+            const instance = await FacturX.fromObject(data);
+            const validationResult = instance.validate();
+            expect(validationResult.valid).toBeFalsy();
+            expect(validationResult.errors?.length).toBe(1);
             expect(validationResult.errors?.map(error => error?.message)).toContain(
                 '[BR-Z-9] The VAT category tax amount (BT-117) must be equal to 0 in a VAT BREAKDOWN (BG-23) where the VAT category code (BT-118) has the value "Zero rated".'
-            )
-        })
-    })
+            );
+        });
+    });
 
     describe('BR-Z-10', () => {
         test('BR-Z-10 negative test: tax exemption reason is given', async () => {
@@ -536,16 +536,16 @@ describe('BR-Z', () => {
                         }
                     ]
                 }
-            }
-            const instance = await FacturX.fromObject(data)
-            const validationResult = instance.validate()
+            };
+            const instance = await FacturX.fromObject(data);
+            const validationResult = instance.validate();
 
-            expect(validationResult.valid).toBeFalsy()
-            expect(validationResult.errors?.length).toBe(1)
+            expect(validationResult.valid).toBeFalsy();
+            expect(validationResult.errors?.length).toBe(1);
             expect(validationResult.errors?.map(error => error?.message)).toContain(
                 '[BR-Z-10] A VAT Breakdown (BG-23) with VAT Category code (BT-118) "Zero rated" shall not have a VAT exemption reason code (BT-121) or VAT exemption reason text (BT-120).'
-            )
-        })
+            );
+        });
 
         test('BR-Z-10 negative test: correct tax exemption reason code is given', async () => {
             const data: ComfortProfile = {
@@ -565,16 +565,16 @@ describe('BR-Z', () => {
                         }
                     ]
                 }
-            }
-            const instance = await FacturX.fromObject(data)
-            const validationResult = instance.validate()
+            };
+            const instance = await FacturX.fromObject(data);
+            const validationResult = instance.validate();
 
-            expect(validationResult.valid).toBeFalsy()
-            expect(validationResult.errors?.length).toBe(1)
+            expect(validationResult.valid).toBeFalsy();
+            expect(validationResult.errors?.length).toBe(1);
             expect(validationResult.errors?.map(error => error?.message)).toContain(
                 '[BR-Z-10] A VAT Breakdown (BG-23) with VAT Category code (BT-118) "Zero rated" shall not have a VAT exemption reason code (BT-121) or VAT exemption reason text (BT-120).'
-            )
-        })
+            );
+        });
 
         test('BR-Z-10 positive test: neither reason nor reason code is given', async () => {
             const data: ComfortProfile = {
@@ -593,11 +593,11 @@ describe('BR-Z', () => {
                         }
                     ]
                 }
-            }
-            const instance = await FacturX.fromObject(data)
-            const validationResult = instance.validate()
-            expect(validationResult.valid).toBeTruthy()
-            expect(validationResult.errors).toBeUndefined()
-        })
-    })
-})
+            };
+            const instance = await FacturX.fromObject(data);
+            const validationResult = instance.validate();
+            expect(validationResult.valid).toBeTruthy();
+            expect(validationResult.errors).toBeUndefined();
+        });
+    });
+});

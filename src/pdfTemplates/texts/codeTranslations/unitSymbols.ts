@@ -1,8 +1,8 @@
-import { UNIT_CODES } from '../../../types/codes'
-import { TranslatedTexts } from '../types'
+import { UNIT_CODES } from '../../../types/codes';
+import { TranslatedTexts } from '../types';
 
 // Typ, der eine Union aller möglichen String-Werte des Enums bildet
-type UnitCode = `${UNIT_CODES}`
+type UnitCode = `${UNIT_CODES}`;
 
 const unitSymbols_basis: Record<UnitCode, string> = {
     '10': '',
@@ -2167,7 +2167,7 @@ const unitSymbols_basis: Record<UnitCode, string> = {
     XZX: '',
     XZY: '',
     XZZ: ''
-}
+};
 
 /**
  * Source: https://unece.org/trade/uncefact/cl-recommendations
@@ -2825,7 +2825,7 @@ const unitSymbols_en: Record<UnitCode, string> = {
     XZX: 'Intermediate bulk container, plywood',
     XZY: 'Intermediate bulk container, reconstituted wood',
     XZZ: 'Mutually defined '
-}
+};
 
 const unitSymbols_de = {
     ...unitSymbols_basis,
@@ -3479,7 +3479,7 @@ const unitSymbols_de = {
     XZX: 'IBC, Sperrholz',
     XZY: 'IBC, Holzwerkstoff',
     XZZ: 'gegenseitig definiert'
-}
+};
 
 const unitSymbols_fr: Record<UnitCode, string> = {
     ...unitSymbols_basis,
@@ -4133,12 +4133,12 @@ const unitSymbols_fr: Record<UnitCode, string> = {
     XZX: 'GRV, contreplaqué',
     XZY: 'GRV, bois reconstitué',
     XZZ: 'défini mutuellement'
-}
+};
 
 const unitSymbols: TranslatedTexts<UnitCode> = {
     'en-US': unitSymbols_en,
     'de-DE': unitSymbols_de,
     'fr-FR': unitSymbols_fr
-}
+};
 
-export default Object.freeze(unitSymbols)
+export default Object.freeze(unitSymbols);

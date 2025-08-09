@@ -1,17 +1,17 @@
-import { ArrayConverter } from '../../types/ArrayConverter'
-import { CodeTypeConverter } from '../../types/CodeTypeConverter'
-import { CURRENCY_CODES, DOCUMENT_TYPE_CODES, ISO6523_CODES } from '../../types/codes'
-import { ReferencedDocumentTypeConverter } from '../../types/ram/ReferencedDocumentType/ReferencedDocumentConverter'
-import { SpecifiedTaxRegistrationsForSellerTypeConverter } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter'
-import { AmountTypeConverter } from '../../types/udt/AmountTypeConverter'
-import { AmountTypeWithRequiredCurrencyConverter } from '../../types/udt/AmountTypeWithRequiredCurrencyConverter'
-import { DateTimeTypeConverter } from '../../types/udt/DateTimeTypeConverter'
-import { IdTypeConverter } from '../../types/udt/IdTypeConverter'
-import { IdTypeWithOptionalSchemeConverter } from '../../types/udt/IdTypeWithOptionalSchemeConverter'
-import { TextTypeConverter } from '../../types/udt/TextTypeConverter'
-import type { MappingItem } from '../convert'
-import { MinimumProfile } from './MinimumProfile'
-import { MinimumProfileXml } from './MinimumProfileXml'
+import { ArrayConverter } from '../../types/ArrayConverter';
+import { CodeTypeConverter } from '../../types/CodeTypeConverter';
+import { CURRENCY_CODES, DOCUMENT_TYPE_CODES, ISO6523_CODES } from '../../types/codes';
+import { ReferencedDocumentTypeConverter } from '../../types/ram/ReferencedDocumentType/ReferencedDocumentConverter';
+import { SpecifiedTaxRegistrationsForSellerTypeConverter } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter';
+import { AmountTypeConverter } from '../../types/udt/AmountTypeConverter';
+import { AmountTypeWithRequiredCurrencyConverter } from '../../types/udt/AmountTypeWithRequiredCurrencyConverter';
+import { DateTimeTypeConverter } from '../../types/udt/DateTimeTypeConverter';
+import { IdTypeConverter } from '../../types/udt/IdTypeConverter';
+import { IdTypeWithOptionalSchemeConverter } from '../../types/udt/IdTypeWithOptionalSchemeConverter';
+import { TextTypeConverter } from '../../types/udt/TextTypeConverter';
+import type { MappingItem } from '../convert';
+import { MinimumProfile } from './MinimumProfile';
+import { MinimumProfileXml } from './MinimumProfileXml';
 
 const mapping: MappingItem<MinimumProfile, MinimumProfileXml>[] = [
     //const mapping: MappingItem<MinimumProfile, MinimumProfileXml>[] = [
@@ -105,6 +105,6 @@ const mapping: MappingItem<MinimumProfile, MinimumProfileXml>[] = [
         xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeSettlement.ram:SpecifiedTradeSettlementHeaderMonetarySummation.ram:DuePayableAmount',
         converter: new AmountTypeConverter()
     }
-]
+];
 
-export default mapping
+export default mapping;

@@ -1,5 +1,5 @@
-import { BasicProfile } from '../../src/profiles/basic'
-import { PROFILES } from '../../src/types/ProfileTypes'
+import { BasicProfile } from '../../src/profiles/basic';
+import { PROFILES } from '../../src/types/ProfileTypes';
 import {
     ALLOWANCE_REASONS_CODES,
     CURRENCY_CODES,
@@ -7,9 +7,9 @@ import {
     TAX_CATEGORY_CODES,
     TAX_TYPE_CODE,
     UNIT_CODES
-} from '../../src/types/codes'
-import { BasicTradeLineItem } from '../../src/types/ram/IncludedSupplyChainTradeLineItem/BasicTradeLineItem'
-import testBasicWLProfile from './basicwithoutlines_test_objects'
+} from '../../src/types/codes';
+import { BasicTradeLineItem } from '../../src/types/ram/IncludedSupplyChainTradeLineItem/BasicTradeLineItem';
+import testBasicWLProfile from './basicwithoutlines_test_objects';
 
 const testInvoiceLines: BasicTradeLineItem[] = [
     {
@@ -104,9 +104,9 @@ const testInvoiceLines: BasicTradeLineItem[] = [
             }
         }
     }
-]
+];
 
-export default testInvoiceLines
+export default testInvoiceLines;
 
 const testBasicProfile: BasicProfile = {
     ...testBasicWLProfile,
@@ -154,6 +154,6 @@ const testBasicProfile: BasicProfile = {
         prepaidAmount: 0,
         openAmount: 144.59
     }
-}
+};
 
-export { testBasicProfile }
+export { testBasicProfile };

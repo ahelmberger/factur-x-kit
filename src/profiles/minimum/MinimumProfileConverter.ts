@@ -1,14 +1,14 @@
-import { Converter } from '../convert'
-import { type MinimumProfile, isMinimumProfile, isValidMinimumProfile } from './MinimumProfile'
-import { type MinimumProfileXml, isMinimumProfileXml } from './MinimumProfileXml'
-import mapping from './mapping'
+import { Converter } from '../convert';
+import { type MinimumProfile, isMinimumProfile, isValidMinimumProfile } from './MinimumProfile';
+import { type MinimumProfileXml, isMinimumProfileXml } from './MinimumProfileXml';
+import mapping from './mapping';
 
 export class MinimumProfileConverter extends Converter<MinimumProfile, MinimumProfileXml> {
-    map = mapping
+    map = mapping;
 
-    protected isProperObjectScheme = isMinimumProfile
+    protected isProperObjectScheme = isMinimumProfile;
 
-    protected isProperXMLScheme = isMinimumProfileXml
+    protected isProperXMLScheme = isMinimumProfileXml;
 
-    public validateProfile = isValidMinimumProfile
+    public validateProfile = isValidMinimumProfile;
 }

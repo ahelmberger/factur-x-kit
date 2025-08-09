@@ -1,14 +1,14 @@
-import { Converter } from '../convert'
-import { type BasicProfile, isBasicProfile, isValidBasicProfile } from './BasicProfile'
-import { type BasicProfileXml, isBasicProfileXml } from './BasicProfileXml'
-import mapping from './mapping'
+import { Converter } from '../convert';
+import { type BasicProfile, isBasicProfile, isValidBasicProfile } from './BasicProfile';
+import { type BasicProfileXml, isBasicProfileXml } from './BasicProfileXml';
+import mapping from './mapping';
 
 export class BasicProfileConverter extends Converter<BasicProfile, BasicProfileXml> {
-    map = mapping
+    map = mapping;
 
-    protected isProperObjectScheme = isBasicProfile
+    protected isProperObjectScheme = isBasicProfile;
 
-    protected isProperXMLScheme = isBasicProfileXml
+    protected isProperXMLScheme = isBasicProfileXml;
 
-    public validateProfile = isValidBasicProfile
+    public validateProfile = isValidBasicProfile;
 }

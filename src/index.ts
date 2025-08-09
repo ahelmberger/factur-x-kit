@@ -1,1 +1,1 @@
-export { FacturX } from './core/factur-x'
+export { FacturX } from './core/factur-x';

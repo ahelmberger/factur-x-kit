@@ -1,33 +1,33 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
-import { ExtendableBaseTypeConverter } from '../../../../ExtendableBaseTypeConverter'
-import { AmountTypeConverter } from '../../../../udt/AmountTypeConverter'
-import { QuantityTypeConverter } from '../../../../udt/QuantityTypeConverter'
+import { ExtendableBaseTypeConverter } from '../../../../ExtendableBaseTypeConverter';
+import { AmountTypeConverter } from '../../../../udt/AmountTypeConverter';
+import { QuantityTypeConverter } from '../../../../udt/QuantityTypeConverter';
 import {
     TradeAllowanceChargeTypeConverter,
     allowedValueTypes_TradeAllowanceChargeType,
     allowedXmlTypes_TradeAllowanceChargeType
-} from '../../../TradeAllowanceChargeType/TradeAllowanceChargeTypeConverter'
+} from '../../../TradeAllowanceChargeType/TradeAllowanceChargeTypeConverter';
 import {
     BasicPriceProductTradePriceType,
     BasicPriceProductTradePriceTypeXml,
     ZBasicPriceProductTradePriceType,
     ZBasicPriceProductTradePriceTypeXml
-} from './BasicGrossPriceProductTradePriceType'
+} from './BasicGrossPriceProductTradePriceType';
 
-export type allowedValueTypes_GrossPriceProductTradePrice = BasicPriceProductTradePriceType
-export type allowedXmlTypes_GrossPriceProductTradePrice = BasicPriceProductTradePriceTypeXml
+export type allowedValueTypes_GrossPriceProductTradePrice = BasicPriceProductTradePriceType;
+export type allowedXmlTypes_GrossPriceProductTradePrice = BasicPriceProductTradePriceTypeXml;
 
 export class GrossPriceProductTradePriceConverter<
     ValueType extends allowedValueTypes_GrossPriceProductTradePrice,
     XmlType extends allowedXmlTypes_GrossPriceProductTradePrice
 > extends ExtendableBaseTypeConverter<ValueType, XmlType> {
-    amountTypeConverter = new AmountTypeConverter(4)
-    quantityTypeConverter = new QuantityTypeConverter()
+    amountTypeConverter = new AmountTypeConverter(4);
+    quantityTypeConverter = new QuantityTypeConverter();
     priceAllowanceAndChargeTypeConverter: TradeAllowanceChargeTypeConverter<
         allowedValueTypes_TradeAllowanceChargeType,
         allowedXmlTypes_TradeAllowanceChargeType
-    >
+    >;
 
     constructor(
         grossPriceProductTradePriceType: z.ZodType<ValueType>,
@@ -37,8 +37,8 @@ export class GrossPriceProductTradePriceConverter<
             allowedXmlTypes_TradeAllowanceChargeType
         >
     ) {
-        super(grossPriceProductTradePriceType, grossPriceProductTradePriceTypeXml)
-        this.priceAllowanceAndChargeTypeConverter = priceAllowanceAndChargeTypeConverter
+        super(grossPriceProductTradePriceType, grossPriceProductTradePriceTypeXml);
+        this.priceAllowanceAndChargeTypeConverter = priceAllowanceAndChargeTypeConverter;
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -53,9 +53,9 @@ export class GrossPriceProductTradePriceConverter<
                 xml['ram:AppliedTradeAllowanceCharge'] != null
                     ? this.priceAllowanceAndChargeTypeConverter.toValue(xml['ram:AppliedTradeAllowanceCharge'])
                     : undefined
-        }
+        };
 
-        return val
+        return val;
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -70,7 +70,7 @@ export class GrossPriceProductTradePriceConverter<
                 value.priceAllowancesAndCharges != null
                     ? this.priceAllowanceAndChargeTypeConverter.toXML(value.priceAllowancesAndCharges)
                     : undefined
-        }
+        };
     }
 
     public static basic(): GrossPriceProductTradePriceConverter<
@@ -81,6 +81,6 @@ export class GrossPriceProductTradePriceConverter<
             ZBasicPriceProductTradePriceType,
             ZBasicPriceProductTradePriceTypeXml,
             TradeAllowanceChargeTypeConverter.basicPriceAllowanceLevel()
-        )
+        );
     }
 }

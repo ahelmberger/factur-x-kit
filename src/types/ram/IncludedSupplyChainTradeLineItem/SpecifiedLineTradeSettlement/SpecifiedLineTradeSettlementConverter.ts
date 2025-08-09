@@ -1,52 +1,52 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
-import { ArrayConverter } from '../../../ArrayConverter'
-import { ExtendableBaseTypeConverter } from '../../../ExtendableBaseTypeConverter'
-import { AmountTypeConverter } from '../../../udt/AmountTypeConverter'
-import { DateTimeTypeConverter } from '../../../udt/DateTimeTypeConverter'
-import { IdTypeConverter } from '../../../udt/IdTypeConverter'
-import { ReferencedDocumentTypeConverter } from '../../ReferencedDocumentType/ReferencedDocumentConverter'
+import { ArrayConverter } from '../../../ArrayConverter';
+import { ExtendableBaseTypeConverter } from '../../../ExtendableBaseTypeConverter';
+import { AmountTypeConverter } from '../../../udt/AmountTypeConverter';
+import { DateTimeTypeConverter } from '../../../udt/DateTimeTypeConverter';
+import { IdTypeConverter } from '../../../udt/IdTypeConverter';
+import { ReferencedDocumentTypeConverter } from '../../ReferencedDocumentType/ReferencedDocumentConverter';
 import {
     TradeAllowanceChargeTypeConverter,
     allowedValueTypes_TradeAllowanceChargeType,
     allowedXmlTypes_TradeAllowanceChargeType
-} from '../../TradeAllowanceChargeType/TradeAllowanceChargeTypeConverter'
+} from '../../TradeAllowanceChargeType/TradeAllowanceChargeTypeConverter';
 import {
     TradeTaxTypeConverter,
     allowedValueTypes_TradeTax,
     allowedXmlTypes_TradeTax
-} from '../../TradeTaxType/TradeTaxTypeConverter'
+} from '../../TradeTaxType/TradeTaxTypeConverter';
 import {
     BasicLineTradeSettlementType,
     BasicLineTradeSettlementTypeXml,
     ZBasicLineTradeSettlementType,
     ZBasicLineTradeSettlementTypeXml
-} from './BasicLineTradeSettlementType'
+} from './BasicLineTradeSettlementType';
 import {
     ComfortLineTradeSettlementType,
     ComfortLineTradeSettlementTypeXml,
     ZComfortLineTradeSettlementType,
     ZComfortLineTradeSettlementTypeXml
-} from './ComfortLineTradeSettlementType'
+} from './ComfortLineTradeSettlementType';
 
-export type allowedValueTypes_LineTradeSettlement = BasicLineTradeSettlementType
-export type allowedXmlTypes_LineTradeSettlement = BasicLineTradeSettlementTypeXml
+export type allowedValueTypes_LineTradeSettlement = BasicLineTradeSettlementType;
+export type allowedXmlTypes_LineTradeSettlement = BasicLineTradeSettlementTypeXml;
 
 export class LineTradeSettlementConverter<
     ValueType extends allowedValueTypes_LineTradeSettlement,
     XmlType extends allowedXmlTypes_LineTradeSettlement
 > extends ExtendableBaseTypeConverter<ValueType, XmlType> {
-    lineLevelTradeTaxTypeConverter: TradeTaxTypeConverter<allowedValueTypes_TradeTax, allowedXmlTypes_TradeTax>
+    lineLevelTradeTaxTypeConverter: TradeTaxTypeConverter<allowedValueTypes_TradeTax, allowedXmlTypes_TradeTax>;
     tradeAllowanceChargeTypeConverter: TradeAllowanceChargeTypeConverter<
         allowedValueTypes_TradeAllowanceChargeType,
         allowedXmlTypes_TradeAllowanceChargeType
-    >
+    >;
 
-    amountTypeConverter = new AmountTypeConverter()
-    dateTimeTypeConverter = new DateTimeTypeConverter()
+    amountTypeConverter = new AmountTypeConverter();
+    dateTimeTypeConverter = new DateTimeTypeConverter();
     additionalReferencesTypeConverter = new ArrayConverter(
         ReferencedDocumentTypeConverter.issuerId_type_referenceType()
-    )
+    );
 
     constructor(
         valueSchema: z.ZodType<ValueType>,
@@ -57,9 +57,9 @@ export class LineTradeSettlementConverter<
             allowedXmlTypes_TradeAllowanceChargeType
         >
     ) {
-        super(valueSchema, xmlSchema)
-        this.lineLevelTradeTaxTypeConverter = lineLevelTradeTaxTypeConverter
-        this.tradeAllowanceChargeTypeConverter = tradeAllowanceChargeTypeConverter
+        super(valueSchema, xmlSchema);
+        this.lineLevelTradeTaxTypeConverter = lineLevelTradeTaxTypeConverter;
+        this.tradeAllowanceChargeTypeConverter = tradeAllowanceChargeTypeConverter;
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -118,7 +118,7 @@ export class LineTradeSettlementConverter<
                                   : undefined
                       }
                     : undefined
-        }
+        };
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -165,7 +165,7 @@ export class LineTradeSettlementConverter<
                                   : undefined
                       }
                     : undefined
-        }
+        };
     }
 
     public static basic() {
@@ -174,7 +174,7 @@ export class LineTradeSettlementConverter<
             ZBasicLineTradeSettlementTypeXml,
             TradeTaxTypeConverter.basicLineLevel(),
             TradeAllowanceChargeTypeConverter.basicLineLevel()
-        )
+        );
     }
 
     public static comfort() {
@@ -183,6 +183,6 @@ export class LineTradeSettlementConverter<
             ZComfortLineTradeSettlementTypeXml,
             TradeTaxTypeConverter.basicLineLevel(),
             TradeAllowanceChargeTypeConverter.comfortLineLevel()
-        )
+        );
     }
 }

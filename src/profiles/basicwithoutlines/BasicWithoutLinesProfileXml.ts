@@ -1,22 +1,22 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
-import { ZBasicDocumentLevelNoteTypeXml } from '../../types/ram/NoteType/BasicDocumentLevelNoteType'
+import { ZBasicDocumentLevelNoteTypeXml } from '../../types/ram/NoteType/BasicDocumentLevelNoteType';
 import {
     ZReferencedDocumentTypeXml_docId_issueDate,
     ZReferencedDocumentTypeXml_documentId
-} from '../../types/ram/ReferencedDocumentType/ReferencedDocumentTypes'
-import { ZSpecifiedTaxRegistrationsForSellerTypeXml } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter'
-import { ZSpecifiedTaxRegistrationsTypeXml } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter'
-import { ZBasicDocumentLevelTradeAllowanceChargeTypeXml } from '../../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType'
-import { ZBasicPaymentMeansTypeXml } from '../../types/ram/TradeSettlementPaymentMeansType/BasicTradeSettlementPaymentMeansType'
-import { ZBasicDocumentLevelTradeTaxTypeXml } from '../../types/ram/TradeTaxType/BasicDocumentLevelTradeTaxType'
-import { ZAmountTypeXml } from '../../types/udt/AmountTypeConverter'
-import { ZAmountTypeWithRequiredCurrencyXml } from '../../types/udt/AmountTypeWithRequiredCurrencyConverter'
-import { ZDateTimeTypeXml } from '../../types/udt/DateTimeTypeConverter'
-import { ZIdTypeXml } from '../../types/udt/IdTypeConverter'
-import { ZIdTypeWithOptionalSchemeXml } from '../../types/udt/IdTypeWithOptionalSchemeConverter'
-import { ZIdTypeWithRequiredSchemeXml } from '../../types/udt/IdTypeWithRequiredlSchemeConverter'
-import { ZTextTypeXml } from '../../types/udt/TextTypeConverter'
+} from '../../types/ram/ReferencedDocumentType/ReferencedDocumentTypes';
+import { ZSpecifiedTaxRegistrationsForSellerTypeXml } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter';
+import { ZSpecifiedTaxRegistrationsTypeXml } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter';
+import { ZBasicDocumentLevelTradeAllowanceChargeTypeXml } from '../../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType';
+import { ZBasicPaymentMeansTypeXml } from '../../types/ram/TradeSettlementPaymentMeansType/BasicTradeSettlementPaymentMeansType';
+import { ZBasicDocumentLevelTradeTaxTypeXml } from '../../types/ram/TradeTaxType/BasicDocumentLevelTradeTaxType';
+import { ZAmountTypeXml } from '../../types/udt/AmountTypeConverter';
+import { ZAmountTypeWithRequiredCurrencyXml } from '../../types/udt/AmountTypeWithRequiredCurrencyConverter';
+import { ZDateTimeTypeXml } from '../../types/udt/DateTimeTypeConverter';
+import { ZIdTypeXml } from '../../types/udt/IdTypeConverter';
+import { ZIdTypeWithOptionalSchemeXml } from '../../types/udt/IdTypeWithOptionalSchemeConverter';
+import { ZIdTypeWithRequiredSchemeXml } from '../../types/udt/IdTypeWithRequiredlSchemeConverter';
+import { ZTextTypeXml } from '../../types/udt/TextTypeConverter';
 
 export const ZTradePartyTypeXml = z.object({
     'ram:ID': ZTextTypeXml.optional(), // in seller this could be an array
@@ -43,7 +43,7 @@ export const ZTradePartyTypeXml = z.object({
         })
         .optional(),
     'ram:SpecifiedTaxRegistration': ZSpecifiedTaxRegistrationsTypeXml.optional()
-})
+});
 
 export const ZBasicWithoutLinesProfileXml = z.object({
     '?xml': z.object({
@@ -181,16 +181,16 @@ export const ZBasicWithoutLinesProfileXml = z.object({
         '@xmlns:xs': z.literal('http://www.w3.org/2001/XMLSchema'),
         '@xmlns:udt': z.literal('urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100')
     })
-})
+});
 
-export type BasicWithoutLinesProfileXml = z.infer<typeof ZBasicWithoutLinesProfileXml>
+export type BasicWithoutLinesProfileXml = z.infer<typeof ZBasicWithoutLinesProfileXml>;
 
 export function isBasicWithoutLinesProfileXml(data: unknown): data is BasicWithoutLinesProfileXml {
-    const result = ZBasicWithoutLinesProfileXml.safeParse(data)
+    const result = ZBasicWithoutLinesProfileXml.safeParse(data);
 
     if (!result.success) {
-        console.dir(data, { depth: null })
-        console.dir(result.error.errors, { depth: null })
+        console.dir(data, { depth: null });
+        console.dir(result.error.errors, { depth: null });
     }
-    return result.success
+    return result.success;
 }

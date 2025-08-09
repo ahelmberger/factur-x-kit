@@ -1,108 +1,108 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
-import { BaseTypeConverter, TypeConverterError } from '../../BaseTypeConverter'
-import { CodeTypeConverter } from '../../CodeTypeConverter'
-import { ALLOWANCE_REASONS_CODES, CHARGE_REASONS_CODES, TAX_CATEGORY_CODES, TAX_TYPE_CODE } from '../../codes'
-import { AmountTypeConverter } from '../../udt/AmountTypeConverter'
-import { IndicatorTypeConverter } from '../../udt/IndicatorTypeConverter'
-import { PercentTypeConverter } from '../../udt/PercentTypeConverter'
-import { TextTypeConverter } from '../../udt/TextTypeConverter'
+import { BaseTypeConverter, TypeConverterError } from '../../BaseTypeConverter';
+import { CodeTypeConverter } from '../../CodeTypeConverter';
+import { ALLOWANCE_REASONS_CODES, CHARGE_REASONS_CODES, TAX_CATEGORY_CODES, TAX_TYPE_CODE } from '../../codes';
+import { AmountTypeConverter } from '../../udt/AmountTypeConverter';
+import { IndicatorTypeConverter } from '../../udt/IndicatorTypeConverter';
+import { PercentTypeConverter } from '../../udt/PercentTypeConverter';
+import { TextTypeConverter } from '../../udt/TextTypeConverter';
 import {
     BasicDocumentLevelTradeAllowanceChargeType,
     BasicDocumentLevelTradeAllowanceChargeTypeXml,
     ZBasicDocumentLevelTradeAllowanceChargeType,
     ZBasicDocumentLevelTradeAllowanceChargeTypeXml
-} from './BasicDocumentLevelAllowanceChargeType'
+} from './BasicDocumentLevelAllowanceChargeType';
 import {
     BasicLineLevelTradeAllowanceChargeType,
     BasicLineLevelTradeAllowanceChargeTypeXml,
     ZBasicLineLevelTradeAllowanceChargeType,
     ZBasicLineLevelTradeAllowanceChargeTypeXml
-} from './BasicLineLevelAllowanceChargeType'
+} from './BasicLineLevelAllowanceChargeType';
 import {
     BasicPriceAllowanceType,
     BasicPriceAllowanceTypeXml,
     ZBasicPriceAllowanceType,
     ZBasicPriceAllowanceTypeXml
-} from './BasicPriceAllowanceType'
+} from './BasicPriceAllowanceType';
 import {
     ComfortLineLevelTradeAllowanceChargeType,
     ComfortLineLevelTradeAllowanceChargeTypeXml,
     ZComfortLineLevelTradeAllowanceChargeType,
     ZComfortLineLevelTradeAllowanceChargeTypeXml
-} from './ComfortLineLevelAllowanceChargeType'
+} from './ComfortLineLevelAllowanceChargeType';
 
 export type allowedValueTypes_TradeAllowanceChargeType =
     | BasicDocumentLevelTradeAllowanceChargeType
     | BasicLineLevelTradeAllowanceChargeType
     | BasicPriceAllowanceType
-    | ComfortLineLevelTradeAllowanceChargeType
+    | ComfortLineLevelTradeAllowanceChargeType;
 export type allowedXmlTypes_TradeAllowanceChargeType =
     | BasicDocumentLevelTradeAllowanceChargeTypeXml
     | BasicLineLevelTradeAllowanceChargeTypeXml
     | BasicPriceAllowanceTypeXml
-    | ComfortLineLevelTradeAllowanceChargeTypeXml
+    | ComfortLineLevelTradeAllowanceChargeTypeXml;
 
 export class TradeAllowanceChargeTypeConverter<
     ValueType extends allowedValueTypes_TradeAllowanceChargeType,
     XmlType extends allowedXmlTypes_TradeAllowanceChargeType
 > extends BaseTypeConverter<ValueType, XmlType> {
-    amountTypeConverter: AmountTypeConverter
-    textTypeConverter = new TextTypeConverter()
-    taxTypeCodeConverter = new CodeTypeConverter(TAX_TYPE_CODE)
-    taxCategoryCodeConverter = new CodeTypeConverter(TAX_CATEGORY_CODES)
-    allowanceReasonCodeConverter = new CodeTypeConverter(ALLOWANCE_REASONS_CODES)
-    chargeReasonCodeConvereter = new CodeTypeConverter(CHARGE_REASONS_CODES)
-    percentTypeConverter = new PercentTypeConverter()
-    indicatorTypeConverter = new IndicatorTypeConverter()
+    amountTypeConverter: AmountTypeConverter;
+    textTypeConverter = new TextTypeConverter();
+    taxTypeCodeConverter = new CodeTypeConverter(TAX_TYPE_CODE);
+    taxCategoryCodeConverter = new CodeTypeConverter(TAX_CATEGORY_CODES);
+    allowanceReasonCodeConverter = new CodeTypeConverter(ALLOWANCE_REASONS_CODES);
+    chargeReasonCodeConvereter = new CodeTypeConverter(CHARGE_REASONS_CODES);
+    percentTypeConverter = new PercentTypeConverter();
+    indicatorTypeConverter = new IndicatorTypeConverter();
 
-    private valueSchema: z.ZodType<ValueType>
-    private xmlSchema: z.ZodType<XmlType>
+    private valueSchema: z.ZodType<ValueType>;
+    private xmlSchema: z.ZodType<XmlType>;
 
     constructor(
         valueSchema: z.ZodType<ValueType>,
         xmlSchema: z.ZodType<XmlType>,
         amountTypeConverter = new AmountTypeConverter()
     ) {
-        super()
-        this.valueSchema = valueSchema
-        this.xmlSchema = xmlSchema
-        this.amountTypeConverter = amountTypeConverter
+        super();
+        this.valueSchema = valueSchema;
+        this.xmlSchema = xmlSchema;
+        this.amountTypeConverter = amountTypeConverter;
     }
 
     _toValue(xml: XmlType): ValueType {
-        const { success } = this.xmlSchema.safeParse(xml)
+        const { success } = this.xmlSchema.safeParse(xml);
         if (!success) {
-            throw new TypeConverterError('INVALID_XML')
+            throw new TypeConverterError('INVALID_XML');
         }
 
-        const xml_arr = Array.isArray(xml) ? xml : [xml]
+        const xml_arr = Array.isArray(xml) ? xml : [xml];
 
         const xmlAllowances = xml_arr.filter(item => {
-            return !this.indicatorTypeConverter.toValue(item['ram:ChargeIndicator'])
-        })
+            return !this.indicatorTypeConverter.toValue(item['ram:ChargeIndicator']);
+        });
         const xmlCharges = xml_arr.filter(item => {
-            return this.indicatorTypeConverter.toValue(item['ram:ChargeIndicator'])
-        })
+            return this.indicatorTypeConverter.toValue(item['ram:ChargeIndicator']);
+        });
         const value = {
             allowances: xmlAllowances.map(xml => this.mapXmlToValue(xml, false)),
             charges: xmlCharges.map(xml => this.mapXmlToValue(xml, true))
-        }
+        };
 
-        const { success: successValue, data } = this.valueSchema.safeParse(value)
+        const { success: successValue, data } = this.valueSchema.safeParse(value);
 
         if (!successValue) {
-            throw new TypeConverterError('INVALID_XML')
+            throw new TypeConverterError('INVALID_XML');
         }
 
-        return data as ValueType
+        return data as ValueType;
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mapXmlToValue(xml: any, allowance_false_charge_true: boolean) {
         const allowanceChargeReasonCodeConverter = allowance_false_charge_true
             ? this.chargeReasonCodeConvereter
-            : this.allowanceReasonCodeConverter
+            : this.allowanceReasonCodeConverter;
         return {
             calculationPercent: xml['ram:CalculationPercent']
                 ? this.percentTypeConverter.toValue(xml['ram:CalculationPercent'])
@@ -128,48 +128,48 @@ export class TradeAllowanceChargeTypeConverter<
                           : undefined
                   }
                 : undefined
-        }
+        };
     }
 
     _toXML(value: ValueType): XmlType {
-        const { success, data } = this.valueSchema.safeParse(value)
+        const { success, data } = this.valueSchema.safeParse(value);
         if (!success) {
-            throw new TypeConverterError('INVALID_VALUE')
+            throw new TypeConverterError('INVALID_VALUE');
         }
 
         const xml_allowances = data.allowances
             ? data.allowances.map(obj => {
-                  return this.mapValueToXml(obj, false)
+                  return this.mapValueToXml(obj, false);
               })
-            : []
+            : [];
 
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        let xml_charges: any[] = []
+        let xml_charges: any[] = [];
         if ('charges' in data) {
             xml_charges = data.charges
                 ? data.charges.map(obj => {
-                      return this.mapValueToXml(obj, true)
+                      return this.mapValueToXml(obj, true);
                   })
-                : []
+                : [];
         }
         const {
             success: xmlSuccess,
             data: xmlData,
             error: xmlError
-        } = this.xmlSchema.safeParse([...xml_allowances, ...xml_charges])
+        } = this.xmlSchema.safeParse([...xml_allowances, ...xml_charges]);
         if (!xmlSuccess) {
-            console.error(xmlError.message)
-            throw new TypeConverterError('INVALID_VALUE')
+            console.error(xmlError.message);
+            throw new TypeConverterError('INVALID_VALUE');
         }
 
-        return xmlData as XmlType
+        return xmlData as XmlType;
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mapValueToXml(value: any, allowance_false_charge_true: boolean) {
         const allowanceChargeReasonCodeConverter = allowance_false_charge_true
             ? this.chargeReasonCodeConvereter
-            : this.allowanceReasonCodeConverter
+            : this.allowanceReasonCodeConverter;
         return {
             'ram:ChargeIndicator': this.indicatorTypeConverter.toXML(allowance_false_charge_true),
             'ram:CalculationPercent':
@@ -195,7 +195,7 @@ export class TradeAllowanceChargeTypeConverter<
                               : undefined
                   }
                 : undefined
-        }
+        };
     }
 
     public static basicDocumentLevel(): TradeAllowanceChargeTypeConverter<
@@ -205,7 +205,7 @@ export class TradeAllowanceChargeTypeConverter<
         return new TradeAllowanceChargeTypeConverter(
             ZBasicDocumentLevelTradeAllowanceChargeType,
             ZBasicDocumentLevelTradeAllowanceChargeTypeXml
-        )
+        );
     }
 
     public static basicLineLevel(): TradeAllowanceChargeTypeConverter<
@@ -215,7 +215,7 @@ export class TradeAllowanceChargeTypeConverter<
         return new TradeAllowanceChargeTypeConverter(
             ZBasicLineLevelTradeAllowanceChargeType,
             ZBasicLineLevelTradeAllowanceChargeTypeXml
-        )
+        );
     }
 
     public static basicPriceAllowanceLevel(): TradeAllowanceChargeTypeConverter<
@@ -226,7 +226,7 @@ export class TradeAllowanceChargeTypeConverter<
             ZBasicPriceAllowanceType,
             ZBasicPriceAllowanceTypeXml,
             new AmountTypeConverter(4)
-        )
+        );
     }
 
     public static comfortLineLevel(): TradeAllowanceChargeTypeConverter<
@@ -236,6 +236,6 @@ export class TradeAllowanceChargeTypeConverter<
         return new TradeAllowanceChargeTypeConverter(
             ZComfortLineLevelTradeAllowanceChargeType,
             ZComfortLineLevelTradeAllowanceChargeTypeXml
-        )
+        );
     }
 }

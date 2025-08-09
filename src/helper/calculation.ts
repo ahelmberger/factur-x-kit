@@ -9,7 +9,7 @@
  */
 
 export function round(value: number, decimals: number): number {
-    const shifter = Math.pow(10, decimals)
-    const roundedValue = Math.sign(value) * Math.round(Math.abs(value * shifter))
-    return roundedValue / shifter
+    const shifter = Math.pow(10, decimals);
+    const roundedValue = Math.sign(value) * Math.round(Math.abs(value * shifter));
+    return roundedValue / shifter;
 }

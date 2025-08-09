@@ -28,6 +28,7 @@
     "scripts": {
         "convert": "ts-node ./scripts/xpathconverter.ts",
         "prepare": "husky",
+        "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\"",
         "test": "jest",
         "test:debug": "npx jest --inspect-brk --runInBand"
     },

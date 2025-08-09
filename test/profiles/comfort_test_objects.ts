@@ -1,5 +1,5 @@
-import { ComfortProfile } from '../../src/profiles/comfort'
-import { PROFILES } from '../../src/types/ProfileTypes'
+import { ComfortProfile } from '../../src/profiles/comfort';
+import { PROFILES } from '../../src/types/ProfileTypes';
 import {
     ALLOWANCE_REASONS_CODES,
     CHARGE_REASONS_CODES,
@@ -13,9 +13,9 @@ import {
     UNIT_CODES,
     UNTDID_1153,
     UNTDID_7143
-} from '../../src/types/codes'
-import { ComfortTradeLineItem } from '../../src/types/ram/IncludedSupplyChainTradeLineItem/ComfortTradeLineItem'
-import { testBasicProfile } from './basic_test_objects'
+} from '../../src/types/codes';
+import { ComfortTradeLineItem } from '../../src/types/ram/IncludedSupplyChainTradeLineItem/ComfortTradeLineItem';
+import { testBasicProfile } from './basic_test_objects';
 
 const lineObject1: ComfortTradeLineItem = {
     generalLineData: {
@@ -104,7 +104,7 @@ const lineObject1: ComfortTradeLineItem = {
             id: 'Projekt P-100-A'
         }
     }
-}
+};
 export const lineObject2: ComfortTradeLineItem = {
     generalLineData: {
         lineId: 'LINE-002'
@@ -161,7 +161,7 @@ export const lineObject2: ComfortTradeLineItem = {
             }
         ]
     }
-}
+};
 
 export const testComfortProfile: ComfortProfile = {
     ...testBasicProfile,
@@ -300,4 +300,4 @@ export const testComfortProfile: ComfortProfile = {
         openAmount: 144.6
     },
     invoiceLines: [lineObject1, lineObject2]
-}
+};

@@ -1,4 +1,4 @@
-import { ISO6523_CODES } from '../../../types/codes'
+import { ISO6523_CODES } from '../../../types/codes';
 
 const iso6523Codes: Record<ISO6523_CODES, string> = {
     '0002': 'System Information et Repertoire des Entreprise et des Etablissements: SIRENE',
@@ -226,6 +226,6 @@ const iso6523Codes: Record<ISO6523_CODES, string> = {
     '0228': 'Répertoire des Entreprises et des Etablissements (RIDET)',
     '0229': 'T.A.H.I.T.I (traitement automatique hiérarchisé des institutions de Tahiti et des îles)',
     '0230': 'National e-Invoicing Framework'
-}
+};
 
-export default Object.freeze(iso6523Codes)
+export default Object.freeze(iso6523Codes);

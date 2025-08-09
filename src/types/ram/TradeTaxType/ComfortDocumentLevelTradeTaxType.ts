@@ -1,11 +1,11 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
-import { ZCodeType } from '../../CodeTypeConverter'
-import { EXEMPTION_REASON_CODES, TAX_CATEGORY_CODES, TAX_TYPE_CODE, TIME_REFERENCE_CODES } from '../../codes'
-import { ZAmountType, ZAmountTypeXml } from '../../udt/AmountTypeConverter'
-import { ZDateType, ZDateTypeXml } from '../../udt/DateTypeConverter'
-import { ZPercentType, ZPercentTypeXml } from '../../udt/PercentTypeConverter'
-import { ZTextType, ZTextTypeXml } from '../../udt/TextTypeConverter'
+import { ZCodeType } from '../../CodeTypeConverter';
+import { EXEMPTION_REASON_CODES, TAX_CATEGORY_CODES, TAX_TYPE_CODE, TIME_REFERENCE_CODES } from '../../codes';
+import { ZAmountType, ZAmountTypeXml } from '../../udt/AmountTypeConverter';
+import { ZDateType, ZDateTypeXml } from '../../udt/DateTypeConverter';
+import { ZPercentType, ZPercentTypeXml } from '../../udt/PercentTypeConverter';
+import { ZTextType, ZTextTypeXml } from '../../udt/TextTypeConverter';
 
 export const ZComfortDocumentLevelTradeTaxType = z.object({
     calculatedAmount: ZAmountType,
@@ -17,9 +17,9 @@ export const ZComfortDocumentLevelTradeTaxType = z.object({
     taxPointDate: ZDateType.optional(),
     dueDateTypeCode: ZCodeType(TIME_REFERENCE_CODES).optional(),
     rateApplicablePercent: ZPercentType.optional()
-})
+});
 
-export type ComfortDocumentLevelTradeTaxType = z.infer<typeof ZComfortDocumentLevelTradeTaxType>
+export type ComfortDocumentLevelTradeTaxType = z.infer<typeof ZComfortDocumentLevelTradeTaxType>;
 
 export const ZComfortDocumentLevelTradeTaxTypeXml = z.object({
     'ram:CalculatedAmount': ZAmountTypeXml,
@@ -31,6 +31,6 @@ export const ZComfortDocumentLevelTradeTaxTypeXml = z.object({
     'ram:TaxPointDate': ZDateTypeXml.optional(),
     'ram:DueDateTypeCode': ZTextTypeXml.optional(),
     'ram:RateApplicablePercent': ZPercentTypeXml.optional()
-})
+});
 
-export type ComfortDocumentLevelTradeTaxTypeXml = z.infer<typeof ZComfortDocumentLevelTradeTaxTypeXml>
+export type ComfortDocumentLevelTradeTaxTypeXml = z.infer<typeof ZComfortDocumentLevelTradeTaxTypeXml>;

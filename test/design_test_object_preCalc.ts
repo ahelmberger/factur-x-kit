@@ -1,5 +1,5 @@
-import { ComfortProfile_noSums } from '../src/adapter/easyInputType'
-import { PROFILES } from '../src/types/ProfileTypes'
+import { ComfortProfile_noSums } from '../src/adapter/easyInputType';
+import { PROFILES } from '../src/types/ProfileTypes';
 // Pfad ggf. anpassen
 import {
     ALLOWANCE_REASONS_CODES,
@@ -16,7 +16,7 @@ import {
     UNIT_CODES,
     UNTDID_1153,
     UNTDID_7143
-} from '../src/types/codes'
+} from '../src/types/codes';
 
 // Pfad ggf. anpassen
 
@@ -432,4 +432,4 @@ export const designTestObject_preCalc: ComfortProfile_noSums = {
             }
         }
     ]
-}
+};

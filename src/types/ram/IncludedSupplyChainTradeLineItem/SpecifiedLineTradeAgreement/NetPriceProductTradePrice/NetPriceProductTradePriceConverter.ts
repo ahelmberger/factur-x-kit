@@ -1,30 +1,30 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
-import { ExtendableBaseTypeConverter } from '../../../../ExtendableBaseTypeConverter'
-import { AmountTypeConverter } from '../../../../udt/AmountTypeConverter'
-import { QuantityTypeConverter } from '../../../../udt/QuantityTypeConverter'
+import { ExtendableBaseTypeConverter } from '../../../../ExtendableBaseTypeConverter';
+import { AmountTypeConverter } from '../../../../udt/AmountTypeConverter';
+import { QuantityTypeConverter } from '../../../../udt/QuantityTypeConverter';
 import {
     BasicNetPriceProductTradePriceType,
     BasicNetPriceProductTradePriceTypeXml,
     ZBasicNetPriceProductTradePriceType,
     ZBasicNetPriceProductTradePriceTypeXml
-} from './BasicNetPriceProductTradePriceType'
+} from './BasicNetPriceProductTradePriceType';
 
-export type allowedValueTypes_NetPriceProductTradePrice = BasicNetPriceProductTradePriceType
-export type allowedXmlTypes_NetPriceProductTradePrice = BasicNetPriceProductTradePriceTypeXml
+export type allowedValueTypes_NetPriceProductTradePrice = BasicNetPriceProductTradePriceType;
+export type allowedXmlTypes_NetPriceProductTradePrice = BasicNetPriceProductTradePriceTypeXml;
 
 export class NetPriceProductTradePriceConverter<
     ValueType extends allowedValueTypes_NetPriceProductTradePrice,
     XmlType extends allowedXmlTypes_NetPriceProductTradePrice
 > extends ExtendableBaseTypeConverter<ValueType, XmlType> {
-    amountTypeConverter = new AmountTypeConverter(4)
-    quantityTypeConverter = new QuantityTypeConverter()
+    amountTypeConverter = new AmountTypeConverter(4);
+    quantityTypeConverter = new QuantityTypeConverter();
 
     constructor(
         netPriceProductTradePriceType: z.ZodType<ValueType>,
         netPriceProductTradePriceTypeXml: z.ZodType<XmlType>
     ) {
-        super(netPriceProductTradePriceType, netPriceProductTradePriceTypeXml)
+        super(netPriceProductTradePriceType, netPriceProductTradePriceTypeXml);
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -35,7 +35,7 @@ export class NetPriceProductTradePriceConverter<
                 xml['ram:BasisQuantity'] != null
                     ? this.quantityTypeConverter.toValue(xml['ram:BasisQuantity'])
                     : undefined
-        }
+        };
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -46,7 +46,7 @@ export class NetPriceProductTradePriceConverter<
                 : undefined,
             'ram:BasisQuantity':
                 value.priceBaseQuantity != null ? this.quantityTypeConverter.toXML(value.priceBaseQuantity) : undefined
-        }
+        };
     }
 
     public static basic(): NetPriceProductTradePriceConverter<
@@ -56,6 +56,6 @@ export class NetPriceProductTradePriceConverter<
         return new NetPriceProductTradePriceConverter(
             ZBasicNetPriceProductTradePriceType,
             ZBasicNetPriceProductTradePriceTypeXml
-        )
+        );
     }
 }

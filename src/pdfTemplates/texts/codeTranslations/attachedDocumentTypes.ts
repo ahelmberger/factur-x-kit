@@ -1,7 +1,7 @@
-import { UNTDID_1153 } from '../../../types/codes'
-import { TranslatedTexts } from '../types'
+import { UNTDID_1153 } from '../../../types/codes';
+import { TranslatedTexts } from '../types';
 
-type AttachedDocumentCodes = `${UNTDID_1153}`
+type AttachedDocumentCodes = `${UNTDID_1153}`;
 
 const attachedDocumentTypes_en: Record<AttachedDocumentCodes, string> = {
     AAA: 'Order acknowledgement document identifier',
@@ -821,7 +821,7 @@ const attachedDocumentTypes_en: Record<AttachedDocumentCodes, string> = {
     XC: 'Cargo control number',
     XP: 'Previous cargo control number',
     ZZZ: 'Mutually defined reference number'
-}
+};
 
 export const attachedDocumentTypes_de: Record<AttachedDocumentCodes, string> = {
     AAA: 'Bestellbestätigungsdokument-Identifikator',
@@ -1641,7 +1641,7 @@ export const attachedDocumentTypes_de: Record<AttachedDocumentCodes, string> = {
     XC: 'Nummer der Frachtkontrolle',
     XP: 'Nummer der vorherigen Frachtkontrolle',
     ZZZ: 'Gegenseitig definierte Referenznummer'
-}
+};
 
 const attachedDocumentTypes_fr: Record<AttachedDocumentCodes, string> = {
     AAA: "Identifiant de document d'accusé de réception de commande",
@@ -2461,12 +2461,12 @@ const attachedDocumentTypes_fr: Record<AttachedDocumentCodes, string> = {
     XC: 'Numéro de contrôle du fret',
     XP: 'Numéro de contrôle du fret précédent',
     ZZZ: 'Numéro de référence défini mutuellement'
-}
+};
 
 const attachedDocumentTypes: TranslatedTexts<AttachedDocumentCodes> = {
     'en-US': attachedDocumentTypes_en,
     'de-DE': attachedDocumentTypes_de,
     'fr-FR': attachedDocumentTypes_fr
-}
+};
 
-export default Object.freeze(attachedDocumentTypes)
+export default Object.freeze(attachedDocumentTypes);

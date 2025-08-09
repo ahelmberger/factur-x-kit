@@ -1,26 +1,26 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
-import { ZComfortTradeContactTypeXml } from '../../types/ram/DefinedTradeContact/ComfortTradeContactType'
-import { ZComfortTradeLineItemXml } from '../../types/ram/IncludedSupplyChainTradeLineItem/ComfortTradeLineItem'
-import { ZBasicDocumentLevelNoteTypeXml } from '../../types/ram/NoteType/BasicDocumentLevelNoteType'
-import { ZAdditionalReferencedDocumentTypeXml_comfort } from '../../types/ram/ReferencedDocumentType/AdditionalReferencedDocumentConverter/ComfortAdditonalReferencedDocumentTypes'
+import { ZComfortTradeContactTypeXml } from '../../types/ram/DefinedTradeContact/ComfortTradeContactType';
+import { ZComfortTradeLineItemXml } from '../../types/ram/IncludedSupplyChainTradeLineItem/ComfortTradeLineItem';
+import { ZBasicDocumentLevelNoteTypeXml } from '../../types/ram/NoteType/BasicDocumentLevelNoteType';
+import { ZAdditionalReferencedDocumentTypeXml_comfort } from '../../types/ram/ReferencedDocumentType/AdditionalReferencedDocumentConverter/ComfortAdditonalReferencedDocumentTypes';
 import {
     ZReferencedDocumentTypeXml_docId_issueDate,
     ZReferencedDocumentTypeXml_documentId
-} from '../../types/ram/ReferencedDocumentType/ReferencedDocumentTypes'
-import { ZSpecifiedTaxRegistrationsForSellerTypeXml } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter'
-import { ZSpecifiedTaxRegistrationsTypeXml } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter'
-import { ZBasicDocumentLevelTradeAllowanceChargeTypeXml } from '../../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType'
-import { ZComfortPaymentMeansTypeXml } from '../../types/ram/TradeSettlementPaymentMeansType/ComfortTradeSettlementPaymentMeansType'
-import { ZComfortDocumentLevelTradeTaxTypeXml } from '../../types/ram/TradeTaxType/ComfortDocumentLevelTradeTaxType'
-import { ZAmountTypeXml } from '../../types/udt/AmountTypeConverter'
-import { ZAmountTypeWithRequiredCurrencyXml } from '../../types/udt/AmountTypeWithRequiredCurrencyConverter'
-import { ZDateTimeTypeXml } from '../../types/udt/DateTimeTypeConverter'
-import { ZIdTypeXml } from '../../types/udt/IdTypeConverter'
-import { ZIdTypeWithOptionalSchemeXml } from '../../types/udt/IdTypeWithOptionalSchemeConverter'
-import { ZIdTypeWithRequiredSchemeXml } from '../../types/udt/IdTypeWithRequiredlSchemeConverter'
-import { ZTextTypeXml } from '../../types/udt/TextTypeConverter'
-import { ZTradePartyTypeXml } from '../basicwithoutlines/BasicWithoutLinesProfileXml'
+} from '../../types/ram/ReferencedDocumentType/ReferencedDocumentTypes';
+import { ZSpecifiedTaxRegistrationsForSellerTypeXml } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter';
+import { ZSpecifiedTaxRegistrationsTypeXml } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter';
+import { ZBasicDocumentLevelTradeAllowanceChargeTypeXml } from '../../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType';
+import { ZComfortPaymentMeansTypeXml } from '../../types/ram/TradeSettlementPaymentMeansType/ComfortTradeSettlementPaymentMeansType';
+import { ZComfortDocumentLevelTradeTaxTypeXml } from '../../types/ram/TradeTaxType/ComfortDocumentLevelTradeTaxType';
+import { ZAmountTypeXml } from '../../types/udt/AmountTypeConverter';
+import { ZAmountTypeWithRequiredCurrencyXml } from '../../types/udt/AmountTypeWithRequiredCurrencyConverter';
+import { ZDateTimeTypeXml } from '../../types/udt/DateTimeTypeConverter';
+import { ZIdTypeXml } from '../../types/udt/IdTypeConverter';
+import { ZIdTypeWithOptionalSchemeXml } from '../../types/udt/IdTypeWithOptionalSchemeConverter';
+import { ZIdTypeWithRequiredSchemeXml } from '../../types/udt/IdTypeWithRequiredlSchemeConverter';
+import { ZTextTypeXml } from '../../types/udt/TextTypeConverter';
+import { ZTradePartyTypeXml } from '../basicwithoutlines/BasicWithoutLinesProfileXml';
 
 export const ZExtendedProfileXml = z.object({
     '?xml': z.object({
@@ -186,16 +186,16 @@ export const ZExtendedProfileXml = z.object({
         '@xmlns:xs': z.literal('http://www.w3.org/2001/XMLSchema'),
         '@xmlns:udt': z.literal('urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100')
     })
-})
+});
 
-export type ExtendedProfileXml = z.infer<typeof ZExtendedProfileXml>
+export type ExtendedProfileXml = z.infer<typeof ZExtendedProfileXml>;
 
 export function isExtendedProfileXml(data: unknown): data is ExtendedProfileXml {
-    const result = ZExtendedProfileXml.safeParse(data)
+    const result = ZExtendedProfileXml.safeParse(data);
 
     if (!result.success) {
-        console.dir(data, { depth: null })
-        console.dir(result.error.errors, { depth: null })
+        console.dir(data, { depth: null });
+        console.dir(result.error.errors, { depth: null });
     }
-    return result.success
+    return result.success;
 }

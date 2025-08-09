@@ -1,17 +1,17 @@
-import { FacturX } from '../src'
-import { ComfortProfile_noSums } from '../src/adapter/easyInputType'
-import { totalsCalculator } from '../src/adapter/totalsCalculator'
-import { TAX_CATEGORY_CODES, UNIT_CODES } from '../src/types/codes'
-import { designTestObject_preCalc } from './design_test_object_preCalc'
+import { FacturX } from '../src';
+import { ComfortProfile_noSums } from '../src/adapter/easyInputType';
+import { totalsCalculator } from '../src/adapter/totalsCalculator';
+import { TAX_CATEGORY_CODES, UNIT_CODES } from '../src/types/codes';
+import { designTestObject_preCalc } from './design_test_object_preCalc';
 
 describe('calculate totals', () => {
-    test.todo('Make proper unit tests for totalsCalculator functions')
+    test.todo('Make proper unit tests for totalsCalculator functions');
     test('System Test: calculate totals for comfort profile with every Tax but "Not subject to VAT Tax" ', async () => {
-        const invoiceData = totalsCalculator(designTestObject_preCalc)
-        const instance = await FacturX.fromObject(invoiceData)
-        const checkProfile = instance.validate()
-        expect(checkProfile.valid).toBeTruthy()
-    })
+        const invoiceData = totalsCalculator(designTestObject_preCalc);
+        const instance = await FacturX.fromObject(invoiceData);
+        const checkProfile = instance.validate();
+        expect(checkProfile.valid).toBeTruthy();
+    });
 
     test('System Test: calculate totals for comfort profile with "Not subject to VAT" Tax', async () => {
         const data: ComfortProfile_noSums = {
@@ -38,11 +38,11 @@ describe('calculate totals', () => {
                 }
             ],
             totals: { ...designTestObject_preCalc.totals, documentLevelAllowancesAndCharges: undefined }
-        }
-        const invoiceData = totalsCalculator(data)
-        const instance = await FacturX.fromObject(invoiceData)
+        };
+        const invoiceData = totalsCalculator(data);
+        const instance = await FacturX.fromObject(invoiceData);
 
-        const checkProfile = instance.validate()
-        expect(checkProfile.valid).toBeTruthy()
-    })
-})
+        const checkProfile = instance.validate();
+        expect(checkProfile.valid).toBeTruthy();
+    });
+});

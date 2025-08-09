@@ -1,10 +1,10 @@
-import { PDFFont, PDFPage, RGB, rgb } from 'pdf-lib'
+import { PDFFont, PDFPage, RGB, rgb } from 'pdf-lib';
 
-import { availableProfiles } from '../../core/factur-x'
-import { round } from '../../helper/calculation'
-import { TAX_CATEGORY_CODES } from '../../types/codes'
-import textTranslations from '../texts/textTranslations'
-import { SupportedLocales, dinA4Height, mmToPt } from '../types'
+import { availableProfiles } from '../../core/factur-x';
+import { round } from '../../helper/calculation';
+import { TAX_CATEGORY_CODES } from '../../types/codes';
+import textTranslations from '../texts/textTranslations';
+import { SupportedLocales, dinA4Height, mmToPt } from '../types';
 
 export default async function addMonetarySummary(
     data: availableProfiles,
@@ -13,10 +13,10 @@ export default async function addMonetarySummary(
     boldFont: PDFFont,
     locale: SupportedLocales,
     options?: {
-        position?: { x?: number; y?: number }
-        rightBorder?: number
-        fontSize?: number
-        color?: RGB
+        position?: { x?: number; y?: number };
+        rightBorder?: number;
+        fontSize?: number;
+        color?: RGB;
     }
 ): Promise<number> {
     const {
@@ -24,12 +24,12 @@ export default async function addMonetarySummary(
         rightBorder = page.getWidth() - 20 * mmToPt,
         fontSize = 10,
         color = rgb(0, 0, 0)
-    } = options || {}
+    } = options || {};
 
-    const currencyConverter = new Intl.NumberFormat(locale, { style: 'currency', currency: data.document.currency })
+    const currencyConverter = new Intl.NumberFormat(locale, { style: 'currency', currency: data.document.currency });
 
-    let currentY = position.y || (dinA4Height - 85) * mmToPt
-    const leftBorder = position.x || 25 * mmToPt
+    let currentY = position.y || (dinA4Height - 85) * mmToPt;
+    const leftBorder = position.x || 25 * mmToPt;
 
     const printerMeta = {
         page,
@@ -39,9 +39,9 @@ export default async function addMonetarySummary(
         font,
         fontSize,
         color
-    }
+    };
 
-    currentY = optionallyPrintAllowanceCharge(data, locale, currentY, printerMeta)
+    currentY = optionallyPrintAllowanceCharge(data, locale, currentY, printerMeta);
 
     printMonetarySummaryLine(
         textTranslations[locale].NET_TOTAL_AMOUNT,
@@ -49,19 +49,19 @@ export default async function addMonetarySummary(
         currentY,
         false,
         printerMeta
-    )
+    );
 
-    currentY -= fontSize * 1.5
+    currentY -= fontSize * 1.5;
 
-    currentY = printTaxBreakdown(data, locale, currentY, printerMeta)
+    currentY = printTaxBreakdown(data, locale, currentY, printerMeta);
 
     printMonetarySummaryLine(textTranslations[locale].GROSS_TOTAL_AMOUNT, data.totals.grossTotal, currentY, false, {
         ...printerMeta,
         font: boldFont
-    })
+    });
 
-    currentY = printOpenAmount(data, locale, currentY, boldFont, printerMeta)
-    return currentY
+    currentY = printOpenAmount(data, locale, currentY, boldFont, printerMeta);
+    return currentY;
 }
 
 function printOpenAmount(
@@ -70,18 +70,18 @@ function printOpenAmount(
     currentY: number,
     fontBold: PDFFont,
     meta: {
-        page: PDFPage
-        currencyConverter: Intl.NumberFormat
-        xPositionStart: number
-        rightBorder: number
-        font: PDFFont
-        fontSize: number
-        color: RGB
+        page: PDFPage;
+        currencyConverter: Intl.NumberFormat;
+        xPositionStart: number;
+        rightBorder: number;
+        font: PDFFont;
+        fontSize: number;
+        color: RGB;
     }
 ): number {
-    if (data.totals.openAmount === data.totals.grossTotal) return currentY
-    const { fontSize } = meta
-    currentY -= fontSize * 1.5
+    if (data.totals.openAmount === data.totals.grossTotal) return currentY;
+    const { fontSize } = meta;
+    currentY -= fontSize * 1.5;
 
     if ('roundingAmount' in data.totals && data.totals.roundingAmount) {
         printMonetarySummaryLine(
@@ -90,8 +90,8 @@ function printOpenAmount(
             currentY,
             false,
             meta
-        )
-        currentY -= fontSize * 1.5
+        );
+        currentY -= fontSize * 1.5;
     }
     if ('prepaidAmount' in data.totals && data.totals.prepaidAmount) {
         printMonetarySummaryLine(
@@ -100,16 +100,16 @@ function printOpenAmount(
             currentY,
             false,
             meta
-        )
-        currentY -= fontSize * 1.5
+        );
+        currentY -= fontSize * 1.5;
     }
 
     printMonetarySummaryLine(textTranslations[locale].OPEN_AMOUNT, data.totals.openAmount, currentY, false, {
         ...meta,
         font: fontBold
-    })
+    });
 
-    return currentY
+    return currentY;
 }
 
 function printTaxBreakdown(
@@ -117,51 +117,51 @@ function printTaxBreakdown(
     locale: SupportedLocales,
     currentY: number,
     meta: {
-        page: PDFPage
-        currencyConverter: Intl.NumberFormat
-        xPositionStart: number
-        rightBorder: number
-        font: PDFFont
-        fontSize: number
-        color: RGB
+        page: PDFPage;
+        currencyConverter: Intl.NumberFormat;
+        xPositionStart: number;
+        rightBorder: number;
+        font: PDFFont;
+        fontSize: number;
+        color: RGB;
     }
 ): number {
-    if (!('taxBreakdown' in data.totals)) return printTaxTotal(data, locale, currentY, meta)
+    if (!('taxBreakdown' in data.totals)) return printTaxTotal(data, locale, currentY, meta);
     if (!data.totals.taxBreakdown || data.totals.taxBreakdown.length === 0)
-        return printTaxTotal(data, locale, currentY, meta)
+        return printTaxTotal(data, locale, currentY, meta);
 
-    const { fontSize } = meta
+    const { fontSize } = meta;
     for (const tax of data.totals.taxBreakdown) {
-        if (tax.calculatedAmount === 0) continue
+        if (tax.calculatedAmount === 0) continue;
         const taxRate = tax.rateApplicablePercent
             ? ` (${Intl.NumberFormat(locale, {
                   style: 'percent',
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2
               }).format(round(tax.rateApplicablePercent / 100, 4))}) `
-            : ''
+            : '';
 
-        let taxDescription = ''
+        let taxDescription = '';
         switch (tax.categoryCode) {
             case TAX_CATEGORY_CODES.IGIC:
-                taxDescription = `IGIC${taxRate}`
-                break
+                taxDescription = `IGIC${taxRate}`;
+                break;
             case TAX_CATEGORY_CODES.IPSI:
-                taxDescription = `IPSI${taxRate}`
-                break
+                taxDescription = `IPSI${taxRate}`;
+                break;
             case TAX_CATEGORY_CODES.VAT_REVERSE_CHARGE:
-                taxDescription = `${textTranslations[locale].VAT} Reverse Charge${taxRate}`
-                break
+                taxDescription = `${textTranslations[locale].VAT} Reverse Charge${taxRate}`;
+                break;
             default:
-                taxDescription = `${textTranslations[locale].VAT}${taxRate}`
-                break
+                taxDescription = `${textTranslations[locale].VAT}${taxRate}`;
+                break;
         }
 
-        printMonetarySummaryLine(taxDescription, tax.calculatedAmount, currentY, false, meta)
-        currentY -= fontSize * 1.5
+        printMonetarySummaryLine(taxDescription, tax.calculatedAmount, currentY, false, meta);
+        currentY -= fontSize * 1.5;
     }
 
-    return currentY
+    return currentY;
 }
 
 function printTaxTotal(
@@ -169,23 +169,23 @@ function printTaxTotal(
     locale: SupportedLocales,
     currentY: number,
     meta: {
-        page: PDFPage
-        currencyConverter: Intl.NumberFormat
-        xPositionStart: number
-        rightBorder: number
-        font: PDFFont
-        fontSize: number
-        color: RGB
+        page: PDFPage;
+        currencyConverter: Intl.NumberFormat;
+        xPositionStart: number;
+        rightBorder: number;
+        font: PDFFont;
+        fontSize: number;
+        color: RGB;
     }
 ): number {
-    if (!data.totals.taxTotal || data.totals.taxTotal.length === 0) return currentY
-    const { fontSize } = meta
-    const taxDescription = textTranslations[locale].TAX_TOTAL_AMOUNT
-    const documentCurrencyTax = data.totals.taxTotal.find(tax => tax.currency === data.document.currency)
+    if (!data.totals.taxTotal || data.totals.taxTotal.length === 0) return currentY;
+    const { fontSize } = meta;
+    const taxDescription = textTranslations[locale].TAX_TOTAL_AMOUNT;
+    const documentCurrencyTax = data.totals.taxTotal.find(tax => tax.currency === data.document.currency);
     if (documentCurrencyTax) {
-        printMonetarySummaryLine(taxDescription, documentCurrencyTax.amount, currentY, false, meta)
-        currentY -= fontSize * 1.5
-        return currentY
+        printMonetarySummaryLine(taxDescription, documentCurrencyTax.amount, currentY, false, meta);
+        currentY -= fontSize * 1.5;
+        return currentY;
     }
     printMonetarySummaryLine(taxDescription, data.totals.taxTotal[0].amount, currentY, false, {
         ...meta,
@@ -193,10 +193,10 @@ function printTaxTotal(
             style: 'currency',
             currency: data.totals.taxTotal[0].currency
         })
-    })
+    });
 
-    currentY -= fontSize * 1.5
-    return currentY
+    currentY -= fontSize * 1.5;
+    return currentY;
 }
 
 function optionallyPrintAllowanceCharge(
@@ -204,21 +204,21 @@ function optionallyPrintAllowanceCharge(
     locale: SupportedLocales,
     currentY: number,
     meta: {
-        page: PDFPage
-        currencyConverter: Intl.NumberFormat
-        xPositionStart: number
-        rightBorder: number
-        font: PDFFont
-        fontSize: number
-        color: RGB
+        page: PDFPage;
+        currencyConverter: Intl.NumberFormat;
+        xPositionStart: number;
+        rightBorder: number;
+        font: PDFFont;
+        fontSize: number;
+        color: RGB;
     }
 ): number {
     if (
         !('allowanceTotalAmount' in data.totals && data.totals.allowanceTotalAmount) &&
         !('chargeTotalAmount' in data.totals && data.totals.chargeTotalAmount)
     )
-        return currentY
-    const { fontSize } = meta
+        return currentY;
+    const { fontSize } = meta;
 
     if ('sumWithoutAllowancesAndCharges' in data.totals && data.totals.sumWithoutAllowancesAndCharges) {
         printMonetarySummaryLine(
@@ -227,11 +227,11 @@ function optionallyPrintAllowanceCharge(
             currentY,
             false,
             meta
-        )
-        currentY -= fontSize * 1.5
+        );
+        currentY -= fontSize * 1.5;
     }
 
-    const allowanceBreakdown = data.totals.documentLevelAllowancesAndCharges?.allowances || []
+    const allowanceBreakdown = data.totals.documentLevelAllowancesAndCharges?.allowances || [];
 
     if (data.totals.allowanceTotalAmount || allowanceBreakdown.length > 0) {
         if (allowanceBreakdown.length > 0) {
@@ -242,8 +242,8 @@ function optionallyPrintAllowanceCharge(
                     currentY,
                     true,
                     meta
-                )
-                currentY -= fontSize * 1.5
+                );
+                currentY -= fontSize * 1.5;
             }
         } else if (data.totals.allowanceTotalAmount) {
             printMonetarySummaryLine(
@@ -252,12 +252,12 @@ function optionallyPrintAllowanceCharge(
                 currentY,
                 true,
                 meta
-            )
-            currentY -= fontSize * 1.5
+            );
+            currentY -= fontSize * 1.5;
         }
     }
 
-    const chargeBreakdown = data.totals.documentLevelAllowancesAndCharges?.charges || []
+    const chargeBreakdown = data.totals.documentLevelAllowancesAndCharges?.charges || [];
 
     if (data.totals.chargeTotalAmount || chargeBreakdown.length > 0) {
         if (chargeBreakdown.length > 0) {
@@ -268,8 +268,8 @@ function optionallyPrintAllowanceCharge(
                     currentY,
                     false,
                     meta
-                )
-                currentY -= fontSize * 1.5
+                );
+                currentY -= fontSize * 1.5;
             }
         } else if (data.totals.chargeTotalAmount) {
             printMonetarySummaryLine(
@@ -278,17 +278,17 @@ function optionallyPrintAllowanceCharge(
                 currentY,
                 false,
                 meta
-            )
-            currentY -= fontSize * 1.5
+            );
+            currentY -= fontSize * 1.5;
         }
     }
 
-    return currentY
+    return currentY;
 }
 
 function xRightAlignedText(xRightBorder: number, content: string, font: PDFFont, fontSize: number): number {
-    const textWidth = font.widthOfTextAtSize(content, fontSize)
-    return xRightBorder - textWidth
+    const textWidth = font.widthOfTextAtSize(content, fontSize);
+    return xRightBorder - textWidth;
 }
 
 function printMonetarySummaryLine(
@@ -297,29 +297,29 @@ function printMonetarySummaryLine(
     currentY: number,
     negativeAmount: boolean,
     meta: {
-        page: PDFPage
-        currencyConverter: Intl.NumberFormat
-        xPositionStart: number
-        rightBorder: number
-        font: PDFFont
-        fontSize: number
-        color: RGB
+        page: PDFPage;
+        currencyConverter: Intl.NumberFormat;
+        xPositionStart: number;
+        rightBorder: number;
+        font: PDFFont;
+        fontSize: number;
+        color: RGB;
     }
 ): void {
-    const { page, currencyConverter, xPositionStart, rightBorder, font, fontSize, color } = meta
+    const { page, currencyConverter, xPositionStart, rightBorder, font, fontSize, color } = meta;
     page.drawText(`${description}`, {
         x: xPositionStart,
         y: currentY,
         size: fontSize,
         font,
         color
-    })
-    const lineAmount = `${negativeAmount ? '- ' : ''}${currencyConverter.format(round(amount, 2))}`
+    });
+    const lineAmount = `${negativeAmount ? '- ' : ''}${currencyConverter.format(round(amount, 2))}`;
     page.drawText(lineAmount, {
         x: xRightAlignedText(rightBorder, lineAmount, font, fontSize),
         y: currentY,
         size: fontSize,
         font,
         color
-    })
+    });
 }

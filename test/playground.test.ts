@@ -1,16 +1,16 @@
-import { Schema } from 'node-schematron'
-import exp from 'node:constants'
-import fs from 'node:fs/promises'
-import path from 'node:path'
+import { Schema } from 'node-schematron';
+import exp from 'node:constants';
+import fs from 'node:fs/promises';
+import path from 'node:path';
 
-import { totalsCalculator } from '../src/adapter/totalsCalculator'
-import { FacturX } from '../src/core/factur-x'
-import { dinA4Width, mmToPt } from '../src/pdfTemplates/types'
-import { designTestObject } from './design_test_object'
-import { designTestObject_easy } from './design_test_object_easy'
-import { testDesignObjectKleinunternehmer } from './design_test_object_kleinunternehmer'
-import { designTestObject_preCalc } from './design_test_object_preCalc'
-import './profiles/codeDb/xPathDocumentFunction'
+import { totalsCalculator } from '../src/adapter/totalsCalculator';
+import { FacturX } from '../src/core/factur-x';
+import { dinA4Width, mmToPt } from '../src/pdfTemplates/types';
+import { designTestObject } from './design_test_object';
+import { designTestObject_easy } from './design_test_object_easy';
+import { testDesignObjectKleinunternehmer } from './design_test_object_kleinunternehmer';
+import { designTestObject_preCalc } from './design_test_object_preCalc';
+import './profiles/codeDb/xPathDocumentFunction';
 
 // This is just a testcase which helps me printing out the ts-objects which are built from the zod types
 
@@ -56,10 +56,10 @@ import './profiles/codeDb/xPathDocumentFunction'
 })*/
 
 describe('factur-x validity check', () => {
-    let xml: string
+    let xml: string;
     beforeAll(async () => {
-        xml = await fs.readFile('C:/Users/User/Documents/factur-x_bwl.xml', 'utf-8')
-    })
+        xml = await fs.readFile('C:/Users/User/Documents/factur-x_bwl.xml', 'utf-8');
+    });
 
     test('Builds Valid XML According to SCHEMATRON Schema', async () => {
         const schematron = (
@@ -67,22 +67,22 @@ describe('factur-x validity check', () => {
                 path.join(__dirname, 'profiles', 'schematronSchemes', 'Factur-X_1.0.07_BASICWL.sch'),
                 'utf-8'
             )
-        ).toString()
+        ).toString();
 
-        const schema = Schema.fromString(schematron)
+        const schema = Schema.fromString(schematron);
 
-        const result = schema.validateString(xml)
+        const result = schema.validateString(xml);
 
-        if (result.length > 0) console.log(result.map(res => res.message?.trim()))
+        if (result.length > 0) console.log(result.map(res => res.message?.trim()));
 
-        expect(result.length).toBe(0)
-    })
-})
+        expect(result.length).toBe(0);
+    });
+});
 
 describe.only('pdf-creation', () => {
     test('pdf creation', async () => {
-        const projectRoot = process.cwd()
-        const imagePath = path.join(projectRoot, 'assets', 'images', 'test_header', 'header.jpg')
+        const projectRoot = process.cwd();
+        const imagePath = path.join(projectRoot, 'assets', 'images', 'test_header', 'header.jpg');
 
         const headerImage = {
             path: imagePath,
@@ -90,59 +90,59 @@ describe.only('pdf-creation', () => {
                 width: dinA4Width * mmToPt,
                 height: ((dinA4Width * mmToPt) / 1408) * 504
             }
-        }
-        const instance = await FacturX.fromObject(designTestObject_easy)
+        };
+        const instance = await FacturX.fromObject(designTestObject_easy);
         const pdfBytesDE = await instance.getPDF({
             locale: 'de-DE',
             headerImage
-        })
-        expect(pdfBytesDE).toBeDefined()
-        await fs.writeFile(path.join(__dirname, 'pdfs', 'createdPDFs', 'PDF_DESIGN_DE.pdf'), pdfBytesDE)
+        });
+        expect(pdfBytesDE).toBeDefined();
+        await fs.writeFile(path.join(__dirname, 'pdfs', 'createdPDFs', 'PDF_DESIGN_DE.pdf'), pdfBytesDE);
 
         const pdfBytesEN = await instance.getPDF({
             locale: 'en-US',
             headerImage
-        })
-        expect(pdfBytesEN).toBeDefined()
-        await fs.writeFile(path.join(__dirname, 'pdfs', 'createdPDFs', 'PDF_DESIGN_EN.pdf'), pdfBytesEN)
+        });
+        expect(pdfBytesEN).toBeDefined();
+        await fs.writeFile(path.join(__dirname, 'pdfs', 'createdPDFs', 'PDF_DESIGN_EN.pdf'), pdfBytesEN);
 
         const pdfBytesFR = await instance.getPDF({
             locale: 'fr-FR',
             headerImage
-        })
-        expect(pdfBytesFR).toBeDefined()
-        await fs.writeFile(path.join(__dirname, 'pdfs', 'createdPDFs', 'PDF_DESIGN_FR.pdf'), pdfBytesFR)
+        });
+        expect(pdfBytesFR).toBeDefined();
+        await fs.writeFile(path.join(__dirname, 'pdfs', 'createdPDFs', 'PDF_DESIGN_FR.pdf'), pdfBytesFR);
 
-        const complexInstance = await FacturX.fromObject(designTestObject)
+        const complexInstance = await FacturX.fromObject(designTestObject);
         const pdfBytesEN_multiPage = await complexInstance.getPDF({
             locale: 'en-US',
             headerImage
-        })
-        expect(pdfBytesEN_multiPage).toBeDefined()
+        });
+        expect(pdfBytesEN_multiPage).toBeDefined();
         await fs.writeFile(
             path.join(__dirname, 'pdfs', 'createdPDFs', 'PDF_DESIGN_EN_MultiPage.pdf'),
             pdfBytesEN_multiPage
-        )
+        );
 
         const pdfBytesDE_multiPage = await complexInstance.getPDF({
             locale: 'de-DE',
             headerImage
-        })
-        expect(pdfBytesDE_multiPage).toBeDefined()
+        });
+        expect(pdfBytesDE_multiPage).toBeDefined();
         await fs.writeFile(
             path.join(__dirname, 'pdfs', 'createdPDFs', 'PDF_DESIGN_DE_MultiPage.pdf'),
             pdfBytesDE_multiPage
-        )
+        );
 
-        const kleinunternehmerInstance = await FacturX.fromObject(testDesignObjectKleinunternehmer)
+        const kleinunternehmerInstance = await FacturX.fromObject(testDesignObjectKleinunternehmer);
         const pdfBytesDE_Kleinunternehmer = await kleinunternehmerInstance.getPDF({
             locale: 'de-DE',
             headerImage
-        })
-        expect(pdfBytesDE_Kleinunternehmer).toBeDefined()
+        });
+        expect(pdfBytesDE_Kleinunternehmer).toBeDefined();
         await fs.writeFile(
             path.join(__dirname, 'pdfs', 'createdPDFs', 'PDF_DESIGN_DE_Kleinunternehmer.pdf'),
             pdfBytesDE_Kleinunternehmer
-        )
-    }, 100000)
-})
+        );
+    }, 100000);
+});

@@ -1,5 +1,5 @@
-import { BasicWithoutLinesProfile } from '../../src/profiles/basicwithoutlines'
-import { PROFILES } from '../../src/types/ProfileTypes'
+import { BasicWithoutLinesProfile } from '../../src/profiles/basicwithoutlines';
+import { PROFILES } from '../../src/types/ProfileTypes';
 import {
     ALLOWANCE_REASONS_CODES,
     CHARGE_REASONS_CODES,
@@ -12,7 +12,7 @@ import {
     SUBJECT_CODES,
     TAX_CATEGORY_CODES,
     TAX_TYPE_CODE
-} from '../../src/types/codes'
+} from '../../src/types/codes';
 
 const testBasicWLProfile: BasicWithoutLinesProfile = {
     businessProcessType: 'BP-12345',
@@ -252,6 +252,6 @@ const testBasicWLProfile: BasicWithoutLinesProfile = {
         prepaidAmount: 0,
         openAmount: 990
     }
-}
+};
 
-export default testBasicWLProfile
+export default testBasicWLProfile;

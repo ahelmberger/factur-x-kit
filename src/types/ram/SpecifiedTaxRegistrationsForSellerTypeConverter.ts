@@ -1,15 +1,15 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
-import { BaseTypeConverter, TypeConverterError } from '../BaseTypeConverter'
-import { ZIdType } from '../udt/IdTypeConverter'
-import { ZIdTypeWithRequiredSchemeXml } from '../udt/IdTypeWithRequiredlSchemeConverter'
+import { BaseTypeConverter, TypeConverterError } from '../BaseTypeConverter';
+import { ZIdType } from '../udt/IdTypeConverter';
+import { ZIdTypeWithRequiredSchemeXml } from '../udt/IdTypeWithRequiredlSchemeConverter';
 
 export const ZSpecifiedTaxRegistrationsForSellerType = z.object({
     vatId: ZIdType.optional().describe('BT-31'), // BT-31
     localTaxId: ZIdType.optional().describe('BT-32') // BT-32
-})
+});
 
-export type SpecifiedTaxRegistrationsForSellerType = z.infer<typeof ZSpecifiedTaxRegistrationsForSellerType>
+export type SpecifiedTaxRegistrationsForSellerType = z.infer<typeof ZSpecifiedTaxRegistrationsForSellerType>;
 
 export const ZSpecifiedTaxRegistrationsForSellerTypeXml = z.union([
     z
@@ -22,43 +22,43 @@ export const ZSpecifiedTaxRegistrationsForSellerTypeXml = z.union([
     z.object({
         'ram:ID': ZIdTypeWithRequiredSchemeXml
     })
-])
+]);
 
-export type SpecifiedTaxRegistrationsForSellerTypeXml = z.infer<typeof ZSpecifiedTaxRegistrationsForSellerTypeXml>
+export type SpecifiedTaxRegistrationsForSellerTypeXml = z.infer<typeof ZSpecifiedTaxRegistrationsForSellerTypeXml>;
 
 export class SpecifiedTaxRegistrationsForSellerTypeConverter extends BaseTypeConverter<
     SpecifiedTaxRegistrationsForSellerType,
     SpecifiedTaxRegistrationsForSellerTypeXml
 > {
     _toValue(xml: SpecifiedTaxRegistrationsForSellerTypeXml) {
-        const { success, data } = ZSpecifiedTaxRegistrationsForSellerTypeXml.safeParse(xml)
+        const { success, data } = ZSpecifiedTaxRegistrationsForSellerTypeXml.safeParse(xml);
         if (!success) {
-            throw new TypeConverterError('INVALID_XML')
+            throw new TypeConverterError('INVALID_XML');
         }
 
-        let vatId
-        let localTaxId
+        let vatId;
+        let localTaxId;
         if (Array.isArray(data)) {
-            vatId = data.find(item => item['ram:ID']['@schemeID'] === 'VA')
-            localTaxId = data.find(item => item['ram:ID']['@schemeID'] === 'FC')
+            vatId = data.find(item => item['ram:ID']['@schemeID'] === 'VA');
+            localTaxId = data.find(item => item['ram:ID']['@schemeID'] === 'FC');
         } else {
-            vatId = data['ram:ID']['@schemeID'] === 'VA' ? data : undefined
-            localTaxId = data['ram:ID']['@schemeID'] === 'FC' ? data : undefined
+            vatId = data['ram:ID']['@schemeID'] === 'VA' ? data : undefined;
+            localTaxId = data['ram:ID']['@schemeID'] === 'FC' ? data : undefined;
         }
 
         return {
             vatId: vatId?.['ram:ID']['#text'],
             localTaxId: localTaxId?.['ram:ID']['#text']
-        }
+        };
     }
 
     _toXML(value: SpecifiedTaxRegistrationsForSellerType): SpecifiedTaxRegistrationsForSellerTypeXml {
-        const { success, data } = ZSpecifiedTaxRegistrationsForSellerType.safeParse(value)
+        const { success, data } = ZSpecifiedTaxRegistrationsForSellerType.safeParse(value);
         if (!success) {
-            throw new TypeConverterError('INVALID_VALUE')
+            throw new TypeConverterError('INVALID_VALUE');
         }
 
-        const xml: SpecifiedTaxRegistrationsForSellerTypeXml = []
+        const xml: SpecifiedTaxRegistrationsForSellerTypeXml = [];
 
         if (data.vatId) {
             xml.push({
@@ -66,7 +66,7 @@ export class SpecifiedTaxRegistrationsForSellerTypeConverter extends BaseTypeCon
                     '#text': data.vatId,
                     '@schemeID': 'VA'
                 }
-            })
+            });
         }
 
         if (data.localTaxId) {
@@ -75,9 +75,9 @@ export class SpecifiedTaxRegistrationsForSellerTypeConverter extends BaseTypeCon
                     '#text': data.localTaxId,
                     '@schemeID': 'FC'
                 }
-            })
+            });
         }
 
-        return xml
+        return xml;
     }
 }

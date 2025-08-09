@@ -1,13 +1,13 @@
-import { ExtendableBaseTypeConverter } from '../../../../ExtendableBaseTypeConverter'
+import { ExtendableBaseTypeConverter } from '../../../../ExtendableBaseTypeConverter';
 import {
     ComfortDesignatedProductClassificationType,
     ComfortDesignatedProductClassificationTypeXml,
     ZComfortDesignatedProductClassificationType,
     ZComfortDesignatedProductClassificationTypeXml
-} from './ComfortDesignatedProductClassificationType'
+} from './ComfortDesignatedProductClassificationType';
 
-export type allowedValueTypes_DesignatedProductClassification = ComfortDesignatedProductClassificationType
-export type allowedXmlTypes_DesignatedProductClassification = ComfortDesignatedProductClassificationTypeXml
+export type allowedValueTypes_DesignatedProductClassification = ComfortDesignatedProductClassificationType;
+export type allowedXmlTypes_DesignatedProductClassification = ComfortDesignatedProductClassificationTypeXml;
 
 export class DesignatedProductClassificationConverter<
     ValueType extends allowedValueTypes_DesignatedProductClassification,
@@ -15,7 +15,7 @@ export class DesignatedProductClassificationConverter<
 > extends ExtendableBaseTypeConverter<ValueType, XmlType> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mapXmlToValue(xml: any) {
-        const xmlProductClass = xml['ram:ClassCode']
+        const xmlProductClass = xml['ram:ClassCode'];
         return {
             productClass:
                 xmlProductClass != null
@@ -26,7 +26,7 @@ export class DesignatedProductClassificationConverter<
                               xmlProductClass['@listVersionID'] != null ? xmlProductClass['@listVersionID'] : undefined
                       }
                     : undefined
-        }
+        };
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -41,10 +41,10 @@ export class DesignatedProductClassificationConverter<
                           value.productClass?.codeSchemeVersion != null
                               ? value.productClass.codeSchemeVersion
                               : undefined
-                  }
+                  };
         return {
             'ram:ClassCode': classCode
-        }
+        };
     }
 
     public static comfort(): DesignatedProductClassificationConverter<
@@ -54,6 +54,6 @@ export class DesignatedProductClassificationConverter<
         return new DesignatedProductClassificationConverter(
             ZComfortDesignatedProductClassificationType,
             ZComfortDesignatedProductClassificationTypeXml
-        )
+        );
     }
 }

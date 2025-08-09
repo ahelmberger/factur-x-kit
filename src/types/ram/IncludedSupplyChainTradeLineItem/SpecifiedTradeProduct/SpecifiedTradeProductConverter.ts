@@ -1,59 +1,59 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
-import { ArrayConverter } from '../../../ArrayConverter'
-import { CodeTypeConverter } from '../../../CodeTypeConverter'
-import { ExtendableBaseTypeConverter } from '../../../ExtendableBaseTypeConverter'
-import { COUNTRY_ID_CODES, ISO6523_CODES } from '../../../codes'
-import { IdTypeConverter } from '../../../udt/IdTypeConverter'
-import { IdTypeWithRequiredSchemeConverter } from '../../../udt/IdTypeWithRequiredlSchemeConverter'
-import { TextTypeConverter } from '../../../udt/TextTypeConverter'
+import { ArrayConverter } from '../../../ArrayConverter';
+import { CodeTypeConverter } from '../../../CodeTypeConverter';
+import { ExtendableBaseTypeConverter } from '../../../ExtendableBaseTypeConverter';
+import { COUNTRY_ID_CODES, ISO6523_CODES } from '../../../codes';
+import { IdTypeConverter } from '../../../udt/IdTypeConverter';
+import { IdTypeWithRequiredSchemeConverter } from '../../../udt/IdTypeWithRequiredlSchemeConverter';
+import { TextTypeConverter } from '../../../udt/TextTypeConverter';
 import {
     ApplicableProductCharacteristicTypeConverter,
     allowedValueTypes_ApplicableProductCharacteristic,
     allowedXmlTypes_ApplicableProductCharacteristic
-} from './ApplicableProuctCharacteristic/ApplicableProductCharacteristicConverter'
+} from './ApplicableProuctCharacteristic/ApplicableProductCharacteristicConverter';
 import {
     BasicTradeProductType,
     BasicTradeProductTypeXml,
     ZBasicTradeProductType,
     ZBasicTradeProductTypeXml
-} from './BasicTradeProduct'
+} from './BasicTradeProduct';
 import {
     ComfortTradeProductType,
     ComfortTradeProductTypeXml,
     ZComfortTradeProductType,
     ZComfortTradeProductTypeXml
-} from './ComfortTradeProduct'
+} from './ComfortTradeProduct';
 import {
     DesignatedProductClassificationConverter,
     allowedValueTypes_DesignatedProductClassification,
     allowedXmlTypes_DesignatedProductClassification
-} from './DesignatedProductClassification/DesignatedProductClassificationConverter'
+} from './DesignatedProductClassification/DesignatedProductClassificationConverter';
 
-export type allowedValueTypes_TradeProduct = BasicTradeProductType | ComfortTradeProductType
-export type allowedXmlTypes_TradeProduct = BasicTradeProductTypeXml | ComfortTradeProductTypeXml
+export type allowedValueTypes_TradeProduct = BasicTradeProductType | ComfortTradeProductType;
+export type allowedXmlTypes_TradeProduct = BasicTradeProductTypeXml | ComfortTradeProductTypeXml;
 
 export class TradeProductTypeConverter<
     ValueType extends allowedValueTypes_TradeProduct,
     XmlType extends allowedXmlTypes_TradeProduct
 > extends ExtendableBaseTypeConverter<ValueType, XmlType> {
-    globalIdConverter = new IdTypeWithRequiredSchemeConverter(ISO6523_CODES)
-    textTypeConverter = new TextTypeConverter()
-    idTypeConverter = new IdTypeConverter()
-    codeTypeConverter = new CodeTypeConverter(COUNTRY_ID_CODES)
+    globalIdConverter = new IdTypeWithRequiredSchemeConverter(ISO6523_CODES);
+    textTypeConverter = new TextTypeConverter();
+    idTypeConverter = new IdTypeConverter();
+    codeTypeConverter = new CodeTypeConverter(COUNTRY_ID_CODES);
 
     productCharacteristicConverter:
         | ApplicableProductCharacteristicTypeConverter<
               allowedValueTypes_ApplicableProductCharacteristic,
               allowedXmlTypes_ApplicableProductCharacteristic
           >
-        | undefined
+        | undefined;
     productClassificationConverter:
         | DesignatedProductClassificationConverter<
               allowedValueTypes_DesignatedProductClassification,
               allowedXmlTypes_DesignatedProductClassification
           >
-        | undefined
+        | undefined;
 
     constructor(
         tradeProductType: z.ZodType<ValueType>,
@@ -67,9 +67,9 @@ export class TradeProductTypeConverter<
             allowedXmlTypes_DesignatedProductClassification
         >
     ) {
-        super(tradeProductType, tradeProductTypeXml)
-        this.productCharacteristicConverter = productCharacteristicConverter
-        this.productClassificationConverter = productClassificationConverter
+        super(tradeProductType, tradeProductTypeXml);
+        this.productCharacteristicConverter = productCharacteristicConverter;
+        this.productClassificationConverter = productClassificationConverter;
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -101,7 +101,7 @@ export class TradeProductTypeConverter<
                 xml['ram:OriginTradeCountry']?.['ram:ID'] != null
                     ? this.codeTypeConverter.toValue(xml['ram:OriginTradeCountry']['ram:ID'])
                     : undefined
-        }
+        };
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -125,11 +125,11 @@ export class TradeProductTypeConverter<
             'ram:OriginTradeCountry': value.originTradeCountry
                 ? { 'ram:ID': this.codeTypeConverter.toXML(value.originTradeCountry) }
                 : undefined
-        }
+        };
     }
 
     public static basic(): TradeProductTypeConverter<BasicTradeProductType, BasicTradeProductTypeXml> {
-        return new TradeProductTypeConverter(ZBasicTradeProductType, ZBasicTradeProductTypeXml)
+        return new TradeProductTypeConverter(ZBasicTradeProductType, ZBasicTradeProductTypeXml);
     }
 
     public static comfort(): TradeProductTypeConverter<ComfortTradeProductType, ComfortTradeProductTypeXml> {
@@ -138,6 +138,6 @@ export class TradeProductTypeConverter<
             ZComfortTradeProductTypeXml,
             ApplicableProductCharacteristicTypeConverter.comfort(),
             DesignatedProductClassificationConverter.comfort()
-        )
+        );
     }
 }

@@ -1,5 +1,5 @@
-import { ComfortProfile } from '../../../src/profiles/comfort'
-import { PROFILES } from '../../../src/types/ProfileTypes'
+import { ComfortProfile } from '../../../src/profiles/comfort';
+import { PROFILES } from '../../../src/types/ProfileTypes';
 import {
     ALLOWANCE_REASONS_CODES,
     CHARGE_REASONS_CODES,
@@ -16,7 +16,7 @@ import {
     UNIT_CODES,
     UNTDID_1153,
     UNTDID_7143
-} from '../../../src/types/codes'
+} from '../../../src/types/codes';
 
 export const standardTestObject: ComfortProfile = {
     profile: PROFILES.COMFORT,
@@ -299,4 +299,4 @@ export const standardTestObject: ComfortProfile = {
             }
         }
     ]
-}
+};

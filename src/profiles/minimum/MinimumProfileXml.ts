@@ -1,11 +1,11 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
-import { ZSpecifiedTaxRegistrationsForSellerTypeXml } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter'
-import { ZAmountTypeXml } from '../../types/udt/AmountTypeConverter'
-import { ZDateTimeTypeXml } from '../../types/udt/DateTimeTypeConverter'
-import { ZIdTypeXml } from '../../types/udt/IdTypeConverter'
-import { ZIdTypeWithOptionalSchemeXml } from '../../types/udt/IdTypeWithOptionalSchemeConverter'
-import { ZTextTypeXml } from '../../types/udt/TextTypeConverter'
+import { ZSpecifiedTaxRegistrationsForSellerTypeXml } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter';
+import { ZAmountTypeXml } from '../../types/udt/AmountTypeConverter';
+import { ZDateTimeTypeXml } from '../../types/udt/DateTimeTypeConverter';
+import { ZIdTypeXml } from '../../types/udt/IdTypeConverter';
+import { ZIdTypeWithOptionalSchemeXml } from '../../types/udt/IdTypeWithOptionalSchemeConverter';
+import { ZTextTypeXml } from '../../types/udt/TextTypeConverter';
 
 export const ZMinimumProfileXml = z.object({
     '?xml': z.object({
@@ -71,15 +71,15 @@ export const ZMinimumProfileXml = z.object({
         '@xmlns:xs': z.literal('http://www.w3.org/2001/XMLSchema'),
         '@xmlns:udt': z.literal('urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100')
     })
-})
+});
 
-export type MinimumProfileXml = z.infer<typeof ZMinimumProfileXml>
+export type MinimumProfileXml = z.infer<typeof ZMinimumProfileXml>;
 
 export function isMinimumProfileXml(data: unknown): data is MinimumProfileXml {
-    const result = ZMinimumProfileXml.safeParse(data)
+    const result = ZMinimumProfileXml.safeParse(data);
     if (!result.success) {
-        console.dir(data, { depth: null })
-        console.dir(result.error.errors, { depth: null })
+        console.dir(data, { depth: null });
+        console.dir(result.error.errors, { depth: null });
     }
-    return result.success
+    return result.success;
 }

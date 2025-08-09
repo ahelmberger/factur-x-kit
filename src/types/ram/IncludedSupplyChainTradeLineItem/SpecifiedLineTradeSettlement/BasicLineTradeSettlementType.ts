@@ -1,15 +1,15 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
-import { ZAmountType, ZAmountTypeXml } from '../../../udt/AmountTypeConverter'
-import { ZDateTimeType, ZDateTimeTypeXml } from '../../../udt/DateTimeTypeConverter'
+import { ZAmountType, ZAmountTypeXml } from '../../../udt/AmountTypeConverter';
+import { ZDateTimeType, ZDateTimeTypeXml } from '../../../udt/DateTimeTypeConverter';
 import {
     ZBasicLineLevelTradeAllowanceChargeType,
     ZBasicLineLevelTradeAllowanceChargeTypeXml
-} from '../../TradeAllowanceChargeType/BasicLineLevelAllowanceChargeType'
+} from '../../TradeAllowanceChargeType/BasicLineLevelAllowanceChargeType';
 import {
     ZBasicLineLevelTradeTaxType,
     ZBasicLineLevelTradeTaxTypeXml
-} from '../../TradeTaxType/BasicLineLevelTradeTaxType'
+} from '../../TradeTaxType/BasicLineLevelTradeTaxType';
 
 export const ZBasicLineTradeSettlementType = z.object({
     tax: ZBasicLineLevelTradeTaxType,
@@ -23,9 +23,9 @@ export const ZBasicLineTradeSettlementType = z.object({
     lineTotals: z.object({
         netTotal: ZAmountType
     })
-})
+});
 
-export type BasicLineTradeSettlementType = z.infer<typeof ZBasicLineTradeSettlementType>
+export type BasicLineTradeSettlementType = z.infer<typeof ZBasicLineTradeSettlementType>;
 
 export const ZBasicLineTradeSettlementTypeXml = z.object({
     'ram:ApplicableTradeTax': ZBasicLineLevelTradeTaxTypeXml,
@@ -39,6 +39,6 @@ export const ZBasicLineTradeSettlementTypeXml = z.object({
     'ram:SpecifiedTradeSettlementLineMonetarySummation': z.object({
         'ram:LineTotalAmount': ZAmountTypeXml
     })
-})
+});
 
-export type BasicLineTradeSettlementTypeXml = z.infer<typeof ZBasicLineTradeSettlementTypeXml>
+export type BasicLineTradeSettlementTypeXml = z.infer<typeof ZBasicLineTradeSettlementTypeXml>;

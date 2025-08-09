@@ -1,28 +1,28 @@
-import { ExtendableBaseTypeConverter } from '../../ExtendableBaseTypeConverter'
-import { TextTypeConverter } from '../../udt/TextTypeConverter'
-import { TokenTypeConverter } from '../../xs/TokenConverter'
+import { ExtendableBaseTypeConverter } from '../../ExtendableBaseTypeConverter';
+import { TextTypeConverter } from '../../udt/TextTypeConverter';
+import { TokenTypeConverter } from '../../xs/TokenConverter';
 import {
     ComfortTradeContactType,
     ComfortTradeContactTypeXml,
     ZComfortTradeContactType,
     ZComfortTradeContactTypeXml
-} from './ComfortTradeContactType'
+} from './ComfortTradeContactType';
 import {
     ExtendedTradeContactType,
     ExtendedTradeContactTypeXml,
     ZExtendedTradeContactType,
     ZExtendedTradeContactTypeXml
-} from './ExtendedTradeContactType'
+} from './ExtendedTradeContactType';
 
-export type allowedValueTypes_DefinedTradeContactConverter = ComfortTradeContactType | ExtendedTradeContactType
-export type allowedXmlTypes_DefinedTradeContactConverter = ComfortTradeContactTypeXml | ExtendedTradeContactType
+export type allowedValueTypes_DefinedTradeContactConverter = ComfortTradeContactType | ExtendedTradeContactType;
+export type allowedXmlTypes_DefinedTradeContactConverter = ComfortTradeContactTypeXml | ExtendedTradeContactType;
 
 export class DefinedTradeContactConverter<
     ValueType extends allowedValueTypes_DefinedTradeContactConverter,
     XmlType extends allowedXmlTypes_DefinedTradeContactConverter
 > extends ExtendableBaseTypeConverter<ValueType, XmlType> {
-    textTypeConverter = new TextTypeConverter()
-    tokenTypeConverter = new TokenTypeConverter()
+    textTypeConverter = new TextTypeConverter();
+    tokenTypeConverter = new TokenTypeConverter();
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mapXmlToValue(xml: any) {
@@ -46,7 +46,7 @@ export class DefinedTradeContactConverter<
                 xml['ram:EmailURIUniversalCommunication']?.['ram:URIID'] != null
                     ? this.textTypeConverter.toValue(xml['ram:EmailURIUniversalCommunication']['ram:URIID'])
                     : undefined
-        }
+        };
     }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mapValueToXml(value: any) {
@@ -65,20 +65,20 @@ export class DefinedTradeContactConverter<
                     : undefined,
             'ram:EmailURIUniversalCommunication':
                 value.email != null ? { 'ram:URIID': this.textTypeConverter.toXML(value.email) } : undefined
-        }
+        };
     }
 
     public static comfort() {
         return new DefinedTradeContactConverter<ComfortTradeContactType, ComfortTradeContactTypeXml>(
             ZComfortTradeContactType,
             ZComfortTradeContactTypeXml
-        )
+        );
     }
 
     public static extended() {
         return new DefinedTradeContactConverter<ExtendedTradeContactType, ExtendedTradeContactTypeXml>(
             ZExtendedTradeContactType,
             ZExtendedTradeContactTypeXml
-        )
+        );
     }
 }

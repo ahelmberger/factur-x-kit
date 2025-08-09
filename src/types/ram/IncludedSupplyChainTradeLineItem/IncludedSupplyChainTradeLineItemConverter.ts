@@ -1,46 +1,46 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
-import { ExtendableBaseTypeConverter } from '../../ExtendableBaseTypeConverter'
+import { ExtendableBaseTypeConverter } from '../../ExtendableBaseTypeConverter';
 import {
     AssociatedDocumentLineDocumentConverter,
     allowedValueTypes_AssociatedDocumentLineDocumentConverter,
     allowedXmlTypes_AssociatedDocumentLineDocumentConverter
-} from './AssociatedDocumentLineDocument/AssociatedDocumentLineDocumentConverter'
+} from './AssociatedDocumentLineDocument/AssociatedDocumentLineDocumentConverter';
 import {
     BasicTradeLineItem,
     BasicTradeLineItemXml,
     ZBasicTradeLineItem,
     ZBasicTradeLineItemXml
-} from './BasicTradeLineItem'
+} from './BasicTradeLineItem';
 import {
     ComfortTradeLineItem,
     ComfortTradeLineItemXml,
     ZComfortTradeLineItem,
     ZComfortTradeLineItemXml
-} from './ComfortTradeLineItem'
+} from './ComfortTradeLineItem';
 import {
     LineTradeAgreementConverter,
     allowedValueTypes_LineTradeAgreement,
     allowedXmlTypes_LineTradeAgreement
-} from './SpecifiedLineTradeAgreement/SpecifiedLineTradeAgreementConverter'
+} from './SpecifiedLineTradeAgreement/SpecifiedLineTradeAgreementConverter';
 import {
     LineTradeDeliveryConverter,
     allowedValueTypes_LineTradeDelivery,
     allowedXmlTypes_LineTradeDelivery
-} from './SpecifiedLineTradeDelivery/SpecifiedLineTradeDeliveryConverter'
+} from './SpecifiedLineTradeDelivery/SpecifiedLineTradeDeliveryConverter';
 import {
     LineTradeSettlementConverter,
     allowedValueTypes_LineTradeSettlement,
     allowedXmlTypes_LineTradeSettlement
-} from './SpecifiedLineTradeSettlement/SpecifiedLineTradeSettlementConverter'
+} from './SpecifiedLineTradeSettlement/SpecifiedLineTradeSettlementConverter';
 import {
     TradeProductTypeConverter,
     allowedValueTypes_TradeProduct,
     allowedXmlTypes_TradeProduct
-} from './SpecifiedTradeProduct/SpecifiedTradeProductConverter'
+} from './SpecifiedTradeProduct/SpecifiedTradeProductConverter';
 
-export type allowedValueTypes_TradeLineItemConverter = BasicTradeLineItem | ComfortTradeLineItem
-export type allowedXmlTypes_TradeLineItemConverter = BasicTradeLineItemXml | ComfortTradeLineItemXml
+export type allowedValueTypes_TradeLineItemConverter = BasicTradeLineItem | ComfortTradeLineItem;
+export type allowedXmlTypes_TradeLineItemConverter = BasicTradeLineItemXml | ComfortTradeLineItemXml;
 
 export class TradeLineItemConverter<
     ValueType extends allowedValueTypes_TradeLineItemConverter,
@@ -49,20 +49,23 @@ export class TradeLineItemConverter<
     generalLineDataConverter: AssociatedDocumentLineDocumentConverter<
         allowedValueTypes_AssociatedDocumentLineDocumentConverter,
         allowedXmlTypes_AssociatedDocumentLineDocumentConverter
-    >
-    productDescriptionConverter: TradeProductTypeConverter<allowedValueTypes_TradeProduct, allowedXmlTypes_TradeProduct>
+    >;
+    productDescriptionConverter: TradeProductTypeConverter<
+        allowedValueTypes_TradeProduct,
+        allowedXmlTypes_TradeProduct
+    >;
     productPriceAgreementConverter: LineTradeAgreementConverter<
         allowedValueTypes_LineTradeAgreement,
         allowedXmlTypes_LineTradeAgreement
-    >
+    >;
     deliveryConverter: LineTradeDeliveryConverter<
         allowedValueTypes_LineTradeDelivery,
         allowedXmlTypes_LineTradeDelivery
-    >
+    >;
     settlementConverter: LineTradeSettlementConverter<
         allowedValueTypes_LineTradeSettlement,
         allowedXmlTypes_LineTradeSettlement
-    >
+    >;
 
     constructor(
         tradeLineItemType: z.ZodType<ValueType>,
@@ -88,12 +91,12 @@ export class TradeLineItemConverter<
             allowedXmlTypes_LineTradeSettlement
         >
     ) {
-        super(tradeLineItemType, tradeLineItemTypeXml)
-        this.generalLineDataConverter = generalLineDataConverter
-        this.productDescriptionConverter = productDescriptionConverter
-        this.productPriceAgreementConverter = productPriceAgreementConverter
-        this.deliveryConverter = deliveryConverter
-        this.settlementConverter = settlementConverter
+        super(tradeLineItemType, tradeLineItemTypeXml);
+        this.generalLineDataConverter = generalLineDataConverter;
+        this.productDescriptionConverter = productDescriptionConverter;
+        this.productPriceAgreementConverter = productPriceAgreementConverter;
+        this.deliveryConverter = deliveryConverter;
+        this.settlementConverter = settlementConverter;
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -104,7 +107,7 @@ export class TradeLineItemConverter<
             productPriceAgreement: this.productPriceAgreementConverter.toValue(xml['ram:SpecifiedLineTradeAgreement']),
             delivery: this.deliveryConverter.toValue(xml['ram:SpecifiedLineTradeDelivery']),
             settlement: this.settlementConverter.toValue(xml['ram:SpecifiedLineTradeSettlement'])
-        }
+        };
     }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mapValueToXml(value: any) {
@@ -114,7 +117,7 @@ export class TradeLineItemConverter<
             'ram:SpecifiedLineTradeAgreement': this.productPriceAgreementConverter.toXML(value.productPriceAgreement),
             'ram:SpecifiedLineTradeDelivery': this.deliveryConverter.toXML(value.delivery),
             'ram:SpecifiedLineTradeSettlement': this.settlementConverter.toXML(value.settlement)
-        }
+        };
     }
 
     public static basic() {
@@ -126,7 +129,7 @@ export class TradeLineItemConverter<
             LineTradeAgreementConverter.basic(),
             LineTradeDeliveryConverter.basic(),
             LineTradeSettlementConverter.basic()
-        )
+        );
     }
 
     public static comfort() {
@@ -138,6 +141,6 @@ export class TradeLineItemConverter<
             LineTradeAgreementConverter.comfort(),
             LineTradeDeliveryConverter.basic(),
             LineTradeSettlementConverter.comfort()
-        )
+        );
     }
 }

@@ -1,5 +1,5 @@
-import { ComfortProfile } from '../../../src/profiles/comfort'
-import { PROFILES } from '../../../src/types/ProfileTypes'
+import { ComfortProfile } from '../../../src/profiles/comfort';
+import { PROFILES } from '../../../src/types/ProfileTypes';
 import {
     ALLOWANCE_REASONS_CODES,
     CHARGE_REASONS_CODES,
@@ -16,7 +16,7 @@ import {
     UNIT_CODES,
     UNTDID_1153,
     UNTDID_7143
-} from '../../../src/types/codes'
+} from '../../../src/types/codes';
 
 export const StandardInvoice: ComfortProfile = {
     profile: PROFILES.COMFORT,
@@ -325,7 +325,7 @@ export const StandardInvoice: ComfortProfile = {
             }
         }
     ]
-}
+};
 export const standardTotalsWithoutAllowancesAndCharges = {
     sumWithoutAllowancesAndCharges: 166,
     allowanceTotalAmount: 0,
@@ -353,7 +353,7 @@ export const standardTotalsWithoutAllowancesAndCharges = {
     grossTotal: 194.44,
     prepaidAmount: 0,
     openAmount: 194.44
-}
+};
 
 export const standardTotalsWithCharge = {
     sumWithoutAllowancesAndCharges: 166,
@@ -397,7 +397,7 @@ export const standardTotalsWithCharge = {
     grossTotal: 212.29,
     prepaidAmount: 0,
     openAmount: 212.29
-}
+};
 
 export const standardTotalsWithAllowance = {
     sumWithoutAllowancesAndCharges: 166,
@@ -442,4 +442,4 @@ export const standardTotalsWithAllowance = {
     grossTotal: 176.59,
     prepaidAmount: 0,
     openAmount: 176.59
-}
+};

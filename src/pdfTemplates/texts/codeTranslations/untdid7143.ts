@@ -1,7 +1,7 @@
-import { UNTDID_7143 } from '../../../types/codes'
-import { TranslatedTexts } from '../types'
+import { UNTDID_7143 } from '../../../types/codes';
+import { TranslatedTexts } from '../types';
 
-type Untdid7143Codes = `${UNTDID_7143}`
+type Untdid7143Codes = `${UNTDID_7143}`;
 
 const untdid7143_en: Record<Untdid7143Codes, string> = {
     AA: 'Product version number',
@@ -188,7 +188,7 @@ const untdid7143_en: Record<Untdid7143Codes, string> = {
     VS: "Vendor's supplemental item number",
     VX: 'Vendor specification number',
     ZZZ: 'Mutually definednumber'
-}
+};
 
 export const untdid7143_de: Record<Untdid7143Codes, string> = {
     AA: 'Produktversionsnummer',
@@ -375,7 +375,7 @@ export const untdid7143_de: Record<Untdid7143Codes, string> = {
     VS: 'Zusätzliche Artikelnummer des Lieferanten',
     VX: 'Lieferanten-Spezifikationsnummer',
     ZZZ: 'Gegenseitig definierte Nummer'
-}
+};
 
 export const untdid7143_fr: Record<Untdid7143Codes, string> = {
     AA: 'Numéro de version du produit',
@@ -562,12 +562,12 @@ export const untdid7143_fr: Record<Untdid7143Codes, string> = {
     VS: "Numéro d'article supplémentaire du vendeur",
     VX: 'Numéro de spécification du vendeur',
     ZZZ: 'Numéro défini mutuellement'
-}
+};
 
 const untdid7143: TranslatedTexts<Untdid7143Codes> = {
     'en-US': untdid7143_en,
     'de-DE': untdid7143_de,
     'fr-FR': untdid7143_fr
-}
+};
 
-export default Object.freeze(untdid7143)
+export default Object.freeze(untdid7143);

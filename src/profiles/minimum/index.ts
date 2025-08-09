@@ -1,3 +1,3 @@
-export * from './MinimumProfile'
-export * from './MinimumProfileConverter'
-export * from './MinimumProfileXml'
+export * from './MinimumProfile';
+export * from './MinimumProfileConverter';
+export * from './MinimumProfileXml';

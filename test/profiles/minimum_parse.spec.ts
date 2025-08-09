@@ -1,115 +1,115 @@
 // Tests to Validate the Minimum Profile gets Parsed According to Factur-X Spec
-import fs from 'node:fs'
-import path from 'node:path'
+import fs from 'node:fs';
+import path from 'node:path';
 
-import { FacturX } from '../../src/index'
-import { MinimumProfile, isMinimumProfile } from '../../src/profiles/minimum/index'
-import { PROFILES } from '../../src/types/ProfileTypes'
-import { COUNTRY_ID_CODES, CURRENCY_CODES, DOCUMENT_TYPE_CODES } from '../../src/types/codes'
+import { FacturX } from '../../src/index';
+import { MinimumProfile, isMinimumProfile } from '../../src/profiles/minimum/index';
+import { PROFILES } from '../../src/types/ProfileTypes';
+import { COUNTRY_ID_CODES, CURRENCY_CODES, DOCUMENT_TYPE_CODES } from '../../src/types/codes';
 
-type TestCases = Record<string, MinimumProfile | undefined>
+type TestCases = Record<string, MinimumProfile | undefined>;
 
-const testCases: TestCases = Object.fromEntries(['MINIMUM_Rechnung'].map(name => [name, undefined]))
+const testCases: TestCases = Object.fromEntries(['MINIMUM_Rechnung'].map(name => [name, undefined]));
 
 beforeAll(async () => {
     for (const name of Object.keys(testCases)) {
-        const facturX = await FacturX.fromPDF(fs.readFileSync(path.join(__dirname, 'pdf', `${name}.pdf`)))
+        const facturX = await FacturX.fromPDF(fs.readFileSync(path.join(__dirname, 'pdf', `${name}.pdf`)));
 
-        const result = await facturX.getObject()
+        const result = await facturX.getObject();
 
-        if (!isMinimumProfile(result)) throw new Error('The profile was not properly chosen')
+        if (!isMinimumProfile(result)) throw new Error('The profile was not properly chosen');
 
-        testCases[name] = result
+        testCases[name] = result;
     }
-})
+});
 
 describe('7.2.2 - ExchangedDocumentContext - Page 43/85 f.', () => {
     describe('BG-2 - PROCESS CONTROL', () => {
         test('BT-23 - Business process type', () => {
-            expect(testCases['MINIMUM_Rechnung']?.businessProcessType).toBe(undefined)
-        })
+            expect(testCases['MINIMUM_Rechnung']?.businessProcessType).toBe(undefined);
+        });
         test('BT-24 - Specification identifier', () => {
-            expect(testCases['MINIMUM_Rechnung']?.profile).toBe(PROFILES.MINIMUM)
-        })
-    })
-})
+            expect(testCases['MINIMUM_Rechnung']?.profile).toBe(PROFILES.MINIMUM);
+        });
+    });
+});
 
 describe('7.2.2 - ExchangedDocument - Page 44/85.', () => {
     test('BT-1 - Invoice number', () => {
-        expect(testCases['MINIMUM_Rechnung']?.document.id).toBe('471102')
-    })
+        expect(testCases['MINIMUM_Rechnung']?.document.id).toBe('471102');
+    });
 
     test('BT-3 - Type Code', () => {
-        expect(testCases['MINIMUM_Rechnung']?.document.type).toBe('380')
-        expect(testCases['MINIMUM_Rechnung']?.document.type).toBe(DOCUMENT_TYPE_CODES.COMMERCIAL_INVOICE)
-    })
+        expect(testCases['MINIMUM_Rechnung']?.document.type).toBe('380');
+        expect(testCases['MINIMUM_Rechnung']?.document.type).toBe(DOCUMENT_TYPE_CODES.COMMERCIAL_INVOICE);
+    });
     test('BT-2 - Invoice issue date', () => {
         if (!testCases['MINIMUM_Rechnung']?.document.dateOfIssue) {
-            throw new Error('PDF or Document Date undefined')
+            throw new Error('PDF or Document Date undefined');
         }
-        expect(testCases['MINIMUM_Rechnung'].document.dateOfIssue).toEqual({ year: 2024, month: 11, day: 15 })
-    })
-})
+        expect(testCases['MINIMUM_Rechnung'].document.dateOfIssue).toEqual({ year: 2024, month: 11, day: 15 });
+    });
+});
 
 describe('7.3.3 - SupplyChainTradeTransaction - Page 44/85 ff.', () => {
     describe('7.3.3.1 - ApplicableHeaderTradeAgreement', () => {
         test('BT-10-00 - Buyer reference', () => {
-            expect(testCases['MINIMUM_Rechnung']?.buyer.reference).toBeUndefined()
-        })
+            expect(testCases['MINIMUM_Rechnung']?.buyer.reference).toBeUndefined();
+        });
         describe('BG-4 - SELLER', () => {
             test('BT-27 - Seller name', () => {
-                expect(testCases['MINIMUM_Rechnung']?.seller.name).toBe('Lieferant GmbH')
-            })
+                expect(testCases['MINIMUM_Rechnung']?.seller.name).toBe('Lieferant GmbH');
+            });
             test('BT-30-00 - Seller legal registration', () => {
-                expect(testCases['MINIMUM_Rechnung']?.seller.specifiedLegalOrganization?.id?.id).toBeUndefined()
-                expect(testCases['MINIMUM_Rechnung']?.seller.specifiedLegalOrganization?.id?.scheme).toBeUndefined()
-            })
+                expect(testCases['MINIMUM_Rechnung']?.seller.specifiedLegalOrganization?.id?.id).toBeUndefined();
+                expect(testCases['MINIMUM_Rechnung']?.seller.specifiedLegalOrganization?.id?.scheme).toBeUndefined();
+            });
             describe('BG-5 - SELLER POSTAL ADDRESS', () => {
                 test('BT-40 - Seller country code', () => {
-                    expect(testCases['MINIMUM_Rechnung']?.seller.postalAddress.country).toBe(COUNTRY_ID_CODES.GERMANY)
-                })
-            })
+                    expect(testCases['MINIMUM_Rechnung']?.seller.postalAddress.country).toBe(COUNTRY_ID_CODES.GERMANY);
+                });
+            });
             test('BT-31-00 - Seller VAT identifier', () => {
-                expect(testCases['MINIMUM_Rechnung']?.seller.taxIdentification.localTaxId).toBe('201/113/40209')
-                expect(testCases['MINIMUM_Rechnung']?.seller.taxIdentification.vatId).toBe('DE123456789')
-            })
-        })
+                expect(testCases['MINIMUM_Rechnung']?.seller.taxIdentification.localTaxId).toBe('201/113/40209');
+                expect(testCases['MINIMUM_Rechnung']?.seller.taxIdentification.vatId).toBe('DE123456789');
+            });
+        });
         describe('BG-5 - BUYER', () => {
             test('BT-44 - Buyer name', () => {
-                expect(testCases['MINIMUM_Rechnung']?.buyer.name).toBe('Kunden AG Frankreich')
-            })
+                expect(testCases['MINIMUM_Rechnung']?.buyer.name).toBe('Kunden AG Frankreich');
+            });
             test('BT-47-00 - Buyer legal registration', () => {
-                expect(testCases['MINIMUM_Rechnung']?.buyer.specifiedLegalOrganization?.id?.id).toBeUndefined()
-                expect(testCases['MINIMUM_Rechnung']?.buyer.specifiedLegalOrganization?.id?.scheme).toBeUndefined()
-            })
-        })
+                expect(testCases['MINIMUM_Rechnung']?.buyer.specifiedLegalOrganization?.id?.id).toBeUndefined();
+                expect(testCases['MINIMUM_Rechnung']?.buyer.specifiedLegalOrganization?.id?.scheme).toBeUndefined();
+            });
+        });
         test('BT-13-00 - BuyerOrderReferencedDocument', () => {
-            expect(testCases['MINIMUM_Rechnung']?.referencedDocuments?.orderReference).toBeUndefined()
-        })
-    })
+            expect(testCases['MINIMUM_Rechnung']?.referencedDocuments?.orderReference).toBeUndefined();
+        });
+    });
     describe('BG-19 ApplicableHeaderTradeSettlement', () => {
         test('BT-5 - InvoiceCurrencyCode', () => {
-            expect(testCases['MINIMUM_Rechnung']?.document.currency).toBe(CURRENCY_CODES.Euro)
-        })
+            expect(testCases['MINIMUM_Rechnung']?.document.currency).toBe(CURRENCY_CODES.Euro);
+        });
 
         describe('7.3.3.3 - ApplicableHeaderTradeSettlement', () => {
             describe('BG-22 SpecifiedTradeSettlementHeaderMonetarySummation', () => {
                 test('BT-109 - TaxBasisTotalAmount', () => {
-                    expect(testCases['MINIMUM_Rechnung']?.totals.netTotal).toBe(198)
-                })
+                    expect(testCases['MINIMUM_Rechnung']?.totals.netTotal).toBe(198);
+                });
                 test('BT-110 - TaxTotalAmount', () => {
-                    expect(testCases['MINIMUM_Rechnung']?.totals.taxTotal?.[0].amount).toBe(37.62)
-                })
+                    expect(testCases['MINIMUM_Rechnung']?.totals.taxTotal?.[0].amount).toBe(37.62);
+                });
                 test('BT-110-0 - TaxCurrencyCode', () => {
-                    expect(testCases['MINIMUM_Rechnung']?.totals.taxTotal?.[0].currency).toBe(CURRENCY_CODES.Euro)
-                })
+                    expect(testCases['MINIMUM_Rechnung']?.totals.taxTotal?.[0].currency).toBe(CURRENCY_CODES.Euro);
+                });
                 test('BT-112 - GrandTotalAmount', () => {
-                    expect(testCases['MINIMUM_Rechnung']?.totals.grossTotal).toBe(235.62)
-                })
+                    expect(testCases['MINIMUM_Rechnung']?.totals.grossTotal).toBe(235.62);
+                });
                 test('BT-115 - DuePayableAmount', () => {
-                    expect(testCases['MINIMUM_Rechnung']?.totals.openAmount).toBe(235.62)
-                })
-            })
-        })
-    })
-})
+                    expect(testCases['MINIMUM_Rechnung']?.totals.openAmount).toBe(235.62);
+                });
+            });
+        });
+    });
+});

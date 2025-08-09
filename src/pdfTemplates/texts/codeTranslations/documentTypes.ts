@@ -1,7 +1,7 @@
-import { DOCUMENT_TYPE_CODES } from '../../../types/codes'
-import { TranslatedTexts } from '../types'
+import { DOCUMENT_TYPE_CODES } from '../../../types/codes';
+import { TranslatedTexts } from '../types';
 
-type DocumentCodes = `${DOCUMENT_TYPE_CODES}`
+type DocumentCodes = `${DOCUMENT_TYPE_CODES}`;
 
 const documentTypes_en: Record<DocumentCodes, string> = {
     '71': 'Request for payment',
@@ -59,7 +59,7 @@ const documentTypes_en: Record<DocumentCodes, string> = {
     '876': 'Partial final construction invoice',
     '877': 'Final construction invoice',
     '935': 'Customs invoice'
-}
+};
 
 export const documentTypes_de: Record<DocumentCodes, string> = {
     '71': 'Zahlungsanforderung',
@@ -117,7 +117,7 @@ export const documentTypes_de: Record<DocumentCodes, string> = {
     '876': 'Teil-Endrechnung Bauwesen',
     '877': 'Endrechnung Bauwesen',
     '935': 'Zollrechnung'
-}
+};
 
 export const documentTypes_fr: Record<DocumentCodes, string> = {
     '71': 'Demande de paiement',
@@ -175,12 +175,12 @@ export const documentTypes_fr: Record<DocumentCodes, string> = {
     '876': 'Facture partielle finale de construction',
     '877': 'Facture finale de construction',
     '935': 'Facture douanière'
-}
+};
 
 const documentTypes: TranslatedTexts<DocumentCodes> = {
     'en-US': documentTypes_en,
     'de-DE': documentTypes_de,
     'fr-FR': documentTypes_fr
-}
+};
 
-export default Object.freeze(documentTypes)
+export default Object.freeze(documentTypes);

@@ -1,6 +1,6 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
-import { BaseTypeConverter, TypeConverterError } from '../BaseTypeConverter'
+import { BaseTypeConverter, TypeConverterError } from '../BaseTypeConverter';
 
 export const ZTokenType = z
     .string()
@@ -10,36 +10,36 @@ export const ZTokenType = z
         return str
             .trim() // Remove leading/trailing spaces
             .replace(/[\n\t]/g, ' ') // Replace newlines and tabs with spaces
-            .replace(/\s+/g, ' ') // Replace multiple spaces with single space
-    })
+            .replace(/\s+/g, ' '); // Replace multiple spaces with single space
+    });
 
-export type TokenType = z.infer<typeof ZTokenType>
+export type TokenType = z.infer<typeof ZTokenType>;
 
 export const ZTokenTypeXml = z.object({
     '#text': z.string()
-})
+});
 
-export type TokenTypeXml = z.infer<typeof ZTokenTypeXml>
+export type TokenTypeXml = z.infer<typeof ZTokenTypeXml>;
 
 export class TokenTypeConverter extends BaseTypeConverter<TokenType, TokenTypeXml> {
     _toValue(xml: TokenTypeXml) {
-        const { success, data } = ZTokenTypeXml.safeParse(xml)
+        const { success, data } = ZTokenTypeXml.safeParse(xml);
         if (!success) {
-            throw new TypeConverterError('INVALID_XML')
+            throw new TypeConverterError('INVALID_XML');
         }
 
-        return data['#text']
+        return data['#text'];
     }
 
     _toXML(value: TokenType): TokenTypeXml {
-        const { success, data } = ZTokenType.safeParse(value)
+        const { success, data } = ZTokenType.safeParse(value);
 
         if (!success) {
-            throw new TypeConverterError('INVALID_VALUE')
+            throw new TypeConverterError('INVALID_VALUE');
         }
 
         return {
             '#text': data
-        }
+        };
     }
 }

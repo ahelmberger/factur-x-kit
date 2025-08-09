@@ -1,8 +1,8 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
-import { ZTextType, ZTextTypeXml } from '../../udt/TextTypeConverter'
-import { ZTokenType, ZTokenTypeXml } from '../../xs/TokenConverter'
-import { ZBasicPaymentMeansType, ZBasicPaymentMeansTypeXml } from './BasicTradeSettlementPaymentMeansType'
+import { ZTextType, ZTextTypeXml } from '../../udt/TextTypeConverter';
+import { ZTokenType, ZTokenTypeXml } from '../../xs/TokenConverter';
+import { ZBasicPaymentMeansType, ZBasicPaymentMeansTypeXml } from './BasicTradeSettlementPaymentMeansType';
 
 export const ZComfortPaymentMeansType = ZBasicPaymentMeansType.extend({
     description: ZTextType.optional(),
@@ -20,9 +20,9 @@ export const ZComfortPaymentMeansType = ZBasicPaymentMeansType.extend({
             bic: ZTokenType.optional()
         })
         .optional()
-})
+});
 
-export type ComfortPaymentMeansType = z.infer<typeof ZComfortPaymentMeansType>
+export type ComfortPaymentMeansType = z.infer<typeof ZComfortPaymentMeansType>;
 
 export const ZComfortPaymentMeansTypeXml = ZBasicPaymentMeansTypeXml.extend({
     'ram:Information': ZTextTypeXml.optional(),
@@ -51,6 +51,6 @@ export const ZComfortPaymentMeansTypeXml = ZBasicPaymentMeansTypeXml.extend({
     'ram:PayerPartyDebtorFinancialAccount': true,
     'ram:PayeePartyCreditorFinancialAccount': true,
     'ram:PayeeSpecifiedCreditorFinancialInstitution': true
-}) // .pick is for sorting reasons only
+}); // .pick is for sorting reasons only
 
-export type ComfortPaymentMeansTypeXml = z.infer<typeof ZComfortPaymentMeansTypeXml>
+export type ComfortPaymentMeansTypeXml = z.infer<typeof ZComfortPaymentMeansTypeXml>;

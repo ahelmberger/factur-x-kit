@@ -7,7 +7,7 @@ export type DeepMerge<T, U> = T extends object
                       : U[K] // If key exists only in U, take it from U
                   : K extends keyof T
                     ? T[K] // If key exists only in T, take it from T
-                    : never // If the key exists in neither T nor U, ignore it
+                    : never; // If the key exists in neither T nor U, ignore it
           }
         : U // If U is not an object, return U
-    : T | U // If T and U are primitive types, return their union
+    : T | U; // If T and U are primitive types, return their union

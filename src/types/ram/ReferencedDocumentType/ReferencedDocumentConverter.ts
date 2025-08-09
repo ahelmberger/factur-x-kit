@@ -1,12 +1,12 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
-import { CodeTypeConverter } from '../../CodeTypeConverter'
-import { ExtendableBaseTypeConverter } from '../../ExtendableBaseTypeConverter'
-import { UNTDID_1153 } from '../../codes'
-import { DateTimeTypeConverter_qdt } from '../../qdt/DateTimeTypeConverter'
-import { BinaryObjectTypeConverter } from '../../udt/BinaryObjectTypeConverter'
-import { TextTypeConverter } from '../../udt/TextTypeConverter'
-import { TokenTypeConverter } from '../../xs/TokenConverter'
+import { CodeTypeConverter } from '../../CodeTypeConverter';
+import { ExtendableBaseTypeConverter } from '../../ExtendableBaseTypeConverter';
+import { UNTDID_1153 } from '../../codes';
+import { DateTimeTypeConverter_qdt } from '../../qdt/DateTimeTypeConverter';
+import { BinaryObjectTypeConverter } from '../../udt/BinaryObjectTypeConverter';
+import { TextTypeConverter } from '../../udt/TextTypeConverter';
+import { TokenTypeConverter } from '../../xs/TokenConverter';
 import {
     ReferencedDocumentTypeXml_comfort_additionalSupportingDocuments,
     ReferencedDocumentTypeXml_comfort_invoicedObjectIdentifier,
@@ -14,7 +14,7 @@ import {
     ReferencedDocumentType_comfort_additionalSupportingDocuments_forConverter,
     ReferencedDocumentType_comfort_invoicedObjectIdentifier_forConverter,
     ReferencedDocumentType_comfort_tenderOrLotReference_forConverter
-} from './AdditionalReferencedDocumentConverter/ComfortAdditonalReferencedDocumentTypes'
+} from './AdditionalReferencedDocumentConverter/ComfortAdditonalReferencedDocumentTypes';
 import {
     ReferencedDocumentTypeXml_additionalDocument_lineLevel_comfort,
     ReferencedDocumentTypeXml_docId_issueDate,
@@ -32,7 +32,7 @@ import {
     ZReferencedDocumentType_docId_issueDate,
     ZReferencedDocumentType_documentId,
     ZReferencedDocumentType_lineId
-} from './ReferencedDocumentTypes'
+} from './ReferencedDocumentTypes';
 
 export type allowedValueTypes_ReferencedDocumentType =
     | ReferencedDocumentType_docId_issueDate
@@ -41,7 +41,7 @@ export type allowedValueTypes_ReferencedDocumentType =
     | ReferencedDocumentType_documentId
     | ReferencedDocumentType_comfort_additionalSupportingDocuments_forConverter
     | ReferencedDocumentType_comfort_tenderOrLotReference_forConverter
-    | ReferencedDocumentType_comfort_invoicedObjectIdentifier_forConverter
+    | ReferencedDocumentType_comfort_invoicedObjectIdentifier_forConverter;
 export type allowedXmlTypes_ReferencedDocumentType =
     | ReferencedDocumentTypeXml_docId_issueDate
     | ReferencedDocumentTypeXml_lineId
@@ -49,18 +49,18 @@ export type allowedXmlTypes_ReferencedDocumentType =
     | ReferencedDocumentTypeXml_documentId
     | ReferencedDocumentTypeXml_comfort_additionalSupportingDocuments
     | ReferencedDocumentTypeXml_comfort_tenderOrLotReference
-    | ReferencedDocumentTypeXml_comfort_invoicedObjectIdentifier
+    | ReferencedDocumentTypeXml_comfort_invoicedObjectIdentifier;
 
 export class ReferencedDocumentTypeConverter<
     ValueType extends allowedValueTypes_ReferencedDocumentType,
     XmlType extends allowedXmlTypes_ReferencedDocumentType
 > extends ExtendableBaseTypeConverter<ValueType, XmlType> {
-    idTypeConverter = new TokenTypeConverter()
-    dateTimeTypeConverter = new DateTimeTypeConverter_qdt()
-    textTypeConverter = new TextTypeConverter()
-    binaryObjectTypeConverter = new BinaryObjectTypeConverter()
-    referenceTypeCodeTypeConverter = new CodeTypeConverter(UNTDID_1153)
-    typeCode: '50' | '130' | '916' | undefined = undefined
+    idTypeConverter = new TokenTypeConverter();
+    dateTimeTypeConverter = new DateTimeTypeConverter_qdt();
+    textTypeConverter = new TextTypeConverter();
+    binaryObjectTypeConverter = new BinaryObjectTypeConverter();
+    referenceTypeCodeTypeConverter = new CodeTypeConverter(UNTDID_1153);
+    typeCode: '50' | '130' | '916' | undefined = undefined;
 
     constructor(valueSchema?: z.ZodType<ValueType>, xmlSchema?: z.ZodType<XmlType>, typeCode?: '50' | '130' | '916') {
         if (!valueSchema) {
@@ -68,21 +68,21 @@ export class ReferencedDocumentTypeConverter<
                 ValueType,
                 z.ZodTypeDef,
                 ValueType
-            >
+            >;
         }
         if (!xmlSchema) {
             xmlSchema = ZReferencedDocumentTypeXml_docId_issueDate as unknown as z.ZodType<
                 XmlType,
                 z.ZodTypeDef,
                 XmlType
-            >
+            >;
         }
         super(
             valueSchema ?? ZReferencedDocumentType_docId_issueDate,
             xmlSchema ?? ZReferencedDocumentTypeXml_docId_issueDate
-        )
+        );
 
-        this.typeCode = typeCode
+        this.typeCode = typeCode;
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -108,7 +108,7 @@ export class ReferencedDocumentTypeConverter<
                 xml['ram:FormattedIssueDateTime'] != null
                     ? this.dateTimeTypeConverter.toValue(xml['ram:FormattedIssueDateTime'])
                     : undefined
-        }
+        };
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -129,22 +129,22 @@ export class ReferencedDocumentTypeConverter<
                     : undefined,
             'ram:FormattedIssueDateTime':
                 value.issueDate != null ? this.dateTimeTypeConverter.toXML(value.issueDate) : undefined
-        }
-        return xml
+        };
+        return xml;
     }
 
     public static docId_issueDate() {
         return new ReferencedDocumentTypeConverter<
             ReferencedDocumentType_docId_issueDate,
             ReferencedDocumentTypeXml_docId_issueDate
-        >(ZReferencedDocumentType_docId_issueDate, ZReferencedDocumentTypeXml_docId_issueDate)
+        >(ZReferencedDocumentType_docId_issueDate, ZReferencedDocumentTypeXml_docId_issueDate);
     }
 
     public static lineId() {
         return new ReferencedDocumentTypeConverter<ReferencedDocumentType_lineId, ReferencedDocumentTypeXml_lineId>(
             ZReferencedDocumentType_lineId,
             ZReferencedDocumentTypeXml_lineId
-        )
+        );
     }
 
     public static issuerId_type_referenceType() {
@@ -154,13 +154,13 @@ export class ReferencedDocumentTypeConverter<
         >(
             ZReferencedDocumentType_additionalDocument_lineLevel_comfort,
             ZReferencedDocumentTypeXml_additionalDocument_lineLevel_comfort
-        )
+        );
     }
 
     public static documentId() {
         return new ReferencedDocumentTypeConverter<
             ReferencedDocumentType_documentId,
             ReferencedDocumentTypeXml_documentId
-        >(ZReferencedDocumentType_documentId, ZReferencedDocumentTypeXml_documentId)
+        >(ZReferencedDocumentType_documentId, ZReferencedDocumentTypeXml_documentId);
     }
 }

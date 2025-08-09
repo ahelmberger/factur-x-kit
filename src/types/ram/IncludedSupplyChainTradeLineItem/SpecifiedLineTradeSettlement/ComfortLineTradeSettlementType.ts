@@ -1,20 +1,20 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
-import { ZAmountType, ZAmountTypeXml } from '../../../udt/AmountTypeConverter'
-import { ZDateTimeType, ZDateTimeTypeXml } from '../../../udt/DateTimeTypeConverter'
-import { ZIdType, ZIdTypeXml } from '../../../udt/IdTypeConverter'
+import { ZAmountType, ZAmountTypeXml } from '../../../udt/AmountTypeConverter';
+import { ZDateTimeType, ZDateTimeTypeXml } from '../../../udt/DateTimeTypeConverter';
+import { ZIdType, ZIdTypeXml } from '../../../udt/IdTypeConverter';
 import {
     ZReferencedDocumentTypeXml_additionalDocument_lineLevel_comfort,
     ZReferencedDocumentType_additionalDocument_lineLevel_comfort
-} from '../../ReferencedDocumentType/ReferencedDocumentTypes'
+} from '../../ReferencedDocumentType/ReferencedDocumentTypes';
 import {
     ZComfortLineLevelTradeAllowanceChargeType,
     ZComfortLineLevelTradeAllowanceChargeTypeXml
-} from '../../TradeAllowanceChargeType/ComfortLineLevelAllowanceChargeType'
+} from '../../TradeAllowanceChargeType/ComfortLineLevelAllowanceChargeType';
 import {
     ZBasicLineLevelTradeTaxType,
     ZBasicLineLevelTradeTaxTypeXml
-} from '../../TradeTaxType/BasicLineLevelTradeTaxType'
+} from '../../TradeTaxType/BasicLineLevelTradeTaxType';
 
 export const ZComfortLineTradeSettlementType = z.object({
     tax: ZBasicLineLevelTradeTaxType.describe('BG-30'),
@@ -41,9 +41,9 @@ export const ZComfortLineTradeSettlementType = z.object({
         })
         .optional()
         .describe('BT-133-00')
-})
+});
 
-export type ComfortLineTradeSettlementType = z.infer<typeof ZComfortLineTradeSettlementType>
+export type ComfortLineTradeSettlementType = z.infer<typeof ZComfortLineTradeSettlementType>;
 
 export const ZComfortLineTradeSettlementTypeXml = z.object({
     'ram:ApplicableTradeTax': ZBasicLineLevelTradeTaxTypeXml,
@@ -68,6 +68,6 @@ export const ZComfortLineTradeSettlementTypeXml = z.object({
             'ram:ID': ZIdTypeXml
         })
         .optional()
-})
+});
 
-export type ComfortLineTradeSettlementTypeXml = z.infer<typeof ZComfortLineTradeSettlementTypeXml>
+export type ComfortLineTradeSettlementTypeXml = z.infer<typeof ZComfortLineTradeSettlementTypeXml>;

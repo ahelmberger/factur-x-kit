@@ -1,52 +1,52 @@
-import { CodeTypeConverter } from '../../CodeTypeConverter'
-import { ExtendableBaseTypeConverter } from '../../ExtendableBaseTypeConverter'
-import { EXEMPTION_REASON_CODES, TAX_CATEGORY_CODES, TAX_TYPE_CODE, TIME_REFERENCE_CODES } from '../../codes'
-import { AmountTypeConverter } from '../../udt/AmountTypeConverter'
-import { DateTypeConverter } from '../../udt/DateTypeConverter'
-import { PercentTypeConverter } from '../../udt/PercentTypeConverter'
-import { TextTypeConverter } from '../../udt/TextTypeConverter'
+import { CodeTypeConverter } from '../../CodeTypeConverter';
+import { ExtendableBaseTypeConverter } from '../../ExtendableBaseTypeConverter';
+import { EXEMPTION_REASON_CODES, TAX_CATEGORY_CODES, TAX_TYPE_CODE, TIME_REFERENCE_CODES } from '../../codes';
+import { AmountTypeConverter } from '../../udt/AmountTypeConverter';
+import { DateTypeConverter } from '../../udt/DateTypeConverter';
+import { PercentTypeConverter } from '../../udt/PercentTypeConverter';
+import { TextTypeConverter } from '../../udt/TextTypeConverter';
 import {
     BasicDocumentLevelTradeTaxType,
     BasicDocumentLevelTradeTaxTypeXml,
     ZBasicDocumentLevelTradeTaxType,
     ZBasicDocumentLevelTradeTaxTypeXml
-} from './BasicDocumentLevelTradeTaxType'
+} from './BasicDocumentLevelTradeTaxType';
 import {
     BasicLineLevelTradeTaxType,
     BasicLineLevelTradeTaxTypeXml,
     ZBasicLineLevelTradeTaxType,
     ZBasicLineLevelTradeTaxTypeXml
-} from './BasicLineLevelTradeTaxType'
+} from './BasicLineLevelTradeTaxType';
 import {
     ComfortDocumentLevelTradeTaxType,
     ComfortDocumentLevelTradeTaxTypeXml,
     ZComfortDocumentLevelTradeTaxType,
     ZComfortDocumentLevelTradeTaxTypeXml
-} from './ComfortDocumentLevelTradeTaxType'
+} from './ComfortDocumentLevelTradeTaxType';
 
 export type allowedValueTypes_TradeTax =
     | BasicDocumentLevelTradeTaxType
     | BasicLineLevelTradeTaxType
-    | ComfortDocumentLevelTradeTaxType
+    | ComfortDocumentLevelTradeTaxType;
 export type allowedXmlTypes_TradeTax =
     | BasicDocumentLevelTradeTaxTypeXml
     | BasicLineLevelTradeTaxTypeXml
-    | ComfortDocumentLevelTradeTaxTypeXml
+    | ComfortDocumentLevelTradeTaxTypeXml;
 
 export class TradeTaxTypeConverter<
     ValueType extends allowedValueTypes_TradeTax,
     XmlType extends allowedXmlTypes_TradeTax
 > extends ExtendableBaseTypeConverter<ValueType, XmlType> {
-    amountTypeConverter = new AmountTypeConverter()
-    textTypeConverter = new TextTypeConverter()
-    dateTypeConverter = new DateTypeConverter()
+    amountTypeConverter = new AmountTypeConverter();
+    textTypeConverter = new TextTypeConverter();
+    dateTypeConverter = new DateTypeConverter();
 
-    taxTypeCodeConverter = new CodeTypeConverter(TAX_TYPE_CODE)
-    taxCategoryCodeConverter = new CodeTypeConverter(TAX_CATEGORY_CODES)
-    exemptionReasonCodeConverter = new CodeTypeConverter(EXEMPTION_REASON_CODES)
-    timeReferenceCodeConvereter = new CodeTypeConverter(TIME_REFERENCE_CODES)
+    taxTypeCodeConverter = new CodeTypeConverter(TAX_TYPE_CODE);
+    taxCategoryCodeConverter = new CodeTypeConverter(TAX_CATEGORY_CODES);
+    exemptionReasonCodeConverter = new CodeTypeConverter(EXEMPTION_REASON_CODES);
+    timeReferenceCodeConvereter = new CodeTypeConverter(TIME_REFERENCE_CODES);
 
-    percentTypeConverter = new PercentTypeConverter()
+    percentTypeConverter = new PercentTypeConverter();
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mapXmlToValue(xml: any) {
@@ -80,7 +80,7 @@ export class TradeTaxTypeConverter<
                 xml['ram:RateApplicablePercent'] != null
                     ? this.percentTypeConverter.toValue(xml['ram:RateApplicablePercent'])
                     : undefined
-        }
+        };
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -109,27 +109,27 @@ export class TradeTaxTypeConverter<
                 value.rateApplicablePercent != null
                     ? this.percentTypeConverter.toXML(value.rateApplicablePercent)
                     : undefined
-        }
+        };
     }
 
     public static basicDocumentLevel() {
         return new TradeTaxTypeConverter<BasicDocumentLevelTradeTaxType, BasicDocumentLevelTradeTaxTypeXml>(
             ZBasicDocumentLevelTradeTaxType,
             ZBasicDocumentLevelTradeTaxTypeXml
-        )
+        );
     }
 
     public static comfortDocumentLevel() {
         return new TradeTaxTypeConverter<ComfortDocumentLevelTradeTaxType, ComfortDocumentLevelTradeTaxTypeXml>(
             ZComfortDocumentLevelTradeTaxType,
             ZComfortDocumentLevelTradeTaxTypeXml
-        )
+        );
     }
 
     public static basicLineLevel() {
         return new TradeTaxTypeConverter<BasicLineLevelTradeTaxType, BasicLineLevelTradeTaxTypeXml>(
             ZBasicLineLevelTradeTaxType,
             ZBasicLineLevelTradeTaxTypeXml
-        )
+        );
     }
 }

@@ -1,11 +1,11 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
-import { ZCodeType } from '../../CodeTypeConverter'
-import { ALLOWANCE_REASONS_CODES, CHARGE_REASONS_CODES, TAX_CATEGORY_CODES, TAX_TYPE_CODE } from '../../codes'
-import { ZAmountType, ZAmountTypeXml } from '../../udt/AmountTypeConverter'
-import { ZIndicatorTypeXml } from '../../udt/IndicatorTypeConverter'
-import { ZPercentType, ZPercentTypeXml } from '../../udt/PercentTypeConverter'
-import { ZTextType, ZTextTypeXml } from '../../udt/TextTypeConverter'
+import { ZCodeType } from '../../CodeTypeConverter';
+import { ALLOWANCE_REASONS_CODES, CHARGE_REASONS_CODES, TAX_CATEGORY_CODES, TAX_TYPE_CODE } from '../../codes';
+import { ZAmountType, ZAmountTypeXml } from '../../udt/AmountTypeConverter';
+import { ZIndicatorTypeXml } from '../../udt/IndicatorTypeConverter';
+import { ZPercentType, ZPercentTypeXml } from '../../udt/PercentTypeConverter';
+import { ZTextType, ZTextTypeXml } from '../../udt/TextTypeConverter';
 
 export const ZTradeAllowanceChargeBasisType = z.object({
     calculationPercent: ZPercentType.optional(),
@@ -18,27 +18,27 @@ export const ZTradeAllowanceChargeBasisType = z.object({
         categoryCode: ZCodeType(TAX_CATEGORY_CODES),
         rateApplicablePercent: ZPercentType.optional()
     })
-})
+});
 
-export type TradeAllowanceChargeBasisType = z.infer<typeof ZTradeAllowanceChargeBasisType>
+export type TradeAllowanceChargeBasisType = z.infer<typeof ZTradeAllowanceChargeBasisType>;
 
 const ZTradeAllowanceType = ZTradeAllowanceChargeBasisType.extend({
     reasonCode: ZCodeType(ALLOWANCE_REASONS_CODES).optional()
-})
+});
 
 const ZTradeChargeType = ZTradeAllowanceChargeBasisType.extend({
     reasonCode: ZCodeType(CHARGE_REASONS_CODES).optional()
-})
+});
 
-export type TradeAllowanceType = z.infer<typeof ZTradeAllowanceType>
-export type TradeChargeType = z.infer<typeof ZTradeChargeType>
+export type TradeAllowanceType = z.infer<typeof ZTradeAllowanceType>;
+export type TradeChargeType = z.infer<typeof ZTradeChargeType>;
 
 export const ZBasicDocumentLevelTradeAllowanceChargeType = z.object({
     allowances: ZTradeAllowanceType.array().optional(),
     charges: ZTradeChargeType.array().optional()
-})
+});
 
-export type BasicDocumentLevelTradeAllowanceChargeType = z.infer<typeof ZBasicDocumentLevelTradeAllowanceChargeType>
+export type BasicDocumentLevelTradeAllowanceChargeType = z.infer<typeof ZBasicDocumentLevelTradeAllowanceChargeType>;
 
 export const ZTradeAllowanceChargeBasisTypeXml = z.object({
     'ram:ChargeIndicator': ZIndicatorTypeXml,
@@ -52,13 +52,13 @@ export const ZTradeAllowanceChargeBasisTypeXml = z.object({
         'ram:CategoryCode': ZTextTypeXml,
         'ram:RateApplicablePercent': ZPercentTypeXml.optional()
     })
-})
+});
 
 export const ZBasicDocumentLevelTradeAllowanceChargeTypeXml = z.union([
     ZTradeAllowanceChargeBasisTypeXml,
     ZTradeAllowanceChargeBasisTypeXml.array()
-])
+]);
 
 export type BasicDocumentLevelTradeAllowanceChargeTypeXml = z.infer<
     typeof ZBasicDocumentLevelTradeAllowanceChargeTypeXml
->
+>;

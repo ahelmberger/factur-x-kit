@@ -1,21 +1,21 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
-import { ZCodeType, ZCodeTypeXml } from '../../../CodeTypeConverter'
-import { COUNTRY_ID_CODES, ISO6523_CODES } from '../../../codes'
-import { ZIdType, ZIdTypeXml } from '../../../udt/IdTypeConverter'
+import { ZCodeType, ZCodeTypeXml } from '../../../CodeTypeConverter';
+import { COUNTRY_ID_CODES, ISO6523_CODES } from '../../../codes';
+import { ZIdType, ZIdTypeXml } from '../../../udt/IdTypeConverter';
 import {
     ZIdTypeWithRequiredScheme,
     ZIdTypeWithRequiredSchemeXml
-} from '../../../udt/IdTypeWithRequiredlSchemeConverter'
-import { ZTextType, ZTextTypeXml } from '../../../udt/TextTypeConverter'
+} from '../../../udt/IdTypeWithRequiredlSchemeConverter';
+import { ZTextType, ZTextTypeXml } from '../../../udt/TextTypeConverter';
 import {
     ZComfortApplicableProductCharacteristicType,
     ZComfortApplicableProductCharacteristicTypeXml
-} from './ApplicableProuctCharacteristic/ComfortApplicableProductCharacteristicType'
+} from './ApplicableProuctCharacteristic/ComfortApplicableProductCharacteristicType';
 import {
     ZComfortDesignatedProductClassificationType,
     ZComfortDesignatedProductClassificationTypeXml
-} from './DesignatedProductClassification/ComfortDesignatedProductClassificationType'
+} from './DesignatedProductClassification/ComfortDesignatedProductClassificationType';
 
 export const ZComfortTradeProductType = z.object({
     globalId: ZIdTypeWithRequiredScheme(ISO6523_CODES).optional().describe('BT-157'),
@@ -26,9 +26,9 @@ export const ZComfortTradeProductType = z.object({
     productCharacteristic: ZComfortApplicableProductCharacteristicType.array().optional().describe('BG-32'),
     productClassification: ZComfortDesignatedProductClassificationType.array().optional().describe('BT-158-00'),
     originTradeCountry: ZCodeType(COUNTRY_ID_CODES).optional().describe('BT-159')
-})
+});
 
-export type ComfortTradeProductType = z.infer<typeof ZComfortTradeProductType>
+export type ComfortTradeProductType = z.infer<typeof ZComfortTradeProductType>;
 
 export const ZComfortTradeProductTypeXml = z.object({
     'ram:GlobalID': ZIdTypeWithRequiredSchemeXml.optional(),
@@ -47,6 +47,6 @@ export const ZComfortTradeProductTypeXml = z.object({
             'ram:ID': ZCodeTypeXml
         })
         .optional()
-})
+});
 
-export type ComfortTradeProductTypeXml = z.infer<typeof ZComfortTradeProductTypeXml>
+export type ComfortTradeProductTypeXml = z.infer<typeof ZComfortTradeProductTypeXml>;

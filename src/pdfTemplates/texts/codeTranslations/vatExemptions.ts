@@ -1,7 +1,7 @@
-import { EXEMPTION_REASON_CODES } from '../../../types/codes'
-import { TranslatedTexts } from '../types'
+import { EXEMPTION_REASON_CODES } from '../../../types/codes';
+import { TranslatedTexts } from '../types';
 
-type VATEXCodes = `${EXEMPTION_REASON_CODES}`
+type VATEXCodes = `${EXEMPTION_REASON_CODES}`;
 
 const vatExemptionReasons_en: Record<VATEXCodes, string> = {
     'VATEX-EU-79-C': 'Exempt based on article 79, point c of Council Directive 2006/112/EC',
@@ -63,7 +63,7 @@ const vatExemptionReasons_en: Record<VATEXCodes, string> = {
     'VATEX-EU-O': 'Not subject to VAT',
     'VATEX-FR-FRANCHISE': 'France domestic VAT franchise in base',
     'VATEX-FR-CNWVAT': 'France domestic Credit Notes without VAT, due to supplier forfeit of VAT for discount'
-}
+};
 
 const vatExemptionReasons_de: Record<VATEXCodes, string> = {
     'VATEX-EU-79-C': 'Steuerbefreit gemäß Artikel 79 Buchstabe c der Richtlinie 2006/112/EG des Rates',
@@ -126,7 +126,7 @@ const vatExemptionReasons_de: Record<VATEXCodes, string> = {
     'VATEX-FR-FRANCHISE': 'Französische inländische Umsatzsteuerbefreiung (Kleinunternehmerregelung)',
     'VATEX-FR-CNWVAT':
         'Französische inländische Gutschriften ohne Mehrwertsteuer, aufgrund des Verzichtes des Lieferanten auf die Mehrwertsteuer für Skonto'
-}
+};
 
 const vatExemptionReasons_fr: Record<VATEXCodes, string> = {
     'VATEX-EU-79-C': "Exonéré en vertu de l'article 79, point c de la directive 2006/112/CE du Conseil",
@@ -225,12 +225,12 @@ const vatExemptionReasons_fr: Record<VATEXCodes, string> = {
     'VATEX-FR-FRANCHISE': 'Franchise de TVA nationale française',
     'VATEX-FR-CNWVAT':
         'Notes de crédit nationales françaises sans TVA, en raison de la renonciation du fournisseur à la TVA pour escompte'
-}
+};
 
 const vatExemptionReasons: TranslatedTexts<VATEXCodes> = {
     'en-US': vatExemptionReasons_en,
     'de-DE': vatExemptionReasons_de,
     'fr-FR': vatExemptionReasons_fr
-}
+};
 
-export default Object.freeze(vatExemptionReasons)
+export default Object.freeze(vatExemptionReasons);

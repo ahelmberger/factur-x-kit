@@ -1,7 +1,7 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
-import { UNTDID_7143 } from '../../../../codes'
-import { ZTokenType } from '../../../../xs/TokenConverter'
+import { UNTDID_7143 } from '../../../../codes';
+import { ZTokenType } from '../../../../xs/TokenConverter';
 
 export const ZComfortDesignatedProductClassificationType = z.object({
     productClass: z
@@ -11,9 +11,9 @@ export const ZComfortDesignatedProductClassificationType = z.object({
             codeSchemeVersion: ZTokenType.optional().describe('BT-158-2')
         })
         .optional()
-})
+});
 
-export type ComfortDesignatedProductClassificationType = z.infer<typeof ZComfortDesignatedProductClassificationType>
+export type ComfortDesignatedProductClassificationType = z.infer<typeof ZComfortDesignatedProductClassificationType>;
 
 export const ZComfortDesignatedProductClassificationTypeXml = z.object({
     'ram:ClassCode': z
@@ -23,8 +23,8 @@ export const ZComfortDesignatedProductClassificationTypeXml = z.object({
             '@listVersionID': ZTokenType.optional()
         })
         .optional()
-})
+});
 
 export type ComfortDesignatedProductClassificationTypeXml = z.infer<
     typeof ZComfortDesignatedProductClassificationTypeXml
->
+>;

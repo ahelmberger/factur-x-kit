@@ -1,31 +1,31 @@
-import { CodeTypeConverter } from '../../CodeTypeConverter'
-import { ExtendableBaseTypeConverter } from '../../ExtendableBaseTypeConverter'
-import { PAYMENT_MEANS_CODES } from '../../codes'
-import { TextTypeConverter } from '../../udt/TextTypeConverter'
-import { TokenTypeConverter } from '../../xs/TokenConverter'
+import { CodeTypeConverter } from '../../CodeTypeConverter';
+import { ExtendableBaseTypeConverter } from '../../ExtendableBaseTypeConverter';
+import { PAYMENT_MEANS_CODES } from '../../codes';
+import { TextTypeConverter } from '../../udt/TextTypeConverter';
+import { TokenTypeConverter } from '../../xs/TokenConverter';
 import {
     BasicPaymentMeansType,
     BasicPaymentMeansTypeXml,
     ZBasicPaymentMeansType,
     ZBasicPaymentMeansTypeXml
-} from './BasicTradeSettlementPaymentMeansType'
+} from './BasicTradeSettlementPaymentMeansType';
 import {
     ComfortPaymentMeansType,
     ComfortPaymentMeansTypeXml,
     ZComfortPaymentMeansType,
     ZComfortPaymentMeansTypeXml
-} from './ComfortTradeSettlementPaymentMeansType'
+} from './ComfortTradeSettlementPaymentMeansType';
 
-export type allowedValueTypes_TradeSettlementPaymentMeansType = BasicPaymentMeansType | ComfortPaymentMeansType
-export type allowedXmlTypes_TradeSettlementPaymentMeansType = BasicPaymentMeansTypeXml | ComfortPaymentMeansTypeXml
+export type allowedValueTypes_TradeSettlementPaymentMeansType = BasicPaymentMeansType | ComfortPaymentMeansType;
+export type allowedXmlTypes_TradeSettlementPaymentMeansType = BasicPaymentMeansTypeXml | ComfortPaymentMeansTypeXml;
 
 export class TradeSettlementPaymentMeansTypeConverter<
     ValueType extends allowedValueTypes_TradeSettlementPaymentMeansType,
     XmlType extends allowedXmlTypes_TradeSettlementPaymentMeansType
 > extends ExtendableBaseTypeConverter<ValueType, XmlType> {
-    private tokenTypeConverter = new TokenTypeConverter()
-    private paymentMeansCodeTypeConverter = new CodeTypeConverter(PAYMENT_MEANS_CODES)
-    private textTypeConverter = new TextTypeConverter()
+    private tokenTypeConverter = new TokenTypeConverter();
+    private paymentMeansCodeTypeConverter = new CodeTypeConverter(PAYMENT_MEANS_CODES);
+    private textTypeConverter = new TextTypeConverter();
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mapXmlToValue(xml: any) {
@@ -77,7 +77,7 @@ export class TradeSettlementPaymentMeansTypeConverter<
                           : undefined
                   }
                 : undefined
-        }
+        };
     }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mapValueToXml(value: any) {
@@ -130,21 +130,21 @@ export class TradeSettlementPaymentMeansTypeConverter<
                                   : undefined
                       }
                     : undefined
-        }
+        };
     }
 
     public static basic() {
         return new TradeSettlementPaymentMeansTypeConverter<BasicPaymentMeansType, BasicPaymentMeansTypeXml>(
             ZBasicPaymentMeansType,
             ZBasicPaymentMeansTypeXml
-        )
+        );
     }
 
     public static comfort() {
         return new TradeSettlementPaymentMeansTypeConverter<ComfortPaymentMeansType, ComfortPaymentMeansTypeXml>(
             ZComfortPaymentMeansType,
             ZComfortPaymentMeansTypeXml
-        )
+        );
     }
 }
 /*{

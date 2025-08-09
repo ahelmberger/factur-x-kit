@@ -1,7 +1,7 @@
-import { SUBJECT_CODES } from '../../../types/codes'
-import { TranslatedTexts } from '../types'
+import { SUBJECT_CODES } from '../../../types/codes';
+import { TranslatedTexts } from '../types';
 
-export type SubjectCodes = `${SUBJECT_CODES}`
+export type SubjectCodes = `${SUBJECT_CODES}`;
 
 const noteSubjects_en: Record<SubjectCodes, string> = {
     AAA: 'Goods item description',
@@ -387,7 +387,7 @@ const noteSubjects_en: Record<SubjectCodes, string> = {
     TXD: 'Tax declaration',
     WHI: 'Warehouse instruction/information',
     ZZZ: 'Mutually defined'
-}
+};
 
 const noteSubjects_de: Record<SubjectCodes, string> = {
     AAA: 'Artikelbeschreibung',
@@ -773,7 +773,7 @@ const noteSubjects_de: Record<SubjectCodes, string> = {
     TXD: 'Steuererklärung',
     WHI: 'Lageranweisung/-informationen',
     ZZZ: 'gegenseitig definiert'
-}
+};
 
 const noteSubjects_fr: Record<SubjectCodes, string> = {
     AAA: "Description de l'article",
@@ -1159,12 +1159,12 @@ const noteSubjects_fr: Record<SubjectCodes, string> = {
     TXD: 'Déclaration fiscale',
     WHI: "Instruction/information d'entrepôt",
     ZZZ: 'défini mutuellement'
-}
+};
 
 const noteSubjects: TranslatedTexts<SubjectCodes> = {
     'en-US': noteSubjects_en,
     'de-DE': noteSubjects_de,
     'fr-FR': noteSubjects_fr
-}
+};
 
-export default Object.freeze(noteSubjects)
+export default Object.freeze(noteSubjects);

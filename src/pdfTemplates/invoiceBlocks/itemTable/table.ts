@@ -1,31 +1,31 @@
-import { PDFFont, PDFPage, rgb } from 'pdf-lib'
+import { PDFFont, PDFPage, rgb } from 'pdf-lib';
 
-import { mmToPt } from '../../types'
-import { getNumberOfLines, wrapText } from '../helpers'
+import { mmToPt } from '../../types';
+import { getNumberOfLines, wrapText } from '../helpers';
 
 export interface TableSchemeType<T> {
-    colWeight: number
-    colHeader: string
-    colContent: (data: T) => string
-    colAlignment: 'left' | 'right' | 'center'
+    colWeight: number;
+    colHeader: string;
+    colContent: (data: T) => string;
+    colAlignment: 'left' | 'right' | 'center';
 }
 
-type TableData<T> = T[]
+type TableData<T> = T[];
 
 export interface TableCommentType<T> {
-    heading: string
-    content: (data: T) => string
+    heading: string;
+    content: (data: T) => string;
 }
 
 export interface TableInformation {
-    width: number
-    height: number
-    startX: number
-    startY: number
-    columns: number
-    columnsWidth: number[]
-    rows: number
-    padding: number
+    width: number;
+    height: number;
+    startX: number;
+    startY: number;
+    columns: number;
+    columnsWidth: number[];
+    rows: number;
+    padding: number;
 }
 
 // TODO: Ugly Spaghetti-Code. To be refactored
@@ -39,15 +39,15 @@ export default async function drawTable<T extends object>(
     font: PDFFont,
     fontBold: PDFFont,
     options: {
-        fontSize?: number
-        fontColor?: ReturnType<typeof rgb>
-        borderColor?: ReturnType<typeof rgb>
-        fillColorHeader?: ReturnType<typeof rgb>
-        fillColorRowEven?: ReturnType<typeof rgb>
-        fillColorRowOdd?: ReturnType<typeof rgb>
-        padding?: number
-        totalTableWidth?: number
-        commentScheme?: TableCommentType<T>[]
+        fontSize?: number;
+        fontColor?: ReturnType<typeof rgb>;
+        borderColor?: ReturnType<typeof rgb>;
+        fillColorHeader?: ReturnType<typeof rgb>;
+        fillColorRowEven?: ReturnType<typeof rgb>;
+        fillColorRowOdd?: ReturnType<typeof rgb>;
+        padding?: number;
+        totalTableWidth?: number;
+        commentScheme?: TableCommentType<T>[];
     } = {}
 ): Promise<[number, TableInformation]> {
     const {
@@ -59,19 +59,19 @@ export default async function drawTable<T extends object>(
         fillColorRowOdd = rgb(0.97, 0.97, 0.97),
         padding = 5,
         totalTableWidth = page.getWidth() - startX - 15 * mmToPt
-    } = options
+    } = options;
 
-    let currentY = startY
+    let currentY = startY;
 
-    const totalRelativeWidth = tableScheme.reduce((sum, col) => sum + col.colWeight, 0)
-    const firstColumnWidth = ((tableScheme[0].colWeight || 1) / totalRelativeWidth) * totalTableWidth
-    const commentTitleColumnWidth = (totalTableWidth - firstColumnWidth) / 4
-    const commentTextWidth = totalTableWidth - 2 * padding - firstColumnWidth - commentTitleColumnWidth
-    const commentTextStartX = startX + padding + firstColumnWidth + commentTitleColumnWidth
-    const commentTitleStartX = startX + padding + firstColumnWidth
+    const totalRelativeWidth = tableScheme.reduce((sum, col) => sum + col.colWeight, 0);
+    const firstColumnWidth = ((tableScheme[0].colWeight || 1) / totalRelativeWidth) * totalTableWidth;
+    const commentTitleColumnWidth = (totalTableWidth - firstColumnWidth) / 4;
+    const commentTextWidth = totalTableWidth - 2 * padding - firstColumnWidth - commentTitleColumnWidth;
+    const commentTextStartX = startX + padding + firstColumnWidth + commentTitleColumnWidth;
+    const commentTitleStartX = startX + padding + firstColumnWidth;
     // Draw Header
-    let currentX = startX
-    let headerHeight = fontSize + padding * 2
+    let currentX = startX;
+    let headerHeight = fontSize + padding * 2;
 
     const returnTableInformation: TableInformation = {
         width: totalTableWidth,
@@ -82,15 +82,15 @@ export default async function drawTable<T extends object>(
         columnsWidth: [],
         rows: data.length,
         padding: padding
-    }
+    };
 
     for (const col of tableScheme) {
-        const actualColWidth = (col.colWeight / totalRelativeWidth) * totalTableWidth
-        returnTableInformation.columnsWidth.push(actualColWidth)
-        const colContentntWidth = actualColWidth - 2 * padding
-        const numbersOfLines = getNumberOfLines(col.colHeader, fontSize, fontBold, colContentntWidth)
-        const heightOfCell = numbersOfLines * fontSize + 2 * padding
-        if (heightOfCell > headerHeight) headerHeight = heightOfCell
+        const actualColWidth = (col.colWeight / totalRelativeWidth) * totalTableWidth;
+        returnTableInformation.columnsWidth.push(actualColWidth);
+        const colContentntWidth = actualColWidth - 2 * padding;
+        const numbersOfLines = getNumberOfLines(col.colHeader, fontSize, fontBold, colContentntWidth);
+        const heightOfCell = numbersOfLines * fontSize + 2 * padding;
+        if (heightOfCell > headerHeight) headerHeight = heightOfCell;
     }
 
     page.drawRectangle({
@@ -101,13 +101,13 @@ export default async function drawTable<T extends object>(
         color: fillColorHeader,
         borderColor: borderColor,
         borderWidth: 0.5
-    })
+    });
 
     for (const col of tableScheme) {
-        const actualColWidth = (col.colWeight / totalRelativeWidth) * totalTableWidth
-        const colContentWidth = actualColWidth - 2 * padding
+        const actualColWidth = (col.colWeight / totalRelativeWidth) * totalTableWidth;
+        const colContentWidth = actualColWidth - 2 * padding;
 
-        const wrappedText = wrapText(col.colHeader, fontSize, fontBold, colContentWidth)
+        const wrappedText = wrapText(col.colHeader, fontSize, fontBold, colContentWidth);
 
         wrappedText.forEach((line, index) => {
             page.drawText(line, {
@@ -118,30 +118,30 @@ export default async function drawTable<T extends object>(
                 color: fontColor,
                 lineHeight: fontSize,
                 maxWidth: colContentWidth
-            })
-        })
-        currentX += actualColWidth
+            });
+        });
+        currentX += actualColWidth;
     }
 
-    currentY -= headerHeight
+    currentY -= headerHeight;
 
     // Draw Content
     for (let i = 0; i < data.length; i++) {
-        const rowData = data[i]
-        currentX = startX
-        const isEvenRow = i % 2 === 0
-        const rowFillColor = isEvenRow ? fillColorRowEven : fillColorRowOdd
-        let rowHeight = fontSize + padding * 2
+        const rowData = data[i];
+        currentX = startX;
+        const isEvenRow = i % 2 === 0;
+        const rowFillColor = isEvenRow ? fillColorRowEven : fillColorRowOdd;
+        let rowHeight = fontSize + padding * 2;
 
         for (const col of tableScheme) {
-            const actualColWidth = (col.colWeight / totalRelativeWidth) * totalTableWidth
-            const colContentWidth = actualColWidth - 2 * padding
+            const actualColWidth = (col.colWeight / totalRelativeWidth) * totalTableWidth;
+            const colContentWidth = actualColWidth - 2 * padding;
             const heightOfCell =
-                getNumberOfLines(col.colContent(rowData), fontSize, font, colContentWidth) * fontSize + 2 * padding
-            if (heightOfCell > rowHeight) rowHeight = heightOfCell
+                getNumberOfLines(col.colContent(rowData), fontSize, font, colContentWidth) * fontSize + 2 * padding;
+            if (heightOfCell > rowHeight) rowHeight = heightOfCell;
         }
 
-        let commentHeight = 0
+        let commentHeight = 0;
 
         if (options.commentScheme) {
             for (const comm of options.commentScheme) {
@@ -149,10 +149,10 @@ export default async function drawTable<T extends object>(
                     commentHeight =
                         commentHeight +
                         padding +
-                        fontSize * getNumberOfLines(comm.content(rowData), fontSize, font, commentTextWidth)
+                        fontSize * getNumberOfLines(comm.content(rowData), fontSize, font, commentTextWidth);
                 }
             }
-            if (commentHeight > 0) commentHeight = commentHeight + padding
+            if (commentHeight > 0) commentHeight = commentHeight + padding;
         }
 
         page.drawRectangle({
@@ -163,7 +163,7 @@ export default async function drawTable<T extends object>(
             color: rowFillColor,
             borderColor: borderColor,
             borderWidth: 0.5
-        })
+        });
 
         if (commentHeight > 0)
             page.drawLine({
@@ -171,13 +171,13 @@ export default async function drawTable<T extends object>(
                 end: { x: startX + totalTableWidth - padding, y: currentY - rowHeight },
                 thickness: 0.25,
                 color: borderColor
-            })
+            });
 
         for (const col of tableScheme) {
-            const actualColWidth = (col.colWeight / totalRelativeWidth) * totalTableWidth
-            const content = col.colContent(rowData)
-            const colContentWidth = actualColWidth - 2 * padding
-            const wrappedText = wrapText(content, fontSize, font, colContentWidth)
+            const actualColWidth = (col.colWeight / totalRelativeWidth) * totalTableWidth;
+            const content = col.colContent(rowData);
+            const colContentWidth = actualColWidth - 2 * padding;
+            const wrappedText = wrapText(content, fontSize, font, colContentWidth);
 
             wrappedText.forEach((line, index) => {
                 page.drawText(line, {
@@ -187,16 +187,16 @@ export default async function drawTable<T extends object>(
                     size: fontSize,
                     color: fontColor,
                     lineHeight: fontSize
-                })
-            })
+                });
+            });
 
-            currentX += actualColWidth
+            currentX += actualColWidth;
         }
         if (options.commentScheme) {
-            let currentCommentY = currentY - rowHeight - padding - fontSize
+            let currentCommentY = currentY - rowHeight - padding - fontSize;
             for (const comm of options.commentScheme) {
                 if (comm.content(rowData)) {
-                    const headingText = `${comm.heading}:`
+                    const headingText = `${comm.heading}:`;
                     // const headingTextWidth = fontBold.widthOfTextAtSize(headingText, fontSize)
                     // const headingTextStartX = commentTextStartX - padding - headingTextWidth
                     page.drawText(headingText, {
@@ -206,7 +206,7 @@ export default async function drawTable<T extends object>(
                         size: fontSize,
                         color: fontColor,
                         lineHeight: fontSize
-                    })
+                    });
 
                     page.drawText(comm.content(rowData), {
                         x: commentTextStartX,
@@ -216,20 +216,20 @@ export default async function drawTable<T extends object>(
                         color: fontColor,
                         lineHeight: fontSize,
                         maxWidth: commentTextWidth
-                    })
+                    });
 
                     currentCommentY =
                         currentCommentY -
                         padding -
-                        fontSize * getNumberOfLines(comm.content(rowData), fontSize, font, commentTextWidth)
+                        fontSize * getNumberOfLines(comm.content(rowData), fontSize, font, commentTextWidth);
                 }
             }
         }
 
-        currentY -= rowHeight + commentHeight
+        currentY -= rowHeight + commentHeight;
     }
 
-    return [currentY, returnTableInformation]
+    return [currentY, returnTableInformation];
 }
 
 function getXPositionOfText(
@@ -242,14 +242,14 @@ function getXPositionOfText(
     fontSize: number
 ): number {
     if (colAlignment === 'left') {
-        return currentX + padding
+        return currentX + padding;
     }
-    const textWidth = font.widthOfTextAtSize(content, fontSize)
+    const textWidth = font.widthOfTextAtSize(content, fontSize);
     if (colAlignment === 'right') {
-        return currentX + actualColWidth - textWidth - padding
+        return currentX + actualColWidth - textWidth - padding;
     }
     if (colAlignment === 'center') {
-        return currentX + (actualColWidth - textWidth) / 2
+        return currentX + (actualColWidth - textWidth) / 2;
     }
-    return currentX + padding // Default to left alignment if no valid alignment is provided
+    return currentX + padding; // Default to left alignment if no valid alignment is provided
 }

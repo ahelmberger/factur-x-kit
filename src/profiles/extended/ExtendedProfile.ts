@@ -1,42 +1,42 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
-import { ZCodeType } from '../../types/CodeTypeConverter'
-import { PROFILES } from '../../types/ProfileTypes'
-import { CURRENCY_CODES, DOCUMENT_TYPE_CODES, ISO6523_CODES } from '../../types/codes'
-import { ZComfortTradeContactType } from '../../types/ram/DefinedTradeContact/ComfortTradeContactType'
-import { ZComfortTradeLineItem } from '../../types/ram/IncludedSupplyChainTradeLineItem/ComfortTradeLineItem'
-import { ZBasicDocumentLevelNoteType } from '../../types/ram/NoteType/BasicDocumentLevelNoteType'
-import { ZAdditionalReferencedDocumentType_comfort } from '../../types/ram/ReferencedDocumentType/AdditionalReferencedDocumentConverter/ComfortAdditonalReferencedDocumentTypes'
+import { ZCodeType } from '../../types/CodeTypeConverter';
+import { PROFILES } from '../../types/ProfileTypes';
+import { CURRENCY_CODES, DOCUMENT_TYPE_CODES, ISO6523_CODES } from '../../types/codes';
+import { ZComfortTradeContactType } from '../../types/ram/DefinedTradeContact/ComfortTradeContactType';
+import { ZComfortTradeLineItem } from '../../types/ram/IncludedSupplyChainTradeLineItem/ComfortTradeLineItem';
+import { ZBasicDocumentLevelNoteType } from '../../types/ram/NoteType/BasicDocumentLevelNoteType';
+import { ZAdditionalReferencedDocumentType_comfort } from '../../types/ram/ReferencedDocumentType/AdditionalReferencedDocumentConverter/ComfortAdditonalReferencedDocumentTypes';
 import {
     ZReferencedDocumentType_docId_issueDate,
     ZReferencedDocumentType_documentId
-} from '../../types/ram/ReferencedDocumentType/ReferencedDocumentTypes'
-import { ZSpecifiedTaxRegistrationsForSellerType } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter'
-import { ZSpecifiedVatRegistrationsType } from '../../types/ram/SpecifiedVatRegistrationsTypeConverter'
-import { ZBasicDocumentLevelTradeAllowanceChargeType } from '../../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType'
-import { ZComfortPaymentMeansType } from '../../types/ram/TradeSettlementPaymentMeansType/ComfortTradeSettlementPaymentMeansType'
-import { ZComfortDocumentLevelTradeTaxType } from '../../types/ram/TradeTaxType/ComfortDocumentLevelTradeTaxType'
-import { ZAmountType } from '../../types/udt/AmountTypeConverter'
-import { ZAmountTypeWithRequiredCurrency } from '../../types/udt/AmountTypeWithRequiredCurrencyConverter'
-import { ZDateTimeType } from '../../types/udt/DateTimeTypeConverter'
-import { ZIdType } from '../../types/udt/IdTypeConverter'
-import { ZIdTypeWithOptionalScheme } from '../../types/udt/IdTypeWithOptionalSchemeConverter'
-import { ZIdTypeWithRequiredScheme } from '../../types/udt/IdTypeWithRequiredlSchemeConverter'
-import { ZTextType } from '../../types/udt/TextTypeConverter'
-import { ZTradePartyType } from '../basicwithoutlines/BasicWithoutLinesProfile'
-import { BR } from '../businessRules/br'
-import { BR_AE } from '../businessRules/br_ae'
-import { BR_CO } from '../businessRules/br_co'
-import { BR_E } from '../businessRules/br_e'
-import { BR_G } from '../businessRules/br_g'
-import { BR_IC } from '../businessRules/br_ic'
-import { BR_IG } from '../businessRules/br_ig'
-import { BR_IP } from '../businessRules/br_ip'
-import { BR_O } from '../businessRules/br_o'
-import { BR_OWN } from '../businessRules/br_own'
-import { BR_S } from '../businessRules/br_s'
-import { BR_Z } from '../businessRules/br_z'
-import { validationResult } from '../convert'
+} from '../../types/ram/ReferencedDocumentType/ReferencedDocumentTypes';
+import { ZSpecifiedTaxRegistrationsForSellerType } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter';
+import { ZSpecifiedVatRegistrationsType } from '../../types/ram/SpecifiedVatRegistrationsTypeConverter';
+import { ZBasicDocumentLevelTradeAllowanceChargeType } from '../../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType';
+import { ZComfortPaymentMeansType } from '../../types/ram/TradeSettlementPaymentMeansType/ComfortTradeSettlementPaymentMeansType';
+import { ZComfortDocumentLevelTradeTaxType } from '../../types/ram/TradeTaxType/ComfortDocumentLevelTradeTaxType';
+import { ZAmountType } from '../../types/udt/AmountTypeConverter';
+import { ZAmountTypeWithRequiredCurrency } from '../../types/udt/AmountTypeWithRequiredCurrencyConverter';
+import { ZDateTimeType } from '../../types/udt/DateTimeTypeConverter';
+import { ZIdType } from '../../types/udt/IdTypeConverter';
+import { ZIdTypeWithOptionalScheme } from '../../types/udt/IdTypeWithOptionalSchemeConverter';
+import { ZIdTypeWithRequiredScheme } from '../../types/udt/IdTypeWithRequiredlSchemeConverter';
+import { ZTextType } from '../../types/udt/TextTypeConverter';
+import { ZTradePartyType } from '../basicwithoutlines/BasicWithoutLinesProfile';
+import { BR } from '../businessRules/br';
+import { BR_AE } from '../businessRules/br_ae';
+import { BR_CO } from '../businessRules/br_co';
+import { BR_E } from '../businessRules/br_e';
+import { BR_G } from '../businessRules/br_g';
+import { BR_IC } from '../businessRules/br_ic';
+import { BR_IG } from '../businessRules/br_ig';
+import { BR_IP } from '../businessRules/br_ip';
+import { BR_O } from '../businessRules/br_o';
+import { BR_OWN } from '../businessRules/br_own';
+import { BR_S } from '../businessRules/br_s';
+import { BR_Z } from '../businessRules/br_z';
+import { validationResult } from '../convert';
 
 const ZExtendedProfileStructure = z.object({
     businessProcessType: ZIdType.optional().describe('BT-23'),
@@ -152,9 +152,9 @@ const ZExtendedProfileStructure = z.object({
         prepaidAmount: ZAmountType.optional(),
         openAmount: ZAmountType
     })
-})
+});
 
-export type ExtendedProfile = z.infer<typeof ZExtendedProfileStructure>
+export type ExtendedProfile = z.infer<typeof ZExtendedProfileStructure>;
 
 export const ZExtendedProfile = [
     ...BR,
@@ -169,20 +169,20 @@ export const ZExtendedProfile = [
     ...BR_O,
     ...BR_S,
     ...BR_Z
-].reduce<z.ZodTypeAny>((schema, rule) => schema.refine(rule.rule, rule.error), ZExtendedProfileStructure)
+].reduce<z.ZodTypeAny>((schema, rule) => schema.refine(rule.rule, rule.error), ZExtendedProfileStructure);
 
 export function isExtendedProfile(data: unknown): data is ExtendedProfile {
-    const result = ZExtendedProfileStructure.safeParse(data)
-    return result.success
+    const result = ZExtendedProfileStructure.safeParse(data);
+    return result.success;
 }
 
 export function isValidExtendedProfile(data: unknown): validationResult {
-    const result = ZExtendedProfile.safeParse(data)
+    const result = ZExtendedProfile.safeParse(data);
     if (!result.success) {
         return {
             valid: false,
             errors: result.error.issues.map(issue => ({ message: issue.message, path: issue.path }))
-        }
+        };
     }
-    return { valid: result.success }
+    return { valid: result.success };
 }

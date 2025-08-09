@@ -1,4 +1,4 @@
-import { XMLBuilder, XMLParser } from 'fast-xml-parser'
+import { XMLBuilder, XMLParser } from 'fast-xml-parser';
 
 const options = {
     ignoreAttributes: false,
@@ -8,25 +8,25 @@ const options = {
     parseTagValue: false,
     alwaysCreateTextNode: true,
     format: true
-}
+};
 
-const builder = new XMLBuilder(options)
-const parser = new XMLParser(options)
+const builder = new XMLBuilder(options);
+const parser = new XMLParser(options);
 
 export function buildXML(obj: object): string {
-    const xml = builder.build(obj)
+    const xml = builder.build(obj);
     if (!xml) {
-        throw new Error('Failed to build XML')
+        throw new Error('Failed to build XML');
     }
 
-    return xml
+    return xml;
 }
 
 export function parseXML(buf: string | Buffer): object {
-    const xml = parser.parse(buf)
+    const xml = parser.parse(buf);
     if (!xml) {
-        throw new Error('Failed to parse XML')
+        throw new Error('Failed to parse XML');
     }
 
-    return xml
+    return xml;
 }

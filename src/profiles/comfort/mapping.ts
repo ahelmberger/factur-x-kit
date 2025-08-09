@@ -1,34 +1,34 @@
-import { ArrayConverter } from '../../types/ArrayConverter'
-import { CodeTypeConverter } from '../../types/CodeTypeConverter'
+import { ArrayConverter } from '../../types/ArrayConverter';
+import { CodeTypeConverter } from '../../types/CodeTypeConverter';
 import {
     COUNTRY_ID_CODES,
     CURRENCY_CODES,
     DOCUMENT_TYPE_CODES,
     EAS_SCHEME_CODES,
     ISO6523_CODES
-} from '../../types/codes'
-import { DefinedTradeContactConverter } from '../../types/ram/DefinedTradeContact/DefinedTradeContactConverter'
-import { TradeLineItemConverter } from '../../types/ram/IncludedSupplyChainTradeLineItem/IncludedSupplyChainTradeLineItemConverter'
-import { NoteTypeConverter } from '../../types/ram/NoteType/NoteTypeConverter'
-import { AdditionalReferencedDocumentConverter } from '../../types/ram/ReferencedDocumentType/AdditionalReferencedDocumentConverter/AdditionalReferencedDocumentConverter'
-import { ReferencedDocumentTypeConverter } from '../../types/ram/ReferencedDocumentType/ReferencedDocumentConverter'
-import { SpecifiedTaxRegistrationsForSellerTypeConverter } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter'
-import { SpecifiedTaxRegistrationsTypeConverter } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter'
-import { SpecifiedVatRegistrationsTypeConverter } from '../../types/ram/SpecifiedVatRegistrationsTypeConverter'
-import { TradeAllowanceChargeTypeConverter } from '../../types/ram/TradeAllowanceChargeType/TradeAllowanceChargeTypeConverter'
-import { TradeSettlementPaymentMeansTypeConverter } from '../../types/ram/TradeSettlementPaymentMeansType/TradeSettlementPaymentMeansTypeConverter'
-import { TradeTaxTypeConverter } from '../../types/ram/TradeTaxType/TradeTaxTypeConverter'
-import { AmountTypeConverter } from '../../types/udt/AmountTypeConverter'
-import { AmountTypeWithRequiredCurrencyConverter } from '../../types/udt/AmountTypeWithRequiredCurrencyConverter'
-import { DateTimeTypeConverter } from '../../types/udt/DateTimeTypeConverter'
-import { IdTypeConverter } from '../../types/udt/IdTypeConverter'
-import { IdTypeWithOptionalSchemeConverter } from '../../types/udt/IdTypeWithOptionalSchemeConverter'
-import { IdTypeWithRequiredSchemeConverter } from '../../types/udt/IdTypeWithRequiredlSchemeConverter'
-import { TextTypeConverter } from '../../types/udt/TextTypeConverter'
-import { TokenTypeConverter } from '../../types/xs/TokenConverter'
-import type { MappingItem } from '../convert'
-import { ComfortProfile } from './ComfortProfile'
-import { ComfortProfileXml } from './ComfortProfileXml'
+} from '../../types/codes';
+import { DefinedTradeContactConverter } from '../../types/ram/DefinedTradeContact/DefinedTradeContactConverter';
+import { TradeLineItemConverter } from '../../types/ram/IncludedSupplyChainTradeLineItem/IncludedSupplyChainTradeLineItemConverter';
+import { NoteTypeConverter } from '../../types/ram/NoteType/NoteTypeConverter';
+import { AdditionalReferencedDocumentConverter } from '../../types/ram/ReferencedDocumentType/AdditionalReferencedDocumentConverter/AdditionalReferencedDocumentConverter';
+import { ReferencedDocumentTypeConverter } from '../../types/ram/ReferencedDocumentType/ReferencedDocumentConverter';
+import { SpecifiedTaxRegistrationsForSellerTypeConverter } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter';
+import { SpecifiedTaxRegistrationsTypeConverter } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter';
+import { SpecifiedVatRegistrationsTypeConverter } from '../../types/ram/SpecifiedVatRegistrationsTypeConverter';
+import { TradeAllowanceChargeTypeConverter } from '../../types/ram/TradeAllowanceChargeType/TradeAllowanceChargeTypeConverter';
+import { TradeSettlementPaymentMeansTypeConverter } from '../../types/ram/TradeSettlementPaymentMeansType/TradeSettlementPaymentMeansTypeConverter';
+import { TradeTaxTypeConverter } from '../../types/ram/TradeTaxType/TradeTaxTypeConverter';
+import { AmountTypeConverter } from '../../types/udt/AmountTypeConverter';
+import { AmountTypeWithRequiredCurrencyConverter } from '../../types/udt/AmountTypeWithRequiredCurrencyConverter';
+import { DateTimeTypeConverter } from '../../types/udt/DateTimeTypeConverter';
+import { IdTypeConverter } from '../../types/udt/IdTypeConverter';
+import { IdTypeWithOptionalSchemeConverter } from '../../types/udt/IdTypeWithOptionalSchemeConverter';
+import { IdTypeWithRequiredSchemeConverter } from '../../types/udt/IdTypeWithRequiredlSchemeConverter';
+import { TextTypeConverter } from '../../types/udt/TextTypeConverter';
+import { TokenTypeConverter } from '../../types/xs/TokenConverter';
+import type { MappingItem } from '../convert';
+import { ComfortProfile } from './ComfortProfile';
+import { ComfortProfileXml } from './ComfortProfileXml';
 
 const mapping: MappingItem<ComfortProfile, ComfortProfileXml>[] = [
     {
@@ -501,6 +501,6 @@ const mapping: MappingItem<ComfortProfile, ComfortProfileXml>[] = [
         xml: 'rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeSettlement.ram:ReceivableSpecifiedTradeAccountingAccount.ram:ID',
         converter: new IdTypeConverter()
     }
-]
+];
 
-export default mapping
+export default mapping;

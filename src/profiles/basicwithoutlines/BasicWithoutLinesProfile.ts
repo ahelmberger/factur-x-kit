@@ -1,46 +1,46 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
-import { ZCodeType } from '../../types/CodeTypeConverter'
-import { PROFILES } from '../../types/ProfileTypes'
+import { ZCodeType } from '../../types/CodeTypeConverter';
+import { PROFILES } from '../../types/ProfileTypes';
 import {
     COUNTRY_ID_CODES,
     CURRENCY_CODES,
     DOCUMENT_TYPE_CODES,
     EAS_SCHEME_CODES,
     ISO6523_CODES
-} from '../../types/codes'
-import { ZBasicDocumentLevelNoteType } from '../../types/ram/NoteType/BasicDocumentLevelNoteType'
+} from '../../types/codes';
+import { ZBasicDocumentLevelNoteType } from '../../types/ram/NoteType/BasicDocumentLevelNoteType';
 import {
     ZReferencedDocumentType_docId_issueDate,
     ZReferencedDocumentType_documentId
-} from '../../types/ram/ReferencedDocumentType/ReferencedDocumentTypes'
-import { ZSpecifiedTaxRegistrationsForSellerType } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter'
-import { ZSpecifiedTaxRegistrationsType } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter'
-import { ZSpecifiedVatRegistrationsType } from '../../types/ram/SpecifiedVatRegistrationsTypeConverter'
-import { ZBasicDocumentLevelTradeAllowanceChargeType } from '../../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType'
-import { ZBasicPaymentMeansType } from '../../types/ram/TradeSettlementPaymentMeansType/BasicTradeSettlementPaymentMeansType'
-import { ZBasicDocumentLevelTradeTaxType } from '../../types/ram/TradeTaxType/BasicDocumentLevelTradeTaxType'
-import { ZAmountType } from '../../types/udt/AmountTypeConverter'
-import { ZAmountTypeWithRequiredCurrency } from '../../types/udt/AmountTypeWithRequiredCurrencyConverter'
-import { ZDateTimeType } from '../../types/udt/DateTimeTypeConverter'
-import { ZIdType } from '../../types/udt/IdTypeConverter'
-import { ZIdTypeWithOptionalScheme } from '../../types/udt/IdTypeWithOptionalSchemeConverter'
-import { ZIdTypeWithRequiredScheme } from '../../types/udt/IdTypeWithRequiredlSchemeConverter'
-import { ZTextType } from '../../types/udt/TextTypeConverter'
-import { ZTokenType } from '../../types/xs/TokenConverter'
-import { BR } from '../businessRules/br'
-import { BR_AE } from '../businessRules/br_ae'
-import { BR_CO } from '../businessRules/br_co'
-import { BR_E } from '../businessRules/br_e'
-import { BR_G } from '../businessRules/br_g'
-import { BR_IC } from '../businessRules/br_ic'
-import { BR_IG } from '../businessRules/br_ig'
-import { BR_IP } from '../businessRules/br_ip'
-import { BR_O } from '../businessRules/br_o'
-import { BR_OWN } from '../businessRules/br_own'
-import { BR_S } from '../businessRules/br_s'
-import { BR_Z } from '../businessRules/br_z'
-import { validationResult } from '../convert'
+} from '../../types/ram/ReferencedDocumentType/ReferencedDocumentTypes';
+import { ZSpecifiedTaxRegistrationsForSellerType } from '../../types/ram/SpecifiedTaxRegistrationsForSellerTypeConverter';
+import { ZSpecifiedTaxRegistrationsType } from '../../types/ram/SpecifiedTaxRegistrationsTypeConverter';
+import { ZSpecifiedVatRegistrationsType } from '../../types/ram/SpecifiedVatRegistrationsTypeConverter';
+import { ZBasicDocumentLevelTradeAllowanceChargeType } from '../../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType';
+import { ZBasicPaymentMeansType } from '../../types/ram/TradeSettlementPaymentMeansType/BasicTradeSettlementPaymentMeansType';
+import { ZBasicDocumentLevelTradeTaxType } from '../../types/ram/TradeTaxType/BasicDocumentLevelTradeTaxType';
+import { ZAmountType } from '../../types/udt/AmountTypeConverter';
+import { ZAmountTypeWithRequiredCurrency } from '../../types/udt/AmountTypeWithRequiredCurrencyConverter';
+import { ZDateTimeType } from '../../types/udt/DateTimeTypeConverter';
+import { ZIdType } from '../../types/udt/IdTypeConverter';
+import { ZIdTypeWithOptionalScheme } from '../../types/udt/IdTypeWithOptionalSchemeConverter';
+import { ZIdTypeWithRequiredScheme } from '../../types/udt/IdTypeWithRequiredlSchemeConverter';
+import { ZTextType } from '../../types/udt/TextTypeConverter';
+import { ZTokenType } from '../../types/xs/TokenConverter';
+import { BR } from '../businessRules/br';
+import { BR_AE } from '../businessRules/br_ae';
+import { BR_CO } from '../businessRules/br_co';
+import { BR_E } from '../businessRules/br_e';
+import { BR_G } from '../businessRules/br_g';
+import { BR_IC } from '../businessRules/br_ic';
+import { BR_IG } from '../businessRules/br_ig';
+import { BR_IP } from '../businessRules/br_ip';
+import { BR_O } from '../businessRules/br_o';
+import { BR_OWN } from '../businessRules/br_own';
+import { BR_S } from '../businessRules/br_s';
+import { BR_Z } from '../businessRules/br_z';
+import { validationResult } from '../convert';
 
 export const ZTradePartyType = z.object({
     id: ZIdType.optional(), // in seller this could be an array
@@ -58,7 +58,7 @@ export const ZTradePartyType = z.object({
     }),
     universalCommunicationAddressURI: ZIdTypeWithRequiredScheme(EAS_SCHEME_CODES).optional(),
     taxIdentification: ZSpecifiedTaxRegistrationsType.optional()
-})
+});
 
 export const ZBasicWithoutLinesProfileStructure = z.object({
     businessProcessType: ZIdType.optional(),
@@ -153,9 +153,9 @@ export const ZBasicWithoutLinesProfileStructure = z.object({
         prepaidAmount: ZAmountType.optional(),
         openAmount: ZAmountType
     })
-})
+});
 
-export type BasicWithoutLinesProfile = z.infer<typeof ZBasicWithoutLinesProfileStructure>
+export type BasicWithoutLinesProfile = z.infer<typeof ZBasicWithoutLinesProfileStructure>;
 
 export const ZBasicWithoutLinesProfile = [
     ...BR,
@@ -170,19 +170,19 @@ export const ZBasicWithoutLinesProfile = [
     ...BR_O,
     ...BR_S,
     ...BR_Z
-].reduce<z.ZodTypeAny>((schema, rule) => schema.refine(rule.rule, rule.error), ZBasicWithoutLinesProfileStructure)
+].reduce<z.ZodTypeAny>((schema, rule) => schema.refine(rule.rule, rule.error), ZBasicWithoutLinesProfileStructure);
 
 export function isBasicWithoutLinesProfile(data: unknown): data is BasicWithoutLinesProfile {
-    return ZBasicWithoutLinesProfileStructure.safeParse(data).success
+    return ZBasicWithoutLinesProfileStructure.safeParse(data).success;
 }
 
 export function isValidBasicWithoutLinesProfile(data: unknown): validationResult {
-    const result = ZBasicWithoutLinesProfile.safeParse(data)
+    const result = ZBasicWithoutLinesProfile.safeParse(data);
     if (!result.success) {
         return {
             valid: false,
             errors: result.error.issues.map(issue => ({ message: issue.message, path: issue.path }))
-        }
+        };
     }
-    return { valid: result.success }
+    return { valid: result.success };
 }

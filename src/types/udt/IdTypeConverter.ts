@@ -1,37 +1,37 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
-import { BaseTypeConverter, TypeConverterError } from '../BaseTypeConverter'
-import { ZTokenType } from '../xs/TokenConverter'
+import { BaseTypeConverter, TypeConverterError } from '../BaseTypeConverter';
+import { ZTokenType } from '../xs/TokenConverter';
 
-export const ZIdType = ZTokenType
+export const ZIdType = ZTokenType;
 
-export type IdType = z.infer<typeof ZIdType>
+export type IdType = z.infer<typeof ZIdType>;
 
 export const ZIdTypeXml = z.object({
     '#text': z.string()
-})
+});
 
-export type IdTypeXml = z.infer<typeof ZIdTypeXml>
+export type IdTypeXml = z.infer<typeof ZIdTypeXml>;
 
 export class IdTypeConverter extends BaseTypeConverter<IdType, IdTypeXml> {
     _toValue(xml: IdTypeXml) {
-        const { success, data } = ZIdTypeXml.safeParse(xml)
+        const { success, data } = ZIdTypeXml.safeParse(xml);
         if (!success) {
-            throw new TypeConverterError('INVALID_XML')
+            throw new TypeConverterError('INVALID_XML');
         }
 
-        return data['#text']
+        return data['#text'];
     }
 
     _toXML(value: IdType): IdTypeXml {
-        const { success, data } = ZIdType.safeParse(value)
+        const { success, data } = ZIdType.safeParse(value);
 
         if (!success) {
-            throw new TypeConverterError('INVALID_VALUE')
+            throw new TypeConverterError('INVALID_VALUE');
         }
 
         return {
             '#text': data
-        }
+        };
     }
 }

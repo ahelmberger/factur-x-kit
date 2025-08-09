@@ -1,37 +1,37 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
-import { ExtendableBaseTypeConverter } from '../../../ExtendableBaseTypeConverter'
-import { IdTypeConverter } from '../../../udt/IdTypeConverter'
+import { ExtendableBaseTypeConverter } from '../../../ExtendableBaseTypeConverter';
+import { IdTypeConverter } from '../../../udt/IdTypeConverter';
 import {
     ReferencedDocumentTypeConverter,
     allowedValueTypes_ReferencedDocumentType,
     allowedXmlTypes_ReferencedDocumentType
-} from '../../ReferencedDocumentType/ReferencedDocumentConverter'
+} from '../../ReferencedDocumentType/ReferencedDocumentConverter';
 import {
     BasicLineTradeAgreementType,
     BasicLineTradeAgreementTypeXml,
     ZBasicLineTradeAgreementType,
     ZBasicLineTradeAgreementTypeXml
-} from './BasicLineTradeAgreementType'
+} from './BasicLineTradeAgreementType';
 import {
     ComfortLineTradeAgreementType,
     ComfortLineTradeAgreementTypeXml,
     ZComfortLineTradeAgreementType,
     ZComfortLineTradeAgreementTypeXml
-} from './ComfortLineTradeAgreementType'
+} from './ComfortLineTradeAgreementType';
 import {
     GrossPriceProductTradePriceConverter,
     allowedValueTypes_GrossPriceProductTradePrice,
     allowedXmlTypes_GrossPriceProductTradePrice
-} from './GrossPriceProductTradePrice/GrossPriceProductTradePriceConverter'
+} from './GrossPriceProductTradePrice/GrossPriceProductTradePriceConverter';
 import {
     NetPriceProductTradePriceConverter,
     allowedValueTypes_NetPriceProductTradePrice,
     allowedXmlTypes_NetPriceProductTradePrice
-} from './NetPriceProductTradePrice/NetPriceProductTradePriceConverter'
+} from './NetPriceProductTradePrice/NetPriceProductTradePriceConverter';
 
-export type allowedValueTypes_LineTradeAgreement = BasicLineTradeAgreementType | ComfortLineTradeAgreementType
-export type allowedXmlTypes_LineTradeAgreement = BasicLineTradeAgreementTypeXml | ComfortLineTradeAgreementTypeXml
+export type allowedValueTypes_LineTradeAgreement = BasicLineTradeAgreementType | ComfortLineTradeAgreementType;
+export type allowedXmlTypes_LineTradeAgreement = BasicLineTradeAgreementTypeXml | ComfortLineTradeAgreementTypeXml;
 
 export class LineTradeAgreementConverter<
     ValueType extends allowedValueTypes_LineTradeAgreement,
@@ -40,21 +40,21 @@ export class LineTradeAgreementConverter<
     grossPriceProductTradePriceConverter: GrossPriceProductTradePriceConverter<
         allowedValueTypes_GrossPriceProductTradePrice,
         allowedXmlTypes_GrossPriceProductTradePrice
-    >
+    >;
 
     netPriceProductTradePriceConverter: NetPriceProductTradePriceConverter<
         allowedValueTypes_NetPriceProductTradePrice,
         allowedXmlTypes_NetPriceProductTradePrice
-    >
+    >;
 
     referencedDocumentConverter:
         | ReferencedDocumentTypeConverter<
               allowedValueTypes_ReferencedDocumentType,
               allowedXmlTypes_ReferencedDocumentType
           >
-        | undefined
+        | undefined;
 
-    idTypeConverter = new IdTypeConverter()
+    idTypeConverter = new IdTypeConverter();
 
     constructor(
         lineTradeAgreementType: z.ZodType<ValueType>,
@@ -72,10 +72,10 @@ export class LineTradeAgreementConverter<
             allowedXmlTypes_ReferencedDocumentType
         >
     ) {
-        super(lineTradeAgreementType, lineTradeAgreementTypeXml)
-        this.grossPriceProductTradePriceConverter = grossPriceProductTradePriceConverter
-        this.netPriceProductTradePriceConverter = netPriceProductTradePriceConverter
-        this.referencedDocumentConverter = referencedDocumentConverter
+        super(lineTradeAgreementType, lineTradeAgreementTypeXml);
+        this.grossPriceProductTradePriceConverter = grossPriceProductTradePriceConverter;
+        this.netPriceProductTradePriceConverter = netPriceProductTradePriceConverter;
+        this.referencedDocumentConverter = referencedDocumentConverter;
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -93,7 +93,7 @@ export class LineTradeAgreementConverter<
                 xml['ram:NetPriceProductTradePrice'] != null
                     ? this.netPriceProductTradePriceConverter.toValue(xml['ram:NetPriceProductTradePrice'])
                     : undefined
-        }
+        };
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -110,7 +110,7 @@ export class LineTradeAgreementConverter<
                 value.productNetPricing != null
                     ? this.netPriceProductTradePriceConverter.toXML(value.productNetPricing)
                     : undefined
-        }
+        };
     }
 
     public static basic(): LineTradeAgreementConverter<BasicLineTradeAgreementType, BasicLineTradeAgreementTypeXml> {
@@ -119,7 +119,7 @@ export class LineTradeAgreementConverter<
             ZBasicLineTradeAgreementTypeXml,
             GrossPriceProductTradePriceConverter.basic(),
             NetPriceProductTradePriceConverter.basic()
-        )
+        );
     }
 
     public static comfort(): LineTradeAgreementConverter<
@@ -132,6 +132,6 @@ export class LineTradeAgreementConverter<
             GrossPriceProductTradePriceConverter.basic(),
             NetPriceProductTradePriceConverter.basic(),
             ReferencedDocumentTypeConverter.lineId()
-        )
+        );
     }
 }

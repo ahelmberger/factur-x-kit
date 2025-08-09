@@ -1,5 +1,5 @@
-import { ComfortProfile } from '../../../src/profiles/comfort'
-import { PROFILES } from '../../../src/types/ProfileTypes'
+import { ComfortProfile } from '../../../src/profiles/comfort';
+import { PROFILES } from '../../../src/types/ProfileTypes';
 import {
     ALLOWANCE_REASONS_CODES,
     CHARGE_REASONS_CODES,
@@ -11,7 +11,7 @@ import {
     TAX_CATEGORY_CODES,
     TAX_TYPE_CODE,
     UNIT_CODES
-} from '../../../src/types/codes'
+} from '../../../src/types/codes';
 
 export const intraCommunityInvoice: ComfortProfile = {
     profile: PROFILES.COMFORT,
@@ -173,4 +173,4 @@ export const intraCommunityInvoice: ComfortProfile = {
         prepaidAmount: 0,
         openAmount: 10
     }
-}
+};

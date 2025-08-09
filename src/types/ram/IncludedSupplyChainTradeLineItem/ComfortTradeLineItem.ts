@@ -1,22 +1,22 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
 import {
     ZBasicAssociatedDocumentLineDocumentType,
     ZBasicAssociatedDocumentLineDocumentTypeXml
-} from './AssociatedDocumentLineDocument/BasicAssociatedDocumentLineDocumentType'
+} from './AssociatedDocumentLineDocument/BasicAssociatedDocumentLineDocumentType';
 import {
     ZComfortLineTradeAgreementType,
     ZComfortLineTradeAgreementTypeXml
-} from './SpecifiedLineTradeAgreement/ComfortLineTradeAgreementType'
+} from './SpecifiedLineTradeAgreement/ComfortLineTradeAgreementType';
 import {
     ZBasicLineTradeDeliveryType,
     ZBasicLineTradeDeliveryTypeXml
-} from './SpecifiedLineTradeDelivery/BasicLineTradeDeliveryType'
+} from './SpecifiedLineTradeDelivery/BasicLineTradeDeliveryType';
 import {
     ZComfortLineTradeSettlementType,
     ZComfortLineTradeSettlementTypeXml
-} from './SpecifiedLineTradeSettlement/ComfortLineTradeSettlementType'
-import { ZComfortTradeProductType, ZComfortTradeProductTypeXml } from './SpecifiedTradeProduct/ComfortTradeProduct'
+} from './SpecifiedLineTradeSettlement/ComfortLineTradeSettlementType';
+import { ZComfortTradeProductType, ZComfortTradeProductTypeXml } from './SpecifiedTradeProduct/ComfortTradeProduct';
 
 export const ZComfortTradeLineItem = z.object({
     generalLineData: ZBasicAssociatedDocumentLineDocumentType.describe('BT-126-00'),
@@ -24,9 +24,9 @@ export const ZComfortTradeLineItem = z.object({
     productPriceAgreement: ZComfortLineTradeAgreementType.describe('BG-29'),
     delivery: ZBasicLineTradeDeliveryType.describe('BT-129-00'),
     settlement: ZComfortLineTradeSettlementType.describe('BG-30-00')
-})
+});
 
-export type ComfortTradeLineItem = z.infer<typeof ZComfortTradeLineItem>
+export type ComfortTradeLineItem = z.infer<typeof ZComfortTradeLineItem>;
 
 export const ZComfortTradeLineItemXml = z.object({
     'ram:AssociatedDocumentLineDocument': ZBasicAssociatedDocumentLineDocumentTypeXml,
@@ -34,6 +34,6 @@ export const ZComfortTradeLineItemXml = z.object({
     'ram:SpecifiedLineTradeAgreement': ZComfortLineTradeAgreementTypeXml,
     'ram:SpecifiedLineTradeDelivery': ZBasicLineTradeDeliveryTypeXml,
     'ram:SpecifiedLineTradeSettlement': ZComfortLineTradeSettlementTypeXml
-})
+});
 
-export type ComfortTradeLineItemXml = z.infer<typeof ZComfortTradeLineItemXml>
+export type ComfortTradeLineItemXml = z.infer<typeof ZComfortTradeLineItemXml>;

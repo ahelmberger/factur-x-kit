@@ -1,18 +1,18 @@
-import { PDFFont, PDFPage, RGB, rgb } from 'pdf-lib'
+import { PDFFont, PDFPage, RGB, rgb } from 'pdf-lib';
 
-import { availableProfiles } from '../../core/factur-x'
-import { formatCustomDate } from '../texts/formatCustomDate'
-import textTranslations, { TranslationKeys, translations_en } from '../texts/textTranslations'
-import { SupportedLocales, dinA4Height, mmToPt } from '../types'
+import { availableProfiles } from '../../core/factur-x';
+import { formatCustomDate } from '../texts/formatCustomDate';
+import textTranslations, { TranslationKeys, translations_en } from '../texts/textTranslations';
+import { SupportedLocales, dinA4Height, mmToPt } from '../types';
 
 interface TextLineSettingsObject {
-    page: PDFPage
-    font: PDFFont
-    boldFont: PDFFont
-    x1: number
-    x2: number
-    fontSize: number
-    color: RGB
+    page: PDFPage;
+    font: PDFFont;
+    boldFont: PDFFont;
+    x1: number;
+    x2: number;
+    fontSize: number;
+    color: RGB;
 }
 
 export default async function addMetaBlock(
@@ -22,12 +22,12 @@ export default async function addMetaBlock(
     boldFont: PDFFont,
     locale: SupportedLocales,
     options?: {
-        position?: { x?: number; y?: number }
-        fontSize?: number
-        color?: RGB
+        position?: { x?: number; y?: number };
+        fontSize?: number;
+        color?: RGB;
     }
 ): Promise<number> {
-    const x1 = options?.position?.x || 120 * mmToPt
+    const x1 = options?.position?.x || 120 * mmToPt;
     const textLineSettings: TextLineSettingsObject = {
         page,
         font,
@@ -36,47 +36,47 @@ export default async function addMetaBlock(
         color: options?.color || rgb(0, 0, 0),
         x1,
         x2: x1 + (locale == 'en-US' ? 40 : 45) * mmToPt
-    }
-    const lineHeight = textLineSettings.fontSize * 1.5
-    let deliveryDate
+    };
+    const lineHeight = textLineSettings.fontSize * 1.5;
+    let deliveryDate;
 
     if ('delivery' in data) {
-        deliveryDate = data.delivery?.deliveryDate ? formatCustomDate(data.delivery.deliveryDate, locale) : undefined
+        deliveryDate = data.delivery?.deliveryDate ? formatCustomDate(data.delivery.deliveryDate, locale) : undefined;
     }
 
-    let billingPeriod = ''
-    let paymentTerm = ''
+    let billingPeriod = '';
+    let paymentTerm = '';
 
     if ('paymentInformation' in data) {
-        let startDate = ''
-        let endDate = ''
+        let startDate = '';
+        let endDate = '';
         if (data.delivery?.billingPeriod?.startDate) {
-            startDate = formatCustomDate(data.delivery.billingPeriod.startDate, locale, true)
+            startDate = formatCustomDate(data.delivery.billingPeriod.startDate, locale, true);
         }
 
         if (data.delivery?.billingPeriod?.endDate) {
-            endDate = formatCustomDate(data.delivery.billingPeriod.endDate, locale, true)
+            endDate = formatCustomDate(data.delivery.billingPeriod.endDate, locale, true);
         }
 
-        billingPeriod = startDate && endDate ? `${startDate} - ${endDate}` : `${startDate}${endDate}`
+        billingPeriod = startDate && endDate ? `${startDate} - ${endDate}` : `${startDate}${endDate}`;
         paymentTerm = data.paymentInformation?.paymentTerms?.dueDate
             ? formatCustomDate(data.paymentInformation.paymentTerms.dueDate, locale)
-            : ''
+            : '';
     }
 
-    let contractId: string | undefined
+    let contractId: string | undefined;
     if (data.referencedDocuments && 'contractReference' in data.referencedDocuments) {
-        contractId = data.referencedDocuments.contractReference?.documentId
+        contractId = data.referencedDocuments.contractReference?.documentId;
     }
 
-    let advanceShippingNoticeId: string | undefined
+    let advanceShippingNoticeId: string | undefined;
     if (data.referencedDocuments && 'advanceShippingNotice' in data.referencedDocuments) {
-        advanceShippingNoticeId = data.referencedDocuments.advanceShippingNotice?.documentId
+        advanceShippingNoticeId = data.referencedDocuments.advanceShippingNotice?.documentId;
     }
 
-    let customerId: string | undefined
+    let customerId: string | undefined;
     if ('id' in data.buyer) {
-        customerId = data.buyer.id
+        customerId = data.buyer.id;
     }
 
     const metaDataContent: Partial<Record<TranslationKeys, string | undefined>> = {
@@ -89,19 +89,19 @@ export default async function addMetaBlock(
         ADVANCE_SHIPPING_NOTICE: advanceShippingNoticeId,
         BILLING_PERIOD: billingPeriod,
         PAYMENT_DUE_DATE: paymentTerm
-    }
+    };
 
-    let y = options?.position?.y || (dinA4Height - 62) * mmToPt
+    let y = options?.position?.y || (dinA4Height - 62) * mmToPt;
 
     for (const [key, value] of Object.entries(metaDataContent)) {
         if (value && typeof value === 'string' && key in textTranslations[locale]) {
-            const validKey = key as keyof typeof translations_en
-            drawTextLine(textTranslations[locale][validKey], value, y, textLineSettings)
-            y = y - lineHeight
+            const validKey = key as keyof typeof translations_en;
+            drawTextLine(textTranslations[locale][validKey], value, y, textLineSettings);
+            y = y - lineHeight;
         }
     }
 
-    return y + lineHeight
+    return y + lineHeight;
 }
 
 function drawTextLine(title: string, content: string, yPosition: number, textSettings: TextLineSettingsObject): void {
@@ -111,7 +111,7 @@ function drawTextLine(title: string, content: string, yPosition: number, textSet
         font: textSettings.boldFont,
         size: textSettings.fontSize,
         color: textSettings.color
-    })
+    });
 
     textSettings.page.drawText(content, {
         x: textSettings.x2,
@@ -119,5 +119,5 @@ function drawTextLine(title: string, content: string, yPosition: number, textSet
         font: textSettings.font,
         size: textSettings.fontSize,
         color: textSettings.color
-    })
+    });
 }

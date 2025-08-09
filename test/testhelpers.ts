@@ -3,22 +3,22 @@ export function removeUndefinedKeys<T>(obj: T): T {
     if (Array.isArray(obj)) {
         return obj.map(item =>
             item !== null && typeof item === 'object' && !(item instanceof Date) ? removeUndefinedKeys(item) : item
-        ) as any
+        ) as any;
     }
 
     if (obj !== null && typeof obj === 'object') {
-        const result: any = {}
+        const result: any = {};
         for (const key in obj) {
-            const value = (obj as any)[key]
+            const value = (obj as any)[key];
             if (value !== undefined) {
                 result[key] =
                     value !== null && typeof value === 'object' && !(value instanceof Date)
                         ? removeUndefinedKeys(value)
-                        : value
+                        : value;
             }
         }
-        return result
+        return result;
     }
 
-    return obj
+    return obj;
 }
