@@ -103,7 +103,9 @@ export const ZComfortTotals_modiified = z.object({
     prepaidAmount: ZAmountType.optional()
 });
 
-export const ZComfortProfileStructure_modified = ZComfortProfileStructure.extend({
+export const ZComfortProfileStructure_modified = ZComfortProfileStructure.omit({
+    profile: true
+}).extend({
     invoiceLines: ZComfortTradeLineItem_modified.array(),
     totals: ZComfortTotals_modiified
 });

@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 import { round } from '../helper/calculation';
 import { ComfortProfile } from '../profiles/comfort';
+import { PROFILES } from '../types/ProfileTypes';
 import { CURRENCY_CODES, EXEMPTION_REASON_CODES, TAX_CATEGORY_CODES, TAX_TYPE_CODE } from '../types/codes';
 import { ComfortTradeLineItem } from '../types/ram/IncludedSupplyChainTradeLineItem/ComfortTradeLineItem';
 import { ComfortLineTradeAgreementType } from '../types/ram/IncludedSupplyChainTradeLineItem/SpecifiedLineTradeAgreement/ComfortLineTradeAgreementType';
@@ -362,6 +363,7 @@ export function totalsCalculator(simpleInvoice: ComfortProfile_noSums): ComfortP
 
     return {
         ...simpleInvoice,
+        profile: PROFILES.COMFORT,
         invoiceLines: tradeLineItems,
         totals
     };
