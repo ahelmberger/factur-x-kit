@@ -7,5 +7,6 @@ export { ComfortProfile_noSums } from './adapter/easyInputType';
 export { ComfortProfile } from './profiles/comfort';
 export { FacturX } from './core/factur-x';
 export { totalsCalculator } from './adapter/totalsCalculator';
+export { TaxTypeWithTaxRate, TaxTypeWithoutTaxRate } from './adapter/easyInputType';
 
 export * from './types/codes';

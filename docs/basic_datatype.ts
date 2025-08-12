@@ -1,23 +1,23 @@
-import { TaxTypeWithTaxRate, TaxTypeWithoutTaxRate } from '../src/adapter/easyInputType';
 import {
     ALLOWANCE_REASONS_CODES,
     CHARGE_REASONS_CODES,
     COUNTRY_ID_CODES,
     CURRENCY_CODES,
     EAS_SCHEME_CODES,
+    EXEMPTION_REASON_CODES,
     ISO6523_CODES,
-    MIME_CODES,
     PAYMENT_MEANS_CODES,
-    REFERENCED_DOCUMENT_TYPE_CODES,
     SUBJECT_CODES,
+    TAX_CATEGORY_CODES,
+    TAX_TYPE_CODE,
     TIME_REFERENCE_CODES,
     UNIT_CODES,
-    UNTDID_1153,
-    UNTDID_7143
+    UNTDID_1153
 } from '../src/types/codes';
 
-interface easy_input_type {
+interface basic_profile {
     businessProcessType?: string | undefined; // BT-23
+    profile: 'urn:cen.eu:en16931:2017#compliant#urn:factur-x.eu:1p0:basic';
     document: {
         id: string; // BT-1
         type: UNTDID_1153; // BT-3
@@ -41,19 +41,16 @@ interface easy_input_type {
         id?: string[] | undefined; // BT-29
         globalId?:
             | {
-                  // BT-29-0
-                  id: string;
+                  id: string; // BT-29-0
                   scheme: ISO6523_CODES; // BT-29-1
               }[]
             | undefined;
         name: string; // BT-27
         specifiedLegalOrganization?:
             | {
-                  // BT-30-00
                   id?:
                       | {
-                            // BT-30
-                            id: string;
+                            id: string; // BT-30
                             scheme?: ISO6523_CODES | undefined; // BT-30-1
                         }
                       | undefined;
@@ -72,27 +69,15 @@ interface easy_input_type {
         };
         universalCommunicationAddressURI?:
             | {
-                  // BT-34
-                  id: string;
+                  id: string; // BT-34
                   scheme: EAS_SCHEME_CODES; // BT-34-1
               }
             | undefined;
         taxIdentification?:
             | {
-                  // BT-31-00
                   vatId?: string | undefined; // BT-31
                   localTaxId?: string | undefined; // BT-32
               }
-            | undefined;
-        otherLegalInformation?: string | undefined; // BT-33
-        tradeContact?:
-            | {
-                  // BG-6
-                  personName?: string | undefined; // BT-41
-                  departmentName?: string | undefined; // BT-41-0
-                  telephoneNumber?: string | undefined; // BT-42
-                  email?: string | undefined; // BT-43
-              }[]
             | undefined;
     };
     buyer: {
@@ -109,12 +94,10 @@ interface easy_input_type {
             | {
                   id?:
                       | {
-                            // BT-47
-                            id: string;
+                            id: string; // BT-47
                             scheme?: ISO6523_CODES | undefined; // BT-47-1
                         }
                       | undefined;
-                  tradingBusinessName?: string | undefined; // BT-45
               }
             | undefined;
         postalAddress: {
@@ -129,32 +112,21 @@ interface easy_input_type {
         };
         universalCommunicationAddressURI?:
             | {
-                  // BT-49
-                  id: string;
+                  id: string; // BT-49
                   scheme: EAS_SCHEME_CODES; // BT-49-1
               }
             | undefined;
         taxIdentification?:
             | (
                   | {
-                        // BT-48
-                        vatId: string;
+                        vatId: string; // BT-48
                     }
                   | {
-                        localTaxId: string;
+                        localTaxId: string; // BT-48
                     }
               )
             | undefined;
         reference?: string | undefined; // BT-10
-        tradeContact?:
-            | {
-                  // BG-9
-                  personName?: string | undefined; // BT-56
-                  departmentName?: string | undefined; // BT-56-0
-                  telephoneNumber?: string | undefined; // BT-57
-                  email?: string | undefined; // BT-58
-              }[]
-            | undefined;
     };
     sellerTaxRepresentative?:
         | {
@@ -171,24 +143,21 @@ interface easy_input_type {
                   countrySubDivision?: string | undefined; // BT-68
               };
               taxIdentification: {
-                  // BT-63-00
                   vatId: string; // BT-63
               };
           }
         | undefined;
     invoiceLines: {
+        // BG-25
         generalLineData: {
-            // BT-126-00
             lineId: string; // BT-126
             lineNote?:
                 | {
-                      // BT-127-00
                       content: string; // BT-127
                   }
                 | undefined;
         };
         productDescription: {
-            // BG-31
             globalId?:
                 | {
                       // BT-157
@@ -196,69 +165,53 @@ interface easy_input_type {
                       scheme: ISO6523_CODES; // BT-157-1
                   }
                 | undefined;
-            sellerProductId?: string | undefined; // BT-155
-            buyerProductId?: string | undefined; // BT-156
             name: string; // BT-153
-            description?: string | undefined; // BT-154
-            productCharacteristic?:
-                | {
-                      // BG-32
-                      characteristic: string; // BT-160
-                      value: string; // BT-161
-                  }[]
-                | undefined;
-            productClassification?:
-                | {
-                      // BT-158-00
-                      productClass?:
-                          | {
-                                code: string; // BT-158
-                                codeScheme: UNTDID_7143; // BT-158-1
-                                codeSchemeVersion?: string | undefined; // BT-158-2
-                            }
-                          | undefined;
-                  }[]
-                | undefined;
-            originTradeCountry?: COUNTRY_ID_CODES | undefined; // BT-159
         };
         productPriceAgreement: {
-            referencedOrder?:
+            productPricing?:
                 | {
-                      // BT-132-00
-                      lineId?: string | undefined; // BT-132
+                      basisPricePerItem: number; // BT-148
+                      priceBaseQuantity?:
+                          | {
+                                quantity: number; // BT-149-1
+                                unit?: UNIT_CODES | undefined; // BT-150-1
+                            }
+                          | undefined;
+                      priceAllowancesAndCharges?:
+                          | {
+                                allowances?:
+                                    | {
+                                          actualAmount: number; // BT-147
+                                      }[]
+                                    | undefined;
+                            }
+                          | undefined;
                   }
                 | undefined;
-            productPricing: {
-                // BT-148-00
-                basisPricePerItem: number; // BT-148
+            productNetPricing: {
+                netPricePerItem: number; // BT-146
                 priceBaseQuantity?:
                     | {
-                          // BT-149-1
+                          // BT-149
                           quantity: number;
-                          unit?: UNIT_CODES | undefined; // BT-150-1
-                      }
-                    | undefined;
-                priceAllowancesAndCharges?:
-                    | {
-                          // BT-147-00
-                          allowances?:
-                              | {
-                                    actualAmount: number; // BT-147
-                                }[]
-                              | undefined;
+                          unit?: UNIT_CODES | undefined; // BT-150
                       }
                     | undefined;
             };
         };
         delivery: {
-            // BT-129-00
             itemQuantity: {
-                // BT-129
-                quantity: number;
+                quantity: number; // BT-129
                 unit: UNIT_CODES; // BT-130
             };
         };
         settlement: {
+            tax: {
+                // BG-30
+                typeCode: TAX_TYPE_CODE;
+                categoryCode: TAX_CATEGORY_CODES; // BT-151
+                rateApplicablePercent?: number | undefined; // BT-152
+            };
             billingPeriod?:
                 | {
                       // BG-26
@@ -280,70 +233,46 @@ interface easy_input_type {
                           | undefined;
                   }
                 | undefined;
-            lineLevelAllowancesAndCharges?: {
-                allowances?:
-                    | {
-                          // BG-27
-                          calculationPercent?: number | undefined; // BT-138
-                          basisAmount?: number | undefined; // BT-137
-                          actualAmount: number; // BT-136
-                          reasonCode?: ALLOWANCE_REASONS_CODES | undefined; // BT-140
-                          reason?: string | undefined; // BT-139
-                      }[]
-                    | undefined;
-                charges?:
-                    | {
-                          // BG-28
-                          calculationPercent?: number | undefined; // BT-143
-                          basisAmount?: number | undefined; // BT-142
-                          actualAmount: number; // BT-141
-                          reasonCode?: CHARGE_REASONS_CODES | undefined; // BT-145
-                          reason?: string | undefined; // BT-144
-                      }[]
-                    | undefined;
+            lineLevelAllowancesAndCharges?:
+                | {
+                      allowances?:
+                          | {
+                                // BG-27
+                                actualAmount: number; // BT-136
+                                reasonCode?: ALLOWANCE_REASONS_CODES | undefined; // BT-140
+                                reason?: string | undefined; // BT-139
+                            }[]
+                          | undefined;
+                      charges?:
+                          | {
+                                // BG-28
+                                actualAmount: number; // BT-141
+                                reasonCode?: CHARGE_REASONS_CODES | undefined; // BT-145
+                                reason?: string | undefined; // BT-144
+                            }[]
+                          | undefined;
+                  }
+                | undefined;
+            lineTotals: {
+                netTotal: number; // BT-131
             };
-            additionalReferences?:
-                | {
-                      // BT-128-00
-                      documentId: string; // BT-128
-                      typeCode: '130';
-                      referenceTypeCode?: REFERENCED_DOCUMENT_TYPE_CODES | undefined; // BT-128-
-                  }[]
-                | undefined;
-            accountingInformation?:
-                | {
-                      // BT-133-00
-                      id: string; // BT-133
-                  }
-                | undefined;
-            tax:
-                | {
-                      categoryCode: TaxTypeWithTaxRate;
-                      rateApplicablePercent: number; // BT-152
-                  }
-                | {
-                      categoryCode: TaxTypeWithoutTaxRate;
-                  };
         };
     }[];
     referencedDocuments?:
         | {
               orderReference?:
                   | {
-                        // BT-13
-                        documentId?: string | undefined;
+                        documentId?: string | undefined; // BT-13
                     }
                   | undefined;
               contractReference?:
                   | {
-                        // BT-12
-                        documentId?: string | undefined;
+                        documentId?: string | undefined; // BT-12
                     }
                   | undefined;
               advanceShippingNotice?:
                   | {
-                        // BT-16
-                        documentId?: string | undefined;
+                        documentId?: string | undefined; // BT-16
                     }
                   | undefined;
               referencedInvoice?:
@@ -359,57 +288,6 @@ interface easy_input_type {
                               }
                             | undefined;
                     }[]
-                  | undefined;
-              orderConfirmationReference?:
-                  | {
-                        // BT-14
-                        documentId?: string | undefined;
-                    }
-                  | undefined;
-              projectReference?:
-                  | {
-                        // BT-11
-                        id: string;
-                        name: string; // BT-11-0
-                    }
-                  | undefined;
-              receivingAdviceReference?:
-                  | {
-                        // BT-15
-                        documentId?: string | undefined;
-                    }
-                  | undefined;
-              additionalReferences?:
-                  | {
-                        invoiceSupportingDocuments?:
-                            | {
-                                  // BG-24
-                                  documentId: string; // BT-122
-                                  uriid?: string | undefined; // BT-124
-                                  name?: string | undefined; // BT-123
-                                  attachmentBinaryObject?:
-                                      | {
-                                            // BT-125
-                                            mimeCode: MIME_CODES; // BT-125-1
-                                            fileName: string; // BT-125-2
-                                        }
-                                      | undefined;
-                              }[]
-                            | undefined;
-                        tenderOrLotReferenceDetails?:
-                            | {
-                                  // BT-17-00
-                                  documentId: string; // BT-17
-                              }[]
-                            | undefined;
-                        invoiceItemDetails?:
-                            | {
-                                  // BT-18-00
-                                  documentId: string; // BT-18
-                                  referenceTypeCode?: REFERENCED_DOCUMENT_TYPE_CODES | undefined; // BT-18-1
-                              }[]
-                            | undefined;
-                    }
                   | undefined;
           }
         | undefined;
@@ -427,7 +305,6 @@ interface easy_input_type {
                             | undefined;
                         name?: string | undefined; // BT-70
                         postalAddress: {
-                            // BG-15
                             postcode?: string | undefined; // BT-78
                             addressLineOne?: string | undefined; // BT-75
                             addressLineTwo?: string | undefined; // BT-76
@@ -506,19 +383,8 @@ interface easy_input_type {
                       | undefined;
                   payeeBankAccount?:
                       | {
-                            // BG-17
                             iban?: string | undefined; // BT-84
                             propriataryId?: string | undefined; // BT-84-0
-                            accountName?: string | undefined; // BT-85
-                            bic?: string | undefined; // BT-86
-                        }
-                      | undefined;
-                  description?: string | undefined; // BT-82
-                  financialCard?:
-                      | {
-                            // BG-18
-                            finalDigitsOfCard: string; // BT-87
-                            cardholderName?: string | undefined; // BT-88
                         }
                       | undefined;
               }[]
@@ -540,6 +406,8 @@ interface easy_input_type {
         specifiedTradeAccountingAccount?: string | undefined; // BT-19
     };
     totals: {
+        // BG-22
+        sumWithoutAllowancesAndCharges: number; // BT-106
         documentLevelAllowancesAndCharges?:
             | {
                   allowances?:
@@ -550,14 +418,11 @@ interface easy_input_type {
                             actualAmount: number; // BT-92
                             reasonCode?: ALLOWANCE_REASONS_CODES | undefined; // BT-98
                             reason?: string | undefined; // BT-97
-                            categoryTradeTax:
-                                | {
-                                      categoryCode: TaxTypeWithTaxRate; // BT-95
-                                      rateApplicablePercent: number; // BT-96
-                                  }
-                                | {
-                                      categoryCode: TaxTypeWithoutTaxRate;
-                                  };
+                            categoryTradeTax: {
+                                typeCode: TAX_TYPE_CODE; // BT-95-0
+                                categoryCode: TAX_CATEGORY_CODES; // BT-95
+                                rateApplicablePercent?: number | undefined; // BT-96
+                            };
                         }[]
                       | undefined;
                   charges?:
@@ -568,50 +433,38 @@ interface easy_input_type {
                             actualAmount: number; // BT-99
                             reasonCode?: CHARGE_REASONS_CODES | undefined; // BT-105
                             reason?: string | undefined; // BT-104
-                            categoryTradeTax:
-                                | {
-                                      categoryCode: TaxTypeWithTaxRate; // BT-102
-                                      rateApplicablePercent: number; // BT-103
-                                  }
-                                | {
-                                      categoryCode: TaxTypeWithoutTaxRate; // BT-102
-                                  };
+                            categoryTradeTax: {
+                                typeCode: TAX_TYPE_CODE; // BT-102-0
+                                categoryCode: TAX_CATEGORY_CODES; // BT-102
+                                rateApplicablePercent?: number | undefined; // BT-103
+                            };
                         }[]
                       | undefined;
               }
             | undefined;
-        optionalTaxCurrency?:
+        allowanceTotalAmount?: number | undefined; // BT-107
+        chargeTotalAmount?: number | undefined; // BT-108
+        netTotal: number; // BT-109
+        taxBreakdown: {
+            // BG-23
+            calculatedAmount: number; // BT-117
+            typeCode: TAX_TYPE_CODE; // BT-118-0
+            exemptionReason?: string | undefined; // BT-120
+            basisAmount: number; // BT-116
+            categoryCode: TAX_CATEGORY_CODES; // BT-118
+            exemptionReasonCode?: EXEMPTION_REASON_CODES | undefined; // BT-121
+            dueDateTypeCode?: TIME_REFERENCE_CODES | undefined; // BT-8
+            rateApplicablePercent?: number | undefined; // BT-119
+        }[];
+        taxTotal?:
             | {
-                  taxCurrency: unknown; // BT-111
-                  exchangeRate: number;
-              }
-            | undefined;
-        taxExemptionReason?:
-            | {
-                  reason: string;
-                  categoryCode: TaxTypeWithoutTaxRate;
+                  amount: number; // BT-110 / BT-111
+                  currency: CURRENCY_CODES; // BT-111-0
               }[]
             | undefined;
-        optionalTaxDueDates?:
-            | (
-                  | {
-                        categoryCode: TaxTypeWithTaxRate;
-                        rateApplicablePercent: number;
-                        dueDateTimeCode: TIME_REFERENCE_CODES | undefined; // BT-8
-                    }
-                  | {
-                        categoryCode: TaxTypeWithTaxRate;
-                        rateApplicablePercent: number;
-                        taxPointDate: {
-                            // BT-7
-                            year: number;
-                            month: number;
-                            day: number;
-                        };
-                    }
-              )[]
-            | undefined;
-        roundingAmount?: number | undefined; // BT-114
+        taxCurrency?: CURRENCY_CODES | undefined; // BT-6
+        grossTotal: number; // BT-112
         prepaidAmount?: number | undefined; // BT-113
+        openAmount: number; // BT-115
     };
 }

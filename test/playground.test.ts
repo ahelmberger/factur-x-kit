@@ -2,10 +2,15 @@ import { Schema } from 'node-schematron';
 import exp from 'node:constants';
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { printNode, zodToTs } from 'zod-to-ts';
 
+import { ZComfortProfileStructure_modified } from '../src/adapter/easyInputType';
 import { totalsCalculator } from '../src/adapter/totalsCalculator';
 import { FacturX } from '../src/core/factur-x';
 import { dinA4Width, mmToPt } from '../src/pdfTemplates/types';
+import { ZBasicProfile } from '../src/profiles/basic/BasicProfile';
+import { ZBasicWithoutLinesProfileStructure } from '../src/profiles/basicwithoutlines';
+import { ZMinimumProfile } from '../src/profiles/minimum';
 import { designTestObject } from './design_test_object';
 import { designTestObject_easy } from './design_test_object_easy';
 import { testDesignObjectKleinunternehmer } from './design_test_object_kleinunternehmer';
@@ -14,46 +19,47 @@ import './profiles/codeDb/xPathDocumentFunction';
 
 // This is just a testcase which helps me printing out the ts-objects which are built from the zod types
 
-/*describe('playground', () => {
+describe.only('playground', () => {
     it('shall run', () => {
-        const identifier = 'User'
-        const { node } = zodToTs(ZBasicWithoutLinesProfileStructure, identifier)
-        const nodeString = printNode(node)
-        //console.log(nodeString)
+        const identifier = 'basicwl';
+        const { node } = zodToTs(ZComfortProfileStructure_modified, identifier);
+        const nodeString = printNode(node);
+        logTypeWithComments(nodeString);
 
-        const identifier2 = 'bas'
-        const { node: node2 } = zodToTs(ZBasicWithoutLinesProfileXml, identifier2)
-        const nodeString2 = printNode(node2)
-        // console.log(nodeString2)
+        const identifier4 = 'basic';
+        const { node: node4 } = zodToTs(ZBasicProfile, identifier4);
+        const nodeString4 = printNode(node4);
+        //logTypeWithComments(nodeString4);
 
-        const identifier3 = 'Line'
-        const { node: node3 } = zodToTs(ZComfortTradeLineItem, identifier3)
-        //console.log(printNode(node3))
+        const min = 'minimum';
+        const { node: minimum } = zodToTs(ZMinimumProfile, min);
+        const nodeStringMin = printNode(minimum);
+        //logTypeWithComments(nodeStringMin);
 
-        const identifier4 = 'comfort'
-        const { node: node4 } = zodToTs(ZComfortProfile, identifier4)
-        const nodeString4 = printNode(node4)
-        const splittedString = nodeString4.split('\n')
-        let commentedString = ''
-        let currComment = ''
-        for (const line of splittedString) {
-            const trimmedText = line.trim()*/
-//if (trimmedText.startsWith('/**') && trimmedText.endsWith('*/')) {
-//     const comment = trimmedText.replace('/**', '').replace('*/', '')
-/*       currComment = comment
-                continue
-            }
-            commentedString = `${commentedString}${line}`
-            if (currComment) {
-                commentedString = `${commentedString}\t//${currComment}`
-                currComment = ''
-            }
-            commentedString = `${commentedString}\n`
+        expect(true).toBeTruthy();
+    });
+});
+
+function logTypeWithComments(nodeString: string) {
+    const splittedString = nodeString.split('\n');
+    let commentedString = '';
+    let currComment = '';
+    for (const line of splittedString) {
+        const trimmedText = line.trim();
+        if (trimmedText.startsWith('/**') && trimmedText.endsWith('*/')) {
+            const comment = trimmedText.replace('/**', '').replace('*/', '');
+            currComment = comment;
+            continue;
         }
-        //console.log(commentedString)
-        console.log(isMinimumProfile(designTestObject))
-    })
-})*/
+        commentedString = `${commentedString}${line}`;
+        if (currComment) {
+            commentedString = `${commentedString}\t//${currComment}`;
+            currComment = '';
+        }
+        commentedString = `${commentedString}\n`;
+    }
+    console.log(commentedString);
+}
 
 describe('factur-x validity check', () => {
     let xml: string;
@@ -79,7 +85,7 @@ describe('factur-x validity check', () => {
     });
 });
 
-describe.only('pdf-creation', () => {
+describe('pdf-creation', () => {
     test('pdf creation', async () => {
         const projectRoot = process.cwd();
         const imagePath = path.join(projectRoot, 'assets', 'images', 'test_header', 'header.jpg');

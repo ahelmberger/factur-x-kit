@@ -33,11 +33,15 @@ export const zTaxTypesWithoutRate = z.union([
     z.literal(TAX_CATEGORY_CODES.NOT_SUBJECT_TO_VAT)
 ]);
 
+export type TaxTypeWithoutTaxRate = z.infer<typeof zTaxTypesWithoutRate>;
+
 export const zTaxTypesWithRate = z.union([
     z.literal(TAX_CATEGORY_CODES.STANDARD_RATE),
     z.literal(TAX_CATEGORY_CODES.IPSI),
     z.literal(TAX_CATEGORY_CODES.IGIC)
 ]);
+
+export type TaxTypeWithTaxRate = z.infer<typeof zTaxTypesWithRate>;
 
 export const zExemptionReason = z.object({
     reason: z.string(),
@@ -107,7 +111,7 @@ export const ZComfortProfileStructure_modified = ZComfortProfileStructure.omit({
     profile: true
 }).extend({
     invoiceLines: ZComfortTradeLineItem_modified.array(),
-    totals: ZComfortTotals_modiified
+    totals: ZComfortTotals_modiified.optional()
 });
 
 export type ComfortProfile_noSums = z.infer<typeof ZComfortProfileStructure_modified>;
