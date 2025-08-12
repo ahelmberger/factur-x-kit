@@ -1,8 +1,11 @@
-import * as fs from 'fs';
 import { PageSizes, rgb } from 'pdf-lib';
 import { PDFDocument } from 'pdf-lib';
 
+import openSansBoldPath from '../../assets/fonts/OpenSans/OpenSans-Bold.ttf';
+import openSansLightPath from '../../assets/fonts/OpenSans/OpenSans-Light.ttf';
+import openSansRegularPath from '../../assets/fonts/OpenSans/OpenSans-Regular.ttf';
 import { availableProfiles } from '../core/factur-x';
+import { dataUrlToUint8Array } from '../helper/calculation';
 import addCustomerAddressBlock from './invoiceBlocks/customerAddressBlock';
 import addFooter from './invoiceBlocks/footerBlock';
 import { ImageDimensions, addHeaderImage } from './invoiceBlocks/headerImage';
@@ -25,9 +28,9 @@ export default async function zugferdKitSinglePage(
         dimensions: ImageDimensions;
     }
 ): Promise<PDFDocument> {
-    const openSansRegularBytes = fs.readFileSync('./assets/fonts/OpenSans/OpenSans-Regular.ttf');
-    const openSansBoldBytes = fs.readFileSync('./assets/fonts/OpenSans/OpenSans-Bold.ttf');
-    const openSansLightBytes = fs.readFileSync('./assets/fonts/OpenSans/OpenSans-Light.ttf');
+    const openSansRegularBytes = await dataUrlToUint8Array(openSansRegularPath);
+    const openSansBoldBytes = await dataUrlToUint8Array(openSansBoldPath);
+    const openSansLightBytes = await dataUrlToUint8Array(openSansLightPath);
 
     const page = pdfDoc.addPage(PageSizes.A4);
     const openSansRegular = await pdfDoc.embedFont(openSansRegularBytes);

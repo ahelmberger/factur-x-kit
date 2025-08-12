@@ -1,5 +1,5 @@
-import * as fs from 'fs';
 import fontkit from '@pdf-lib/fontkit';
+// NUR für ESM-Module (wenn "type": "module" in package.json)
 import {
     PDFArray,
     PDFContext,
@@ -15,10 +15,14 @@ import {
 } from 'pdf-lib';
 import { AFRelationship, EmbeddedFileOptions } from 'pdf-lib/cjs/core/embedders/FileEmbedder';
 
+import iccProfilePath from '../../assets/iccprofile/sRGB2014.icc';
+import { dataUrlToUint8Array } from '../helper/calculation';
 import { ImageDimensions } from '../pdfTemplates/invoiceBlocks/headerImage';
 import { SupportedLocales, ZugferdKitPDFTemplate } from '../pdfTemplates/types';
 import zugferdKitSinglePage from '../pdfTemplates/zugferdKitSinglePage';
 import { availableProfiles } from './factur-x';
+
+// NUR für ESM-Module
 
 const FACTUR_X_FILENAME = PDFString.of('factur-x.xml').decodeText();
 
@@ -40,7 +44,7 @@ export default class FacturXPdf {
      * Please make sure that all fonts are properly embedded! */
     public static async createFromNonCompliantPDF(bytes: string | Uint8Array | ArrayBuffer): Promise<FacturXPdf> {
         const pdfDoc: PDFDocument = await PDFDocument.load(bytes);
-        const pdfDocWithICCProfile = FacturXPdf.addsRGB2014ColorProfile(pdfDoc);
+        const pdfDocWithICCProfile = await FacturXPdf.addsRGB2014ColorProfile(pdfDoc);
         return new FacturXPdf(pdfDocWithICCProfile);
     }
 
@@ -49,14 +53,14 @@ export default class FacturXPdf {
         const pdfDoc = await PDFDocument.create();
         //fontkit is needed to properly embed fonts in pdf (as needed in PDF/A-3)
         pdfDoc.registerFontkit(fontkit);
-        const pdfDocWithICCProfile = FacturXPdf.addsRGB2014ColorProfile(pdfDoc);
+        const pdfDocWithICCProfile = await FacturXPdf.addsRGB2014ColorProfile(pdfDoc);
         return new FacturXPdf(pdfDocWithICCProfile);
     }
 
     /**Create instance by using your own pdf-lib PDFDocument
      * Please make sure that all fonts are properly embedded! */
     public static async createFromPDFDocument(pdfDoc: PDFDocument): Promise<FacturXPdf> {
-        const pdfDocWithICCProfile = FacturXPdf.addsRGB2014ColorProfile(pdfDoc);
+        const pdfDocWithICCProfile = await FacturXPdf.addsRGB2014ColorProfile(pdfDoc);
         return new FacturXPdf(pdfDocWithICCProfile);
     }
 
@@ -146,14 +150,14 @@ export default class FacturXPdf {
     }
 
     /**Color Profile is needed for PDF/A-3 compliance */
-    private static addsRGB2014ColorProfile(pdfDoc: PDFDocument): PDFDocument {
-        const iccBuffer = fs.readFileSync('./assets/iccprofile/sRGB2014.icc');
+    private static async addsRGB2014ColorProfile(pdfDoc: PDFDocument): Promise<PDFDocument> {
+        const iccUint8Array = await dataUrlToUint8Array(iccProfilePath);
 
         const pdfDocWithICCProfile = this.setColorProfile({
             identifier: 'sRGB2014',
             info: 'sRGB v2 ICC',
             subType: 'GTS_PDFA1',
-            iccBuffer,
+            iccBuffer: iccUint8Array,
             pdfDoc
         });
         return pdfDocWithICCProfile;
@@ -169,7 +173,7 @@ export default class FacturXPdf {
         identifier: string;
         info?: string;
         subType: string;
-        iccBuffer: Buffer;
+        iccBuffer: Uint8Array;
         pdfDoc: PDFDocument;
     }): PDFDocument {
         const iccStream = pdfDoc.context.stream(iccBuffer, {

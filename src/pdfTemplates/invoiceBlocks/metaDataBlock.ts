@@ -79,6 +79,11 @@ export default async function addMetaBlock(
         customerId = data.buyer.id;
     }
 
+    let customerVAT: string | undefined;
+    if ('taxIdentification' in data.buyer && data.buyer.taxIdentification && 'vatId' in data.buyer.taxIdentification) {
+        customerVAT = data.buyer.taxIdentification.vatId;
+    }
+
     const metaDataContent: Partial<Record<TranslationKeys, string | undefined>> = {
         INVOICE_ID: data.document.id,
         INVOICE_DATE: formatCustomDate(data.document.dateOfIssue, locale),
@@ -88,7 +93,8 @@ export default async function addMetaBlock(
         DELIVERY_DATE: deliveryDate,
         ADVANCE_SHIPPING_NOTICE: advanceShippingNoticeId,
         BILLING_PERIOD: billingPeriod,
-        PAYMENT_DUE_DATE: paymentTerm
+        PAYMENT_DUE_DATE: paymentTerm,
+        VAT_ID_CUSTOMER: customerVAT
     };
 
     let y = options?.position?.y || (dinA4Height - 62) * mmToPt;

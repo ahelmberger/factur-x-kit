@@ -6,5 +6,13 @@ export default defineConfig({
     dts: true,
     shims: true,
     skipNodeModulesBundle: true,
-    clean: true
+    clean: true,
+    esbuildOptions(options, context) {
+        options.assetNames = 'assets/[name]';
+    },
+
+    loader: {
+        '.ttf': 'dataurl',
+        '.icc': 'dataurl'
+    }
 });

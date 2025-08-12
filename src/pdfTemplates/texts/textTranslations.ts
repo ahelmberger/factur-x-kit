@@ -50,6 +50,7 @@ export const translations_en = {
     VAT: 'Value Added Tax',
     VAT_ID: 'VAT ID',
     TAX_ID: 'Tax ID',
+    VAT_ID_CUSTOMER: 'Customer VAT ID',
 
     VAT_EXMPTION_REASON: 'VAT Exemption Reason',
     ALREADY_PAID: 'This invoice has already been paid'
@@ -105,6 +106,7 @@ const translations_de: typeof translations_en = {
     VAT: 'Umsatzssteuer',
     VAT_ID: 'USt-IdNr.',
     TAX_ID: 'Steuernr:',
+    VAT_ID_CUSTOMER: 'USt-IdNr. Kunde',
 
     VAT_EXMPTION_REASON: 'Grund für Umsatzsteuerbefreiung',
     ALREADY_PAID: 'Diese Rechnung wurde bereits beglichen'
@@ -160,6 +162,7 @@ const translations_fr: typeof translations_en = {
     VAT: 'Taxe sur la valeur ajoutée',
     VAT_ID: 'Numéro de TVA',
     TAX_ID: 'Numéro fiscal',
+    VAT_ID_CUSTOMER: 'Numéro TVA du client',
 
     VAT_EXMPTION_REASON: 'Raison de l’exemption de TVA',
     ALREADY_PAID: 'Cette facture a déjà été réglée'

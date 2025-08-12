@@ -76,7 +76,7 @@ describe('Unit Tests for pdf functions', () => {
         let pdfDocWithProfile: any;
         beforeAll(async () => {
             const testPDFDoc = await PDFDocument.create();
-            pdfDocWithProfile = (FacturXPdf as any)['addsRGB2014ColorProfile'](testPDFDoc);
+            pdfDocWithProfile = await (FacturXPdf as any)['addsRGB2014ColorProfile'](testPDFDoc);
         });
         let referenceArray: any;
         test('OutputIntents can be found in pdf catalog', () => {

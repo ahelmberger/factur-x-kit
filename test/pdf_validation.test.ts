@@ -82,7 +82,7 @@ const TESTXML =
  * --> Expected Preconditions: A proper PDF/A-3 is used as basis
  */
 async function prepareReplaceXML() {
-    const pdfBuff = fs.readFileSync(path.join(__dirname, 'pdfs', `MINIMUM_Rechnung.pdf`));
+    const pdfBuff = new Uint8Array(fs.readFileSync(path.join(__dirname, 'pdfs', `MINIMUM_Rechnung.pdf`)));
     const facturX = await FacturXPdf.createFromFacturXPDF(pdfBuff);
     return facturX.createFacturXPDF(TESTXML, testObj);
 }
@@ -104,7 +104,7 @@ checkCorrectXmlAttached(prepareCreateNewFacturX, 'Completely new PDF');
  * --> Expected Preconditions: All used fonts are properly embedded in pdf and no 'Standard 14 Font' is used
  */
 async function prepareCreateFromNonCompliantPDF() {
-    const pdfBuff = fs.readFileSync(path.join(__dirname, 'pdfs', `non_compliant_pdf.pdf`));
+    const pdfBuff = new Uint8Array(fs.readFileSync(path.join(__dirname, 'pdfs', `non_compliant_pdf.pdf`)));
     const facturX = await FacturXPdf.createFromNonCompliantPDF(pdfBuff);
     return facturX.createFacturXPDF(TESTXML, testObj);
 }
@@ -118,7 +118,7 @@ checkCorrectXmlAttached(prepareCreateFromNonCompliantPDF, 'Create from non-compl
 async function prepareCreateFromPdfLibDocument() {
     const pdfDoc = await PDFDocument.create();
     pdfDoc.registerFontkit(fontkit);
-    const openSansRegularBytes = fs.readFileSync('./assets/fonts/OpenSans/OpenSans-Regular.ttf');
+    const openSansRegularBytes = new Uint8Array(fs.readFileSync('./assets/fonts/OpenSans/OpenSans-Regular.ttf'));
 
     const page = pdfDoc.addPage([600, 400]);
     const openSansRegular = await pdfDoc.embedFont(openSansRegularBytes);

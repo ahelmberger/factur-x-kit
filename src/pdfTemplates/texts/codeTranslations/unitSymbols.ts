@@ -330,7 +330,7 @@ const unitSymbols_basis: Record<UnitCode, string> = {
     C59: '',
     C60: 'Ω·cm',
     C61: 'Ω·m',
-    C62: '1',
+    C62: '',
     C63: 'pc',
     C64: 'Pa/K',
     C65: 'Pa·s',
