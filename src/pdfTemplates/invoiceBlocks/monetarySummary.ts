@@ -138,7 +138,9 @@ function printTaxBreakdown(
                   style: 'percent',
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2
-              }).format(round(tax.rateApplicablePercent / 100, 4))}) `
+              }).format(
+                  round(tax.rateApplicablePercent / 100, 4)
+              )} ${textTranslations[locale].OF} ${meta.currencyConverter.format(round(tax.basisAmount, 2))}) `
             : '';
 
         let taxDescription = '';
@@ -232,12 +234,18 @@ function optionallyPrintAllowanceCharge(
     }
 
     const allowanceBreakdown = data.totals.documentLevelAllowancesAndCharges?.allowances || [];
+    const percentageFormatter = (percent: number) =>
+        Intl.NumberFormat(locale, {
+            style: 'percent',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }).format(round(percent / 100, 4));
 
     if (data.totals.allowanceTotalAmount || allowanceBreakdown.length > 0) {
         if (allowanceBreakdown.length > 0) {
             for (const allowance of allowanceBreakdown) {
                 printMonetarySummaryLine(
-                    `${textTranslations[locale].ALLOWANCE}: ${allowance.reason || ''}`,
+                    `${textTranslations[locale].ALLOWANCE} (${textTranslations[locale].TAX}: ${percentageFormatter(allowance.categoryTradeTax.rateApplicablePercent || 0)}): ${allowance.reason || ''}`,
                     allowance.actualAmount,
                     currentY,
                     true,
@@ -263,7 +271,7 @@ function optionallyPrintAllowanceCharge(
         if (chargeBreakdown.length > 0) {
             for (const charge of chargeBreakdown) {
                 printMonetarySummaryLine(
-                    `${textTranslations[locale].CHARGE}: ${charge.reason || ''}`,
+                    `${textTranslations[locale].CHARGE} (${textTranslations[locale].TAX}: ${percentageFormatter(charge.categoryTradeTax.rateApplicablePercent || 0)}): ${charge.reason || ''}`,
                     charge.actualAmount,
                     currentY,
                     false,
