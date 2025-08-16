@@ -1161,10 +1161,10 @@ const noteSubjects_fr: Record<SubjectCodes, string> = {
     ZZZ: 'défini mutuellement'
 };
 
-const noteSubjects: TranslatedTexts<SubjectCodes> = {
+const _noteSubjects: TranslatedTexts<SubjectCodes> = {
     'en-US': noteSubjects_en,
     'de-DE': noteSubjects_de,
     'fr-FR': noteSubjects_fr
 };
 
-export default Object.freeze(noteSubjects);
+export const noteSubjects = Object.freeze(_noteSubjects);

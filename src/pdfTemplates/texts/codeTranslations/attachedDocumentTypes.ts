@@ -2463,10 +2463,10 @@ const attachedDocumentTypes_fr: Record<AttachedDocumentCodes, string> = {
     ZZZ: 'Numéro de référence défini mutuellement'
 };
 
-const attachedDocumentTypes: TranslatedTexts<AttachedDocumentCodes> = {
+const _attachedDocumentTypes: TranslatedTexts<AttachedDocumentCodes> = {
     'en-US': attachedDocumentTypes_en,
     'de-DE': attachedDocumentTypes_de,
     'fr-FR': attachedDocumentTypes_fr
 };
 
-export default Object.freeze(attachedDocumentTypes);
+export const attachedDocumentTypes = Object.freeze(_attachedDocumentTypes);

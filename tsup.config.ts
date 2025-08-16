@@ -2,17 +2,19 @@ import { defineConfig } from 'tsup';
 
 export default defineConfig({
     format: ['cjs', 'esm'],
-    entry: ['./src/index.ts'],
+    entry: {
+        index: 'src/index.ts'
+    },
+
     dts: true,
     shims: true,
     skipNodeModulesBundle: true,
     clean: true,
-    esbuildOptions(options, context) {
-        options.assetNames = 'assets/[name]';
-    },
-
     loader: {
         '.ttf': 'dataurl',
         '.icc': 'dataurl'
+    },
+    esbuildOptions(options) {
+        options.chunkNames = 'chunks/[name]-[hash]';
     }
 });

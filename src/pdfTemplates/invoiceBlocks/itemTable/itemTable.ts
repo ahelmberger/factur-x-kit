@@ -3,17 +3,17 @@ import { PDFFont, PDFPage, RGB } from 'pdf-lib';
 import { availableProfiles } from '../../../core/factur-x';
 import { round } from '../../../helper/calculation';
 import { ComfortTradeLineItem } from '../../../types/ram/IncludedSupplyChainTradeLineItem/ComfortTradeLineItem';
-import attachedDocumentTypes from '../../texts/codeTranslations/attachedDocumentTypes';
-import iso6523 from '../../texts/codeTranslations/iso6523';
-import unitSymbols from '../../texts/codeTranslations/unitSymbols';
-import untdid7143 from '../../texts/codeTranslations/untdid7143';
+import { attachedDocumentTypes } from '../../texts/codeTranslations/attachedDocumentTypes';
+import { iso6523Codes } from '../../texts/codeTranslations/iso6523';
+import { unitSymbols } from '../../texts/codeTranslations/unitSymbols';
+import { untdid7143 } from '../../texts/codeTranslations/untdid7143';
 import { formatCustomDate } from '../../texts/formatCustomDate';
-import textTranslations from '../../texts/textTranslations';
+import { textTranslations } from '../../texts/textTranslations';
 import { SupportedLocales, dinA4Height, mmToPt } from '../../types';
 import { convertAllowancesAndChargesToString } from '../helpers';
-import drawTable, { TableInformation, TableSchemeType } from './table';
+import { TableInformation, TableSchemeType, drawTable } from './table';
 
-export default async function addItemTable(
+export async function addItemTable(
     data: availableProfiles,
     page: PDFPage,
     font: PDFFont,
@@ -139,7 +139,7 @@ export default async function addItemTable(
 
                 const globalIdText = globalId
                     ? globalIdScheme
-                        ? `${iso6523[globalIdScheme]}: ${globalId}`
+                        ? `${iso6523Codes[globalIdScheme]}: ${globalId}`
                         : `${textTranslations[locale].GLOBAL_ID}: ${globalId}`
                     : '';
                 const buyerProductIdText = buyerProductId

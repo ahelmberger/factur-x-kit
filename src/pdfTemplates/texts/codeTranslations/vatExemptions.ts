@@ -227,10 +227,10 @@ const vatExemptionReasons_fr: Record<VATEXCodes, string> = {
         'Notes de crédit nationales françaises sans TVA, en raison de la renonciation du fournisseur à la TVA pour escompte'
 };
 
-const vatExemptionReasons: TranslatedTexts<VATEXCodes> = {
+const _vatExemptionReasons: TranslatedTexts<VATEXCodes> = {
     'en-US': vatExemptionReasons_en,
     'de-DE': vatExemptionReasons_de,
     'fr-FR': vatExemptionReasons_fr
 };
 
-export default Object.freeze(vatExemptionReasons);
+export const vatExemptions = Object.freeze(_vatExemptionReasons);

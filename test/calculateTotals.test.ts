@@ -1,6 +1,6 @@
 import { FacturX } from '../src';
-import { ComfortProfile_noSums } from '../src/adapter/easyInputType';
-import { totalsCalculator } from '../src/adapter/totalsCalculator';
+import { TotalsCalculatorInputType } from '../src/adapter/totalsCalculator/easyInputType';
+import { totalsCalculator } from '../src/adapter/totalsCalculator/totalsCalculator';
 import { TAX_CATEGORY_CODES, UNIT_CODES } from '../src/types/codes';
 import { designTestObject_preCalc } from './design_test_object_preCalc';
 
@@ -14,7 +14,7 @@ describe('calculate totals', () => {
     });
 
     test('System Test: calculate totals for comfort profile with "Not subject to VAT" Tax', async () => {
-        const data: ComfortProfile_noSums = {
+        const data: TotalsCalculatorInputType = {
             ...designTestObject_preCalc,
             seller: { ...designTestObject_preCalc.seller, taxIdentification: undefined },
             buyer: { ...designTestObject_preCalc.buyer, taxIdentification: undefined },

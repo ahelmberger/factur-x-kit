@@ -2,7 +2,7 @@ import { PDFFont, PDFPage, RGB, rgb } from 'pdf-lib';
 
 import { availableProfiles } from '../../core/factur-x';
 import { formatCustomDate } from '../texts/formatCustomDate';
-import textTranslations, { TranslationKeys, translations_en } from '../texts/textTranslations';
+import { TranslationKeys, textTranslations, translations_en } from '../texts/textTranslations';
 import { SupportedLocales, dinA4Height, mmToPt } from '../types';
 
 interface TextLineSettingsObject {
@@ -15,7 +15,7 @@ interface TextLineSettingsObject {
     color: RGB;
 }
 
-export default async function addMetaBlock(
+export async function addMetaBlock(
     data: availableProfiles,
     page: PDFPage,
     font: PDFFont,

@@ -4,8 +4,8 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { printNode, zodToTs } from 'zod-to-ts';
 
-import { ZComfortProfileStructure_modified } from '../src/adapter/easyInputType';
-import { totalsCalculator } from '../src/adapter/totalsCalculator';
+import { ZComfortProfileStructure_modified } from '../src/adapter/totalsCalculator/easyInputType';
+import { totalsCalculator } from '../src/adapter/totalsCalculator/totalsCalculator';
 import { FacturX } from '../src/core/factur-x';
 import { dinA4Width, mmToPt } from '../src/pdfTemplates/types';
 import { ZBasicProfile } from '../src/profiles/basic/BasicProfile';

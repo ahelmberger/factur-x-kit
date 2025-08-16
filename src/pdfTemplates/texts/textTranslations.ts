@@ -170,10 +170,10 @@ const translations_fr: typeof translations_en = {
 
 export type TranslationKeys = `${keyof typeof translations_en}`;
 
-const translations: TranslatedTexts<`${keyof typeof translations_en}`> = {
+const _translations: TranslatedTexts<`${keyof typeof translations_en}`> = {
     'en-US': translations_en,
     'de-DE': translations_de,
     'fr-FR': translations_fr
 };
 
-export default Object.freeze(translations);
+export const textTranslations = Object.freeze(_translations);

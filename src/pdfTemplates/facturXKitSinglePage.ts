@@ -6,20 +6,20 @@ import openSansLightPath from '../../assets/fonts/OpenSans/OpenSans-Light.ttf';
 import openSansRegularPath from '../../assets/fonts/OpenSans/OpenSans-Regular.ttf';
 import { availableProfiles } from '../core/factur-x';
 import { dataUrlToUint8Array } from '../helper/calculation';
-import addCustomerAddressBlock from './invoiceBlocks/customerAddressBlock';
-import addFooter from './invoiceBlocks/footerBlock';
+import { facturXKitMultiPage } from './facturXKitMultiPage';
+import { addCustomerAddressBlock } from './invoiceBlocks/customerAddressBlock';
+import { addFooter } from './invoiceBlocks/footerBlock';
 import { ImageDimensions, addHeaderImage } from './invoiceBlocks/headerImage';
-import addIntroTextBlock from './invoiceBlocks/introTextBlock';
-import addItemTable from './invoiceBlocks/itemTable/itemTable';
-import addMetaBlock from './invoiceBlocks/metaDataBlock';
-import addMonetarySummary from './invoiceBlocks/monetarySummary';
-import addOutroTextBlock from './invoiceBlocks/outroTextBlock';
-import addSenderLineBlock from './invoiceBlocks/senderLineBlock';
-import addTitleBlock from './invoiceBlocks/titleBlock';
+import { addIntroTextBlock } from './invoiceBlocks/introTextBlock';
+import { addItemTable } from './invoiceBlocks/itemTable/itemTable';
+import { addMetaBlock } from './invoiceBlocks/metaDataBlock';
+import { addMonetarySummary } from './invoiceBlocks/monetarySummary';
+import { addOutroTextBlock } from './invoiceBlocks/outroTextBlock';
+import { addSenderLineBlock } from './invoiceBlocks/senderLineBlock';
+import { addTitleBlock } from './invoiceBlocks/titleBlock';
 import { SupportedLocales, mmToPt } from './types';
-import zugferdKitMultiPage from './zugferdKitMultiPage';
 
-export default async function zugferdKitSinglePage(
+export async function facturXKitSinglePage(
     data: availableProfiles,
     pdfDoc: PDFDocument,
     locale: SupportedLocales,
@@ -40,7 +40,7 @@ export default async function zugferdKitSinglePage(
 
     async function createMultiPageDocument(): Promise<PDFDocument> {
         pdfDoc.removePage(0);
-        return zugferdKitMultiPage(data, pdfDoc, locale, headerImage);
+        return facturXKitMultiPage(data, pdfDoc, locale, headerImage);
     }
 
     if (headerImage) {

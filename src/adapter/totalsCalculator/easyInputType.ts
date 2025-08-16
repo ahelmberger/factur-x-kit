@@ -2,22 +2,22 @@
 
 import { z } from 'zod';
 
-import { ZComfortProfileStructure } from '../profiles/comfort';
-import { ZCodeType } from '../types/CodeTypeConverter';
+import { ZComfortProfileStructure } from '../../profiles/comfort';
+import { ZCodeType } from '../../types/CodeTypeConverter';
 import {
     ALLOWANCE_REASONS_CODES,
     CHARGE_REASONS_CODES,
     CURRENCY_CODES,
     TAX_CATEGORY_CODES,
     TIME_REFERENCE_CODES
-} from '../types/codes';
-import { ZComfortTradeLineItem } from '../types/ram/IncludedSupplyChainTradeLineItem/ComfortTradeLineItem';
-import { ZBasicPriceProductTradePriceType } from '../types/ram/IncludedSupplyChainTradeLineItem/SpecifiedLineTradeAgreement/GrossPriceProductTradePrice/BasicGrossPriceProductTradePriceType';
-import { ZComfortLineTradeSettlementType } from '../types/ram/IncludedSupplyChainTradeLineItem/SpecifiedLineTradeSettlement/ComfortLineTradeSettlementType';
-import { ZReferencedDocumentType_lineId } from '../types/ram/ReferencedDocumentType/ReferencedDocumentTypes';
-import { ZTradeAllowanceChargeBasisType } from '../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType';
-import { ZAmountType } from '../types/udt/AmountTypeConverter';
-import { ZDateType } from '../types/udt/DateTypeConverter';
+} from '../../types/codes';
+import { ZComfortTradeLineItem } from '../../types/ram/IncludedSupplyChainTradeLineItem/ComfortTradeLineItem';
+import { ZBasicPriceProductTradePriceType } from '../../types/ram/IncludedSupplyChainTradeLineItem/SpecifiedLineTradeAgreement/GrossPriceProductTradePrice/BasicGrossPriceProductTradePriceType';
+import { ZComfortLineTradeSettlementType } from '../../types/ram/IncludedSupplyChainTradeLineItem/SpecifiedLineTradeSettlement/ComfortLineTradeSettlementType';
+import { ZReferencedDocumentType_lineId } from '../../types/ram/ReferencedDocumentType/ReferencedDocumentTypes';
+import { ZTradeAllowanceChargeBasisType } from '../../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType';
+import { ZAmountType } from '../../types/udt/AmountTypeConverter';
+import { ZDateType } from '../../types/udt/DateTypeConverter';
 
 export const ZComfortLineTradeAgreementType_modified = z.object({
     referencedOrder: ZReferencedDocumentType_lineId.optional().describe('BT-132-00'),
@@ -114,4 +114,4 @@ export const ZComfortProfileStructure_modified = ZComfortProfileStructure.omit({
     totals: ZComfortTotals_modiified.optional()
 });
 
-export type ComfortProfile_noSums = z.infer<typeof ZComfortProfileStructure_modified>;
+export type TotalsCalculatorInputType = z.infer<typeof ZComfortProfileStructure_modified>;

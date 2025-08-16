@@ -30,7 +30,7 @@ export interface TableInformation {
 
 // TODO: Ugly Spaghetti-Code. To be refactored
 
-export default async function drawTable<T extends object>(
+export async function drawTable<T extends object>(
     page: PDFPage,
     data: TableData<T>,
     tableScheme: TableSchemeType<T>[],

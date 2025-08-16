@@ -2,9 +2,9 @@ import { PDFFont, PDFPage, RGB, rgb } from 'pdf-lib';
 
 import { availableProfiles } from '../../core/factur-x';
 import { SUBJECT_CODES } from '../../types/codes';
-import noteSubjects from '../texts/codeTranslations/noteSubjects';
-import vatExemptions from '../texts/codeTranslations/vatExemptions';
-import textTranslations from '../texts/textTranslations';
+import { noteSubjects } from '../texts/codeTranslations/noteSubjects';
+import { vatExemptions } from '../texts/codeTranslations/vatExemptions';
+import { textTranslations } from '../texts/textTranslations';
 import { SupportedLocales, dinA4Height, dinA4Width, mmToPt } from '../types';
 import { getNumberOfLines } from './helpers';
 
@@ -20,7 +20,7 @@ interface Settings {
     color: RGB;
 }
 
-export default async function addOutroTextBlock(
+export async function addOutroTextBlock(
     data: availableProfiles,
     page: PDFPage,
     font: PDFFont,

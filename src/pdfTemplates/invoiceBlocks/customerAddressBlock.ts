@@ -2,11 +2,11 @@ import { PDFFont, PDFPage, RGB, rgb } from 'pdf-lib';
 
 import { availableProfiles } from '../../core/factur-x';
 import { ISO6523_CODES } from '../../types/codes';
-import textTranslations from '../texts/textTranslations';
+import { textTranslations } from '../texts/textTranslations';
 import { SupportedLocales, dinA4Height, mmToPt } from '../types';
 import { getNumberOfLines } from './helpers';
 
-export default async function addCustomerAddressBlock(
+export async function addCustomerAddressBlock(
     data: availableProfiles,
     page: PDFPage,
     font: PDFFont,

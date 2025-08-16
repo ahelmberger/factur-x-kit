@@ -564,10 +564,10 @@ export const untdid7143_fr: Record<Untdid7143Codes, string> = {
     ZZZ: 'Numéro défini mutuellement'
 };
 
-const untdid7143: TranslatedTexts<Untdid7143Codes> = {
+const _untdid7143: TranslatedTexts<Untdid7143Codes> = {
     'en-US': untdid7143_en,
     'de-DE': untdid7143_de,
     'fr-FR': untdid7143_fr
 };
 
-export default Object.freeze(untdid7143);
+export const untdid7143 = Object.freeze(_untdid7143);

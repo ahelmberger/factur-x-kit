@@ -1,6 +1,6 @@
 import { ISO6523_CODES } from '../../../types/codes';
 
-const iso6523Codes: Record<ISO6523_CODES, string> = {
+const _iso6523Codes: Record<ISO6523_CODES, string> = {
     '0002': 'System Information et Repertoire des Entreprise et des Etablissements: SIRENE',
     '0060': 'Data Universal Numbering System (D-U-N-S Number)',
     '0088': 'EAN Location Code',
@@ -228,4 +228,4 @@ const iso6523Codes: Record<ISO6523_CODES, string> = {
     '0230': 'National e-Invoicing Framework'
 };
 
-export default Object.freeze(iso6523Codes);
+export const iso6523Codes = Object.freeze(_iso6523Codes);

@@ -3,7 +3,7 @@ import { PDFFont, PDFPage, RGB, rgb } from 'pdf-lib';
 import { availableProfiles } from '../../core/factur-x';
 import { SupportedLocales, dinA4Height, mmToPt } from '../types';
 
-export default async function addSenderLineBlock(
+export async function addSenderLineBlock(
     data: availableProfiles,
     page: PDFPage,
     font: PDFFont,

@@ -14,21 +14,21 @@ import {
 export const designTestObject_easy: ComfortProfile_noSums = {
     document: {
         id: 'INV-2023-EASY-001',
-        type: '380' as DOCUMENT_TYPE_CODES,
+        type: DOCUMENT_TYPE_CODES.COMMERCIAL_INVOICE,
         dateOfIssue: { year: 2023, month: 10, day: 1 },
         notes: [
             {
                 content: 'Thank you for your purchase! We hereby invoice the following services/products.',
-                subject: 'ACY' as SUBJECT_CODES
+                subject: SUBJECT_CODES.INTRODUCTION
             },
             { content: 'Kind regards,\nYour Service Team' },
             {
                 content:
                     'Delivery usually takes place within 3-5 working days after receipt of payment. If you have any questions or concerns, please do not hesitate to contact us.',
-                subject: 'DEL' as SUBJECT_CODES
+                subject: SUBJECT_CODES.DELIVERY_INFORMATION
             }
         ],
-        currency: 'EUR' as CURRENCY_CODES
+        currency: CURRENCY_CODES.Euro
     },
     seller: {
         name: 'Global Goods Inc.',
@@ -40,10 +40,13 @@ export const designTestObject_easy: ComfortProfile_noSums = {
             postcode: 'M1 1AA',
             addressLineOne: '789 Commerce Street',
             city: 'Manchester',
-            country: 'GB' as COUNTRY_ID_CODES,
+            country: COUNTRY_ID_CODES.UNITED_KINGDOM_OF_GREAT_BRITAIN_AND_NORTHERN_IRELAND,
             countrySubDivision: 'ENG'
         },
-        universalCommunicationAddressURI: { id: 'info@globalgoods.co.uk', scheme: '0088' as EAS_SCHEME_CODES },
+        universalCommunicationAddressURI: {
+            id: 'info@globalgoods.co.uk',
+            scheme: EAS_SCHEME_CODES.Electronic_mail_SMPT
+        },
         taxIdentification: { vatId: 'GB123456789' },
         otherLegalInformation: 'Director: Olivia Green\nRegistered in England No. 1234567\nVAT Reg. No. GB123456789',
         tradeContact: [
@@ -58,17 +61,20 @@ export const designTestObject_easy: ComfortProfile_noSums = {
         id: 'CUST-IE-001',
         name: 'Prime Tech Solutions',
         specifiedLegalOrganization: {
-            id: { id: 'CRO987654', scheme: '0060' as ISO6523_CODES },
+            id: { id: 'CRO987654', scheme: ISO6523_CODES.Data_Universal_Numbering_System_DUNS_Number },
             tradingBusinessName: 'Prime Tech Procurement'
         },
         postalAddress: {
             postcode: 'D02 XA00',
             addressLineOne: '10 Tech Park Avenue',
             city: 'Dublin',
-            country: 'IE' as COUNTRY_ID_CODES,
+            country: COUNTRY_ID_CODES.IRELAND,
             countrySubDivision: 'Leinster'
         },
-        universalCommunicationAddressURI: { id: 'purchasing@primetech.ie', scheme: '0088' as EAS_SCHEME_CODES },
+        universalCommunicationAddressURI: {
+            id: 'purchasing@primetech.ie',
+            scheme: EAS_SCHEME_CODES.Electronic_mail_SMPT
+        },
         taxIdentification: { vatId: 'IE9876543W' },
         tradeContact: [
             {
@@ -126,7 +132,7 @@ export const designTestObject_easy: ComfortProfile_noSums = {
                     }
                 }
             },
-            delivery: { itemQuantity: { quantity: 5, unit: 'KGM' as UNIT_CODES } },
+            delivery: { itemQuantity: { quantity: 5, unit: UNIT_CODES.KILOGRAM } },
             settlement: {
                 tax: {
                     categoryCode: TAX_CATEGORY_CODES.STANDARD_RATE,
@@ -149,7 +155,7 @@ export const designTestObject_easy: ComfortProfile_noSums = {
             delivery: { itemQuantity: { quantity: 9, unit: UNIT_CODES.KILOGRAM } },
             settlement: {
                 tax: {
-                    categoryCode: 'S' as TAX_CATEGORY_CODES,
+                    categoryCode: TAX_CATEGORY_CODES.STANDARD_RATE,
                     rateApplicablePercent: 19
                 }
             }

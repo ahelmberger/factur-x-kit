@@ -6,7 +6,7 @@ import { TranslatedTexts } from './texts/types';
 
 export type SupportedLocales = keyof TranslatedTexts<string>;
 
-export type ZugferdKitPDFTemplate = (
+export type FacturXKitPDFTemplate = (
     data: availableProfiles,
     pdfDoc: PDFDocument,
     locale: SupportedLocales,

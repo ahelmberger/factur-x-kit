@@ -5,7 +5,7 @@ import { SUBJECT_CODES } from '../../types/codes';
 import { SupportedLocales, dinA4Height, dinA4Width, mmToPt } from '../types';
 import { getNumberOfLines } from './helpers';
 
-export default async function addIntroTextBlock(
+export async function addIntroTextBlock(
     data: availableProfiles,
     page: PDFPage,
     font: PDFFont,

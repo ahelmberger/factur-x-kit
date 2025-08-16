@@ -1,4 +1,4 @@
-import { ComfortProfile_noSums } from '../src/adapter/easyInputType';
+import { TotalsCalculatorInputType } from '../src/adapter/totalsCalculator/easyInputType';
 // Pfad ggf. anpassen
 import {
     ALLOWANCE_REASONS_CODES,
@@ -19,7 +19,7 @@ import {
 
 // Pfad ggf. anpassen
 
-export const designTestObject_preCalc: ComfortProfile_noSums = {
+export const designTestObject_preCalc: TotalsCalculatorInputType = {
     document: {
         id: 'INV-2023-00789',
         type: '380' as DOCUMENT_TYPE_CODES,

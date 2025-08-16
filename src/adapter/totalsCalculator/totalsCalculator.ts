@@ -1,22 +1,22 @@
 import { z } from 'zod';
 
-import { round } from '../helper/calculation';
-import { ComfortProfile } from '../profiles/comfort';
-import { PROFILES } from '../types/ProfileTypes';
-import { CURRENCY_CODES, EXEMPTION_REASON_CODES, TAX_CATEGORY_CODES, TAX_TYPE_CODE } from '../types/codes';
-import { ComfortTradeLineItem } from '../types/ram/IncludedSupplyChainTradeLineItem/ComfortTradeLineItem';
-import { ComfortLineTradeAgreementType } from '../types/ram/IncludedSupplyChainTradeLineItem/SpecifiedLineTradeAgreement/ComfortLineTradeAgreementType';
+import { round } from '../../helper/calculation';
+import { ComfortProfile } from '../../profiles/comfort';
+import { PROFILES } from '../../types/ProfileTypes';
+import { CURRENCY_CODES, EXEMPTION_REASON_CODES, TAX_CATEGORY_CODES, TAX_TYPE_CODE } from '../../types/codes';
+import { ComfortTradeLineItem } from '../../types/ram/IncludedSupplyChainTradeLineItem/ComfortTradeLineItem';
+import { ComfortLineTradeAgreementType } from '../../types/ram/IncludedSupplyChainTradeLineItem/SpecifiedLineTradeAgreement/ComfortLineTradeAgreementType';
 import {
     BasicDocumentLevelTradeAllowanceChargeType,
     TradeAllowanceType,
     TradeChargeType
-} from '../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType';
-import { ComfortLineLevelTradeAllowanceChargeType } from '../types/ram/TradeAllowanceChargeType/ComfortLineLevelAllowanceChargeType';
-import { BasicLineLevelTradeTaxType } from '../types/ram/TradeTaxType/BasicLineLevelTradeTaxType';
-import { ComfortDocumentLevelTradeTaxType } from '../types/ram/TradeTaxType/ComfortDocumentLevelTradeTaxType';
-import { AmountTypeWithRequiredCurrency } from '../types/udt/AmountTypeWithRequiredCurrencyConverter';
+} from '../../types/ram/TradeAllowanceChargeType/BasicDocumentLevelAllowanceChargeType';
+import { ComfortLineLevelTradeAllowanceChargeType } from '../../types/ram/TradeAllowanceChargeType/ComfortLineLevelAllowanceChargeType';
+import { BasicLineLevelTradeTaxType } from '../../types/ram/TradeTaxType/BasicLineLevelTradeTaxType';
+import { ComfortDocumentLevelTradeTaxType } from '../../types/ram/TradeTaxType/ComfortDocumentLevelTradeTaxType';
+import { AmountTypeWithRequiredCurrency } from '../../types/udt/AmountTypeWithRequiredCurrencyConverter';
 import {
-    ComfortProfile_noSums,
+    TotalsCalculatorInputType,
     ZBasicDocumentLevelTradeAllowanceChargeType_modified,
     ZComfortLineTradeAgreementType_modified,
     ZComfortTradeLineItem_modified,
@@ -324,11 +324,11 @@ function calculateTaxSum(
     return [taxInInvoiceCurrency, taxInForeignCurrency];
 }
 
-export function totalsCalculator(simpleInvoice: ComfortProfile_noSums): ComfortProfile {
+export function totalsCalculator(simpleInvoice: TotalsCalculatorInputType): ComfortProfile {
     const tradeLineItems = simpleInvoice.invoiceLines.map(createComfortTradeLineItemFromSimpleInput);
     const netSumWithoutAllowancesAndCharges = calculateNetSumWithoutAllowancesAndCharges(tradeLineItems);
     const documentLevelAllowancesAndCharges = createDocumentLevelAllowancesAndCharges(
-        simpleInvoice.totals.documentLevelAllowancesAndCharges
+        simpleInvoice.totals?.documentLevelAllowancesAndCharges
     );
     const { allowanceTotalAmount, chargeTotalAmount } = calculateAllowanceAndChargeSum(
         documentLevelAllowancesAndCharges
@@ -336,12 +336,12 @@ export function totalsCalculator(simpleInvoice: ComfortProfile_noSums): ComfortP
     const taxBreakdown = createTaxBreakdownFromTradeLineItems(
         tradeLineItems,
         documentLevelAllowancesAndCharges,
-        simpleInvoice.totals.taxExemptionReason
+        simpleInvoice.totals?.taxExemptionReason
     );
     const taxTotal = calculateTaxSum(
         taxBreakdown,
         simpleInvoice.document.currency,
-        simpleInvoice.totals.optionalTaxCurrency
+        simpleInvoice.totals?.optionalTaxCurrency
     );
     const netTotal = round(netSumWithoutAllowancesAndCharges - allowanceTotalAmount + chargeTotalAmount, 2);
     const grossTotal = round(netTotal + taxTotal[0].amount, 2);
@@ -354,11 +354,12 @@ export function totalsCalculator(simpleInvoice: ComfortProfile_noSums): ComfortP
         netTotal,
         taxBreakdown,
         taxTotal,
-        taxCurrency: simpleInvoice.totals.optionalTaxCurrency?.taxCurrency,
+        taxCurrency: simpleInvoice.totals?.optionalTaxCurrency?.taxCurrency,
         grossTotal,
-        prepaidAmount: simpleInvoice.totals.prepaidAmount,
-        roundingAmount: simpleInvoice.totals.roundingAmount,
-        openAmount: grossTotal - (simpleInvoice.totals.prepaidAmount || 0) + (simpleInvoice.totals.roundingAmount || 0)
+        prepaidAmount: simpleInvoice.totals?.prepaidAmount,
+        roundingAmount: simpleInvoice.totals?.roundingAmount,
+        openAmount:
+            grossTotal - (simpleInvoice.totals?.prepaidAmount || 0) + (simpleInvoice.totals?.roundingAmount || 0)
     };
 
     return {

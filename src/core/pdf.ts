@@ -17,9 +17,9 @@ import { AFRelationship, EmbeddedFileOptions } from 'pdf-lib/cjs/core/embedders/
 
 import iccProfilePath from '../../assets/iccprofile/sRGB2014.icc';
 import { dataUrlToUint8Array } from '../helper/calculation';
+import { facturXKitSinglePage } from '../pdfTemplates/facturXKitSinglePage';
 import { ImageDimensions } from '../pdfTemplates/invoiceBlocks/headerImage';
-import { SupportedLocales, ZugferdKitPDFTemplate } from '../pdfTemplates/types';
-import zugferdKitSinglePage from '../pdfTemplates/zugferdKitSinglePage';
+import { FacturXKitPDFTemplate, SupportedLocales } from '../pdfTemplates/types';
 import { availableProfiles } from './factur-x';
 
 // NUR für ESM-Module
@@ -85,7 +85,7 @@ export default class FacturXPdf {
 
     public async createPDFContent(
         data: availableProfiles,
-        template?: ZugferdKitPDFTemplate,
+        template?: FacturXKitPDFTemplate,
         locale?: SupportedLocales,
         headerImage?: {
             path: string;
@@ -94,7 +94,7 @@ export default class FacturXPdf {
     ): Promise<void> {
         //TODO: Correct implementation of PDF Invoice
         if (!template) {
-            this.pdfDoc = await zugferdKitSinglePage(data, this.pdfDoc, locale || 'en-US', headerImage);
+            this.pdfDoc = await facturXKitSinglePage(data, this.pdfDoc, locale || 'en-US', headerImage);
             return;
         }
 

@@ -2,7 +2,7 @@ import objectPath from 'object-path';
 import { PDFDocument } from 'pdf-lib';
 
 import { ImageDimensions } from '../pdfTemplates/invoiceBlocks/headerImage';
-import { SupportedLocales, ZugferdKitPDFTemplate } from '../pdfTemplates/types';
+import { FacturXKitPDFTemplate, SupportedLocales } from '../pdfTemplates/types';
 import { BasicProfile, isBasicProfile } from '../profiles/basic/BasicProfile';
 import { BasicProfileConverter } from '../profiles/basic/BasicProfileConverter';
 import {
@@ -75,7 +75,7 @@ export class FacturX {
         keepInitialPdf?: boolean;
         existingNonConformantPdf?: string | Uint8Array | ArrayBuffer | null;
         pdfLibDocument?: PDFDocument | null;
-        pdfTemplate?: ZugferdKitPDFTemplate;
+        pdfTemplate?: FacturXKitPDFTemplate;
         locale?: SupportedLocales;
         headerImage?: {
             path: string;

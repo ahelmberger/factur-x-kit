@@ -2,11 +2,11 @@ import { PDFFont, PDFPage, RGB, rgb } from 'pdf-lib';
 
 import { availableProfiles } from '../../core/factur-x';
 import { PAYMENT_MEANS_CODES } from '../../types/codes';
-import textTranslations from '../texts/textTranslations';
+import { textTranslations } from '../texts/textTranslations';
 import { SupportedLocales, mmToPt } from '../types';
 import { convertAddressBlockToString } from './customerAddressBlock';
 
-export default async function addFooter(
+export async function addFooter(
     data: availableProfiles,
     page: PDFPage,
     font: PDFFont,

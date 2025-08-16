@@ -2,7 +2,7 @@ import { PDFFont } from 'pdf-lib';
 
 import { round } from '../../helper/calculation';
 import { BasicLineLevelTradeAllowanceChargeType } from '../../types/ram/TradeAllowanceChargeType/BasicLineLevelAllowanceChargeType';
-import textTranslations from '../texts/textTranslations';
+import { textTranslations } from '../texts/textTranslations';
 import { SupportedLocales } from '../types';
 
 export function getNumberOfLines(text: string): number;

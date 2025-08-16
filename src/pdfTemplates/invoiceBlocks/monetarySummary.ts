@@ -3,10 +3,10 @@ import { PDFFont, PDFPage, RGB, rgb } from 'pdf-lib';
 import { availableProfiles } from '../../core/factur-x';
 import { round } from '../../helper/calculation';
 import { TAX_CATEGORY_CODES } from '../../types/codes';
-import textTranslations from '../texts/textTranslations';
+import { textTranslations } from '../texts/textTranslations';
 import { SupportedLocales, dinA4Height, mmToPt } from '../types';
 
-export default async function addMonetarySummary(
+export async function addMonetarySummary(
     data: availableProfiles,
     page: PDFPage,
     font: PDFFont,

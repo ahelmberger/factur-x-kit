@@ -177,10 +177,10 @@ export const documentTypes_fr: Record<DocumentCodes, string> = {
     '935': 'Facture douanière'
 };
 
-const documentTypes: TranslatedTexts<DocumentCodes> = {
+const _documentTypes: TranslatedTexts<DocumentCodes> = {
     'en-US': documentTypes_en,
     'de-DE': documentTypes_de,
     'fr-FR': documentTypes_fr
 };
 
-export default Object.freeze(documentTypes);
+export const documentTypes = Object.freeze(_documentTypes);

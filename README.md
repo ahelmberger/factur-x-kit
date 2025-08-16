@@ -18,21 +18,7 @@ If you want, this library also supports you in creating invoice data by calculat
 
 > This library is still under development. Therefore not every feature is available yet. Right now the "Extended" and "XRechnung" Profile is not supported, yet. Also it is not yet possible to attach any other data, except from the Factur-X XML to your invoice.
 
-## Usage
-
-### Installation
-
-```bash
-npm install factur-x
-```
-
-### General idea
-
-You build an object based on a typescript type. You pass that object to the library and you get a factur-x/ZUGFeRD invoice back.
-
-Or you pass a hybrid invoice to the library and you get a object of the same typescript type back.
-
-### Showcase
+## Showcase
 
 [This](https://github.com/NikolaiMe/factur-x-kit/blob/main/test/pdfs/createdPDFs/PDF_DESIGN_EN.pdf) is how the created e-invoice looks like (of course you can change the header)
 
@@ -40,7 +26,43 @@ Or you pass a hybrid invoice to the library and you get a object of the same typ
 
 [This](https://github.com/NikolaiMe/factur-x-kit/blob/main/test/design_test_object_easy_preCalc.ts) is the data you pass to the library in case you want the library to auto-calculate the invoice sums, taxes and to auto fill some stuff for you.
 
-### FacturX.fromPDF
+## General idea
+
+You build an object based on a typescript type. You pass that object to the library and you get a factur-x/ZUGFeRD invoice back.
+
+Or you pass a hybrid invoice to the library and you get a object of the same typescript type as above back.
+
+## Usage
+
+### Installation
+
+```bash
+npm install factur-x-kit
+```
+
+### Create the data for the invoice
+
+To use this library you need to bring your invoice data into a form, the library understands. The library offers you for every
+
+#### Create the data all by yourself
+
+#### Create the data with the helper function
+
+### Create Invoices
+
+#### Create a complete hybrid invoice (PDF and XML) from object
+
+#### Use a "normal" pdf-invoice and convert it into a hybrid-invoice
+
+#### Replace XML in an existing factur-x invoice
+
+### Parse/Interpret Invoices
+
+#### Read the data from a hybrid invoice pdf
+
+#### Read the data from the XML of a hybrid invoice
+
+### Validate Invoices
 
 ```js
 const pdf = await fs.readFile('./e-invoice.pdf');
@@ -52,20 +74,6 @@ const doc = await FacturX.fromPDF(pdf);
 ```js
 const xml = await fs.readFile('./invoice-data.xml', 'utf-8');
 const doc = await FacturX.fromXML(xml);
-```
-
-### FacturX.fromObject
-
-```js
-const doc = await FacturX.fromObject({
-    document: {
-        id: '471102'
-    },
-    seller: {
-        name: 'Lieferant GmbH'
-    }
-    // ...
-});
 ```
 
 ### FacturX.getPDF

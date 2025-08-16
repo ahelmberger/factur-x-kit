@@ -1,12 +1,12 @@
 import { PDFFont, PDFPage, RGB, rgb } from 'pdf-lib';
 
 import { availableProfiles } from '../../core/factur-x';
-import documentTypes from '../texts/codeTranslations/documentTypes';
+import { documentTypes } from '../texts/codeTranslations/documentTypes';
 import { formatCustomDate } from '../texts/formatCustomDate';
-import { invoiceReferenceTranslations } from '../texts/translationTemplates/invoiceReference';
+import { invoiceReferenceText } from '../texts/translationTemplates/invoiceReference';
 import { SupportedLocales, dinA4Height, mmToPt } from '../types';
 
-export default async function addTitleBlock(
+export async function addTitleBlock(
     data: availableProfiles,
     page: PDFPage,
     font: PDFFont,
@@ -38,7 +38,7 @@ export default async function addTitleBlock(
     ) {
         yPosition -= (fontSize / 1.6) * 1.5;
         page.drawText(
-            invoiceReferenceTranslations[locale](
+            invoiceReferenceText[locale](
                 data.referencedDocuments.referencedInvoice[0].documentId,
                 data.referencedDocuments.referencedInvoice[0].issueDate
                     ? formatCustomDate(data.referencedDocuments.referencedInvoice[0].issueDate, locale)

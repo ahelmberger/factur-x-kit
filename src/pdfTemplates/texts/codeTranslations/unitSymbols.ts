@@ -4135,10 +4135,10 @@ const unitSymbols_fr: Record<UnitCode, string> = {
     XZZ: 'défini mutuellement'
 };
 
-const unitSymbols: TranslatedTexts<UnitCode> = {
+const _unitSymbols: TranslatedTexts<UnitCode> = {
     'en-US': unitSymbols_en,
     'de-DE': unitSymbols_de,
     'fr-FR': unitSymbols_fr
 };
 
-export default Object.freeze(unitSymbols);
+export const unitSymbols = Object.freeze(_unitSymbols);
