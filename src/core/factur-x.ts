@@ -132,7 +132,7 @@ export class FacturX {
 
         if (!xml) throw new Error('No Embedded Factur-X XML found in PDF');
 
-        const instance = await this.fromXML(Buffer.from(xml));
+        const instance = await this.fromXML(xml);
         instance._fromPDF = bytes;
         instance._pdf = pdf;
 

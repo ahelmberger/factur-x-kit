@@ -1,4 +1,4 @@
-import { TaxTypeWithTaxRate, TaxTypeWithoutTaxRate } from '../src/adapter/easyInputType';
+import { TaxTypeWithTaxRate, TaxTypeWithoutTaxRate } from '../src/adapter/totalsCalculator/easyInputType';
 import {
     ALLOWANCE_REASONS_CODES,
     CHARGE_REASONS_CODES,
@@ -16,7 +16,7 @@ import {
     UNTDID_7143
 } from '../src/types/codes';
 
-interface easy_input_type {
+interface totalsCalculatorInput {
     businessProcessType?: string | undefined; // BT-23
     document: {
         id: string; // BT-1

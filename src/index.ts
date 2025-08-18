@@ -4,3 +4,4 @@ export * from './profiles';
 export * from './adapter';
 export * from './pdfTemplates';
 export * from './types/codes';
+export * from './types/ProfileTypes';

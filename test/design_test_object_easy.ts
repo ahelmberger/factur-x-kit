@@ -17,7 +17,7 @@ export const designTestObject_easy: ComfortProfile = {
     profile: PROFILES.COMFORT,
     document: {
         id: 'INV-2023-EASY-001',
-        type: '380' as DOCUMENT_TYPE_CODES,
+        type: DOCUMENT_TYPE_CODES.COMMERCIAL_INVOICE,
         dateOfIssue: { year: 2023, month: 10, day: 1 },
         notes: [
             {

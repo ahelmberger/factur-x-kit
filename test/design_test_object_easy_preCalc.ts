@@ -1,4 +1,4 @@
-import { ComfortProfile_noSums } from '../src/adapter/easyInputType';
+import { TotalsCalculatorInputType } from '../src/adapter/totalsCalculator/easyInputType';
 import {
     COUNTRY_ID_CODES,
     CURRENCY_CODES,
@@ -11,7 +11,7 @@ import {
     UNIT_CODES
 } from '../src/types/codes';
 
-export const designTestObject_easy: ComfortProfile_noSums = {
+export const designTestObject_easy: TotalsCalculatorInputType = {
     document: {
         id: 'INV-2023-EASY-001',
         type: DOCUMENT_TYPE_CODES.COMMERCIAL_INVOICE,
