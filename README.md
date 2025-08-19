@@ -303,7 +303,7 @@ await fs.writeFile(path.join(__dirname, 'pdfs', 'myInvoice.pdf'), pdfBytesDE);
 
 #### Replace XML in an existing Fctur-X invoice
 
-In case you already have a valid Factur-X invoice and want to edit the XML data attached to it, Factur-X can help you, too. To use this feature you first need to [parse an existing Factur-X invoice](#read-the-data-from-a-hybrid-invoice)
+In case you already have a valid Factur-X invoice and want to edit the XML data attached to it, Factur-X can help you, too. To use this feature you first need to [parse an existing Factur-X invoice](#user-content-read-the-data-from-a-hybrid-invoice-pdf)
 
 > **Attention!**<br>Invoices must not be changed in the aftermath! Only use this feature right after creation (e.g. if you already created a Factur-X invoice with a different tool, but the tool you are using is only supporting BASIC profile and you want to increase it to COMFORT). In case you want to correct an existing invoice leave the original invoice untouched and create a new correction invoice with `document.type` set to `DOCUMENT_TYPE_CODES.CORRECTED_INVOICE`.
 
