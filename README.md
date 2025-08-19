@@ -16,7 +16,7 @@ You can use this library to:
 
 If you want, this library also supports you in creating invoice data by calculating the totals, line totals, taxes and creating the tax-breakdown just from the invoice-line prices.
 
-> This library is still under development. Therefore not every feature is available yet. Right now the "Extended" and "XRechnung" Profile is not supported, yet. Also it is not yet possible to attach any other data, except from the Factur-X XML to your invoice. This documentation represents the current implementation state (everything described here is already supported)
+> **Attention!** <br>This library is still under development. Therefore not every feature is available, yet. Right now the "Extended" and "XRechnung" Profile is not supported, yet. Also it is not yet possible to attach any other data, except from the Factur-X XML to your invoice. This documentation represents the current implementation state (everything described here is already supported)
 
 ## Showcase
 
@@ -82,8 +82,7 @@ For an easier overview which profile supports which keys you can check out the t
 -   Extended right now uses the exact same type as comfort (Do not use!)
 -   X-Rechnung not yet implemented
 
-> **! ! !** <br>Minimum and Basic Without Lines Profiles are not considered proper e-invoices in Germany and also won't be accepted by France in the near future anymore. It's highly recommended to use at least the Basic profile. Recommended is Comfort (EN 16931)
-> <br>**! ! !**
+> **Attention!** <br>Minimum and Basic Without Lines Profiles are not considered proper e-invoices in Germany and also won't be accepted by France in the near future anymore. It's highly recommended to use at least the Basic profile. Recommended is Comfort (EN 16931)
 
 All the custom enums used in the profiles like `CURRENCY_CODES` or `COUNTRY_ID_CODES` are exported by the library:
 
@@ -119,7 +118,7 @@ Example data:
 
 Adapters are here to support you with creating the data. Basically they are just functions which take an object of a specific datatype and return a proper profile object. Right now there is only one adapter available.
 
-**totalsCalculator adapter**
+_**totalsCalculator adapter**_
 
 A Factur-X invoice has a lot of values which must be properly calculated from other values (e.g. Totals, tax sums and tax breakdown). Also there are a lot of mandatory values which must be filled with a constant value. This can be pretty overwhelming and confusing, if you are not very familiar to e-invoices. The `totalsCalculator` function uses as input an [object which does leave out unnecessary values](https://github.com/NikolaiMe/factur-x-kit/blob/main/docs/totalsCalculatorType.ts) which can be calculated by other values. It calculates all those values for you and returns a proper object for the Comfort (EN 16931) profile.
 
@@ -192,19 +191,21 @@ import path from 'node:path';
 const myInvoiceData = ... ;
 
 // Create a FacturX instance that data
-const instance = await FacturX.fromObject(myInvoiceData);
+const facturX = await FacturX.fromObject(myInvoiceData);
 
 // Create a PDF
-const pdfBytesDE = await instance.getPDF({
+const pdfBytesDE = await facturX.getPDF({
     locale: 'en-US'
 });
+
+// Store the PDF
 await fs.writeFile(path.join(__dirname, 'pdfs', 'myInvoice.pdf'), pdfBytesDE);
 ```
 
 > **Attention!** <br>
 > The Factur-X Standard expects you to display all the data which is in the XML part of the invoice, also in the human-readable PDF part. Not every key of Comfort Profile is supported by the PDF-template, yet. Please check [this table](https://github.com/NikolaiMe/factur-x-kit/blob/main/docs/DataDescription_v2.md) that all the keys you are using are supported.
 
-**Header Image**
+_**Header Image**_
 
 You can add a header image to give the invoice a personal touch. You can add .jpg or .png files as header image. The header image will be placed in the upper right corner and will be printed in the background. You can use the `dinA4Width` and `mmToPt` constants exported by factur-x-kit to strech the image to the full PDF width (see example below).
 
@@ -221,19 +222,31 @@ const headerImage = {
     }
 };
 
-const instance = await FacturX.fromObject(myInvoiceData);
-const pdfBytesDE = await instance.getPDF({
+const facturX = await FacturX.fromObject(myInvoiceData);
+const pdfBytesDE = await facturX.getPDF({
     locale: 'en-US',
     headerImage: headerImage
 });
 await fs.writeFile(path.join(__dirname, 'pdfs', 'myInvoice.pdf'), pdfBytesDE);
 ```
 
-**Custom Templates**<br>
-In case you do not like the template provided by factur-x-kit you can also create and pass your own template. The library exports all the invoice text blocks (like the address field, the item table...), so you can re-use the parts you would like to keep. Then just add your template to the `FacturX.getPDF()` options:
+#### Create a complete hybrid invoice (PDF and XML) with a custom template
+
+In case you do not like the template provided by factur-x-kit you can also create your own template. The library exports all the invoice text blocks (like the address field, the item table...), so you can re-use the parts you would like to keep. Then just add your template to the `FacturX.getPDF()` options:
 
 ```typescript
-const pdfBytesDE = await instance.getPDF({
+import { FacturX } from 'factur-x-kit';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+
+// Use whatever approach described above to create data
+const myInvoiceData = ... ;
+
+// Create a FacturX instance that data
+const facturX = await FacturX.fromObject(myInvoiceData);
+
+// Get the PDF and pass your own template
+const pdfBytesDE = await facturX.getPDF({
     pdfTemplate: myTemplate, // Add Your template here
     locale: 'en-US',
     headerImage: headerImage
@@ -260,7 +273,39 @@ _Short hint for using the invoice text blocks exported by this library: They usu
 
 #### Use a "normal" pdf-invoice and convert it into a hybrid-invoice
 
-#### Replace XML in an existing factur-x invoice
+If you already have a PDF invoice and just want to convert it to a Factur-X Hybrid invoice you can do this with this library, too. It also edits your invoice PDF to meet the PDF-A/3 standard (Please read the info box at the bottom of this chapter to make sure that the PDF you are assing can be converted to a proper PDF-A/3)
+
+```typescript
+// Create a complete factur-x invoice
+import { FacturX } from 'factur-x-kit';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+
+// Use whatever approach described above to create data
+const myInvoiceData = ... ;
+
+// Create a FacturX instance that data
+const facturX = await FacturX.fromObject(myInvoiceData);
+
+// Read the data of your existing invoice PDF
+const pdfBuff = new Uint8Array(fs.readFileSync(path.join(__dirname, 'PathToYourPDF', `non_compliant_pdf.pdf`)));
+
+// Create a PDF
+const pdfBytesDE = await facturX.getPDF({
+    existingNonConformantPdf: pdfBuff
+});
+
+// Store the PDF
+await fs.writeFile(path.join(__dirname, 'pdfs', 'myInvoice.pdf'), pdfBytesDE);
+```
+
+> **Attention!**<br>You can only use this feature, if your PDF invoice does not use any PDF function which is not conformant to PDF/A-3. Therefore your PDF must not have any audio or video file embedded. Also every font you are using must be embedded. You cannot use the 14 PDF standard fonts.
+
+#### Replace XML in an existing Fctur-X invoice
+
+In case you already have a valid Factur-X invoice and want to edit the XML data attached to it, Factur-X can help you, too. To use this feature you first need to [parse an existing Factur-X invoice](#read-the-data-from-a-hybrid-invoice)
+
+> **Attention!**<br>Invoices must not be changed in the aftermath! Only use this feature right after creation (e.g. if you already created a Factur-X invoice with a different tool, but the tool you are using is only supporting BASIC profile and you want to increase it to COMFORT). In case you want to correct an existing invoice leave the original invoice untouched and create a new correction invoice with `document.type` set to `DOCUMENT_TYPE_CODES.CORRECTED_INVOICE`.
 
 ### Parse/Interpret Invoices
 
