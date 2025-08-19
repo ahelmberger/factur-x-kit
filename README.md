@@ -194,12 +194,12 @@ const myInvoiceData = ... ;
 const facturX = await FacturX.fromObject(myInvoiceData);
 
 // Create a PDF
-const pdfBytesDE = await facturX.getPDF({
+const pdfBytes = await facturX.getPDF({
     locale: 'en-US'
 });
 
 // Store the PDF
-await fs.writeFile(path.join(__dirname, 'pdfs', 'myInvoice.pdf'), pdfBytesDE);
+await fs.writeFile(path.join(__dirname, 'pdfs', 'myInvoice.pdf'), pdfBytes);
 ```
 
 > **Attention!** <br>
@@ -223,11 +223,11 @@ const headerImage = {
 };
 
 const facturX = await FacturX.fromObject(myInvoiceData);
-const pdfBytesDE = await facturX.getPDF({
+const pdfBytes = await facturX.getPDF({
     locale: 'en-US',
     headerImage: headerImage
 });
-await fs.writeFile(path.join(__dirname, 'pdfs', 'myInvoice.pdf'), pdfBytesDE);
+await fs.writeFile(path.join(__dirname, 'pdfs', 'myInvoice.pdf'), pdfBytes);
 ```
 
 #### Create a complete hybrid invoice (PDF and XML) with a custom template
@@ -246,7 +246,7 @@ const myInvoiceData = ... ;
 const facturX = await FacturX.fromObject(myInvoiceData);
 
 // Get the PDF and pass your own template
-const pdfBytesDE = await facturX.getPDF({
+const pdfBytes = await facturX.getPDF({
     pdfTemplate: myTemplate, // Add Your template here
     locale: 'en-US',
     headerImage: headerImage
@@ -291,68 +291,102 @@ const facturX = await FacturX.fromObject(myInvoiceData);
 const pdfBuff = new Uint8Array(fs.readFileSync(path.join(__dirname, 'PathToYourPDF', `non_compliant_pdf.pdf`)));
 
 // Create a PDF
-const pdfBytesDE = await facturX.getPDF({
+const pdfBytes = await facturX.getPDF({
     existingNonConformantPdf: pdfBuff
 });
 
 // Store the PDF
-await fs.writeFile(path.join(__dirname, 'pdfs', 'myInvoice.pdf'), pdfBytesDE);
+await fs.writeFile(path.join(__dirname, 'pdfs', 'myInvoice.pdf'), pdfBytes);
 ```
 
 > **Attention!**<br>You can only use this feature, if your PDF invoice does not use any PDF function which is not conformant to PDF/A-3. Therefore your PDF must not have any audio or video file embedded. Also every font you are using must be embedded. You cannot use the 14 PDF standard fonts.
 
-#### Replace XML in an existing Fctur-X invoice
+#### Replace XML in an existing Factur-X invoice
 
 In case you already have a valid Factur-X invoice and want to edit the XML data attached to it, Factur-X can help you, too. To use this feature you first need to [parse an existing Factur-X invoice](#user-content-read-the-data-from-a-hybrid-invoice-pdf)
 
+You can then access and edit the data-object via `facturX.object`.
+
+After that you can get the edited Factur-X invoice by calling
+
+```typescript
+const pdfBytes = await facturX.getPDF({
+    keepInitialPdf: true
+});
+```
+
 > **Attention!**<br>Invoices must not be changed in the aftermath! Only use this feature right after creation (e.g. if you already created a Factur-X invoice with a different tool, but the tool you are using is only supporting BASIC profile and you want to increase it to COMFORT). In case you want to correct an existing invoice leave the original invoice untouched and create a new correction invoice with `document.type` set to `DOCUMENT_TYPE_CODES.CORRECTED_INVOICE`.
 
-### Parse/Interpret Invoices
+#### Just create an get the XML part
 
-#### Read the data from a hybrid invoice pdf
+```typescript
+// ... Create your data and the Factur-X instance as described above
 
-#### Read the data from the XML of a hybrid invoice
-
-### Validate Invoices
-
-```js
-const pdf = await fs.readFile('./e-invoice.pdf');
-const doc = await FacturX.fromPDF(pdf);
-```
-
-### FacturX.fromXML
-
-```js
-const xml = await fs.readFile('./invoice-data.xml', 'utf-8');
-const doc = await FacturX.fromXML(xml);
-```
-
-### FacturX.getPDF
-
-```js
-const normalInvoice = await fs.readFile('./normal-invoice.pdf');
-const hybridInvoice = await doc.getPDF(normalInvoice);
-
-await fs.writeFile('./hybrid-invoice.pdf', hybridInvoice);
-```
-
-### FacturX.getXML
-
-```js
-const xml = await doc.getXML();
+const xml = await facturX.getXML();
 console.log(xml); // "<?xml version="1.0" encoding="UTF-8" ...
 
 await fs.writeFile('./invoice-data.xml', xml);
 ```
 
-### FacturX.getObject
+### Parse/Interpret Invoices
 
-```js
-const obj = await FacturX.getObject();
-console.log(obj); // { document: { id: "471102" }, seller: { name: "Lieferant GmbH", ...
+factur-x-kit helps you interpreting the machine-readable (XML) part of a Factur-X invoice. You can pass either a full Factur-X PDF or just the XML part of the e-invoice. factur-x-kit converts the data into a profile object [described above in detail](#user-content-create-the-data-all-by-yourself)
 
-await fs.writeFile('./invoice-data.json', JSON.stringify(obj, null, 4));
+#### Read the data from a hybrid invoice pdf
+
+```typescript
+// read the pdf-file
+const pdf = await fs.readFile('./e-invoice.pdf');
+
+// create a Factur-X instance from PDF
+const facturX = await FacturX.fromPDF(new Uint8Array(pdf));
+
+// access the data
+console.log(facturX.object);
 ```
+
+#### Read the data from the XML of a hybrid invoice
+
+```typescript
+// read the pdf-file
+const xml = await fs.readFile('./e-invoice.xml');
+
+// create a Factur-X instance from PDF
+const facturX = await FacturX.fromXML(new Uint8Array(xml));
+
+// access the data
+console.log(facturX.object);
+```
+
+### Validate Invoices
+
+factur-x-kit helps you validating Factur-X invoices. It checks both: the data structure (Is every mandatory field available?) and the contents (is the datatype of every key correct? Are all business-rules met?).
+
+It is highly recommended to do a manual check of your data before creating the final Factur-X invoice. factur-x-kit will not build an Factur-X invoice where data is missing or wrong. It will throw an error instead giving you a hint which data is wrong.
+
+You can do a manual check of your data by calling the following function
+
+```typescript
+const instance = await FacturX.fromObject(data);
+const validationResult = instance.validate();
+
+if (!validationResult.valid) {
+    console.log(validationResult.errors);
+}
+```
+
+The return value is structured like this.
+
+```typescript
+interface validationResult {
+    valid: boolean;
+    errors?: { message: string; path: (string | number)[] }[];
+}
+```
+
+When you call `FacturX.fromObject` or `FacturX.fromPDF` or `FacturX.fromXML` the data already needs to have the correct structure. If there are mandatory fields missing the profile won't be identified properly, therefore factur-x-kit will throw an error. The business-rules (whether all data was calculated properly...) won't be checked when you create a factur-x-kit instance but will be checked before you try to export the final Factur-X invoice
+
+> **Attention!**<br>validation is performed on object level before it is parsed to xml. The big advantage of this approach is, that it has a much better performance, the downside is, that there can be issues in the conversion.
 
 ## Disclaimer
 
@@ -367,7 +401,9 @@ This free software has been written with the greatest possible care, but like al
 
 ## Special Thanks
 
-... to [Joachim](https://github.com/schwarmco) for starting this journey with me.
+... to [Joachim](https://github.com/schwarmco) for starting this journey with me!
+<br>
+... to my wife because she's cool.
 
 ## Next steps
 
