@@ -1,20 +1,17 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Schema } from 'node-schematron';
-import exp from 'node:constants';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { printNode, zodToTs } from 'zod-to-ts';
 
 import { ZComfortProfileStructure_modified } from '../src/adapter/totalsCalculator/easyInputType';
-import { totalsCalculator } from '../src/adapter/totalsCalculator/totalsCalculator';
 import { FacturX } from '../src/core/factur-x';
 import { dinA4Width, mmToPt } from '../src/pdfTemplates/types';
 import { ZBasicProfile } from '../src/profiles/basic/BasicProfile';
-import { ZBasicWithoutLinesProfileStructure } from '../src/profiles/basicwithoutlines';
 import { ZMinimumProfile } from '../src/profiles/minimum';
 import { designTestObject } from './design_test_object';
 import { designTestObject_easy } from './design_test_object_easy';
 import { testDesignObjectKleinunternehmer } from './design_test_object_kleinunternehmer';
-import { designTestObject_preCalc } from './design_test_object_preCalc';
 import './profiles/codeDb/xPathDocumentFunction';
 
 // This is just a testcase which helps me printing out the ts-objects which are built from the zod types

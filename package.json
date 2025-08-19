@@ -1,7 +1,7 @@
 {
     "name": "factur-x-kit",
-    "version": "0.0.2",
-    "description": "Read and Write Hybrid Invoice Documents (EN 16931 / Factur-X / ZUGFeRD / eRechnung / XRechnung) in Javascript / Typescript.",
+    "version": "0.1.0",
+    "description": "Read and Write Hybrid Invoice Documents (EN 16931 / Factur-X / ZUGFeRD / eRechnung) in Javascript / Typescript.",
     "keywords": [
         "en16931",
         "factur-x",
@@ -40,7 +40,6 @@
     ],
     "scripts": {
         "build": "tsup",
-        "convert": "ts-node ./scripts/xpathconverter.ts",
         "prepare": "husky",
         "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\"",
         "test": "jest",
