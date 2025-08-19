@@ -405,6 +405,7 @@ This free software has been written with the greatest possible care, but like al
 -   zod
 -   fast-xml-parser
 -   object-path
+-   mime-types
 
 ## Special Thanks
 
