@@ -331,7 +331,7 @@ await fs.writeFile('./invoice-data.xml', xml);
 
 ### Parse/Interpret Invoices
 
-factur-x-kit helps you interpret the machine-readable (XML) part of a Factur-X invoice. You can pass either a full Factur-X PDF or just the XML part of the e-invoice. factur-x-kit converts the data into a profile object [described above in detail](#user-content-create-the-data-all-by-yourself). It will detect the profile used in the document and returns the corresponding datatype.
+factur-x-kit helps you interpret the machine-readable (XML) part of a Factur-X invoice. You can pass either a full Factur-X PDF or just the XML part of the e-invoice. factur-x-kit converts the data into a profile object [described above in detail](#user-content-create-the-data-manually). It will detect the profile used in the document and returns the corresponding datatype.
 
 Current state about EXTENDED profile: If EXTENDED profile is detected it will only parse the data from COMFORT profile. Everything else will be ignored.
 
