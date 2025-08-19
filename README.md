@@ -170,7 +170,7 @@ After you have prepared your data, you are ready to create your Factur-X invoice
 
 #### Create a complete hybrid invoice (PDF and XML) from an object
 
-The easiest way to create a Factur-X invoice is to let factur-x-kit create everything for you. factur-x-kit comes with an invoice template that creates an appealing PDF-invoice and automatically attaches the e-invoice XML to it. The PDFs created with factur-x-kit meet the PDF/A-3 standard.
+The easiest way to create a Factur-X invoice is to let factur-x-kit create everything for you. factur-x-kit comes with an invoice template that creates an appealing PDF-invoice and automatically attaches the e-invoice XML to it. The PDFs created with factur-x-kit meet the PDF/A-3 standard. If the entire content does not fit on a single page, the standard's recommendation is followed: The invoice summary is shown on the first page, and the table with the line items is presented on the following page. _The PDF template does not yet handle the case, if the line items do not fit on a single page!_
 
 Currently supported languages in the pdf-invoice are:
 
