@@ -7,9 +7,9 @@ import { isExtendedProfile } from '../../src/profiles/extended';
 describe('Factur-X Extended Pre', () => {
     it('should parse the extended profile from PDF', async () => {
         const facturX = await FacturX.fromPDF(
-            fs.readFileSync(path.join(__dirname, 'pdf', `EXTENDED_Kostenrechnung.pdf`))
+            new Uint8Array(fs.readFileSync(path.join(__dirname, 'pdf', `EXTENDED_Kostenrechnung.pdf`)))
         );
-        const result = await facturX.getObject();
+        const result = facturX.object;
         expect(isExtendedProfile(result)).toBe(true);
         console.log('Parsed Extended Profile:', result);
     });

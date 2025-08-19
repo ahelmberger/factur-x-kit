@@ -737,7 +737,7 @@ describe('Build and check XML', () => {
             'Factur-X_1.0.07_EN16931_urn_un_unece_uncefact_data_standard_UnqualifiedDataType_100.xsd'
         ];
 
-        const preload = [];
+        const preload: { fileName: string; contents: string }[] = [];
 
         for (const fileName of xsdImports) {
             const contents = await fs.readFile(path.join(__dirname, 'xsdSchemes', 'COMFORT', fileName), 'utf-8');
@@ -787,7 +787,7 @@ test('Build PDF', async () => {
 test('Roundtrip Check', async () => {
     const convertedXML = await instance.getXML();
     const facturx = await FacturX.fromXML(convertedXML);
-    const roundtripObject = await facturx.getObject();
+    const roundtripObject = facturx.object;
     const cleanRoundtripObject = removeUndefinedKeys(roundtripObject);
     expect(cleanRoundtripObject).toEqual(testComfortProfile);
 });

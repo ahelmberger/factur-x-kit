@@ -13,9 +13,11 @@ const testCases: TestCases = Object.fromEntries(['MINIMUM_Rechnung'].map(name =>
 
 beforeAll(async () => {
     for (const name of Object.keys(testCases)) {
-        const facturX = await FacturX.fromPDF(fs.readFileSync(path.join(__dirname, 'pdf', `${name}.pdf`)));
+        const facturX = await FacturX.fromPDF(
+            new Uint8Array(fs.readFileSync(path.join(__dirname, 'pdf', `${name}.pdf`)))
+        );
 
-        const result = await facturX.getObject();
+        const result = facturX.object;
 
         if (!isMinimumProfile(result)) throw new Error('The profile was not properly chosen');
 

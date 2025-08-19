@@ -202,7 +202,7 @@ describe('Create FacturX Instance from Object', () => {
         // xs:import references need to be loaded into wasm
         const xsdImports = ['minimum_qdt.xsd', 'minimum_ram.xsd', 'minimum_udt.xsd'];
 
-        const preload = [];
+        const preload: { fileName: string; contents: string }[] = [];
 
         for (const fileName of xsdImports) {
             const contents = await fs.readFile(path.join(__dirname, 'xsdSchemes', 'MINIMUM', fileName), 'utf-8');
@@ -244,7 +244,7 @@ describe('Create FacturX Instance from Object', () => {
 test('Roundtrip Check', async () => {
     const convertedXML = await instance.getXML();
     const facturx = await FacturX.fromXML(convertedXML);
-    const roundtripObject = await facturx.getObject();
+    const roundtripObject = facturx.object;
     const cleanRoundtripObject = removeUndefinedKeys(roundtripObject);
     expect(cleanRoundtripObject).toEqual(testObj);
 });

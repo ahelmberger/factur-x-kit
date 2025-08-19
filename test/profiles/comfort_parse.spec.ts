@@ -21,8 +21,10 @@ const testCases: TestCases = Object.fromEntries(
 
 beforeAll(async () => {
     for (const name of Object.keys(testCases)) {
-        const facturX = await FacturX.fromPDF(fs.readFileSync(path.join(__dirname, 'pdf', `${name}.pdf`)));
-        const result = await facturX.getObject();
+        const facturX = await FacturX.fromPDF(
+            new Uint8Array(fs.readFileSync(path.join(__dirname, 'pdf', `${name}.pdf`)))
+        );
+        const result = facturX.object;
         if (!isComfortProfile(result)) throw new Error('The profile was not properly chosen');
 
         testCases[name] = result;

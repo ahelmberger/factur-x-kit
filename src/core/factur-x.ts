@@ -34,6 +34,7 @@ export type availableConverters =
 export class FacturX {
     private profile: availableProfiles;
     private converter: availableConverters;
+
     // private _data: MinimumProfileConverter | BasicProfileConverter
 
     private _fromPDF: string | Uint8Array | ArrayBuffer | undefined;
@@ -58,10 +59,38 @@ export class FacturX {
      *
      * @returns An object with the current Factur-X data
      */
-    public async getObject(): Promise<availableProfiles> {
-        // TODO: should we deep-clone this here to prevent editing?
+    get object() {
         return this.profile;
-        // return this._data.invoice
+    }
+
+    /**
+     * Allows you to edit the Factur-X data
+     *
+     * @param data - The invoice data
+     */
+    set object(data: availableProfiles) {
+        if (isExtendedProfile(data)) {
+            console.warn('ExtendedProfile is not yet implemented, using ComfortProfileConverter as fallback');
+            this.profile = data;
+            this.converter = new ExtendedProfileConverter();
+        }
+        if (isComfortProfile(data)) {
+            this.profile = data;
+            this.converter = new ComfortProfileConverter();
+        }
+        if (isBasicProfile(data)) {
+            this.profile = data;
+            this.converter = new BasicProfileConverter();
+        }
+        if (isBasicWithoutLinesProfile(data)) {
+            this.profile = data;
+            this.converter = new BasicWithoutLinesProfileConverter();
+        }
+        if (isMinimumProfile(data)) {
+            this.profile = data;
+            this.converter = new MinimumProfileConverter();
+        }
+        throw new Error('Unknown or Not Implemented Profile given');
     }
 
     /**
