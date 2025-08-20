@@ -1,6 +1,6 @@
 # factur-x-kit
 
-[![NPM version](https://img.shields.io/npm/v/factur-x.svg?style=flat-square)](https://www.npmjs.org/package/factur-x-kit)
+[![NPM version](https://img.shields.io/npm/v/factur-x-kit.svg?style=flat-square)](https://www.npmjs.org/package/factur-x-kit)
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/NikolaiMe/factur-x-kit)
 
