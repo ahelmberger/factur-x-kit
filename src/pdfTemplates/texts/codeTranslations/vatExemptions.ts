@@ -62,7 +62,38 @@ const vatExemptionReasons_en: Record<VATEXCodes, string> = {
     'VATEX-EU-J': 'Intra-Community acquisition of collectors items and antiques',
     'VATEX-EU-O': 'Not subject to VAT',
     'VATEX-FR-FRANCHISE': 'France domestic VAT franchise in base',
-    'VATEX-FR-CNWVAT': 'France domestic Credit Notes without VAT, due to supplier forfeit of VAT for discount'
+    'VATEX-FR-CNWVAT': 'France domestic Credit Notes without VAT, due to supplier forfeit of VAT for discount',
+    'VATEX-EU-144': 'Exempt based on article 144 of Council Directive 2006/112/EC',
+    'VATEX-EU-146-1E': 'Exempt based on article 146 section 1 (e) of Council Directive 2006/112/EC',
+    'VATEX-EU-153': 'Exempt based on article 153 of Council Directive 2006/112/EC',
+    'VATEX-EU-159': 'Exempt based on article 159 of Council Directive 2006/112/EC',
+    'VATEX-FR-CGI261-1': 'Exempt based on 1 of article 261 of the Code Général des Impôts (CGI ; General tax code)',
+    'VATEX-FR-CGI261-2': 'Exempt based on 2 of article 261 of the Code Général des Impôts (CGI ; General tax code)',
+    'VATEX-FR-CGI261-3': 'Exempt based on 3 of article 261 of the Code Général des Impôts (CGI ; General tax code)',
+    'VATEX-FR-CGI261-4': 'Exempt based on 4 of article 261 of the Code Général des Impôts (CGI ; General tax code)',
+    'VATEX-FR-CGI261-5': 'Exempt based on 5 of article 261 of the Code Général des Impôts (CGI ; General tax code) ',
+    'VATEX-FR-CGI261-7': 'Exempt based on 7 of article 261 of the Code Général des Impôts (CGI ; General tax code)',
+    'VATEX-FR-CGI261-8': 'Exempt based on 8 of article 261 of the Code Général des Impôts (CGI ; General tax code)',
+    'VATEX-FR-CGI261A': 'Exempt based on article 261 A of the Code Général des Impôts (CGI ; General tax code)',
+    'VATEX-FR-CGI261B': 'Exempt based on article 261 B of the Code Général des Impôts (CGI ; General tax code)',
+    'VATEX-FR-CGI261C-1': 'Exempt based on 1° of article 261 C of the Code Général des Impôts (CGI ; General tax code)',
+    'VATEX-FR-CGI261C-2': 'Exempt based on 2° of article 261 C of the Code Général des Impôts (CGI ; General tax code)',
+    'VATEX-FR-CGI261C-3': 'Exempt based on 3° of article 261 C of the Code Général des Impôts (CGI ; General tax code)',
+    'VATEX-FR-CGI261D-1': 'Exempt based on 1° of article 261 D of the Code Général des Impôts (CGI ; General tax code)',
+    'VATEX-FR-CGI261D-1BIS':
+        'Exempt based on 1°bis of article 261 D of the Code Général des Impôts (CGI ; General tax code)',
+    'VATEX-FR-CGI261D-2': 'Exempt based on 2° of article 261 D of the Code Général des Impôts (CGI ; General tax code)',
+    'VATEX-FR-CGI261D-3':
+        'Exempt based on 3° of article 261 D of the Code Général des Impôts (CGI ; General tax code) Exonération de TVA - Article 261 D-3° du Code Général des Impôts ',
+    'VATEX-FR-CGI261D-4': 'Exempt based on 4° of article 261 D of the Code Général des Impôts (CGI ; General tax code)',
+    'VATEX-FR-CGI261E-1': 'Exempt based on 1° of article 261 E of the Code Général des Impôts (CGI ; General tax code)',
+    'VATEX-FR-CGI261E-2': 'Exempt based on 2° of article 261 E of the Code Général des Impôts (CGI ; General tax code)',
+    'VATEX-FR-CGI277A': 'Exempt based on article 277 A of the Code Général des Impôts (CGI ; General tax code)',
+    'VATEX-FR-CGI275': 'Exempt based on article 275 of the Code Général des Impôts (CGI ; General tax code)',
+    'VATEX-FR-298SEXDECIESA':
+        'Exempt based on article 298 sexdecies A of the Code Général des Impôts (CGI ; General tax code)',
+    'VATEX-FR-CGI295': 'Exempt based on article 295 of the Code Général des Impôts (CGI ; General tax code)',
+    'VATEX-FR-AE': 'Exempt based on 2 of article 283 of the Code Général des Impôts (CGI ; General tax code)'
 };
 
 const vatExemptionReasons_de: Record<VATEXCodes, string> = {
@@ -125,7 +156,59 @@ const vatExemptionReasons_de: Record<VATEXCodes, string> = {
     'VATEX-EU-O': 'Nicht der Mehrwertsteuer unterliegend',
     'VATEX-FR-FRANCHISE': 'Französische inländische Umsatzsteuerbefreiung (Kleinunternehmerregelung)',
     'VATEX-FR-CNWVAT':
-        'Französische inländische Gutschriften ohne Mehrwertsteuer, aufgrund des Verzichtes des Lieferanten auf die Mehrwertsteuer für Skonto'
+        'Französische inländische Gutschriften ohne Mehrwertsteuer, aufgrund des Verzichtes des Lieferanten auf die Mehrwertsteuer für Skonto',
+    'VATEX-EU-144': 'Steuerbefreiung gemäß Artikel 144 der Richtlinie 2006/112/EG des Rates',
+    'VATEX-EU-146-1E': 'Steuerbefreiung gemäß Artikel 146 Absatz 1 (e) der Richtlinie 2006/112/EG des Rates',
+    'VATEX-EU-153': 'Steuerbefreiung gemäß Artikel 153 der Richtlinie 2006/112/EG des Rates',
+    'VATEX-EU-159': 'Steuerbefreiung gemäß Artikel 159 der Richtlinie 2006/112/EG des Rates',
+    'VATEX-FR-CGI261-1':
+        'Steuerbefreiung gemäß Absatz 1 des Artikels 261 des Code Général des Impôts (CGI; Allgemeines Steuergesetzbuch)',
+    'VATEX-FR-CGI261-2':
+        'Steuerbefreiung gemäß Absatz 2 des Artikels 261 des Code Général des Impôts (CGI; Allgemeines Steuergesetzbuch)',
+    'VATEX-FR-CGI261-3':
+        'Steuerbefreiung gemäß Absatz 3 des Artikels 261 des Code Général des Impôts (CGI; Allgemeines Steuergesetzbuch)',
+    'VATEX-FR-CGI261-4':
+        'Steuerbefreiung gemäß Absatz 4 des Artikels 261 des Code Général des Impôts (CGI; Allgemeines Steuergesetzbuch)',
+    'VATEX-FR-CGI261-5':
+        'Steuerbefreiung gemäß Absatz 5 des Artikels 261 des Code Général des Impôts (CGI; Allgemeines Steuergesetzbuch)',
+    'VATEX-FR-CGI261-7':
+        'Steuerbefreiung gemäß Absatz 7 des Artikels 261 des Code Général des Impôts (CGI; Allgemeines Steuergesetzbuch)',
+    'VATEX-FR-CGI261-8':
+        'Steuerbefreiung gemäß Absatz 8 des Artikels 261 des Code Général des Impôts (CGI; Allgemeines Steuergesetzbuch)',
+    'VATEX-FR-CGI261A':
+        'Steuerbefreiung gemäß Artikel 261 A des Code Général des Impôts (CGI; Allgemeines Steuergesetzbuch)',
+    'VATEX-FR-CGI261B':
+        'Steuerbefreiung gemäß Artikel 261 B des Code Général des Impôts (CGI; Allgemeines Steuergesetzbuch)',
+    'VATEX-FR-CGI261C-1':
+        'Steuerbefreiung gemäß Ziffer 1° des Artikels 261 C des Code Général des Impôts (CGI; Allgemeines Steuergesetzbuch)',
+    'VATEX-FR-CGI261C-2':
+        'Steuerbefreiung gemäß Ziffer 2° des Artikels 261 C des Code Général des Impôts (CGI; Allgemeines Steuergesetzbuch)',
+    'VATEX-FR-CGI261C-3':
+        'Steuerbefreiung gemäß Ziffer 3° des Artikels 261 C des Code Général des Impôts (CGI; Allgemeines Steuergesetzbuch)',
+    'VATEX-FR-CGI261D-1':
+        'Steuerbefreiung gemäß Ziffer 1° des Artikels 261 D des Code Général des Impôts (CGI; Allgemeines Steuergesetzbuch)',
+    'VATEX-FR-CGI261D-1BIS':
+        'Steuerbefreiung gemäß Ziffer 1°bis des Artikels 261 D des Code Général des Impôts (CGI; Allgemeines Steuergesetzbuch)',
+    'VATEX-FR-CGI261D-2':
+        'Steuerbefreiung gemäß Ziffer 2° des Artikels 261 D des Code Général des Impôts (CGI; Allgemeines Steuergesetzbuch)',
+    'VATEX-FR-CGI261D-3':
+        'Steuerbefreiung gemäß Ziffer 3° des Artikels 261 D des Code Général des Impôts (CGI; Allgemeines Steuergesetzbuch) Mehrwertsteuerbefreiung - Artikel 261 D-3° des Code Général des Impôts',
+    'VATEX-FR-CGI261D-4':
+        'Steuerbefreiung gemäß Ziffer 4° des Artikels 261 D des Code Général des Impôts (CGI; Allgemeines Steuergesetzbuch)',
+    'VATEX-FR-CGI261E-1':
+        'Steuerbefreiung gemäß Ziffer 1° des Artikels 261 E des Code Général des Impôts (CGI; Allgemeines Steuergesetzbuch)',
+    'VATEX-FR-CGI261E-2':
+        'Steuerbefreiung gemäß Ziffer 2° des Artikels 261 E des Code Général des Impôts (CGI; Allgemeines Steuergesetzbuch)',
+    'VATEX-FR-CGI277A':
+        'Steuerbefreiung gemäß Artikel 277 A des Code Général des Impôts (CGI; Allgemeines Steuergesetzbuch)',
+    'VATEX-FR-CGI275':
+        'Steuerbefreiung gemäß Artikel 275 des Code Général des Impôts (CGI; Allgemeines Steuergesetzbuch)',
+    'VATEX-FR-298SEXDECIESA':
+        'Steuerbefreiung gemäß Artikel 298 sexdecies A des Code Général des Impôts (CGI; Allgemeines Steuergesetzbuch)',
+    'VATEX-FR-CGI295':
+        'Steuerbefreiung gemäß Artikel 295 des Code Général des Impôts (CGI; Allgemeines Steuergesetzbuch)',
+    'VATEX-FR-AE':
+        'Steuerbefreiung gemäß Absatz 2 des Artikels 283 des Code Général des Impôts (CGI; Allgemeines Steuergesetzbuch)'
 };
 
 const vatExemptionReasons_fr: Record<VATEXCodes, string> = {
@@ -224,7 +307,37 @@ const vatExemptionReasons_fr: Record<VATEXCodes, string> = {
     'VATEX-EU-O': 'Non soumis à la TVA',
     'VATEX-FR-FRANCHISE': 'Franchise de TVA nationale française',
     'VATEX-FR-CNWVAT':
-        'Notes de crédit nationales françaises sans TVA, en raison de la renonciation du fournisseur à la TVA pour escompte'
+        'Notes de crédit nationales françaises sans TVA, en raison de la renonciation du fournisseur à la TVA pour escompte',
+    'VATEX-EU-144': "Exonéré en vertu de l'article 144 de la directive 2006/112/CE du Conseil",
+    'VATEX-EU-146-1E':
+        "Exonéré en vertu de l'article 146, paragraphe 1, point e) de la directive 2006/112/CE du Conseil",
+    'VATEX-EU-153': "Exonéré en vertu de l'article 153 de la directive 2006/112/CE du Conseil",
+    'VATEX-EU-159': "Exonéré en vertu de l'article 159 de la directive 2006/112/CE du Conseil",
+    'VATEX-FR-CGI261-1': "Exonéré en vertu du 1 de l'article 261 du Code Général des Impôts (CGI)",
+    'VATEX-FR-CGI261-2': "Exonéré en vertu du 2 de l'article 261 du Code Général des Impôts (CGI)",
+    'VATEX-FR-CGI261-3': "Exonéré en vertu du 3 de l'article 261 du Code Général des Impôts (CGI)",
+    'VATEX-FR-CGI261-4': "Exonéré en vertu du 4 de l'article 261 du Code Général des Impôts (CGI)",
+    'VATEX-FR-CGI261-5': "Exonéré en vertu du 5 de l'article 261 du Code Général des Impôts (CGI)",
+    'VATEX-FR-CGI261-7': "Exonéré en vertu du 7 de l'article 261 du Code Général des Impôts (CGI)",
+    'VATEX-FR-CGI261-8': "Exonéré en vertu du 8 de l'article 261 du Code Général des Impôts (CGI)",
+    'VATEX-FR-CGI261A': "Exonéré en vertu de l'article 261 A du Code Général des Impôts (CGI)",
+    'VATEX-FR-CGI261B': "Exonéré en vertu de l'article 261 B du Code Général des Impôts (CGI)",
+    'VATEX-FR-CGI261C-1': "Exonéré en vertu du 1° de l'article 261 C du Code Général des Impôts (CGI)",
+    'VATEX-FR-CGI261C-2': "Exonéré en vertu du 2° de l'article 261 C du Code Général des Impôts (CGI)",
+    'VATEX-FR-CGI261C-3': "Exonéré en vertu du 3° de l'article 261 C du Code Général des Impôts (CGI)",
+    'VATEX-FR-CGI261D-1': "Exonéré en vertu du 1° de l'article 261 D du Code Général des Impôts (CGI)",
+    'VATEX-FR-CGI261D-1BIS': "Exonéré en vertu du 1°bis de l'article 261 D du Code Général des Impôts (CGI)",
+    'VATEX-FR-CGI261D-2': "Exonéré en vertu du 2° de l'article 261 D du Code Général des Impôts (CGI)",
+    'VATEX-FR-CGI261D-3':
+        "Exonéré en vertu du 3° de l'article 261 D du Code Général des Impôts (CGI) Exonération de TVA - Article 261 D-3° du Code Général des Impôts",
+    'VATEX-FR-CGI261D-4': "Exonéré en vertu du 4° de l'article 261 D du Code Général des Impôts (CGI)",
+    'VATEX-FR-CGI261E-1': "Exonéré en vertu du 1° de l'article 261 E du Code Général des Impôts (CGI)",
+    'VATEX-FR-CGI261E-2': "Exonéré en vertu du 2° de l'article 261 E du Code Général des Impôts (CGI)",
+    'VATEX-FR-CGI277A': "Exonéré en vertu de l'article 277 A du Code Général des Impôts (CGI)",
+    'VATEX-FR-CGI275': "Exonéré en vertu de l'article 275 du Code Général des Impôts (CGI)",
+    'VATEX-FR-298SEXDECIESA': "Exonéré en vertu de l'article 298 sexdecies A du Code Général des Impôts (CGI)",
+    'VATEX-FR-CGI295': "Exonéré en vertu de l'article 295 du Code Général des Impôts (CGI)",
+    'VATEX-FR-AE': "Exonéré en vertu du 2 de l'article 283 du Code Général des Impôts (CGI)"
 };
 
 const _vatExemptionReasons: TranslatedTexts<VATEXCodes> = {

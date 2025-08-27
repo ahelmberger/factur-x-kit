@@ -36,7 +36,6 @@ export enum CURRENCY_CODES {
     ColombianPeso = 'COP',
     UnidaddeValorReal = 'COU',
     CostaRicanColon = 'CRC',
-    PesoConvertible = 'CUC',
     CubanPeso = 'CUP',
     CaboVerdeEscudo = 'CVE',
     CzechKoruna = 'CZK',
@@ -60,7 +59,6 @@ export enum CURRENCY_CODES {
     GuyanaDollar = 'GYD',
     HongKongDollar = 'HKD',
     Lempira = 'HNL',
-    Kuna = 'HRK',
     Gourde = 'HTG',
     Forint = 'HUF',
     Rupiah = 'IDR',
@@ -128,7 +126,6 @@ export enum CURRENCY_CODES {
     SwedishKrona = 'SEK',
     SingaporeDollar = 'SGD',
     SaintHelenaPound = 'SHP',
-    Leone = 'SLL',
     SomaliShilling = 'SOS',
     SurinamDollar = 'SRD',
     SouthSudanesePound = 'SSP',
@@ -177,7 +174,9 @@ export enum CURRENCY_CODES {
     YemeniRial = 'YER',
     Rand = 'ZAR',
     ZambianKwacha = 'ZMW',
-    ZimbabweDollar = 'ZWL'
+    SierraLeone = 'SLE',
+    BolívarSoberanoNewValuation = 'VED',
+    ZimbabweGold = 'ZWG'
 }
 
 export enum UNIT_CODES {
@@ -2728,7 +2727,25 @@ export enum SUBJECT_CODES {
     REQUESTED_TARIFF = 'TRR',
     TAX_DECLARATION = 'TXD',
     WAREHOUSE_INSTRUCTION_OR_INFORMATION = 'WHI',
-    MUTUALLY_DEFINED = 'ZZZ'
+    MUTUALLY_DEFINED = 'ZZZ',
+    SIMA_APPLICABLE = 'BAT',
+    APPEALS_PROGRAM_CODE = 'BAU',
+    SIMA_SUBJECT = 'BAV',
+    SURTAX_APPLICABLE = 'BAW',
+    SIMA_SECURITY_BOND = 'BAX',
+    SURTAX_SUBJECT = 'BAY',
+    SAFEGUARD_APPLICABLE = 'BAZ',
+    SAFEGUARD_APPLICABLE_2 = 'BBA',
+    SAFEGUARD_SUBJECT = 'BBB',
+    SIMA_MEASURE_IN_FORCE = 'BMF',
+    PRE_CARM = 'BMG',
+    SIMA_MEASURE_TYPE = 'BMH',
+    SUB_TYPE_CODE = 'CCJ',
+    SIMA_INFORMATION = 'CCK',
+    TIME_LIMIT_END = 'CCL',
+    TIME_LIMIT_START = 'CCM',
+    WAREHOUSE_TIME_LIMIT = 'CCN',
+    VALUE_FOR_DUTY_INFORMATION = 'CCO'
 }
 
 export enum ISO6523_CODES {
@@ -2956,7 +2973,17 @@ export enum ISO6523_CODES {
     NON_EU_based_company = '0227',
     Répertoire_des_Entreprises_et_des_Etablissements_RIDET = '0228',
     T_A_H_I_T_I_traitement_automatique_hiérarchisé_des_institutions_de_Tahiti_et_des_îles = '0229',
-    National_eInvoicing_Framework = '0230'
+    National_eInvoicing_Framework = '0230',
+    Single_taxable_company_France = '0231',
+    NOBB_product_number = '0232',
+    Description_not_known_2 = '0233',
+    Toimitusosoite_ID = '0234',
+    UAE_Tax_Identification_Number_TIN = '0235',
+    Description_not_known = '0236',
+    CPR_Danish_person_civil_registration_number = '0237',
+    Plateforme_s_agreee_s_à_la_facturation_électronique_PPF_PDP = '0238',
+    EAEU = '0239',
+    Register_of_legal_persons = '0240'
 }
 
 export enum EAS_SCHEME_CODES {
@@ -3011,7 +3038,6 @@ export enum EAS_SCHEME_CODES {
     The_registered_number_of_the_qualified_invoice_issuer = '0221',
     FRCTC_ELECTRONIC_ADDRESS = '0225',
     National_e_Invoicing_Framework = '0230',
-    Danish_Ministry_of_the_Interior_and_Health = '9901',
     Hungary_VAT_number = '9910',
     Business_Registers_Network_ = '9913',
     Österreichische_Umsatzsteuer_Identifikationsnummer_ = '9914',
@@ -3052,7 +3078,12 @@ export enum EAS_SCHEME_CODES {
     Turkey_VAT_number = '9952',
     Holy_See_Vatican_City_State_VAT_number = '9953',
     French_VAT_number = '9957',
-    Employer_Identification_Number_EIN_USA = '9959'
+    Employer_Identification_Number_EIN_USA = '9959',
+    Identification_number_of_economic_subjects_ICO = '0154',
+    Identification_number_of_economic_subjects_ICO_Act_on_State_Statistics_of_29_November_2001_PAR_27 = '0158',
+    Odette_International_Limited = '0177',
+    UAE_Tax_Identification_Number_TIN = '0235',
+    Register_of_legal_persons = '0240'
 }
 
 export enum TAX_CODES {
@@ -3588,7 +3619,14 @@ export enum DOCUMENT_TYPE_CODES {
     PARTIAL_CONSTRUCTION_INVOICE = '875',
     PARTIAL_FINAL_CONSTRUCTION_INVOICE = '876',
     FINAL_CONSTRUCTION_INVOICE = '877',
-    CUSTOMS_INVOICE = '935'
+    CUSTOMS_INVOICE = '935',
+    SELF_BILLED_CORRECTIVE_INVOICE = '471',
+    FACTORED_CORRECTIVE_INVOICE = '472',
+    SELF_BILLED_FACTORED_CORRECTIVE_INVOICE = '473',
+    SELF_PREPAYMENT_INVOICE = '500',
+    SELF_BILLED_FACTORED_INVOICE = '501',
+    SELF_BILLET_FACTORED_CREDIT_NOTE = '502',
+    PREPAYMENT_CREDIT_NOTE = '503'
 }
 
 export enum PAYMENT_MEANS_CODES {
@@ -3743,7 +3781,35 @@ export enum EXEMPTION_REASON_CODES {
     Intra_Community_acquisition_of_collectors_items_and_antiques = 'VATEX-EU-J',
     Not_subject_to_VAT = 'VATEX-EU-O',
     France_domestic_VAT_franchise_in_base = 'VATEX-FR-FRANCHISE',
-    France_domestic_Credit_Notes_without_VAT_due_to_supplier_forfeit_of_VAT_for_discount = 'VATEX-FR-CNWVAT'
+    France_domestic_Credit_Notes_without_VAT_due_to_supplier_forfeit_of_VAT_for_discount = 'VATEX-FR-CNWVAT',
+    Exempt_based_on_article_144_of_Council_Directive_2006_112_EC = 'VATEX-EU-144',
+    Exempt_based_on_article_146_section_1_e_of_Council_Directive_2006_112_EC = 'VATEX-EU-146-1E',
+    Exempt_based_on_article_153_of_Council_Directive_2006_112_EC = 'VATEX-EU-153',
+    Exempt_based_on_article_159_of_Council_Directive_2006_112_EC = 'VATEX-EU-159',
+    Exempt_based_on_1_of_article_261_of_the_Code_Général_des_Impôts_CGI_General_tax_code = 'VATEX-FR-CGI261-1',
+    Exempt_based_on_2_of_article_261_of_the_Code_Général_des_Impôts_CGI_General_tax_code = 'VATEX-FR-CGI261-2',
+    Exempt_based_on_3_of_article_261_of_the_Code_Général_des_Impôts_CGI_General_tax_code = 'VATEX-FR-CGI261-3',
+    Exempt_based_on_4_of_article_261_of_the_Code_Général_des_Impôts_CGI_General_tax_code = 'VATEX-FR-CGI261-4',
+    Exempt_based_on_5_of_article_261_of_the_Code_Général_des_Impôts_CGI_General_tax_code = 'VATEX-FR-CGI261-5',
+    Exempt_based_on_7_of_article_261_of_the_Code_Général_des_Impôts_CGI_General_tax_code = 'VATEX-FR-CGI261-7',
+    Exempt_based_on_8_of_article_261_of_the_Code_Général_des_Impôts_CGI_General_tax_code = 'VATEX-FR-CGI261-8',
+    Exempt_based_on_article_261_A_of_the_Code_Général_des_Impôts_CGI_General_tax_code = 'VATEX-FR-CGI261A',
+    Exempt_based_on_article_261_B_of_the_Code_Général_des_Impôts_CGI_General_tax_code = 'VATEX-FR-CGI261B',
+    Exempt_based_on_1_of_article_261_C_of_the_Code_Général_des_Impôts_CGI_General_tax_code = 'VATEX-FR-CGI261C-1',
+    Exempt_based_on_2_of_article_261_C_of_the_Code_Général_des_Impôts_CGI_General_tax_code = 'VATEX-FR-CGI261C-2',
+    Exempt_based_on_3_of_article_261_C_of_the_Code_Général_des_Impôts_CGI_General_tax_code = 'VATEX-FR-CGI261C-3',
+    Exempt_based_on_1_of_article_261_D_of_the_Code_Général_des_Impôts_CGI_General_tax_code = 'VATEX-FR-CGI261D-1',
+    Exempt_based_on_1bis_of_article_261_D_of_the_Code_Général_des_Impôts_CGI_General_tax_code = 'VATEX-FR-CGI261D-1BIS',
+    Exempt_based_on_2_of_article_261_D_of_the_Code_Général_des_Impôts_CGI_General_tax_code = 'VATEX-FR-CGI261D-2',
+    Exempt_based_on_3_of_article_261_D_of_the_Code_Général_des_Impôts_CGI_General_tax_code_Exonération_de_TVA_Article_261_D_3_du_Code_Général_des_Impôts = 'VATEX-FR-CGI261D-3',
+    Exempt_based_on_4_of_article_261_D_of_the_Code_Général_des_Impôts_CGI_General_tax_code = 'VATEX-FR-CGI261D-4',
+    Exempt_based_on_1_of_article_261_E_of_the_Code_Général_des_Impôts_CGI_General_tax_code = 'VATEX-FR-CGI261E-1',
+    Exempt_based_on_2_of_article_261_E_of_the_Code_Général_des_Impôts_CGI_General_tax_code = 'VATEX-FR-CGI261E-2',
+    Exempt_based_on_article_277_A_of_the_Code_Général_des_Impôts_CGI_General_tax_code = 'VATEX-FR-CGI277A',
+    Exempt_based_on_article_275_of_the_Code_Général_des_Impôts_CGI_General_tax_code = 'VATEX-FR-CGI275',
+    Exempt_based_on_article_298_sexdecies_A_of_the_Code_Général_des_Impôts_CGI_General_tax_code = 'VATEX-FR-298SEXDECIESA',
+    Exempt_based_on_article_295_of_the_Code_Général_des_Impôts_CGI_General_tax_code = 'VATEX-FR-CGI295',
+    Exempt_based_on_2_of_article_283_of_the_Code_Général_des_Impôts_CGI_General_tax_code = 'VATEX-FR-AE'
 }
 
 export enum UNTDID_7143 {
@@ -3930,11 +3996,11 @@ export enum UNTDID_7143 {
     VENDORS_SELLERS_PART_NUMBER = 'VP',
     VENDORS_SUPPLEMENTAL_ITEM_NUMBER = 'VS',
     VENDOR_SPECIFICATION_NUMBER = 'VX',
-    MUTUALLY_DEFINED = 'ZZZ'
+    MUTUALLY_DEFINED = 'ZZZ',
+    PHYTOSANITARY_PASSPORT_IDENTIFIER = 'PPI'
 }
 
 export enum MIME_CODES {
-    JSON = 'application/json',
     PDF = 'application/pdf',
     ODF_SPREADSHEET = 'application/vnd.oasis.opendocument.spreadsheet',
     XLSX_SPREADSHEET = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
@@ -4762,7 +4828,8 @@ export enum UNTDID_1153 {
     Companyplace_registration_number = 'XA',
     Cargo_control_number = 'XC',
     Previous_cargo_control_number = 'XP',
-    Mutually_defined_reference_number = 'ZZZ'
+    Mutually_defined_reference_number = 'ZZZ',
+    Block_Stowage_Reference = 'AXU'
 }
 export enum REFERENCED_DOCUMENT_TYPE_CODES {
     Validated_priced_tender = '50',
