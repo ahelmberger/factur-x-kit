@@ -58,7 +58,14 @@ const documentTypes_en: Record<DocumentCodes, string> = {
     '875': 'Partial construction invoice',
     '876': 'Partial final construction invoice',
     '877': 'Final construction invoice',
-    '935': 'Customs invoice'
+    '935': 'Customs invoice',
+    '471': 'Self-billed corrective invoice, invoice type, Corrected',
+    '472': 'Factored Corrective Invoice, invoice type, Corrected',
+    '473': 'Self billed Factored corrective invoice, invoice type, Corrected',
+    '500': 'Self Prepayment invoice, invoice type, Original',
+    '501': 'Self billed factored invoice, invoice type, Original',
+    '502': 'Self billet factored Credit Note, Credit note type, Corrected',
+    '503': 'Prepayment credit note, credit note type, Corrected'
 };
 
 export const documentTypes_de: Record<DocumentCodes, string> = {
@@ -116,7 +123,14 @@ export const documentTypes_de: Record<DocumentCodes, string> = {
     '875': 'Teilrechnung Bauwesen',
     '876': 'Teil-Endrechnung Bauwesen',
     '877': 'Endrechnung Bauwesen',
-    '935': 'Zollrechnung'
+    '935': 'Zollrechnung',
+    '471': 'Selbst ausgestellte Korrekturrechnung, Rechnungstyp, Korrigiert',
+    '472': 'Faktorisierte Korrekturrechnung, Rechnungstyp, Korrigiert',
+    '473': 'Selbst ausgestellte faktorisierte Korrekturrechnung, Rechnungstyp, Korrigiert',
+    '500': 'Selbst Vorauszahlungsrechnung, Rechnungstyp, Original',
+    '501': 'Selbst ausgestellte faktorisierte Rechnung, Rechnungstyp, Original',
+    '502': 'Selbst ausgestellte faktorisierte Gutschrift, Gutschrifttyp, Korrigiert',
+    '503': 'Vorauszahlungsgutschrift, Gutschrifttyp, Korrigiert'
 };
 
 export const documentTypes_fr: Record<DocumentCodes, string> = {
@@ -174,7 +188,14 @@ export const documentTypes_fr: Record<DocumentCodes, string> = {
     '875': 'Facture partielle de construction',
     '876': 'Facture partielle finale de construction',
     '877': 'Facture finale de construction',
-    '935': 'Facture douanière'
+    '935': 'Facture douanière',
+    '471': 'Facture corrective auto-facturée, type de facture, Corrigée',
+    '472': 'Facture corrective factorisée, type de facture, Corrigée',
+    '473': 'Facture corrective factorisée auto-facturée, type de facture, Corrigée',
+    '500': "Facture d'acompte auto-facturée, type de facture, Originale",
+    '501': 'Facture factorisée auto-facturée, type de facture, Originale',
+    '502': 'Note de crédit factorisée auto-facturée, type de note de crédit, Corrigée',
+    '503': "Note de crédit d'acompte, type de note de crédit, Corrigée"
 };
 
 const _documentTypes: TranslatedTexts<DocumentCodes> = {

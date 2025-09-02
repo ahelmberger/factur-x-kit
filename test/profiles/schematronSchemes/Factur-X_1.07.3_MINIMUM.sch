@@ -2,7 +2,7 @@
 <schema xmlns="http://purl.oclc.org/dsdl/schematron"
     queryBinding="xslt2"
     schemaVersion="iso">
-  <title>Schema for Factur-X; 1.0.07; Accounting, MINIMUM</title>
+  <title>Schema for Factur-X; 1.07.3; Accounting, MINIMUM</title>
   <ns uri="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" prefix="rsm"/>
   <ns uri="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" prefix="qdt"/>
   <ns uri="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100" prefix="ram"/>
@@ -66,124 +66,82 @@
       <assert test="count(ram:TypeCode)=1">
 	Element 'ram:TypeCode' must occur exactly 1 times.</assert>
     </rule>
-  </pattern>
-  <pattern>
-    <rule context="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:ID[@schemeID]">
-      <report test="true()">
+    <rule context="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:ID">
+      <report test="@schemeID">
 	Attribute @schemeID' marked as not used in the given context.</report>
     </rule>
-  </pattern>
-  <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:IssueDateTime/udt:DateTimeString">
       <assert test="@format">
 	Attribute '@format' is required in this context.</assert>
-    </rule>
-  </pattern>
-  <pattern>
-    <rule context="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:IssueDateTime/udt:DateTimeString[@format]">
       <let name="codeValue3" value="@format"/>
-      <assert test="document(&apos;Factur-X_1.0.07_MINIMUM_codedb.xml&apos;)//cl[@id=3]/enumeration[@value=$codeValue3]">
+      <assert test="string-length($codeValue3)=0 or document(&apos;Factur-X_1.07.3_MINIMUM_codedb.xml&apos;)/codedb/cl[@id=3]/enumeration[@value=$codeValue3]">
 	Value of '@format' is not allowed.</assert>
     </rule>
-  </pattern>
-  <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:ExchangedDocument/ram:TypeCode">
       <let name="codeValue2" value="."/>
-      <assert test="document(&apos;Factur-X_1.0.07_MINIMUM_codedb.xml&apos;)//cl[@id=2]/enumeration[@value=$codeValue2]">
+      <assert test="string-length($codeValue2)=0 or document(&apos;Factur-X_1.07.3_MINIMUM_codedb.xml&apos;)/codedb/cl[@id=2]/enumeration[@value=$codeValue2]">
 	Value of 'ram:TypeCode' is not allowed.</assert>
     </rule>
-  </pattern>
-  <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext">
       <assert test="count(ram:BusinessProcessSpecifiedDocumentContextParameter)&lt;=1">
 	Element 'ram:BusinessProcessSpecifiedDocumentContextParameter' may occur at maximum 1 times.</assert>
       <assert test="count(ram:GuidelineSpecifiedDocumentContextParameter)=1">
 	Element 'ram:GuidelineSpecifiedDocumentContextParameter' must occur exactly 1 times.</assert>
     </rule>
-  </pattern>
-  <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:BusinessProcessSpecifiedDocumentContextParameter">
       <assert test="count(ram:ID)=1">
 	Element 'ram:ID' must occur exactly 1 times.</assert>
     </rule>
-  </pattern>
-  <pattern>
-    <rule context="/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:BusinessProcessSpecifiedDocumentContextParameter/ram:ID[@schemeID]">
-      <report test="true()">
+    <rule context="/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:BusinessProcessSpecifiedDocumentContextParameter/ram:ID">
+      <report test="@schemeID">
 	Attribute @schemeID' marked as not used in the given context.</report>
     </rule>
-  </pattern>
-  <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:GuidelineSpecifiedDocumentContextParameter">
       <assert test="count(ram:ID)=1">
 	Element 'ram:ID' must occur exactly 1 times.</assert>
     </rule>
-  </pattern>
-  <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:GuidelineSpecifiedDocumentContextParameter/ram:ID">
       <let name="codeValue1" value="."/>
-      <assert test="document(&apos;Factur-X_1.0.07_MINIMUM_codedb.xml&apos;)//cl[@id=1]/enumeration[@value=$codeValue1]">
+      <assert test="string-length($codeValue1)=0 or document(&apos;Factur-X_1.07.3_MINIMUM_codedb.xml&apos;)/codedb/cl[@id=1]/enumeration[@value=$codeValue1]">
 	Value of 'ram:ID' is not allowed.</assert>
-    </rule>
-  </pattern>
-  <pattern>
-    <rule context="/rsm:CrossIndustryInvoice/rsm:ExchangedDocumentContext/ram:GuidelineSpecifiedDocumentContextParameter/ram:ID[@schemeID]">
-      <report test="true()">
+      <report test="@schemeID">
 	Attribute @schemeID' marked as not used in the given context.</report>
     </rule>
-  </pattern>
-  <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement">
       <assert test="count(ram:SellerTradeParty)=1">
 	Element 'ram:SellerTradeParty' must occur exactly 1 times.</assert>
       <assert test="count(ram:BuyerTradeParty)=1">
 	Element 'ram:BuyerTradeParty' must occur exactly 1 times.</assert>
     </rule>
-  </pattern>
-  <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerOrderReferencedDocument">
       <assert test="count(ram:IssuerAssignedID)=1">
 	Element 'ram:IssuerAssignedID' must occur exactly 1 times.</assert>
     </rule>
-  </pattern>
-  <pattern>
-    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerOrderReferencedDocument/ram:IssuerAssignedID[@schemeID]">
-      <report test="true()">
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerOrderReferencedDocument/ram:IssuerAssignedID">
+      <report test="@schemeID">
 	Attribute @schemeID' marked as not used in the given context.</report>
     </rule>
-  </pattern>
-  <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty">
       <assert test="count(ram:Name)=1">
 	Element 'ram:Name' must occur exactly 1 times.</assert>
     </rule>
-  </pattern>
-  <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:PostalTradeAddress">
       <report test="true()">
 	Element 'ram:PostalTradeAddress' is marked as not used in the given context.</report>
     </rule>
-  </pattern>
-  <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:SpecifiedLegalOrganization">
       <assert test="count(ram:ID)=1">
 	Element 'ram:ID' must occur exactly 1 times.</assert>
     </rule>
-  </pattern>
-  <pattern>
-    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:SpecifiedLegalOrganization/ram:ID[@schemeID]">
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:SpecifiedLegalOrganization/ram:ID">
       <let name="codeValue4" value="@schemeID"/>
-      <assert test="document(&apos;Factur-X_1.0.07_MINIMUM_codedb.xml&apos;)//cl[@id=4]/enumeration[@value=$codeValue4]">
+      <assert test="string-length($codeValue4)=0 or document(&apos;Factur-X_1.07.3_MINIMUM_codedb.xml&apos;)/codedb/cl[@id=4]/enumeration[@value=$codeValue4]">
 	Value of '@schemeID' is not allowed.</assert>
     </rule>
-  </pattern>
-  <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:BuyerTradeParty/ram:SpecifiedTaxRegistration">
       <report test="true()">
 	Element 'ram:SpecifiedTaxRegistration' is marked as not used in the given context.</report>
     </rule>
-  </pattern>
-  <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty">
       <assert test="count(ram:Name)=1">
 	Element 'ram:Name' must occur exactly 1 times.</assert>
@@ -194,73 +152,51 @@
       <assert test="count(ram:SpecifiedTaxRegistration[ram:ID/@schemeID=&quot;FC&quot;])&lt;=1">
 	Element variant 'ram:SpecifiedTaxRegistration[ram:ID/@schemeID="FC"]' may occur at maximum 1 times.</assert>
     </rule>
-  </pattern>
-  <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress">
       <assert test="count(ram:CountryID)=1">
 	Element 'ram:CountryID' must occur exactly 1 times.</assert>
     </rule>
-  </pattern>
-  <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:PostalTradeAddress/ram:CountryID">
       <let name="codeValue5" value="."/>
-      <assert test="document(&apos;Factur-X_1.0.07_MINIMUM_codedb.xml&apos;)//cl[@id=5]/enumeration[@value=$codeValue5]">
+      <assert test="string-length($codeValue5)=0 or document(&apos;Factur-X_1.07.3_MINIMUM_codedb.xml&apos;)/codedb/cl[@id=5]/enumeration[@value=$codeValue5]">
 	Value of 'ram:CountryID' is not allowed.</assert>
     </rule>
-  </pattern>
-  <pattern>
-    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedLegalOrganization/ram:ID[@schemeID]">
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedLegalOrganization/ram:ID">
       <let name="codeValue4" value="@schemeID"/>
-      <assert test="document(&apos;Factur-X_1.0.07_MINIMUM_codedb.xml&apos;)//cl[@id=4]/enumeration[@value=$codeValue4]">
+      <assert test="string-length($codeValue4)=0 or document(&apos;Factur-X_1.07.3_MINIMUM_codedb.xml&apos;)/codedb/cl[@id=4]/enumeration[@value=$codeValue4]">
 	Value of '@schemeID' is not allowed.</assert>
     </rule>
-  </pattern>
-  <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration[ not(ram:ID/@schemeID=&quot;VA&quot;) and  not(ram:ID/@schemeID=&quot;FC&quot;)]">
       <report test="true()">
 	Element variant 'ram:SpecifiedTaxRegistration[ not(ram:ID/@schemeID="VA") and  not(ram:ID/@schemeID="FC")]' is marked as not used in the given context.</report>
     </rule>
-  </pattern>
-  <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration[ram:ID/@schemeID=&quot;FC&quot;]">
       <assert test="count(ram:ID)=1">
 	Element 'ram:ID' must occur exactly 1 times.</assert>
     </rule>
-  </pattern>
-  <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration[ram:ID/@schemeID=&quot;FC&quot;]/ram:ID">
       <assert test="@schemeID">
 	Attribute '@schemeID' is required in this context.</assert>
     </rule>
-  </pattern>
-  <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration[ram:ID/@schemeID=&quot;VA&quot;]">
       <assert test="count(ram:ID)=1">
 	Element 'ram:ID' must occur exactly 1 times.</assert>
     </rule>
-  </pattern>
-  <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeAgreement/ram:SellerTradeParty/ram:SpecifiedTaxRegistration[ram:ID/@schemeID=&quot;VA&quot;]/ram:ID">
       <assert test="@schemeID">
 	Attribute '@schemeID' is required in this context.</assert>
     </rule>
-  </pattern>
-  <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement">
       <assert test="count(ram:InvoiceCurrencyCode)=1">
 	Element 'ram:InvoiceCurrencyCode' must occur exactly 1 times.</assert>
       <assert test="count(ram:SpecifiedTradeSettlementHeaderMonetarySummation)=1">
 	Element 'ram:SpecifiedTradeSettlementHeaderMonetarySummation' must occur exactly 1 times.</assert>
     </rule>
-  </pattern>
-  <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:InvoiceCurrencyCode">
       <let name="codeValue6" value="."/>
-      <assert test="document(&apos;Factur-X_1.0.07_MINIMUM_codedb.xml&apos;)//cl[@id=6]/enumeration[@value=$codeValue6]">
+      <assert test="string-length($codeValue6)=0 or document(&apos;Factur-X_1.07.3_MINIMUM_codedb.xml&apos;)/codedb/cl[@id=6]/enumeration[@value=$codeValue6]">
 	Value of 'ram:InvoiceCurrencyCode' is not allowed.</assert>
     </rule>
-  </pattern>
-  <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation">
       <assert test="count(ram:TaxBasisTotalAmount)=1">
 	Element 'ram:TaxBasisTotalAmount' must occur exactly 1 times.</assert>
@@ -271,42 +207,28 @@
       <assert test="count(ram:DuePayableAmount)=1">
 	Element 'ram:DuePayableAmount' must occur exactly 1 times.</assert>
     </rule>
-  </pattern>
-  <pattern>
-    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:DuePayableAmount[@currencyID]">
-      <report test="true()">
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:DuePayableAmount">
+      <report test="@currencyID">
 	Attribute @currencyID' marked as not used in the given context.</report>
     </rule>
-  </pattern>
-  <pattern>
-    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:GrandTotalAmount[@currencyID]">
-      <report test="true()">
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:GrandTotalAmount">
+      <report test="@currencyID">
 	Attribute @currencyID' marked as not used in the given context.</report>
     </rule>
-  </pattern>
-  <pattern>
-    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:TaxBasisTotalAmount[@currencyID]">
-      <report test="true()">
+    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:TaxBasisTotalAmount">
+      <report test="@currencyID">
 	Attribute @currencyID' marked as not used in the given context.</report>
     </rule>
-  </pattern>
-  <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:TaxTotalAmount[ not(@currencyID=../../ram:InvoiceCurrencyCode) and  not(@currencyID=../../ram:TaxCurrencyCode)]">
       <report test="true()">
 	Element variant 'ram:TaxTotalAmount[ not(@currencyID=../../ram:InvoiceCurrencyCode) and  not(@currencyID=../../ram:TaxCurrencyCode)]' is marked as not used in the given context.</report>
     </rule>
-  </pattern>
-  <pattern>
-    <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:TaxTotalAmount[@currencyID=../../ram:InvoiceCurrencyCode and @currencyID]">
-      <let name="codeValue7" value="@currencyID"/>
-      <assert test="document(&apos;Factur-X_1.0.07_MINIMUM_codedb.xml&apos;)//cl[@id=7]/enumeration[@value=$codeValue7]">
-	Value of '@currencyID' is not allowed.</assert>
-    </rule>
-  </pattern>
-  <pattern>
     <rule context="/rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction/ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:TaxTotalAmount[@currencyID=../../ram:InvoiceCurrencyCode]">
       <assert test="@currencyID">
 	Attribute '@currencyID' is required in this context.</assert>
+      <let name="codeValue7" value="@currencyID"/>
+      <assert test="string-length($codeValue7)=0 or document(&apos;Factur-X_1.07.3_MINIMUM_codedb.xml&apos;)/codedb/cl[@id=7]/enumeration[@value=$codeValue7]">
+	Value of '@currencyID' is not allowed.</assert>
     </rule>
   </pattern>
 </schema>

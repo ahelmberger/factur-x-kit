@@ -187,7 +187,8 @@ const untdid7143_en: Record<Untdid7143Codes, string> = {
     VP: "Vendor's (seller's) part number",
     VS: "Vendor's supplemental item number",
     VX: 'Vendor specification number',
-    ZZZ: 'Mutually definednumber'
+    ZZZ: 'Mutually definednumber',
+    PPI: 'Phytosanitary Passport identifier'
 };
 
 export const untdid7143_de: Record<Untdid7143Codes, string> = {
@@ -374,7 +375,8 @@ export const untdid7143_de: Record<Untdid7143Codes, string> = {
     VP: 'Teilenummer des Lieferanten (Verkäufers)',
     VS: 'Zusätzliche Artikelnummer des Lieferanten',
     VX: 'Lieferanten-Spezifikationsnummer',
-    ZZZ: 'Gegenseitig definierte Nummer'
+    ZZZ: 'Gegenseitig definierte Nummer',
+    PPI: 'Pflanzenschutzpass-Identifikator'
 };
 
 export const untdid7143_fr: Record<Untdid7143Codes, string> = {
@@ -561,7 +563,8 @@ export const untdid7143_fr: Record<Untdid7143Codes, string> = {
     VP: 'Numéro de pièce du vendeur (fournisseur)',
     VS: "Numéro d'article supplémentaire du vendeur",
     VX: 'Numéro de spécification du vendeur',
-    ZZZ: 'Numéro défini mutuellement'
+    ZZZ: 'Numéro défini mutuellement',
+    PPI: 'Identifiant du passeport phytosanitaire'
 };
 
 const _untdid7143: TranslatedTexts<Untdid7143Codes> = {

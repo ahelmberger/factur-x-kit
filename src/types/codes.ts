@@ -2998,7 +2998,7 @@ export enum EAS_SCHEME_CODES {
     LY_tunnus = '0037',
     Data_Universal_Numbering_System_DUNS_Number = '0060',
     EAN_Location_Code = '0088',
-    DANISH_CHAMBER_OF_COMMERCE_Scheme_EDIRA_compliant = '0096',
+    THE_DANISH_BUSINESS_AUTHORITY_P_NUMBER_DK_P = '0096',
     FTI_Ediforum_Italia_EDIRA_compliant = '0097',
     Vereniging_van_Kamers_van_Koophandel_en_Fabrieken_in_Nederland_Association_of_Chambers_of_Commerce_and_Industry_in_the_Netherlands_Scheme_EDIRA_compliant = '0106',
     Directorates_of_the_European_Commission = '0130',

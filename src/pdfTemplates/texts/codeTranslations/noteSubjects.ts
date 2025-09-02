@@ -386,7 +386,25 @@ const noteSubjects_en: Record<SubjectCodes, string> = {
     TRR: 'Requested tariff',
     TXD: 'Tax declaration',
     WHI: 'Warehouse instruction/information',
-    ZZZ: 'Mutually defined'
+    ZZZ: 'Mutually defined',
+    BAT: 'SIMA applicable',
+    BAU: 'Appeals program code',
+    BAV: 'SIMA subject',
+    BAW: 'Surtax applicable',
+    BAX: 'SIMA security bond',
+    BAY: 'Surtax subject',
+    BAZ: 'Safeguard applicable',
+    BBA: 'Safeguard applicable',
+    BBB: 'Safeguard subject',
+    BMF: 'SIMA measure in force',
+    BMG: 'Pre-CARM',
+    BMH: 'SIMA measure type',
+    CCJ: 'Sub Type Code',
+    CCK: 'SIMA information',
+    CCL: 'Time limit end',
+    CCM: 'Time limit start',
+    CCN: 'Warehouse time limit',
+    CCO: 'Value for duty information'
 };
 
 const noteSubjects_de: Record<SubjectCodes, string> = {
@@ -772,7 +790,25 @@ const noteSubjects_de: Record<SubjectCodes, string> = {
     TRR: 'Angeforderter Tarif',
     TXD: 'Steuererklärung',
     WHI: 'Lageranweisung/-informationen',
-    ZZZ: 'gegenseitig definiert'
+    ZZZ: 'gegenseitig definiert',
+    BAT: 'SIMA anwendbar',
+    BAU: 'Berufungsprogrammcode',
+    BAV: 'SIMA betroffen',
+    BAW: 'Zuschlagsteuer anwendbar',
+    BAX: 'SIMA Sicherheitsleistung',
+    BAY: 'Zuschlagsteuer betroffen',
+    BAZ: 'Schutzklausel anwendbar',
+    BBA: 'Schutzklausel anwendbar', // Duplikateintrag im Original, behalten wie gegeben
+    BBB: 'Schutzklausel betroffen',
+    BMF: 'SIMA Maßnahme in Kraft',
+    BMG: 'Vor-CARM',
+    BMH: 'SIMA Maßnahmenart',
+    CCJ: 'Untertyp-Code',
+    CCK: 'SIMA Information',
+    CCL: 'Fristende',
+    CCM: 'Fristbeginn',
+    CCN: 'Lagerfrist',
+    CCO: 'Wert für Zollinformationen'
 };
 
 const noteSubjects_fr: Record<SubjectCodes, string> = {
@@ -1158,7 +1194,25 @@ const noteSubjects_fr: Record<SubjectCodes, string> = {
     TRR: 'Tarif demandé',
     TXD: 'Déclaration fiscale',
     WHI: "Instruction/information d'entrepôt",
-    ZZZ: 'défini mutuellement'
+    ZZZ: 'défini mutuellement',
+    BAT: 'SIMA applicable',
+    BAU: "Code du programme d'appels",
+    BAV: 'Assujetti à la SIMA',
+    BAW: 'Surtaxe applicable',
+    BAX: 'Caution de sécurité SIMA',
+    BAY: 'Assujetti à la surtaxe',
+    BAZ: 'Mesure de sauvegarde applicable',
+    BBA: 'Mesure de sauvegarde applicable', // Duplikateintrag im Original, behalten wie gegeben
+    BBB: 'Assujetti à la mesure de sauvegarde',
+    BMF: 'Mesure SIMA en vigueur',
+    BMG: 'Pré-CARM',
+    BMH: 'Type de mesure SIMA',
+    CCJ: 'Code de sous-type',
+    CCK: 'Informations SIMA',
+    CCL: 'Fin du délai',
+    CCM: 'Début du délai',
+    CCN: "Délai d'entrepôt",
+    CCO: "Valeur pour l'information douanière"
 };
 
 const _noteSubjects: TranslatedTexts<SubjectCodes> = {

@@ -820,7 +820,8 @@ const attachedDocumentTypes_en: Record<AttachedDocumentCodes, string> = {
     XA: 'Company/place registration number',
     XC: 'Cargo control number',
     XP: 'Previous cargo control number',
-    ZZZ: 'Mutually defined reference number'
+    ZZZ: 'Mutually defined reference number',
+    AXU: 'Block Stowage Reference'
 };
 
 export const attachedDocumentTypes_de: Record<AttachedDocumentCodes, string> = {
@@ -1640,7 +1641,8 @@ export const attachedDocumentTypes_de: Record<AttachedDocumentCodes, string> = {
     XA: 'Nummer der Unternehmens-/Ortsregistrierung',
     XC: 'Nummer der Frachtkontrolle',
     XP: 'Nummer der vorherigen Frachtkontrolle',
-    ZZZ: 'Gegenseitig definierte Referenznummer'
+    ZZZ: 'Gegenseitig definierte Referenznummer',
+    AXU: 'Blockstauungsreferenz'
 };
 
 const attachedDocumentTypes_fr: Record<AttachedDocumentCodes, string> = {
@@ -2460,7 +2462,8 @@ const attachedDocumentTypes_fr: Record<AttachedDocumentCodes, string> = {
     XA: "Numéro d'enregistrement de l'entreprise/lieu",
     XC: 'Numéro de contrôle du fret',
     XP: 'Numéro de contrôle du fret précédent',
-    ZZZ: 'Numéro de référence défini mutuellement'
+    ZZZ: 'Numéro de référence défini mutuellement',
+    AXU: "Référence d'arrimage en bloc"
 };
 
 const _attachedDocumentTypes: TranslatedTexts<AttachedDocumentCodes> = {

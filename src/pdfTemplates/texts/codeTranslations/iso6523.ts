@@ -1,6 +1,8 @@
 import { ISO6523_CODES } from '../../../types/codes';
 
-const _iso6523Codes: Record<ISO6523_CODES, string> = {
+type ISO6523 = `${ISO6523_CODES}`;
+
+const _iso6523Codes: Record<ISO6523, string> = {
     '0002': 'System Information et Repertoire des Entreprise et des Etablissements: SIRENE',
     '0060': 'Data Universal Numbering System (D-U-N-S Number)',
     '0088': 'EAN Location Code',
@@ -225,7 +227,17 @@ const _iso6523Codes: Record<ISO6523_CODES, string> = {
     '0227': 'NON - EU based company',
     '0228': 'Répertoire des Entreprises et des Etablissements (RIDET)',
     '0229': 'T.A.H.I.T.I (traitement automatique hiérarchisé des institutions de Tahiti et des îles)',
-    '0230': 'National e-Invoicing Framework'
+    '0230': 'National e-Invoicing Framework',
+    '0231': 'Single taxable company (France)',
+    '0232': 'NOBB product number',
+    '0233': 'Description not known',
+    '0234': 'Toimitusosoite ID',
+    '0235': 'UAE Tax Identification Number (TIN)',
+    '0236': 'Description not known',
+    '0237': 'CPR (Danish person civil registration number)',
+    '0238': 'Plateforme.s agréée.s à la facturation électronique (PPF/PDP)',
+    '0239': 'EAEU',
+    '0240': 'Register of legal persons (in French : Répertoire des personnes morales)'
 };
 
 export const iso6523Codes = Object.freeze(_iso6523Codes);

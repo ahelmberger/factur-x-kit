@@ -1,3 +1,5 @@
+import { DOMParser } from '@xmldom/xmldom';
+import { evaluateXPath, evaluateXPathToNumber, evaluateXPathToString } from 'fontoxpath';
 import { Schema } from 'node-schematron';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -8,6 +10,8 @@ import { TotalsCalculatorInputType } from '../src/adapter/totalsCalculator/easyI
 import { totalsCalculator } from '../src/adapter/totalsCalculator/totalsCalculator';
 import { TAX_CATEGORY_CODES, UNIT_CODES } from '../src/types/codes';
 import { designTestObject_preCalc } from './design_test_object_preCalc';
+// Wir importieren direkt die Funktion, die eine Zahl zurückgibt
+
 import './profiles/codeDb/xPathDocumentFunction';
 
 describe('calculate totals', () => {
@@ -63,14 +67,14 @@ describe('calculate totals', () => {
             }
 
             const xsd = await fs.readFile(
-                path.join(__dirname, 'profiles', 'xsdSchemes', 'COMFORT', 'Factur-X_1.0.07_EN16931.xsd'),
+                path.join(__dirname, 'profiles', 'xsdSchemes', 'COMFORT', 'Factur-X_1.07.3_EN16931.xsd'),
                 'utf-8'
             );
 
             const xsdImports = [
-                'Factur-X_1.0.07_EN16931_urn_un_unece_uncefact_data_standard_QualifiedDataType_100.xsd',
-                'Factur-X_1.0.07_EN16931_urn_un_unece_uncefact_data_standard_ReusableAggregateBusinessInformationEntity_100.xsd',
-                'Factur-X_1.0.07_EN16931_urn_un_unece_uncefact_data_standard_UnqualifiedDataType_100.xsd'
+                'Factur-X_1.07.3_EN16931_urn_un_unece_uncefact_data_standard_QualifiedDataType_100.xsd',
+                'Factur-X_1.07.3_EN16931_urn_un_unece_uncefact_data_standard_ReusableAggregateBusinessInformationEntity_100.xsd',
+                'Factur-X_1.07.3_EN16931_urn_un_unece_uncefact_data_standard_UnqualifiedDataType_100.xsd'
             ];
 
             const preload: { fileName: string; contents: string }[] = [];
@@ -106,11 +110,10 @@ describe('calculate totals', () => {
 
             const convertedXML = await instance.getXML();
 
+            console.log(convertedXML);
+
             const schematron = (
-                await fs.readFile(
-                    path.join(__dirname, 'profiles', 'schematronSchemes', 'Factur-X_1.0.07_EN16931.sch'),
-                    'utf-8'
-                )
+                await fs.readFile(path.join(__dirname, 'profiles', 'schematronSchemes', 'TestSchematon.sch'), 'utf-8')
             ).toString();
 
             const schema = Schema.fromString(schematron);
@@ -120,6 +123,22 @@ describe('calculate totals', () => {
             if (result.length > 0) console.log(result.map(res => res.message?.trim()));
 
             expect(result.length).toBe(0);
+        });
+
+        test.only('check some fontoxpath stuff', async () => {
+            const testXML = `
+            <invoice>
+                <id>R-12345</id>
+                <sum>99.50</sum>
+                <notes>
+                    <note>Important note</note>
+                    <note>Urgent!</note>
+                </notes>
+            </invoice>`;
+            const dom = new DOMParser().parseFromString(testXML, 'text/xml');
+            const xpathQuery1 = 'string-length(/invoice/id[@scheme])';
+            const result = evaluateXPath(xpathQuery1, dom);
+            console.log(result);
         });
     });
 });

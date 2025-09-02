@@ -67,7 +67,7 @@ describe('factur-x validity check', () => {
     test('Builds Valid XML According to SCHEMATRON Schema', async () => {
         const schematron = (
             await fs.readFile(
-                path.join(__dirname, 'profiles', 'schematronSchemes', 'Factur-X_1.0.07_BASICWL.sch'),
+                path.join(__dirname, 'profiles', 'schematronSchemes', 'Factur-X_1.07.3_BASICWL.sch'),
                 'utf-8'
             )
         ).toString();
