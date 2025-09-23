@@ -1,6 +1,6 @@
 import fontkit from '@pdf-lib/fontkit';
-// NUR für ESM-Module (wenn "type": "module" in package.json)
 import {
+    AFRelationship,
     PDFArray,
     PDFContext,
     PDFDict,
@@ -13,7 +13,6 @@ import {
     PDFString,
     decodePDFRawStream
 } from 'pdf-lib';
-import { AFRelationship, EmbeddedFileOptions } from 'pdf-lib/cjs/core/embedders/FileEmbedder';
 
 import iccProfilePath from '../../assets/iccprofile/sRGB2014.icc';
 import { dataUrlToUint8Array } from '../helper/calculation';
@@ -22,7 +21,17 @@ import { ImageDimensions } from '../pdfTemplates/invoiceBlocks/headerImage';
 import { FacturXKitPDFTemplate, SupportedLocales } from '../pdfTemplates/types';
 import { availableProfiles } from './factur-x';
 
-// NUR für ESM-Module
+/**This interface is copied from pdf-lib (see src/core/embedders/FileEmbedder.ts),
+ * because it is needed for the function signature of the embedXML() function,
+ * which is also copied from pdf-lib, but both are not exported by pdf-lib.
+ */
+interface EmbeddedFileOptions {
+    mimeType?: string;
+    description?: string;
+    creationDate?: Date;
+    modificationDate?: Date;
+    afRelationship?: AFRelationship;
+}
 
 const FACTUR_X_FILENAME = PDFString.of('factur-x.xml').decodeText();
 
