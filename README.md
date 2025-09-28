@@ -407,6 +407,11 @@ This free software has been written with the greatest possible care, but like al
 -   object-path
 -   mime-types
 
+## Contributors
+
+-   [schwarmco](https://github.com/schwarmco)
+-   [ahelmberger](https://github.com/ahelmberger)
+
 ## Special Thanks
 
 ... to [Joachim](https://github.com/schwarmco) for starting this journey with me!
